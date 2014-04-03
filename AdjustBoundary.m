@@ -94,7 +94,8 @@ if BOUNDARY_OUTFLOW_COND == ONE_OUTLET
     bedrockElev(OUTER_BOUNDARY) = inf;
     
     % B. 유출구의 경계 고도 조건은 1)의 (1) 또는 (2)임
-    bedrockElev(Y_BOTTOM_BND,X_LEFT_BND) = 0;
+    % bedrockElev(Y_BOTTOM_BND,X_LEFT_BND) = 0; % edge bottom
+    bedrockElev(Y_BOTTOM_BND,X_MID) = 0; % mid bottom
     
 elseif BOUNDARY_OUTFLOW_COND == BOTTOM_BOUNDARY
     
