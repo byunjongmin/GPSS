@@ -1,0 +1,17 @@
+# Git noises
+#.gitignore
+
+# Mac OS noises
+.DS_Store
+
+# MATLAB noises
+*.~
+*.mexw64
+*.mexmaci64
+
+# ignore all files in the following directories
+data/output
+!data/input/*
+
+# exceptions
+
