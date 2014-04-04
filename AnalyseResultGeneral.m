@@ -60,14 +60,14 @@
 %>  - 2011/10/27
 %>   - 물질운반환경 그래프 알고리듬 수정함
 %>  - 2011/10/06
-%>   - 주석문을 조금 더 구조화홤
+%>   - 주석문을 조금 더 구조화?c
 %>  - 2010/09/28
 %>   - 정지된 모의결과를 연속해서 할 수 있도록 수정함
 %>   - 주요 변수 저장함
 %>   - 외적 지형형성작용에 의한 고도변화가 있기 전 퇴적층 두께 및 기반암 고도를 이용함
 %>
 % =========================================================================
-function majorOutputs = AnalyseResult(OUTPUT_SUBDIR,PARAMETER_VALUES_FILE,GRAPH_INTERVAL,startedTimeStepNo,achievedRatio,EXTRACT_INTERVAL,SHOW_GRAPH)
+function majorOutputs = AnalyseResultGeneral(OUTPUT_SUBDIR,PARAMETER_VALUES_FILE,GRAPH_INTERVAL,startedTimeStepNo,achievedRatio,EXTRACT_INTERVAL,SHOW_GRAPH)
 %
 % function Analyse2DResult
 %
@@ -410,303 +410,295 @@ SHOW_GRAPH_NO = 2;
 % (1) 분석시 그래프를 보여줄 경우, figure들의 위치와 핸들 정의
 if SHOW_GRAPH == SHOW_GRAPH_YES
 
-    % A. 모니터 위치 변수 관련 정의
-
-    % 주모니터 상수 정의
-    LEFT_MONITOR = 1;
-    RIGHT_MONITOR = 2;
-    
-    % 주모니터의 위치 정의
-    primaryMonitor = LEFT_MONITOR;
-    secondaryMonitor = RIGHT_MONITOR;
-    
-    % (figure 배치를 위한) 모니터 분할
-    leftMonWidthDivisionNo = 6;                 % 좌측 모니터 분할 수:열,행
-    leftMonHeightDivisionNo = 3;
-    rightMonWidthDivisionNo = 6;                % 우측 모니터 분할 수:열,행
-    rightMonHeightDivisionNo = 3;    
-    
-    % figure 창 폭 설정
-    % * 주의: figure 위치 조절시에 창 폭을 고려하지 않기 때문에 미리 제목 두께와
-    %   창 옆의 폭을 파악함
-    figSideBorderThick = 1;
-    figHeaderBorderThick = 40;
-    bothThick = figSideBorderThick + figHeaderBorderThick;
-    
-    % B. 모니터 위치 및 폭과 높이 파악
-    monPosition = get(0,'MonitorPosition'); % 모니터 위치 정보 획득
-    % * 참고: 듀얼 모니터일경우, 주모니터가 1째 행에 그리고 부모니터는 2째 행에
-    %   관련 정보가 나타남.
-    %   1열은 모니터 좌측 첫번째 화소의 위치, 2열은 아래 첫번째 화소의 위치,
-    %   3열은 모니터 좌우폭, 4열은 모니터 위아래폭임. 단위 화소.
-    % * 주의: 주모니터는 1열과 2열 모두 각각 1이 입력됨. 따라서 주모니터가
-    %   우측에 있을 경우, 좌측 모니터의 좌측 첫번째 화소의 위치는 음의 값을 가짐
-    %
-    % * 예1: set(0,'Units','Normalized')을 하지 않은 경우
-    % * 예1: 주모니터가 좌측(해상도: 1680x1050)이고, 부모니터(해상도:
-    %   1024x768)가 우측에 위치할 경우
-    %   (1025, 1, 2074, 1050; 1, 1, 1024, 768)
-    % * 예2: 주모니터가 우측(해상도: 1024x768)이고, 부모니터(해상도:
-    %   1680x1050)가 좌측에 위치할 경우
-    %   (1, 1, 1680, 1050; -1023, 1, 0, 768)
-    
-    if primaryMonitor == LEFT_MONITOR
-        
-        % 좌측 모니터 위치
-        leftMonLeftPos = 1;
-        leftMonBottomPos = monPosition(primaryMonitor,2);   % 좌측 모니터 바닥 위치
-        leftMonWidth = monPosition(primaryMonitor,3);       % 좌측 모니터 좌우 길이
-        leftMonHeight = monPosition(primaryMonitor,4);      % 좌측 모니터 위아래 길이
-
-        % 우측 모니터 위치
-        rightMonLeftPos = monPosition(secondaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
-        rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
-        rightMonWidth = monPosition(secondaryMonitor,3);    % 우측 모니터 좌우 길이
-        % * 주의: 주모니터가 좌측이고 부모니터가 우측이면 좌측 모니터의 좌우 길이를
-        %   빼야함
-        rightMonWidth = rightMonWidth - leftMonWidth;
-        rightMonHeight = monPosition(secondaryMonitor,4); % 우측 모니터 위아래 길이
-        
-    else % primaryMonitor == LEFT_MONITOR
-        
-        % 좌측 모니터 위치
-        leftMonLeftPos = monPosition(secondaryMonitor,1);       % 좌측 모니터 좌측 첫번째 화소 위치 
-        leftMonBottomPos = monPosition(secondaryMonitor,2);     % 좌측 모니터 바닥 위치
-        leftMonWidth = - monPosition(secondaryMonitor,1);       % 좌측 모니터 좌우 길이
-        leftMonHeight = monPosition(secondaryMonitor,4) - monPosition(secondaryMonitor,2);      % 좌측 모니터 위아래 길이
-
-        % 우측 모니터 위치
-        rightMonLeftPos = monPosition(primaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
-        rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
-        rightMonWidth = monPosition(primaryMonitor,3);    % 우측 모니터 좌우 길이
-        rightMonHeight = monPosition(primaryMonitor,4); % 우측 모니터 위아래 길이
-        
-       
-    end
-
-    % C. figure 위치 설정
-    % * 참고: [모니터 좌측 경계에서부터,모니터 바닥 경계에서부터,좌우 길이,위아래 길이]
-    % * 수정: 1) 가로 폭을 좁혀, figure 개수를 늘림. 2) 물질수지 등은 text 박스 표시
-    
-    % 좌측 모니터
-    leftMonModifiedLeftPos ...             % 좌측 모니터 좌측 좌표
-        = leftMonLeftPos + figSideBorderThick; 
-    leftMonModifiedBottomPos ...           % 좌측 모니터 바닥 좌표
-        = leftMonBottomPos + figSideBorderThick;
-    leftMonBasicDividedWidth ...           % 좌측 모니터 분할된 좌우 길이
-        = (leftMonWidth - leftMonWidthDivisionNo * 2 * figSideBorderThick) ...
-        / leftMonWidthDivisionNo;    
-    leftMonBasicDividedHeight ...       % 좌측 모니터 분할된 위아래 길이
-        = (leftMonHeight - leftMonHeightDivisionNo * bothThick) ...
-        / leftMonHeightDivisionNo;
-    
-    leftMonPos01 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 1 ...
-        ,leftMonBasicDividedWidth * 3 ...
-        ,leftMonBasicDividedHeight * 2];
-
-    leftMonPos02 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    leftMonPos03 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 1) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    leftMonPos04 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 2) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-    
-    leftMonPos05 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 3) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    leftMonPos06 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 4) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    % 우측 모니터    
-    rightMonModifiedLeftPos ...             % 우측 모니터 좌측 좌표
-        = rightMonLeftPos + figSideBorderThick;
-    rightMonModifiedBottomPos ...           % 우측 모니터 바닥 좌표
-        = rightMonBottomPos + figSideBorderThick;       
-    rightMonBasicDividedWidth ...           % 우측 모니터 분할된 좌우 길이
-        = (rightMonWidth - rightMonWidthDivisionNo * 2 * figSideBorderThick) ... % 약간 줄임
-        / rightMonWidthDivisionNo;
-    rightMonBasicDividedHeight ...          % 우측 모니터 분할된 위아래 길이
-        = (rightMonHeight - rightMonHeightDivisionNo * bothThick) ....
-        / rightMonHeightDivisionNo;
-    
-    rightMonPos01 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos02 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos03 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos04 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos05 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos06 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos07 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos08 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos09 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-%     rightMonPos10 ...
-%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3)  ...
-%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%     % A. 모니터 위치 변수 관련 정의
+% 
+%     % 주모니터 상수 정의
+%     LEFT_MONITOR = 1;
+%     RIGHT_MONITOR = 2;
+%     
+%     % 주모니터의 위치 정의
+%     primaryMonitor = LEFT_MONITOR;
+%     secondaryMonitor = RIGHT_MONITOR;
+%     
+%     % (figure 배치를 위한) 모니터 분할
+%     leftMonWidthDivisionNo = 6;                 % 좌측 모니터 분할 수:열,행
+%     leftMonHeightDivisionNo = 3;
+%     rightMonWidthDivisionNo = 6;                % 우측 모니터 분할 수:열,행
+%     rightMonHeightDivisionNo = 3;    
+%     
+%     % figure 창 폭 설정
+%     % * 주의: figure 위치 조절시에 창 폭을 고려하지 않기 때문에 미리 제목 두께와
+%     %   창 옆의 폭을 파악함
+%     figSideBorderThick = 1;
+%     figHeaderBorderThick = 40;
+%     bothThick = figSideBorderThick + figHeaderBorderThick;
+%     
+%     % B. 모니터 위치 및 폭과 높이 파악
+%     monPosition = get(0,'MonitorPosition'); % 모니터 위치 정보 획득
+%     % * 참고: 듀얼 모니터일경우, 주모니터가 1째 행에 그리고 부모니터는 2째 행에
+%     %   관련 정보가 나타남.
+%     %   1열은 모니터 좌측 첫번째 화소의 위치, 2열은 아래 첫번째 화소의 위치,
+%     %   3열은 모니터 좌우폭, 4열은 모니터 위아래폭임. 단위 화소.
+%     % * 주의: 주모니터는 1열과 2열 모두 각각 1이 입력됨. 따라서 주모니터가
+%     %   우측에 있을 경우, 좌측 모니터의 좌측 첫번째 화소의 위치는 음의 값을 가짐
+%     %
+%     % * 예1: set(0,'Units','Normalized')을 하지 않은 경우
+%     % * 예1: 주모니터가 좌측(해상도: 1680x1050)이고, 부모니터(해상도:
+%     %   1024x768)가 우측에 위치할 경우
+%     %   (1025, 1, 2074, 1050; 1, 1, 1024, 768)
+%     % * 예2: 주모니터가 우측(해상도: 1024x768)이고, 부모니터(해상도:
+%     %   1680x1050)가 좌측에 위치할 경우
+%     %   (1, 1, 1680, 1050; -1023, 1, 0, 768)
+%     
+%     if primaryMonitor == LEFT_MONITOR
+%         
+%         % 좌측 모니터 위치
+%         leftMonLeftPos = 1;
+%         leftMonBottomPos = monPosition(primaryMonitor,2);   % 좌측 모니터 바닥 위치
+%         leftMonWidth = monPosition(primaryMonitor,3);       % 좌측 모니터 좌우 길이
+%         leftMonHeight = monPosition(primaryMonitor,4);      % 좌측 모니터 위아래 길이
+% 
+%         % 우측 모니터 위치
+%         rightMonLeftPos = monPosition(secondaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
+%         rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
+%         rightMonWidth = monPosition(secondaryMonitor,3);    % 우측 모니터 좌우 길이
+%         % * 주의: 주모니터가 좌측이고 부모니터가 우측이면 좌측 모니터의 좌우 길이를
+%         %   빼야함
+%         rightMonWidth = rightMonWidth - leftMonWidth;
+%         rightMonHeight = monPosition(secondaryMonitor,4); % 우측 모니터 위아래 길이
+%         
+%     else % primaryMonitor == LEFT_MONITOR
+%         
+%         % 좌측 모니터 위치
+%         leftMonLeftPos = monPosition(secondaryMonitor,1);       % 좌측 모니터 좌측 첫번째 화소 위치 
+%         leftMonBottomPos = monPosition(secondaryMonitor,2);     % 좌측 모니터 바닥 위치
+%         leftMonWidth = - monPosition(secondaryMonitor,1);       % 좌측 모니터 좌우 길이
+%         leftMonHeight = monPosition(secondaryMonitor,4) - monPosition(secondaryMonitor,2);      % 좌측 모니터 위아래 길이
+% 
+%         % 우측 모니터 위치
+%         rightMonLeftPos = monPosition(primaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
+%         rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
+%         rightMonWidth = monPosition(primaryMonitor,3);    % 우측 모니터 좌우 길이
+%         rightMonHeight = monPosition(primaryMonitor,4); % 우측 모니터 위아래 길이
+%         
+%        
+%     end
+% 
+%     % C. figure 위치 설정
+%     % * 참고: [모니터 좌측 경계에서부터,모니터 바닥 경계에서부터,좌우 길이,위아래 길이]
+%     % * 수정: 1) 가로 폭을 좁혀, figure 개수를 늘림. 2) 물질수지 등은 text 박스 표시
+%     
+%     % 좌측 모니터
+%     leftMonModifiedLeftPos ...             % 좌측 모니터 좌측 좌표
+%         = leftMonLeftPos + figSideBorderThick; 
+%     leftMonModifiedBottomPos ...           % 좌측 모니터 바닥 좌표
+%         = leftMonBottomPos + figSideBorderThick;
+%     leftMonBasicDividedWidth ...           % 좌측 모니터 분할된 좌우 길이
+%         = (leftMonWidth - leftMonWidthDivisionNo * 2 * figSideBorderThick) ...
+%         / leftMonWidthDivisionNo;    
+%     leftMonBasicDividedHeight ...       % 좌측 모니터 분할된 위아래 길이
+%         = (leftMonHeight - leftMonHeightDivisionNo * bothThick) ...
+%         / leftMonHeightDivisionNo;
+%     
+%     leftMonPos01 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 1 ...
+%         ,leftMonBasicDividedWidth * 3 ...
+%         ,leftMonBasicDividedHeight * 2];
+% 
+%     leftMonPos02 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     leftMonPos03 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 1) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     leftMonPos04 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 2) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+%     
+%     leftMonPos05 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 3) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     leftMonPos06 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 4) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     % 우측 모니터    
+%     rightMonModifiedLeftPos ...             % 우측 모니터 좌측 좌표
+%         = rightMonLeftPos + figSideBorderThick;
+%     rightMonModifiedBottomPos ...           % 우측 모니터 바닥 좌표
+%         = rightMonBottomPos + figSideBorderThick;       
+%     rightMonBasicDividedWidth ...           % 우측 모니터 분할된 좌우 길이
+%         = (rightMonWidth - rightMonWidthDivisionNo * 2 * figSideBorderThick) ... % 약간 줄임
+%         / rightMonWidthDivisionNo;
+%     rightMonBasicDividedHeight ...          % 우측 모니터 분할된 위아래 길이
+%         = (rightMonHeight - rightMonHeightDivisionNo * bothThick) ....
+%         / rightMonHeightDivisionNo;
+%     
+%     rightMonPos01 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
 %         ,rightMonBasicDividedWidth * 1 ...
 %         ,rightMonBasicDividedHeight * 1];
 % 
-%     rightMonPos11 ...
-%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4)  ...
-%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%     rightMonPos02 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
 %         ,rightMonBasicDividedWidth * 1 ...
 %         ,rightMonBasicDividedHeight * 1];
 % 
-%     rightMonPos12 ...
-%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
-%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%     rightMonPos03 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
 %         ,rightMonBasicDividedWidth * 1 ...
 %         ,rightMonBasicDividedHeight * 1];
 % 
-%     rightMonPos13 ...
-%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
-%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%     rightMonPos04 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
 %         ,rightMonBasicDividedWidth * 1 ...
 %         ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos14 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos15 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos16 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-%     rightMonPos17 ...
+% 
+%     rightMonPos05 ...
 %         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos06 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos07 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos08 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos09 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+% %     rightMonPos10 ...
+% %         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3)  ...
+% %         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+% %         ,rightMonBasicDividedWidth * 1 ...
+% %         ,rightMonBasicDividedHeight * 1];
+% % 
+% %     rightMonPos11 ...
+% %         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4)  ...
+% %         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+% %         ,rightMonBasicDividedWidth * 1 ...
+% %         ,rightMonBasicDividedHeight * 1];
+% % 
+% %     rightMonPos12 ...
+% %         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
+% %         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+% %         ,rightMonBasicDividedWidth * 1 ...
+% %         ,rightMonBasicDividedHeight * 1];
+% % 
+% %     rightMonPos13 ...
+% %         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
+% %         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+% %         ,rightMonBasicDividedWidth * 1 ...
+% %         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos14 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
 %         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
 %         ,rightMonBasicDividedWidth * 1 ...
 %         ,rightMonBasicDividedHeight * 1];
-    
-    rightMonPos18 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos15 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos16 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+% %     rightMonPos17 ...
+% %         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4) ...
+% %         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+% %         ,rightMonBasicDividedWidth * 1 ...
+% %         ,rightMonBasicDividedHeight * 1];
+%     
+%     rightMonPos18 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
 
     %--------------------------------------------------------------------------
     % 2) figure 핸들
 
-    Hf_01 = figure(1);
-    set(gcf,'Units','Pixel','Position',leftMonPos01,'MenuBar','none');
+%     Hf_01 = figure(1);
+%     set(gcf,'Units','Pixel','Position',leftMonPos01,'MenuBar','none');
     Hf_02 = figure(2);
-    set(gcf,'units','Pixel','position',leftMonPos02,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',leftMonPos02,'MenuBar','none');
     Hf_03 = figure(3);
-    set(gcf,'units','Pixel','position',leftMonPos03,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',leftMonPos03,'MenuBar','none');
     Hf_04 = figure(4);
-    set(gcf,'units','Pixel','position',leftMonPos04,'MenuBar','none');
-    Hf_05 = figure(5);
-    set(gcf,'units','Pixel','position',leftMonPos05,'MenuBar','none');
-    Hf_06 = figure(6);
-    set(gcf,'units','Pixel','position',leftMonPos06,'MenuBar','none');
-    Hf_07 = figure(7);
-    set(gcf,'units','Pixel','position',rightMonPos01,'MenuBar','none');
-    Hf_08 = figure(8);
-    set(gcf,'units','Pixel','position',rightMonPos02,'MenuBar','none');
-    Hf_09 = figure(9);
-    set(gcf,'units','Pixel','position',rightMonPos03,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',leftMonPos04,'MenuBar','none');
+%     Hf_05 = figure(5);
+%     set(gcf,'units','Pixel','position',leftMonPos05,'MenuBar','none');
+%     Hf_06 = figure(6);
+%     set(gcf,'units','Pixel','position',leftMonPos06,'MenuBar','none');
+%     Hf_07 = figure(7);
+%     set(gcf,'units','Pixel','position',rightMonPos01,'MenuBar','none');
+%     Hf_08 = figure(8);
+%     set(gcf,'units','Pixel','position',rightMonPos02,'MenuBar','none');
+%     Hf_09 = figure(9);
+%     set(gcf,'units','Pixel','position',rightMonPos03,'MenuBar','none');
     Hf_10 = figure(10);
-    set(gcf,'units','Pixel','position',rightMonPos04,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',rightMonPos04,'MenuBar','none');
     Hf_11 = figure(11);
-    set(gcf,'units','Pixel','position',rightMonPos05,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',rightMonPos05,'MenuBar','none');
     Hf_12 = figure(12);
-    set(gcf,'units','Pixel','position',rightMonPos06,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',rightMonPos06,'MenuBar','none');
     Hf_13 = figure(13);
-    set(gcf,'units','Pixel','position',rightMonPos07,'MenuBar','none');
-    Hf_14 = figure(14);
-    set(gcf,'units','Pixel','position',rightMonPos08,'MenuBar','none');
-    Hf_15 = figure(15);
-    set(gcf,'units','Pixel','position',rightMonPos09,'MenuBar','none');
-%     Hf_16 = figure(16);
-%     set(gcf,'units','Pixel','position',rightMonPos10,'MenuBar','none');
-%     Hf_17 = figure(17);
-%     set(gcf,'units','Pixel','position',rightMonPos11,'MenuBar','none');
-%     Hf_18 = figure(18);
-%     set(gcf,'units','Pixel','position',rightMonPos12,'MenuBar','none');
-%     Hf_19 = figure(19);
-%     set(gcf,'units','Pixel','position',rightMonPos13,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',rightMonPos07,'MenuBar','none');
+%     Hf_14 = figure(14);
+%     set(gcf,'units','Pixel','position',rightMonPos08,'MenuBar','none');
+%     Hf_15 = figure(15);
+%     set(gcf,'units','Pixel','position',rightMonPos09,'MenuBar','none');
     Hf_20 = figure(20);
-    set(gcf,'units','Pixel','position',rightMonPos14,'MenuBar','none');
-    Hf_21 = figure(21);
-    set(gcf,'units','Pixel','position',rightMonPos15,'MenuBar','none');
-    Hf_22 = figure(22);
-    set(gcf,'units','Pixel','position',rightMonPos16,'MenuBar','none');
+%     set(gcf,'units','Pixel','position',rightMonPos14,'MenuBar','none');
+%     Hf_21 = figure(21);
+%     set(gcf,'units','Pixel','position',rightMonPos15,'MenuBar','none');
+%     Hf_22 = figure(22);
+%     set(gcf,'units','Pixel','position',rightMonPos16,'MenuBar','none');
 %     Hf_23 = figure(23);
 %     set(gcf,'units','Pixel','position',rightMonPos17,'MenuBar','none');
-    Hf_24 = figure(24);
-    set(gcf,'units','Pixel','position',rightMonPos18,'MenuBar','none');
+%     Hf_24 = figure(24);
+%     set(gcf,'units','Pixel','position',rightMonPos18,'MenuBar','none');
 
 end
 
@@ -884,26 +876,26 @@ for ithStep = initIthStep:endStep
         
         %------------------------------------------------------------------
         % B. i번째 (3차원) DEM
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        figure(Hf_01);
-
-        surf(arrayYForGraph,arrayXForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX))
-        % meshz(arrayYForGraph,arrayXForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX))        
-
-        view(25,30)            % 그래프 각도 조정
-
-        grid(gca,'on')        
-        set(gca,'DataAspectRatio',[1 1 0.25],'ZLim',[1000 1100])
-        shading interp
-        
-        colormap(demcmap(elev(Y_INI:Y_MAX,X_INI:X_MAX)))
-
-        
-        tmpTitle = [int2str(simulatingTime) '[yr] Elevation'];
-        title(tmpTitle)        
-        
-        end
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         figure(Hf_01);
+% 
+%         surf(arrayYForGraph,arrayXForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX))
+%         % meshz(arrayYForGraph,arrayXForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX))        
+% 
+%         view(25,30)            % 그래프 각도 조정
+% 
+%         grid(gca,'on')        
+%         set(gca,'DataAspectRatio',[1 1 0.25])
+%         shading interp
+%         
+%         colormap(demcmap(elev(Y_INI:Y_MAX,X_INI:X_MAX)))
+% 
+%         
+%         tmpTitle = [int2str(simulatingTime) '[yr] Elevation'];
+%         title(tmpTitle)        
+%         
+%         end
         
         %------------------------------------------------------------------
         % C.i번째 고도 등고선
@@ -911,9 +903,9 @@ for ithStep = initIthStep:endStep
             
         figure(Hf_02);
         
-        contourLevel = 950:5:1100;        
+        % contourLevel = 950:5:1100;        
         contourf(arrayXForGraph,arrayYForGraph ...  % 등고선도
-            ,elev(Y_INI:Y_MAX,X_INI:X_MAX),contourLevel,'DisplayName','elev');        
+            ,elev(Y_INI:Y_MAX,X_INI:X_MAX),'DisplayName','elev');        
         
         set(gca,'DataAspectRatio',[1 1 1])
         
@@ -981,52 +973,52 @@ for ithStep = initIthStep:endStep
         title(tmpTitle)
         
         %------------------------------------------------------------------
-        % F. i번째 풍화율
-        
-        figure(Hf_05);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,weatheringProduct(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) '[yr] Weathering Product'];
-        title(tmpTitle)
+%         % F. i번째 풍화율
+%         
+%         figure(Hf_05);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,weatheringProduct(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) '[yr] Weathering Product'];
+%         title(tmpTitle)
         
         %------------------------------------------------------------------
-        % G. i번째 사면작용에 의한 퇴적층 두께 변화율
-        
-        figure(Hf_06);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dSedThickByHillslopePerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Slow Mass'];
-        title(tmpTitle)
+%         % G. i번째 사면작용에 의한 퇴적층 두께 변화율
+%         
+%         figure(Hf_06);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dSedThickByHillslopePerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Slow Mass'];
+%         title(tmpTitle)
         
         %------------------------------------------------------------------
         % H. i번째 빠른 사면작용에 의한 퇴적층 두께 변화율
         
-        figure(Hf_07);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dSedThickByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Rapid Mass'];
-        title(tmpTitle)
+%         figure(Hf_07);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dSedThickByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Rapid Mass'];
+%         title(tmpTitle)
         
         %------------------------------------------------------------------
         % I. i번째 빠른 사면작용에 의한 기반암 고도 변화율
         
-        figure(Hf_08);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dBedrockElevByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) '[yr] dBedrockElev By Rapid Mass'];
-        title(tmpTitle)
+%         figure(Hf_08);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dBedrockElevByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) '[yr] dBedrockElev By Rapid Mass'];
+%         title(tmpTitle)
         
         end
         
@@ -1067,20 +1059,20 @@ for ithStep = initIthStep:endStep
             ,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection);
         
         % C) flooded region 그래프
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        figure(Hf_09);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,flood(Y_INI:Y_MAX,X_INI:X_MAX))
-        set(gca,'DataAspectRatio',[1 1 1],'CLim',[0 2])        
-        colormap(jet(3))
-        labels = {'Unflooded','Sink','Flooded'};
-        lcolorbar(labels,'fontweight','bold')       
-        tmpTitle = [int2str(simulatingTime) '[yr] Flooded Region'];
-        title(tmpTitle)
-        
-        end
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         figure(Hf_09);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,flood(Y_INI:Y_MAX,X_INI:X_MAX))
+%         set(gca,'DataAspectRatio',[1 1 1],'CLim',[0 2])        
+%         colormap(jet(3))
+%         labels = {'Unflooded','Sink','Flooded'};
+%         lcolorbar(labels,'fontweight','bold')       
+%         tmpTitle = [int2str(simulatingTime) '[yr] Flooded Region'];
+%         title(tmpTitle)
+%         
+%         end
         
         % D) 연간 유량[m^3/dT]
 
@@ -1241,7 +1233,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
 
         colormap(jet(4))
-        labels = {'Bedrock Channel','Alluvial Channel' ...
+        labels = {'Alluvial Channel','Bedrock Channel' ...
             ,'Bedrock Exposed Hillslope','Soil-mantled Hillslope'};
         
         lcolorbar(labels,'fontweight','bold')
@@ -1273,87 +1265,87 @@ for ithStep = initIthStep:endStep
             = accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX)...
             - elev(Y_INI:Y_MAX,X_INI:X_MAX);
         
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        figure(Hf_14);
-        set(gcf,'MenuBar','none')
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX))
-        colorbar
-        set(gca,'DataAspectRatio',[1 1 1])
-        
-        tmpTitle = [int2str(simulatingTime) '[yr] Acc Erosion Rate'];
-        title(tmpTitle)
-        
-        end
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         figure(Hf_14);
+%         set(gcf,'MenuBar','none')
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX))
+%         colorbar
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         
+%         tmpTitle = [int2str(simulatingTime) '[yr] Acc Erosion Rate'];
+%         title(tmpTitle)
+%         
+%         end
         
         %------------------------------------------------------------------
         % O. Topographic Position Index
         
-        % 좌우가 연결되었다면 좌우 외곽경계의 고도를 조정함
-        if IS_LEFT_RIGHT_CONNECTED == true
-        
-            % (필터 크기에 맞춘)좌우 외곽경계로 추가해야할 열 개수
-            boundMarginColsNo = filterSize - 1;
-
-            modifiedDEM = zeros(mRows,nCols+boundMarginColsNo*2);
-            modifiedDEM(:,X_LEFT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo) = elev;
-
-            % 좌우 외곽경계 고도 조정
-            modifiedDEM(:,X_RIGHT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo*2) ...
-                = modifiedDEM(:,X_INI+boundMarginColsNo:X_INI+boundMarginColsNo*2);
-            modifiedDEM(:,X_LEFT_BND:X_LEFT_BND+boundMarginColsNo) ...
-                = modifiedDEM(:,X_MAX:X_MAX+boundMarginColsNo);
-
-            % 상하 외곽경계 고도 조정
-            modifiedDEM(Y_TOP_BND,:) = modifiedDEM(Y_INI,:);
-            modifiedDEM(Y_BOTTOM_BND,:) = modifiedDEM(Y_MAX,:);
-            
-        else
-            
-            modifiedDEM = elev;
-            
-        end
-
-        filterSize = 3;                     % 필터 크기
-        
-        diskFilter = fspecial('disk',filterSize);
-
-        smoothedDEMDisk = imfilter(modifiedDEM,diskFilter);
-
-        diffElevDisk = smoothedDEMDisk - modifiedDEM;
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_15);
-        set(gcf,'MenuBar','none')
-        
-        if IS_LEFT_RIGHT_CONNECTED == true
-            
-            imagesc(diffElevDisk(Y_INI:Y_MAX ...
-                ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo));
-                    % * 주의: 외곽경계 영향으로 서쪽 경계의 값이 매우 작음
-            maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX ...
-                ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo)));
-        
-        else
-            
-            imagesc(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX));
-            maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX)));
-            
-        end
-            
-        colorbar
-        
-        set(gca,'CLim',[-maxDiffElev maxDiffElev])
-        
-        set(gca,'DataAspectRatio',[1 1 1])
-        
-        tmpTitle = [int2str(simulatingTime) '[yr] TPI'];
-        title(tmpTitle)
-        
-        end
+%         % 좌우가 연결되었다면 좌우 외곽경계의 고도를 조정함
+%         if IS_LEFT_RIGHT_CONNECTED == true
+%         
+%             % (필터 크기에 맞춘)좌우 외곽경계로 추가해야할 열 개수
+%             boundMarginColsNo = filterSize - 1;
+% 
+%             modifiedDEM = zeros(mRows,nCols+boundMarginColsNo*2);
+%             modifiedDEM(:,X_LEFT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo) = elev;
+% 
+%             % 좌우 외곽경계 고도 조정
+%             modifiedDEM(:,X_RIGHT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo*2) ...
+%                 = modifiedDEM(:,X_INI+boundMarginColsNo:X_INI+boundMarginColsNo*2);
+%             modifiedDEM(:,X_LEFT_BND:X_LEFT_BND+boundMarginColsNo) ...
+%                 = modifiedDEM(:,X_MAX:X_MAX+boundMarginColsNo);
+% 
+%             % 상하 외곽경계 고도 조정
+%             modifiedDEM(Y_TOP_BND,:) = modifiedDEM(Y_INI,:);
+%             modifiedDEM(Y_BOTTOM_BND,:) = modifiedDEM(Y_MAX,:);
+%             
+%         else
+%             
+%             modifiedDEM = elev;
+%             
+%         end
+% 
+%         filterSize = 3;                     % 필터 크기
+%         
+%         diskFilter = fspecial('disk',filterSize);
+% 
+%         smoothedDEMDisk = imfilter(modifiedDEM,diskFilter);
+% 
+%         diffElevDisk = smoothedDEMDisk - modifiedDEM;
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         figure(Hf_15);
+%         set(gcf,'MenuBar','none')
+%         
+%         if IS_LEFT_RIGHT_CONNECTED == true
+%             
+%             imagesc(diffElevDisk(Y_INI:Y_MAX ...
+%                 ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo));
+%                     % * 주의: 외곽경계 영향으로 서쪽 경계의 값이 매우 작음
+%             maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX ...
+%                 ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo)));
+%         
+%         else
+%             
+%             imagesc(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX));
+%             maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX)));
+%             
+%         end
+%             
+%         colorbar
+%         
+%         set(gca,'CLim',[-maxDiffElev maxDiffElev])
+%         
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         
+%         tmpTitle = [int2str(simulatingTime) '[yr] TPI'];
+%         title(tmpTitle)
+%         
+%         end
         
         %------------------------------------------------------------------
         % (D) 구성물질 특성
@@ -1472,53 +1464,53 @@ for ithStep = initIthStep:endStep
         sedimentBudget = sedimentInput - sedimentOutput;        
 
         
-        if SHOW_GRAPH == SHOW_GRAPH_YES
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         % (C) 결과 출력
+%         figure(Hf_21)
+%         clf
+%         set(gcf,'Color','white');               % 바탕화면 하얀 색
+%         mTextBox = uicontrol('style','text');   % "text" uicontrol 만듦
+%         set(mTextBox,'Units','characters' ...   % 크기 단위 'characters'
+%             ,'FontSize',8 ...                  % 폰트 크기
+%             ,'Position',[4,0,60,21])           % 텍스트 상자 위치 및 크기
+%         set(mTextBox,'String' ...
+%             ,{sprintf('Sediment Budget: %6.3f',sedimentBudget) ...
+%             ,sprintf('-------------------------------------------------------------------') ...
+%             ,sprintf('Old Sed[m]: %6.3f              / Current Sediment[m]: %6.3f' ...
+%             ,meanOldSedimentThick,meanNextSedimentThick) ...
+%             ,sprintf('Weathering[p]: %6.1f         /                                     ' ...
+%             ,meanWeatheringProduct(ithGraph) / sedimentNewInput * 100) ...
+%             ,sprintf('Fluvial dBedElev[p]: %6.1f / Fluvial Erosio[p]n: %6.1f' ...
+%             ,- dBedrockElevByFluvial / sedimentNewInput * 100 ...
+%             ,meanFluvialErosionRate / removedSedimentOutput * 100) ...
+%             ,sprintf('RapidMass dBedElev[p]: %6.1f / RapidMass Erosion[p]: %6.1f' ...
+%             ,- meanDBedrockElevByRapidMass / sedimentNewInput * 100 ...
+%             ,meanRapidMassErosionRate / removedSedimentOutput * 100) ...
+%             ,sprintf('                                              / SlowMass Erosion[p]: %6.1f' ...
+%             ,meanHillslopeErosionRate / removedSedimentOutput * 100) ...
+%             ,sprintf('-------------------------------------------------------------------') ...
+%             ,sprintf('New Input[m]: %9.6f     / Total Output[m]: %9.6f' ...
+%             ,sedimentNewInput,removedSedimentOutput)})
+%         % 텍스트 상자 색을 figure 색과 동일하게 설정함
+%         colorOfFigureWindow = get(Hf_21,'Color');
+%         set(mTextBox,'BackgroundColor',colorOfFigureWindow)
+%         
+%         end
         
-        % (C) 결과 출력
-        figure(Hf_21)
-        clf
-        set(gcf,'Color','white');               % 바탕화면 하얀 색
-        mTextBox = uicontrol('style','text');   % "text" uicontrol 만듦
-        set(mTextBox,'Units','characters' ...   % 크기 단위 'characters'
-            ,'FontSize',8 ...                  % 폰트 크기
-            ,'Position',[4,0,60,21])           % 텍스트 상자 위치 및 크기
-        set(mTextBox,'String' ...
-            ,{sprintf('Sediment Budget: %6.3f',sedimentBudget) ...
-            ,sprintf('-------------------------------------------------------------------') ...
-            ,sprintf('Old Sed[m]: %6.3f              / Current Sediment[m]: %6.3f' ...
-            ,meanOldSedimentThick,meanNextSedimentThick) ...
-            ,sprintf('Weathering[p]: %6.1f         /                                     ' ...
-            ,meanWeatheringProduct(ithGraph) / sedimentNewInput * 100) ...
-            ,sprintf('Fluvial dBedElev[p]: %6.1f / Fluvial Erosio[p]n: %6.1f' ...
-            ,- dBedrockElevByFluvial / sedimentNewInput * 100 ...
-            ,meanFluvialErosionRate / removedSedimentOutput * 100) ...
-            ,sprintf('RapidMass dBedElev[p]: %6.1f / RapidMass Erosion[p]: %6.1f' ...
-            ,- meanDBedrockElevByRapidMass / sedimentNewInput * 100 ...
-            ,meanRapidMassErosionRate / removedSedimentOutput * 100) ...
-            ,sprintf('                                              / SlowMass Erosion[p]: %6.1f' ...
-            ,meanHillslopeErosionRate / removedSedimentOutput * 100) ...
-            ,sprintf('-------------------------------------------------------------------') ...
-            ,sprintf('New Input[m]: %9.6f     / Total Output[m]: %9.6f' ...
-            ,sedimentNewInput,removedSedimentOutput)})
-        % 텍스트 상자 색을 figure 색과 동일하게 설정함
-        colorOfFigureWindow = get(Hf_21,'Color');
-        set(mTextBox,'BackgroundColor',colorOfFigureWindow)
-        
-        end
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        % (B) 하도 내 하상 퇴적물 수지
-        figure(Hf_22);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,chanBedSedBudget(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) '[yr] chanBedSed Budget'];
-        title(tmpTitle)      
-        
-        end
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         % (B) 하도 내 하상 퇴적물 수지
+%         figure(Hf_22);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,chanBedSedBudget(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) '[yr] chanBedSed Budget'];
+%         title(tmpTitle)      
+%         
+%         end
         
         %------------------------------------------------------------------
         % V. i번째 (스트랄러식) 하천 차수
@@ -1552,13 +1544,13 @@ for ithStep = initIthStep:endStep
         %------------------------------------------------------------------
         % W. i 번째 힙소메트리 곡선
         
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_24);
-        
-        hypsometry(elev(Y_INI:Y_MAX,X_INI:X_MAX),20,[1 1],'ro-',[2 2],Hf_24,totalGraphShowTimesNo,ithGraph);
-        
-        end
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         figure(Hf_24);
+%         
+%         hypsometry(elev(Y_INI:Y_MAX,X_INI:X_MAX),20,[1 1],'ro-',[2 2],Hf_24,totalGraphShowTimesNo,ithGraph);
+%         
+%         end
         
         %------------------------------------------------------------------        
         % 일정한 간격으로 주요 변수들을 기록함

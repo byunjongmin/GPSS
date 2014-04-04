@@ -5,9 +5,12 @@
 .DS_Store
 
 # MATLAB noises
-*.~
+*.m~
 *.mexw64
 *.mexmaci64
+
+# Excel noises
+~*.xlsx
 
 # ignore all files in the following directories
 data/output
