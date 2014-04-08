@@ -72,10 +72,11 @@ function [bedrockElev,sedimentThick] = AdjustBoundary(Y_INI,Y_MAX,X_INI,X_MAX,Y_
 X_MID = round((X_MAX - X_INI) * 0.5);
 
 % BOUNDARY_OUTFLOW_COND 태그
-ONE_OUTLET = 0;
+ONE_OUTLET_MID_BOTTOM = 0;
 BOTTOM_BOUNDARY = 1;
 TOP_BOTTOM_BOUNDARY = 2;
-% ALL_BOUNDARY = 4;
+ONE_OUTLET_LEFT_EDGE = 3;
+ALL_BOUNDARY = 4;
 
 % BOUNDARY_ELEV_COND 태그
 YEONGSEO_ELEV = 1;
@@ -86,7 +87,7 @@ sedimentThick(OUTER_BOUNDARY) = 0;
 % 2. 외곽 경계 기반암 고도 설정
 
 % 1) 유출구 또는 영역으로부터의 유출이 발생하는 외곽 경계 위치를 확인함
-if BOUNDARY_OUTFLOW_COND == ONE_OUTLET
+if BOUNDARY_OUTFLOW_COND == ONE_OUTLET_MID_BOTTOM
     
     % (1) 하나의 유출구를 가질 경우
     
@@ -94,8 +95,17 @@ if BOUNDARY_OUTFLOW_COND == ONE_OUTLET
     bedrockElev(OUTER_BOUNDARY) = inf;
     
     % B. 유출구의 경계 고도 조건은 1)의 (1) 또는 (2)임
-    % bedrockElev(Y_BOTTOM_BND,X_LEFT_BND) = 0; % edge bottom
     bedrockElev(Y_BOTTOM_BND,X_MID) = 0; % mid bottom
+    
+elseif BOUNDARY_OUTFLOW_COND == ONE_OUTLET_LEFT_EDGE
+    
+    % (1) 하나의 유출구를 가질 경우
+    
+    % A. 외곽 경계 고도 초기화
+    bedrockElev(OUTER_BOUNDARY) = inf;
+    
+    % B. 유출구의 경계 고도 조건은 1)의 (1) 또는 (2)임
+    bedrockElev(Y_BOTTOM_BND,X_LEFT_BND) = 0; % edge bottom
     
 elseif BOUNDARY_OUTFLOW_COND == BOTTOM_BOUNDARY
     
