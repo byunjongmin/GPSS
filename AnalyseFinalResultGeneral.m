@@ -301,15 +301,24 @@ for ithSubDir = 1:totalSubDirs
             = sub2ind([Y X],repDrainBoundaryY,repDrainBoundaryX);
 
         % 유역 경계 보기
-        figure(102)
-        plot(repDrainBoundaryX,repDrainBoundaryY,'r');
-        set(gca,'XLim',[1 X],'YLIM',[1 Y],'YDir','reverse','DataAspectRatio',[1 1 1])
-        colorbar
+%         figure(102)
+%         plot(repDrainBoundaryX,repDrainBoundaryY,'r');
+%         set(gca,'XLim',[1 X],'YLIM',[1 Y],'YDir','reverse','DataAspectRatio',[1 1 1])
+%         colorbar
 
         repDrainUpslopeArea = ithSubDirUpslopeArea(repDrainCoord);    % 대표 유역의 유역면적
 
+        % boundary flow out condition 을 고려해서 경계에 해당하는 것은 제외하도록 할 것.
+        % 수정해야함.
+        tmpBndIdx = false(Y,X);
+        tmpBndIdx(1,:) = true;
+        tmpBndIdx(end,:) = true;
+        tmpBndIdx(:,1) = true;
+        tmpBndIdx(:,end) = true;
+        find(tmpBndIdx == true);
+        
         % 대표 유역의 하구 색인: 유역면적이 가장 큰 지점 색인
-        % * 동서가 연결된 조건이라면, 가운데 모형영역을 선택함
+        % * 동서가 연결된 조건이라면, 가운데 모형영역을 선택함        
         [repDrainMaxUpslopeArea,tmpRepDrainMaxUpslopeCoord] = max(repDrainUpslopeArea);
 
         repDrainMaxUpslopeCoord = repDrainCoord(tmpRepDrainMaxUpslopeCoord);
@@ -580,27 +589,27 @@ for ithSubDir = 1:totalSubDirs
     end                      
 
     % 10) area-slope 그래프 그리기        
-    ithFacetFlowSlope = facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
-
-    figure(10)
-    
-    scatter(ithSubDirUpslopeArea(representDrainage) ...
-        ,ithFacetFlowSlope(representDrainage),'.');
-
-    set(gca,'XScale','log','YScale','log' ...
-        ,'Box','off' ...
-        ,'TickDir','out' ...
-        ,'TickLength',[0.02 0.02] ...    
-        ,'XMinorTick','on' ...
-        ,'YMinorTick','on' ...
-        ,'XColor',[0.3 0.3 0.3] ...
-        ,'YColor',[0.3 0.3 0.3])
-
-    hT = title('Area - Slope relationship');
-
-    set(hT,'FontSize',11 ...
-        ,'FontWeight','bold' ...
-        ,'FontName','Helvetica')
+%     ithFacetFlowSlope = facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
+% 
+%     figure(10)
+%     
+%     scatter(ithSubDirUpslopeArea(representDrainage) ...
+%         ,ithFacetFlowSlope(representDrainage),'.');
+% 
+%     set(gca,'XScale','log','YScale','log' ...
+%         ,'Box','off' ...
+%         ,'TickDir','out' ...
+%         ,'TickLength',[0.02 0.02] ...    
+%         ,'XMinorTick','on' ...
+%         ,'YMinorTick','on' ...
+%         ,'XColor',[0.3 0.3 0.3] ...
+%         ,'YColor',[0.3 0.3 0.3])
+% 
+%     hT = title('Area - Slope relationship');
+% 
+%     set(hT,'FontSize',11 ...
+%         ,'FontWeight','bold' ...
+%         ,'FontName','Helvetica')
 
  
     % 11) Hypsometric curve 그리기

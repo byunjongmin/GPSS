@@ -9,12 +9,9 @@
 *.mexw64
 *.mexmaci64
 
-# Excel noises
-~*.xlsx
+# Design-related files
+*.oo3
 
 # ignore all files in the following directories
 data/output
 !data/input/*
-
-# exceptions
-
