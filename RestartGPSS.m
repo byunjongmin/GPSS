@@ -249,12 +249,12 @@ fclose(FID_NEWINIT_BEDROCKELEV);
 
 
 % 5. 확인하기
-% elev = bedrockElev + sedimentThick;
-% Y_INI = 2;
-% Y_MAX = Y + 1;
-% X_INI = 2;
-% X_MAX = X + 1;
-% imshow(elev(Y_INI:Y_MAX,X_INI:X_MAX),[],'InitialMagnification','fit')
-% colormap jet
-% colorbar
+elev = bedrockElev + sedimentThick;
+Y_INI = 2;
+Y_MAX = Y + 1;
+X_INI = 2;
+X_MAX = X + 1;
+imshow(elev(Y_INI:Y_MAX,X_INI:X_MAX),[],'InitialMagnification','fit')
+colormap jet
+colorbar
 

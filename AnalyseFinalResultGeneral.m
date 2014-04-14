@@ -56,6 +56,9 @@ for ithSubDir = 1:totalSubDirs
     X_MAX = majorOutputs.X_MAX;
     dX = majorOutputs.dX;
     totalExtractTimesNo = majorOutputs.totalExtractTimesNo;
+    
+    % if a broken simulation
+    totalExtractTimesNo = 24;
 
     lastSedimentThick ...   % 초기 지형 고려
         = majorOutputs.sedimentThick(:,:,totalExtractTimesNo + 1);
@@ -112,7 +115,7 @@ endYAxisDistance = Y * dX;          % 그래프 Y 축 끝 거리
 %--------------------------------------------------------------------------
 % 1. 최종 모의결과 고도 비고
 
-figure(01)
+figure(31)
 set(gcf,'Color',[1 1 1])
 
 % 최종 모의결과를 연속적으로 보여주기 위해 일정한 간격으로 배열함
@@ -172,70 +175,6 @@ endColor = 256;
 cMap = colormap(jet(endColor));           % plot 색 그라디언트
 hypsometricIntegral = zeros(totalSubDirs,1);    % 힙소메트리 적분값
 
-
-figure(9);
-set(gcf,'Color',[1 1 1])
-
-% subplot 초기화
-subplotM = totalSubDirs;
-subplotN = 1;
-
-XMin = 0.1;
-XMax = 0.95;
-YMin = 0.1;     % * 주의: 0.1 보다 작을 경우 문제가 마지막 그래프가 작성되지 않음
-YMax = 0.95;
-XGap = 0.02;
-YGap = 0.02;
-
-XSize = (XMax - XMin) / subplotN;
-YSize = (YMax - YMin) / subplotM;
-
-XBox = XSize - XGap;
-YBox = YSize - YGap;
-
-hSP1 = subplot(3,1,1);
-set(hSP1,'Position',[XMin,YMax - YSize*1,XBox,YBox])
-hold on
-
-hSP2 = subplot(3,1,2);
-set(hSP2,'Position',[XMin,YMax - YSize*2,XBox,YBox])
-hold on
-
-hSP3 = subplot(3,1,3);
-hold on
-set(hSP3,'Position',[XMin,YMax - YSize*3,XBox,YBox])
-
-figure(10);
-set(gcf,'Color',[1 1 1])
-
-subplotM = 1;
-subplotN = totalSubDirs;
-
-XMin = 0.1;
-XMax = 0.95;
-YMin = 0.1;     % * 주의: 0.1 보다 작을 경우 문제가 마지막 그래프가 작성되지 않음
-YMax = 0.95;
-XGap = 0.04;
-YGap = 0.02;
-
-XSize = (XMax - XMin) / subplotN;
-YSize = (YMax - YMin) / subplotM;
-
-XBox = XSize - XGap;
-YBox = YSize - YGap;
-
-hSP4 = subplot(1,3,1);
-set(hSP4,'Position',[XMin + XSize*0,YMin,XBox,YBox])
-hold on
-
-hSP5 = subplot(1,3,2);
-set(hSP5,'Position',[XMin + XSize*1,YMin,XBox,YBox])
-hold on
-
-hSP6 = subplot(1,3,3);
-hold on
-set(hSP6,'Position',[XMin + XSize*2,YMin,XBox,YBox])
-
 for ithSubDir = 1:totalSubDirs
         
     % 1) 가장 넓은 유역 분지를 찾아서 이를 대표 유역으로 정의함
@@ -251,7 +190,7 @@ for ithSubDir = 1:totalSubDirs
     watersheds = watershed(ithSubDirElev);                   % 유역 구분
 
     % 유역구분한 것 보기
-    % figure(101)
+    % figure(32)
     % rgb = label2rgb(watersheds,'jet','w','shuffle');
     % imshow(rgb,'initialMagnification','fit')
 
@@ -301,7 +240,7 @@ for ithSubDir = 1:totalSubDirs
             = sub2ind([Y X],repDrainBoundaryY,repDrainBoundaryX);
 
         % 유역 경계 보기
-%         figure(102)
+%         figure(33)
 %         plot(repDrainBoundaryX,repDrainBoundaryY,'r');
 %         set(gca,'XLim',[1 X],'YLIM',[1 Y],'YDir','reverse','DataAspectRatio',[1 1 1])
 %         colorbar
@@ -310,12 +249,12 @@ for ithSubDir = 1:totalSubDirs
 
         % boundary flow out condition 을 고려해서 경계에 해당하는 것은 제외하도록 할 것.
         % 수정해야함.
-        tmpBndIdx = false(Y,X);
-        tmpBndIdx(1,:) = true;
-        tmpBndIdx(end,:) = true;
-        tmpBndIdx(:,1) = true;
-        tmpBndIdx(:,end) = true;
-        find(tmpBndIdx == true);
+%         tmpBndIdx = false(Y,X);
+%         tmpBndIdx(1,:) = true;
+%         tmpBndIdx(end,:) = true;
+%         tmpBndIdx(:,1) = true;
+%         tmpBndIdx(:,end) = true;
+%         find(tmpBndIdx == true);
         
         % 대표 유역의 하구 색인: 유역면적이 가장 큰 지점 색인
         % * 동서가 연결된 조건이라면, 가운데 모형영역을 선택함        
@@ -352,6 +291,12 @@ for ithSubDir = 1:totalSubDirs
     % 유역면적이 가장 넓은 (하구) 셀의 좌표
     pY = repDrainMaxUpslopeCoordY;
     pX = repDrainMaxUpslopeCoordX;
+    
+    % 사용자 정의시에 여기에 정지하고 pY, pX를 달리할 것
+    figure(34)
+    imagesc(ithSubDirUpslopeArea)
+    pY = 99; % for custom setting
+    pX = 49; % for custom setting
 
     % 하천종단곡선 경로 기록 변수 초기화
     ithRiverProfileYX = zeros(Y*X,2);           % 경로 좌표
@@ -396,32 +341,32 @@ for ithSubDir = 1:totalSubDirs
         % 지나온 경로상에 있는 셀이 아니면서 유역면적이 가장 넓은 순서로 정렬함
         sortedNbrInfo = sortrows(nbrInfo,[4,-3]);
 
-        % 이웃 셀 중 유역면?Ю? 가장 넓은 셀의 좌표               
+        % 이웃 셀 중 유역면적이 가장 넓은 셀의 좌표               
         newPY = sortedNbrInfo(1,1);
         newPX = sortedNbrInfo(1,2);
         
         
-%         % 유역면적이 가장 넓은 셀이더라도 현 좌표의 고도보다 커야함
-%         isHigher = false;
-%         
-%         nextNbr = 1;
-%         
-%         while (isHigher  == false)
-%             
-%             if ithSubDirElev(pY,pX) > ithSubDirElev(newPY,newPX)
-%            
-%                 nextNbr = nextNbr + 1;
-%                 
-%                 newPY = sortedNbrInfo(nextNbr,1);
-%                 newPX = sortedNbrInfo(nextNbr,2);
-%                 
-%             else
-%                 
-%                 isHigher = true;
-%                 
-%             end
-%             
-%         end   
+        % 유역면적이 가장 넓은 셀이더라도 현 좌표의 고도보다 커야함
+        isHigher = false;
+        
+        nextNbr = 1;
+        
+        while (isHigher  == false)
+            
+            if ithSubDirElev(pY,pX) > ithSubDirElev(newPY,newPX)
+           
+                nextNbr = nextNbr + 1;
+                
+                newPY = sortedNbrInfo(nextNbr,1);
+                newPX = sortedNbrInfo(nextNbr,2);
+                
+            else
+                
+                isHigher = true;
+                
+            end
+            
+        end   
 
         if ithSubDirElev(pY,pX) > ithSubDirElev(newPY,newPX)
             isEnd = true;            
@@ -504,7 +449,7 @@ for ithSubDir = 1:totalSubDirs
     
     % (1) 하천종단곡선 경로 분포
     
-    figure(105)
+    figure(35)
     set(gcf,'Color',[1 1 1])
     
     maxUpslopeArea = max(log(ithSubDirUpslopeArea(:)));
@@ -516,18 +461,18 @@ for ithSubDir = 1:totalSubDirs
     
     hold on
     
-    % 층 1: 종단곡선
+    % layer 1: 종단곡선
     plot(ithRiverProfileYX(1:ithRivProfEnd-1,2) ... % X
         ,ithRiverProfileYX(1:ithRivProfEnd-1,1) ... % Y
         ,'k*')                                      %
     
     hold on
     
-    % 층 2: 대표 유역 경계
+    % layer 2: 대표 유역 경계
     plot(repDrainBoundaryX,repDrainBoundaryY,'r');    
     
     % (2) 하천종단곡선
-    figure(08)
+    figure(36)
     set(gcf,'Color',[1 1 1])
     
     ithSubDirBedrockElev = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
@@ -566,54 +511,34 @@ for ithSubDir = 1:totalSubDirs
         ,'FontName','나눔고딕')
     
     % grid on
-    
-    % 6) 종단곡선 좌표를 전체 종단곡선에 기록함
-    rivProfNodesNo(ithSubDir,1) = ithSubDirRivProfNode;
-   
-    accRivProfNodeNo = cumsum(rivProfNodesNo);
-    
-    if ithSubDir == 1
-        
-        riverProfileCoord(1:accRivProfNodeNo(ithSubDir,1)) = ithRiverProfileCoord;
-
-        rivProfDistance(1:accRivProfNodeNo(ithSubDir,1)) = ithRivProfDistance;        
-        
-    else
-        
-        riverProfileCoord(accRivProfNodeNo(ithSubDir-1,1)+1 ...
-            :accRivProfNodeNo(ithSubDir,1)) = ithRiverProfileCoord;
-
-        rivProfDistance(accRivProfNodeNo(ithSubDir-1,1)+1 ...
-            :accRivProfNodeNo(ithSubDir,1)) = ithRivProfDistance;
-
-    end                      
+               
 
     % 10) area-slope 그래프 그리기        
-%     ithFacetFlowSlope = facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
-% 
-%     figure(10)
-%     
-%     scatter(ithSubDirUpslopeArea(representDrainage) ...
-%         ,ithFacetFlowSlope(representDrainage),'.');
-% 
-%     set(gca,'XScale','log','YScale','log' ...
-%         ,'Box','off' ...
-%         ,'TickDir','out' ...
-%         ,'TickLength',[0.02 0.02] ...    
-%         ,'XMinorTick','on' ...
-%         ,'YMinorTick','on' ...
-%         ,'XColor',[0.3 0.3 0.3] ...
-%         ,'YColor',[0.3 0.3 0.3])
-% 
-%     hT = title('Area - Slope relationship');
-% 
-%     set(hT,'FontSize',11 ...
-%         ,'FontWeight','bold' ...
-%         ,'FontName','Helvetica')
+    ithFacetFlowSlope = facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
+
+    figure(37)
+    
+    scatter(ithSubDirUpslopeArea(representDrainage) ...
+        ,ithFacetFlowSlope(representDrainage),'.');
+
+    set(gca,'XScale','log','YScale','log' ...
+        ,'Box','off' ...
+        ,'TickDir','out' ...
+        ,'TickLength',[0.02 0.02] ...    
+        ,'XMinorTick','on' ...
+        ,'YMinorTick','on' ...
+        ,'XColor',[0.3 0.3 0.3] ...
+        ,'YColor',[0.3 0.3 0.3])
+
+    hT = title('Area - Slope relationship');
+
+    set(hT,'FontSize',11 ...
+        ,'FontWeight','bold' ...
+        ,'FontName','Helvetica')
 
  
     % 11) Hypsometric curve 그리기
-    figHypsometry = figure(11);
+    figHypsometry = figure(38);
     set(gcf,'Color',[1 1 1])
     
     hypsometricIntegral(ithSubDir,1) ...
@@ -621,10 +546,3 @@ for ithSubDir = 1:totalSubDirs
         ,figHypsometry,totalSubDirs,ithSubDir);
     
 end
-    
-% 전체 종단곡선의 뒷부분을 잘라냄. 나중에 이를 이용할 일이 있으면 사용하지만
-% 현재로서는 필요없음
-% * 원리: Null 값이 나오는 것부터 제거함
-% [tmp,rivProfEnd] = min(riverProfileCoord);              % Null값이 나오는 위치
-% riverProfileCoord = riverProfileCoord(1:rivProfEnd-1);  % 종단곡선 경로 좌표 정리
-% rivProfDistance = rivProfDistance(1:rivProfEnd-1,1);    % 경로 각 지점의 거리 정리

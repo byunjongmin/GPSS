@@ -52,7 +52,7 @@
 %>
 %> @param parameterValuesFile               : GPSS 함수의 입력인자로 초기 입력자료를 저장하고 있는 파일 이름
 % =========================================================================
-function GPSSMain(parameterValuesFile)
+function GPSSMain_Hy(parameterValuesFile)
 
 %--------------------------------------------------------------------------
 % GPSS 2D 시작

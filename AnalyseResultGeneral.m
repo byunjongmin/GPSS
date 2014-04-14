@@ -817,6 +817,7 @@ startedStepNo = startedTimeStepNo / WRITE_INTERVAL;
 
 % 2) 파일에서 i번째 모의결과를 읽고 이를 그래프로 표현하고 주요 변수는 일정
 %    간격으로 저장함
+endStep = 17;
 for ithStep = initIthStep:endStep
     
     fprintf('%i\n',ithStep); % 실행 횟수 출력
@@ -908,6 +909,7 @@ for ithStep = initIthStep:endStep
             ,elev(Y_INI:Y_MAX,X_INI:X_MAX),'DisplayName','elev');        
         
         set(gca,'DataAspectRatio',[1 1 1])
+        set(gca,'YDir','Reverse')
         
         contourcmap('summer',5);
         colorbar
