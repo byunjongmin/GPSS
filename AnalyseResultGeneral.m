@@ -687,7 +687,7 @@ if SHOW_GRAPH == SHOW_GRAPH_YES
 %     set(gcf,'units','Pixel','position',rightMonPos07,'MenuBar','none');
 %     Hf_14 = figure(14);
 %     set(gcf,'units','Pixel','position',rightMonPos08,'MenuBar','none');
-%     Hf_15 = figure(15);
+    Hf_15 = figure(15);
 %     set(gcf,'units','Pixel','position',rightMonPos09,'MenuBar','none');
     Hf_20 = figure(20);
 %     set(gcf,'units','Pixel','position',rightMonPos14,'MenuBar','none');
@@ -817,7 +817,7 @@ startedStepNo = startedTimeStepNo / WRITE_INTERVAL;
 
 % 2) 파일에서 i번째 모의결과를 읽고 이를 그래프로 표현하고 주요 변수는 일정
 %    간격으로 저장함
-endStep = 17;
+endStep = 34; % for the unexpectedly stopped experiment
 for ithStep = initIthStep:endStep
     
     fprintf('%i\n',ithStep); % 실행 횟수 출력
@@ -904,9 +904,9 @@ for ithStep = initIthStep:endStep
             
         figure(Hf_02);
         
-        % contourLevel = 950:5:1100;        
+        contourLevel = 0:10:TOTAL_ACCUMULATED_UPLIFT;
         contourf(arrayXForGraph,arrayYForGraph ...  % 등고선도
-            ,elev(Y_INI:Y_MAX,X_INI:X_MAX),'DisplayName','elev');        
+            ,elev(Y_INI:Y_MAX,X_INI:X_MAX),contourLevel,'DisplayName','elev');        
         
         set(gca,'DataAspectRatio',[1 1 1])
         set(gca,'YDir','Reverse')
@@ -915,7 +915,7 @@ for ithStep = initIthStep:endStep
         colorbar
         
         tmpTitle = [int2str(simulatingTime) '[yr] Elevation'];
-        title(tmpTitle);       
+        title(tmpTitle,'FontSize',18);
         
         end
         
@@ -944,7 +944,7 @@ for ithStep = initIthStep:endStep
         colorbar
         
         tmpTitle = [int2str(simulatingTime) '[yr] Sediment Thickness'];
-        title(tmpTitle)
+        title(tmpTitle,'FontSize',18);
        
         end
         
@@ -972,7 +972,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         colorbar
         tmpTitle = [int2str(simulatingTime) '[yr] Gradient'];
-        title(tmpTitle)
+        title(tmpTitle,'FontSize',18);
         
         %------------------------------------------------------------------
 %         % F. i번째 풍화율
@@ -984,7 +984,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] Weathering Product'];
-%         title(tmpTitle)
+%         title(tmpTitle,'FontSize',18);
         
         %------------------------------------------------------------------
 %         % G. i번째 사면작용에 의한 퇴적층 두께 변화율
@@ -996,7 +996,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Slow Mass'];
-%         title(tmpTitle)
+%         title(tmpTitle,'FontSize',18);
         
         %------------------------------------------------------------------
         % H. i번째 빠른 사면작용에 의한 퇴적층 두께 변화율
@@ -1008,7 +1008,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Rapid Mass'];
-%         title(tmpTitle)
+%         title(tmpTitle,'FontSize',18);
         
         %------------------------------------------------------------------
         % I. i번째 빠른 사면작용에 의한 기반암 고도 변화율
@@ -1020,7 +1020,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] dBedrockElev By Rapid Mass'];
-%         title(tmpTitle)
+%         title(tmpTitle,'FontSize',18);
         
         end
         
@@ -1072,7 +1072,7 @@ for ithStep = initIthStep:endStep
 %         labels = {'Unflooded','Sink','Flooded'};
 %         lcolorbar(labels,'fontweight','bold')       
 %         tmpTitle = [int2str(simulatingTime) '[yr] Flooded Region'];
-%         title(tmpTitle)
+%         title(tmpTitle,'FontSize',18);
 %         
 %         end
         
@@ -1126,7 +1126,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         colorbar
         tmpTitle = [int2str(simulatingTime) '[yr] Bankfull Discharge(log10)'];
-        title(tmpTitle)
+        title(tmpTitle,'FontSize',18);
         
         end
         
@@ -1148,7 +1148,7 @@ for ithStep = initIthStep:endStep
         set(gca,'CLim',[mu - sigma*3, mu + sigma*3])
         
         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Fluvial'];
-        title(tmpTitle)
+        title(tmpTitle,'FontSize',18);
         
         end
         
@@ -1163,7 +1163,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         colorbar
         tmpTitle = [int2str(simulatingTime) '[yr] dBedrockElev By Fluvial'];
-        title(tmpTitle)
+        title(tmpTitle,'FontSize',18);
         
         end
         
@@ -1244,7 +1244,7 @@ for ithStep = initIthStep:endStep
             int2str(round(bedrockExposedHillRatio * 100)) '/' ...
             int2str(round(alluvialChanRatio * 100)) '/' ...
             int2str(round(bedrockChanRatio * 100)) ')'];
-        title(tmpTitle)
+        title(tmpTitle,'FontSize',18);
         
         end
         
@@ -1278,76 +1278,76 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         
 %         tmpTitle = [int2str(simulatingTime) '[yr] Acc Erosion Rate'];
-%         title(tmpTitle)
+%         title(tmpTitle,'FontSize',18);
 %         
 %         end
         
         %------------------------------------------------------------------
         % O. Topographic Position Index
         
-%         % 좌우가 연결되었다면 좌우 외곽경계의 고도를 조정함
-%         if IS_LEFT_RIGHT_CONNECTED == true
-%         
-%             % (필터 크기에 맞춘)좌우 외곽경계로 추가해야할 열 개수
-%             boundMarginColsNo = filterSize - 1;
-% 
-%             modifiedDEM = zeros(mRows,nCols+boundMarginColsNo*2);
-%             modifiedDEM(:,X_LEFT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo) = elev;
-% 
-%             % 좌우 외곽경계 고도 조정
-%             modifiedDEM(:,X_RIGHT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo*2) ...
-%                 = modifiedDEM(:,X_INI+boundMarginColsNo:X_INI+boundMarginColsNo*2);
-%             modifiedDEM(:,X_LEFT_BND:X_LEFT_BND+boundMarginColsNo) ...
-%                 = modifiedDEM(:,X_MAX:X_MAX+boundMarginColsNo);
-% 
-%             % 상하 외곽경계 고도 조정
-%             modifiedDEM(Y_TOP_BND,:) = modifiedDEM(Y_INI,:);
-%             modifiedDEM(Y_BOTTOM_BND,:) = modifiedDEM(Y_MAX,:);
-%             
-%         else
-%             
-%             modifiedDEM = elev;
-%             
-%         end
-% 
-%         filterSize = 3;                     % 필터 크기
-%         
-%         diskFilter = fspecial('disk',filterSize);
-% 
-%         smoothedDEMDisk = imfilter(modifiedDEM,diskFilter);
-% 
-%         diffElevDisk = smoothedDEMDisk - modifiedDEM;
-%         
-%         if SHOW_GRAPH == SHOW_GRAPH_YES
-%         
-%         figure(Hf_15);
-%         set(gcf,'MenuBar','none')
-%         
-%         if IS_LEFT_RIGHT_CONNECTED == true
-%             
-%             imagesc(diffElevDisk(Y_INI:Y_MAX ...
-%                 ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo));
-%                     % * 주의: 외곽경계 영향으로 서쪽 경계의 값이 매우 작음
-%             maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX ...
-%                 ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo)));
-%         
-%         else
-%             
-%             imagesc(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX));
-%             maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX)));
-%             
-%         end
-%             
-%         colorbar
-%         
-%         set(gca,'CLim',[-maxDiffElev maxDiffElev])
-%         
-%         set(gca,'DataAspectRatio',[1 1 1])
-%         
-%         tmpTitle = [int2str(simulatingTime) '[yr] TPI'];
-%         title(tmpTitle)
-%         
-%         end
+        % 좌우가 연결되었다면 좌우 외곽경계의 고도를 조정함
+        if IS_LEFT_RIGHT_CONNECTED == true
+        
+            % (필터 크기에 맞춘)좌우 외곽경계로 추가해야할 열 개수
+            boundMarginColsNo = filterSize - 1;
+
+            modifiedDEM = zeros(mRows,nCols+boundMarginColsNo*2);
+            modifiedDEM(:,X_LEFT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo) = elev;
+
+            % 좌우 외곽경계 고도 조정
+            modifiedDEM(:,X_RIGHT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo*2) ...
+                = modifiedDEM(:,X_INI+boundMarginColsNo:X_INI+boundMarginColsNo*2);
+            modifiedDEM(:,X_LEFT_BND:X_LEFT_BND+boundMarginColsNo) ...
+                = modifiedDEM(:,X_MAX:X_MAX+boundMarginColsNo);
+
+            % 상하 외곽경계 고도 조정
+            modifiedDEM(Y_TOP_BND,:) = modifiedDEM(Y_INI,:);
+            modifiedDEM(Y_BOTTOM_BND,:) = modifiedDEM(Y_MAX,:);
+            
+        else
+            
+            modifiedDEM = elev;
+            
+        end
+
+        filterSize = 3;                     % 필터 크기
+        
+        diskFilter = fspecial('disk',filterSize);
+
+        smoothedDEMDisk = imfilter(modifiedDEM,diskFilter);
+
+        diffElevDisk = smoothedDEMDisk - modifiedDEM;
+        
+        if SHOW_GRAPH == SHOW_GRAPH_YES
+        
+        figure(Hf_15);
+        % set(gcf,'MenuBar','none')
+        
+        if IS_LEFT_RIGHT_CONNECTED == true
+            
+            imagesc(diffElevDisk(Y_INI:Y_MAX ...
+                ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo));
+                    % * 주의: 외곽경계 영향으로 서쪽 경계의 값이 매우 작음
+            maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX ...
+                ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo)));
+        
+        else
+            
+            imagesc(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX));
+            maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX,X_INI:X_MAX)));
+            
+        end
+            
+        colorbar
+        
+        % set(gca,'CLim',[-maxDiffElev maxDiffElev])
+        
+        set(gca,'DataAspectRatio',[1 1 1])
+        
+        tmpTitle = [int2str(simulatingTime) '[yr] TPI'];
+        title(tmpTitle,'FontSize',18);
+        
+        end
         
         %------------------------------------------------------------------
         % (D) 구성물질 특성
@@ -1420,7 +1420,7 @@ for ithStep = initIthStep:endStep
         set(AX(1),'ylim',[0 maxY],'xlim',[0 endTimeX])
         set(AX(2),'ylim',[0 maxY],'xlim',[0 endTimeX])
         tmpTitle = [int2str(simulatingTime) '[yr] Geomorphic Process Characteristics'];
-        title(tmpTitle)
+        title(tmpTitle,'FontSize',18);
         
         end
         
@@ -1510,7 +1510,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] chanBedSed Budget'];
-%         title(tmpTitle)      
+%         title(tmpTitle,'FontSize',18);      
 %         
 %         end
         
