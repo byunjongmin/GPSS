@@ -1,32 +1,32 @@
 /*
  * EstimateSubDTMex.c
  *
- *  (ë†’ì€ ê³ ë„ì˜ ì…€ë¶€í„°) í•˜ë¥˜ë°©í–¥ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ” ì‹œê°„ì„ ì¶”ì •í•˜ëŠ” í•¨ìˆ˜
- *  EstimateSubDT í•¨ìˆ˜(ver 0.8)ì˜ for ë°˜ë³µë¬¸ë§Œì„ mex íŒŒì¼ë¡œ ë³€ê²½í•¨
+ *  (³ôÀº °íµµÀÇ ¼¿ºÎÅÍ) ÇÏ·ù¹æÇâ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Â ½Ã°£À» ÃßÁ¤ÇÏ´Â ÇÔ¼ö
+ *  EstimateSubDT ÇÔ¼ö(ver 0.8)ÀÇ for ¹İº¹¹®¸¸À» mex ÆÄÀÏ·Î º¯°æÇÔ
  % 
- * takenTime ...                0 í•˜ë¥˜ë°©í–¥ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ” ì‹œê°„ [s]
+ * takenTime ...                0 ÇÏ·ù¹æÇâ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Â ½Ã°£ [s]
  * = EstimateSubDTMex ...
- * (mRows ...                   0 . í–‰ ê°œìˆ˜
- * ,nCols ...                   1 . ì—´ ê°œìˆ˜
- * ,consideringCellsNo)         2 . í•˜ì²œì‘ìš©ì´ ë°œìƒí•˜ëŠ” ì…€ ìˆ˜
- *----------------------------- mexGetVariablePtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
- * mexSortedIndicies ...        3 . ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
- * e1LinearIndicies ...         4 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
- * e2LinearIndicies ...         5 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
- * outputFluxRatioToE1 ...      6 . ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
- * outputFluxRatioToE2 ...      7 . ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
- * mexSDSNbrIndicies ...        8 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
- * floodedRegionCellsNo ...     9 . flooded region êµ¬ì„± ì…€ ìˆ˜
- * dElev ...                    10 . ê³ ë„ ë³€í™”ìœ¨ [m/trialTime]
- * elev ...                     11 . ê³ ë„ [m]
- *----------------------------- mexGetVariable í•¨ìˆ˜ë¡œ ë³µì‚¬í•´ì˜¤ëŠ” ë³€ìˆ˜
- * takenTime ...                0 . infë¡œ ì´ˆê¸°í™”ëœ ì¶œë ¥ ë³€ìˆ˜
+ * (mRows ...                   0 . Çà °³¼ö
+ * ,nCols ...                   1 . ¿­ °³¼ö
+ * ,consideringCellsNo)         2 . ÇÏÃµÀÛ¿ëÀÌ ¹ß»ıÇÏ´Â ¼¿ ¼ö
+ *----------------------------- mexGetVariablePtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼ö
+ * mexSortedIndicies ...        3 . °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
+ * e1LinearIndicies ...         4 . ´ÙÀ½ ¼¿ »öÀÎ
+ * e2LinearIndicies ...         5 . ´ÙÀ½ ¼¿ »öÀÎ
+ * outputFluxRatioToE1 ...      6 . ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
+ * outputFluxRatioToE2 ...      7 . ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
+ * mexSDSNbrIndicies ...        8 . ´ÙÀ½ ¼¿ »öÀÎ
+ * floodedRegionCellsNo ...     9 . flooded region ±¸¼º ¼¿ ¼ö
+ * dElev ...                    10 . °íµµ º¯È­À² [m/trialTime]
+ * elev ...                     11 . °íµµ [m]
+ *----------------------------- mexGetVariable ÇÔ¼ö·Î º¹»çÇØ¿À´Â º¯¼ö
+ * takenTime ...                0 . inf·Î ÃÊ±âÈ­µÈ Ãâ·Â º¯¼ö
  *
  */
 
 # include "mex.h"
 
-/* ê³„ì‚° í•¨ìˆ˜ ì„ ì–¸ */
+/* °è»ê ÇÔ¼ö ¼±¾ğ */
 void EstimateSubDTMex(
     double * takenTime,
     mwSize consideringCellsNo,
@@ -44,10 +44,10 @@ void EstimateSubDTMex(
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
-    /* ì…ë ¥ ë³€ìˆ˜ ì„ ì–¸
-     * ì£¼ì˜: mxArray ìë£Œí˜• ë³€ìˆ˜ëŠ” mexGetVariablePtr í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬
-     * í˜¸ì¶œí•¨ìˆ˜ì˜ ì‘ì—…ê³µê°„ì— ìˆëŠ” ë³€ìˆ˜ë“¤ì˜ í¬ì¸í„°ë§Œ ë¶ˆëŸ¬ì˜´ */
-    /* í˜¸ì¶œí•¨ìˆ˜ ì‘ì—…ê³µê°„ì˜ ë³€ìˆ˜ */
+    /* ÀÔ·Â º¯¼ö ¼±¾ğ
+     * ÁÖÀÇ: mxArray ÀÚ·áÇü º¯¼ö´Â mexGetVariablePtr ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿©
+     * È£ÃâÇÔ¼öÀÇ ÀÛ¾÷°ø°£¿¡ ÀÖ´Â º¯¼öµéÀÇ Æ÷ÀÎÅÍ¸¸ ºÒ·¯¿È */
+    /* È£ÃâÇÔ¼ö ÀÛ¾÷°ø°£ÀÇ º¯¼ö */
     const   mxArray * mxArray3;     /* mexSortedIndicies */
     const   mxArray * mxArray4;     /* e1LinearIndicies */
     const   mxArray * mxArray5;     /* e2LinearIndicies */
@@ -58,7 +58,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     const   mxArray * mxArray10;    /* dElev */
     const   mxArray * mxArray11;    /* elev */
             
-    /* ì…ë ¥ë³€ìˆ˜ ì‹¤ì œ ìë£Œ  */
+    /* ÀÔ·Âº¯¼ö ½ÇÁ¦ ÀÚ·á  */
     mwSize mRows;
     mwSize nCols;
     mwSize consideringCellsNo;
@@ -72,10 +72,10 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     double * dElev;
     double * elev;
     
-    /* ì¶œë ¥ ë³€ìˆ˜ ì„ ì–¸ */
+    /* Ãâ·Â º¯¼ö ¼±¾ğ */
     double * takenTime;
     
-    /* ì…ë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */      
+    /* ÀÔ·Â º¯¼ö ÃÊ±âÈ­ */      
     mRows               = (mwSize) mxGetScalar(prhs[0]);
     nCols               = (mwSize) mxGetScalar(prhs[1]);
     consideringCellsNo  = (mwSize) mxGetScalar(prhs[2]);
@@ -100,13 +100,13 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     dElev                       = mxGetPr(mxArray10);
     elev                        = mxGetPr(mxArray11);
     
-    /* ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */
+    /* Ãâ·Â º¯¼ö ÃÊ±âÈ­ */
     plhs[0] = mexGetVariable("caller","takenTime");
     
-    /* ì¶œë ¥ ë³€ìˆ˜ì˜ ìë£Œì— í¬ì¸í„°ë¥¼ ì§€ì • */
+    /* Ãâ·Â º¯¼öÀÇ ÀÚ·á¿¡ Æ÷ÀÎÅÍ¸¦ ÁöÁ¤ */
     takenTime = mxGetPr(plhs[0]);
     
-    /* ì„œë¸Œ ë£¨í‹´ ìˆ˜í–‰ */
+    /* ¼­ºê ·çÆ¾ ¼öÇà */
     EstimateSubDTMex(
         takenTime,
         consideringCellsNo,
@@ -135,51 +135,51 @@ void EstimateSubDTMex(
     double * dElev,
     double * elev)
 {
-    /* ì„ì‹œ ë³€ìˆ˜ ì„ ì–¸ */
+    /* ÀÓ½Ã º¯¼ö ¼±¾ğ */
     mwIndex ithCell,ithCellIdx,e1,e2,next;
     
     double inf;
     double takenTimeForE1,takenTimeForE2;
     
-    /* takenTimeForE1, takenTimeForE2 ë³€ìˆ˜ ì´ˆê¸°í™” */
+    /* takenTimeForE1, takenTimeForE2 º¯¼ö ÃÊ±âÈ­ */
     inf = mxGetInf();
     takenTimeForE1 = inf;
     takenTimeForE2 = inf;
     
-    /* (ë†’ì€ ê³ ë„ì˜ ì…€ë¶€í„°) ë‹¤ìŒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ” ì‹œê°„ì„ ì¶”ì •í•¨ */
+    /* (³ôÀº °íµµÀÇ ¼¿ºÎÅÍ) ´ÙÀ½ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Â ½Ã°£À» ÃßÁ¤ÇÔ */
     for (ithCell=0;ithCell<consideringCellsNo;ithCell++)
     {
-        /* 1. ië²ˆì§¸ ì…€ ìƒ‰ì¸
-         * * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+        /* 1. i¹øÂ° ¼¿ »öÀÎ
+         * * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
         ithCellIdx = (mwIndex) mexSortedIndicies[ithCell] - 1;
 
-        /* 2. ië²ˆì§¸ ì…€ì´ ìœ ì¶œêµ¬ì¸ì§€ í™•ì¸í•¨ */
+        /* 2. i¹øÂ° ¼¿ÀÌ À¯Ãâ±¸ÀÎÁö È®ÀÎÇÔ */
         if ((int) floodedRegionCellsNo[ithCellIdx] == 0)
         {
-            /* 1) ìœ ì¶œêµ¬ê°€ ì•„ë‹ˆë¼ë©´, ië²ˆì§¸ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ì„ ë¬´í•œ ìœ í–¥ì„ ë”°ë¼
-             *    ë‹¤ìŒ ì…€ë“¤ì˜ ê³ ë„ ë³€í™”ìœ¨ê³¼ ë¹„êµí•¨
-             * * ì›ë¦¬: ë‹¤ìŒ ì…€ë“¤(e1,e2)ì˜ ì¹¨ì‹ìœ¨ì´ ë” ì‘ì€ ê²½ìš°, trialTimeë‚´ì—
-             *   ìƒë¥˜ì™€ í•˜ë¥˜ì˜ ê¸°ë³µì´ ì—­ì „ë¨. ë”°ë¼ì„œ ê¸°ë³µ ì—­ì „ì´ ë°œìƒí•˜ê¸°
-             *   ì§ì „ê¹Œì§€ì˜ ì‹œê°„, ì¦‰ ë‹¤ìŒ ì…€ë“¤(e1,e2)ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ”ë°
-             *   ê±¸ë¦¬ëŠ” ì‹œê°„[trialTime]ì„ êµ¬í•˜ê³  ì´ë¥¼ ë‚˜ì¤‘ì— ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ìœ¼ë¡œ
-             *   ì„¤ì •í•¨.
-             * * ì£¼ì˜: ë‹¤ìŒ ì…€ë¡œì˜ íë¦„ ë¹„ìœ¨ì´ ì ì–´ë„ 0.0000001 ë³´ë‹¤ëŠ” í°
-             *   ê²½ìš°ì—ë§Œ ì‹œê°„ì„ êµ¬í•¨. e1 ë˜ëŠ” e2 ì¤‘ í•œ ì…€ë¡œë§Œ íë¦„ì´
-             *   ì „ë‹¬ë˜ë”ë¼ë„ ìœ íš¨ìˆ«ì í•œê³„ë¡œ ì¸í•´ íë¦„ ë¹„ìœ¨ì´ ì •í™•í•˜ê²Œ 1 ë˜ëŠ”
-             *   0ì´ ë˜ì§€ ì•Šê¸° ë•Œë¬¸ì„. ì¦‰ ì ì–´ë„ 0.0000001 ë³´ë‹¤ í´ ê²½ìš°ì—ë§Œ
-             *   ê²½ìš°ì—ë§Œ íë¦„ì´ ì „ë‹¬ëœë‹¤ê³  ê°€ì •í•¨. ë”°ë¼ì„œ ì´ë³´ë‹¤ ì‘ì€ ê²½ìš°ì—ëŠ”
-             *   ì—°ì‚°ì´ ë¶ˆí•„ìš”í•¨ */
+            /* 1) À¯Ãâ±¸°¡ ¾Æ´Ï¶ó¸é, i¹øÂ° ¼¿ÀÇ °íµµ º¯È­À²À» ¹«ÇÑ À¯ÇâÀ» µû¶ó
+             *    ´ÙÀ½ ¼¿µéÀÇ °íµµ º¯È­À²°ú ºñ±³ÇÔ
+             * * ¿ø¸®: ´ÙÀ½ ¼¿µé(e1,e2)ÀÇ Ä§½ÄÀ²ÀÌ ´õ ÀÛÀº °æ¿ì, trialTime³»¿¡
+             *   »ó·ù¿Í ÇÏ·ùÀÇ ±âº¹ÀÌ ¿ªÀüµÊ. µû¶ó¼­ ±âº¹ ¿ªÀüÀÌ ¹ß»ıÇÏ±â
+             *   Á÷Àü±îÁöÀÇ ½Ã°£, Áï ´ÙÀ½ ¼¿µé(e1,e2)°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Âµ¥
+             *   °É¸®´Â ½Ã°£[trialTime]À» ±¸ÇÏ°í ÀÌ¸¦ ³ªÁß¿¡ ¼¼ºÎ ´ÜÀ§½Ã°£À¸·Î
+             *   ¼³Á¤ÇÔ.
+             * * ÁÖÀÇ: ´ÙÀ½ ¼¿·ÎÀÇ Èå¸§ ºñÀ²ÀÌ Àû¾îµµ 0.0000001 º¸´Ù´Â Å«
+             *   °æ¿ì¿¡¸¸ ½Ã°£À» ±¸ÇÔ. e1 ¶Ç´Â e2 Áß ÇÑ ¼¿·Î¸¸ Èå¸§ÀÌ
+             *   Àü´ŞµÇ´õ¶óµµ À¯È¿¼ıÀÚ ÇÑ°è·Î ÀÎÇØ Èå¸§ ºñÀ²ÀÌ Á¤È®ÇÏ°Ô 1 ¶Ç´Â
+             *   0ÀÌ µÇÁö ¾Ê±â ¶§¹®ÀÓ. Áï Àû¾îµµ 0.0000001 º¸´Ù Å¬ °æ¿ì¿¡¸¸
+             *   °æ¿ì¿¡¸¸ Èå¸§ÀÌ Àü´ŞµÈ´Ù°í °¡Á¤ÇÔ. µû¶ó¼­ ÀÌº¸´Ù ÀÛÀº °æ¿ì¿¡´Â
+             *   ¿¬»êÀÌ ºÒÇÊ¿äÇÔ */
             
-            /* (1) ë‹¤ìŒ ì…€ ìƒ‰ì¸ */
-            /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+            /* (1) ´ÙÀ½ ¼¿ »öÀÎ */
+            /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
             e1 = (mwIndex) e1LinearIndicies[ithCellIdx] - 1;
             e2 = (mwIndex) e2LinearIndicies[ithCellIdx] - 1;
 
-            /* (2) ië²ˆì§¸ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ì´ e1ì˜ ê³ ë„ ë³€í™”ìœ¨ë³´ë‹¤ ì ë‹¤ë©´, ë‹¤ìŒ
-             *     ë‹¤ìŒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì„ êµ¬í•¨
-             * * ì£¼ì˜: takenTimeForXì˜ ë¶„ìëŠ” í•­ìƒ ìŒì˜ ê°’ì„ ê°€ì§ ë”°ë¼ì„œ if
-             *   ì¡°ê±´ë¬¸ì´ ì°¸ì¸ ê²½ìš° ë¶„ëª¨ ë˜í•œ ìŒì˜ ê°’ì„ ê°€ì§€ë¯€ë¡œ ì „ì²´ëŠ” í•­ìƒ
-             *   ì–‘ì˜ ê°’ì„ ê°€ì§ */            
+            /* (2) i¹øÂ° ¼¿ÀÇ °íµµ º¯È­À²ÀÌ e1ÀÇ °íµµ º¯È­À²º¸´Ù Àû´Ù¸é, ´ÙÀ½
+             *     ´ÙÀ½ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Âµ¥ °É¸®´Â ½Ã°£À» ±¸ÇÔ
+             * * ÁÖÀÇ: takenTimeForXÀÇ ºĞÀÚ´Â Ç×»ó À½ÀÇ °ªÀ» °¡Áü µû¶ó¼­ if
+             *   Á¶°Ç¹®ÀÌ ÂüÀÎ °æ¿ì ºĞ¸ğ ¶ÇÇÑ À½ÀÇ °ªÀ» °¡Áö¹Ç·Î ÀüÃ¼´Â Ç×»ó
+             *   ¾çÀÇ °ªÀ» °¡Áü */            
             if ((dElev[ithCellIdx] < dElev[e1])
                 && (outputFluxRatioToE1[ithCellIdx] > 0.0000001))
             {
@@ -187,8 +187,8 @@ void EstimateSubDTMex(
                     / (dElev[ithCellIdx] - dElev[e1]);
             }            
 
-            /* (3) ië²ˆì§¸ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ì´ e2ì˜ ê³ ë„ ë³€í™”ìœ¨ë³´ë‹¤ ì ë‹¤ë©´, ë‹¤ìŒ
-             *     ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì„ êµ¬í•¨ */
+            /* (3) i¹øÂ° ¼¿ÀÇ °íµµ º¯È­À²ÀÌ e2ÀÇ °íµµ º¯È­À²º¸´Ù Àû´Ù¸é, ´ÙÀ½
+             *     ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Âµ¥ °É¸®´Â ½Ã°£À» ±¸ÇÔ */
             if ((dElev[ithCellIdx] < dElev[e2])
                 && (outputFluxRatioToE2[ithCellIdx] > 0.0000001))
             {
@@ -196,7 +196,7 @@ void EstimateSubDTMex(
                     / (dElev[ithCellIdx] - dElev[e2]);
             }
 
-            /* (4) e1ê³¼ e2ì¤‘ ì†Œìš” ì‹œê°„ì´ ì ì€ ê²ƒì„ ìµœì¢… ì†Œìš” ì‹œê°„ìœ¼ë¡œ ê¸°ë¡í•¨ */
+            /* (4) e1°ú e2Áß ¼Ò¿ä ½Ã°£ÀÌ ÀûÀº °ÍÀ» ÃÖÁ¾ ¼Ò¿ä ½Ã°£À¸·Î ±â·ÏÇÔ */
             if (takenTimeForE1 <= takenTimeForE2)
             {
                     takenTime[ithCellIdx] = takenTimeForE1;
@@ -206,21 +206,21 @@ void EstimateSubDTMex(
                     takenTime[ithCellIdx] = takenTimeForE2;
             }
             
-            /* (5) takenTimeForE1, takenTimeForE2 ë³€ìˆ˜ ì´ˆê¸°í™” */
+            /* (5) takenTimeForE1, takenTimeForE2 º¯¼ö ÃÊ±âÈ­ */
             takenTimeForE1 = inf;
             takenTimeForE2 = inf;
         }
         else /* (int) floodedRegionCellsNo[ithCellIdx] != 0 */
         {
-            /* 2) ìœ ì¶œêµ¬ì¸ ê²½ìš°ì—ëŠ” ië²ˆì§¸ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ì„ ìµœëŒ€í•˜ë¶€ê²½ì‚¬
-             *    ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ê³¼ ë¹„êµí•¨ */
+            /* 2) À¯Ãâ±¸ÀÎ °æ¿ì¿¡´Â i¹øÂ° ¼¿ÀÇ °íµµ º¯È­À²À» ÃÖ´ëÇÏºÎ°æ»ç
+             *    À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿ÀÇ °íµµ º¯È­À²°ú ºñ±³ÇÔ */
             
-            /* (1) ë‹¤ìŒ ì…€ ìƒ‰ì¸
-             * * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+            /* (1) ´ÙÀ½ ¼¿ »öÀÎ
+             * * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
             next = (mwIndex) mexSDSNbrIndicies[ithCellIdx] - 1;
     
-            /* (2) ië²ˆì§¸ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ì´ ë‹¤ìŒ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ë³´ë‹¤ ì‘ë‹¤ë©´
-             *     ì‘ë‹¤ë©´ ë‹¤ìŒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì„ êµ¬í•¨ */
+            /* (2) i¹øÂ° ¼¿ÀÇ °íµµ º¯È­À²ÀÌ ´ÙÀ½ ¼¿ÀÇ °íµµ º¯È­À²º¸´Ù ÀÛ´Ù¸é
+             *     ÀÛ´Ù¸é ´ÙÀ½ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Âµ¥ °É¸®´Â ½Ã°£À» ±¸ÇÔ */
             if (dElev[ithCellIdx] < dElev[next])
             {
                 takenTime[ithCellIdx] = (elev[next] - elev[ithCellIdx])

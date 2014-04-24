@@ -1,57 +1,57 @@
 % =========================================================================
 %> @section INTRO IsDry
 %>
-%> - ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ì˜ flood ìƒíƒœë¥¼ í™•ì¸í•˜ì—¬, 1) ìœ í–¥ì´ ì •ì˜ë˜ì–´ ìžˆê±°ë‚˜
-%>   ë˜ëŠ” SINKì¸ ê²½ìš° trueë¥¼ ë°˜í™˜í•˜ê³ , 2) í˜„ìž¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì¸ ê²½ìš°
-%>   falseë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
-%>  - 3) ìœ„ì˜ ì¡°ê±´ë„ ì•„ë‹ˆë¼ë©´ OLD_FLOODEDì— í•´ë‹¹í•˜ëŠ” ê²½ìš°ì¸ë°, ì´ ê²½ìš°ë„
-%>    ê°€ìž¥ ë‚®ì€ ì…€ì´ ìœ ì¶œêµ¬ê°€ ë  ìˆ˜ ìžˆìœ¼ë¯€ë¡œ trueë¥¼ ë°˜í™˜í•œë‹¤.\n
-%>    í•˜ì§€ë§Œ ê³¼ê±° ì²˜ë¦¬í•œ flooded regionì˜ ìœ ì¶œêµ¬ì˜ ê³ ë„ê°€ ê°€ìž¥ ë‚®ì€ ì…€ì˜ ê³ ë„ì™€
-%>    ê°™ë‹¤ë©´ ë¬¸ì œê°€ ë°œìƒí•œë‹¤.
+%> - °¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿ÀÇ flood »óÅÂ¸¦ È®ÀÎÇÏ¿©, 1) À¯ÇâÀÌ Á¤ÀÇµÇ¾î ÀÖ°Å³ª
+%>   ¶Ç´Â SINKÀÎ °æ¿ì true¸¦ ¹ÝÈ¯ÇÏ°í, 2) ÇöÀç Ã³¸® ÁßÀÎ flooded regionÀÎ °æ¿ì
+%>   false¸¦ ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö
+%>  - 3) À§ÀÇ Á¶°Çµµ ¾Æ´Ï¶ó¸é OLD_FLOODED¿¡ ÇØ´çÇÏ´Â °æ¿ìÀÎµ¥, ÀÌ °æ¿ìµµ
+%>    °¡Àå ³·Àº ¼¿ÀÌ À¯Ãâ±¸°¡ µÉ ¼ö ÀÖÀ¸¹Ç·Î true¸¦ ¹ÝÈ¯ÇÑ´Ù.\n
+%>    ÇÏÁö¸¸ °ú°Å Ã³¸®ÇÑ flooded regionÀÇ À¯Ãâ±¸ÀÇ °íµµ°¡ °¡Àå ³·Àº ¼¿ÀÇ °íµµ¿Í
+%>    °°´Ù¸é ¹®Á¦°¡ ¹ß»ýÇÑ´Ù.
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval isTrue   : ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ì´ flooded regionì´ ì•„ë‹Œê°€ë¥¼ ê°€ë¦¬í‚¤ëŠ” ë³€ìˆ˜
+%> @retval isTrue   : °¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿ÀÌ flooded regionÀÌ ¾Æ´Ñ°¡¸¦ °¡¸®Å°´Â º¯¼ö
 %>
-%> @param nbrY      : ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ Y ì¢Œí‘œ
-%> @param nbrX      : ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ X ì¢Œí‘œ
-%> @param lowestY   : ê°€ìž¥ ë‚®ì€ ì…€ì˜ Y ì¢Œí‘œ
-%> @param lowestX   : ê°€ìž¥ ë‚®ì€ ì…€ì˜ X ì¢Œí‘œ
-%> @param flood     : SINKë¡œ ì¸í•´ ë¬¼ì´ ê³ ì´ëŠ” ì§€ì—­(flooded region)
-%> @param SDSNbrY   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
-%> @param SDSNbrX   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
-%> @param elev      : ì§€í‘œ ê³ ë„ [m]
+%> @param nbrY      : °¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿ Y ÁÂÇ¥
+%> @param nbrX      : °¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿ X ÁÂÇ¥
+%> @param lowestY   : °¡Àå ³·Àº ¼¿ÀÇ Y ÁÂÇ¥
+%> @param lowestX   : °¡Àå ³·Àº ¼¿ÀÇ X ÁÂÇ¥
+%> @param flood     : SINK·Î ÀÎÇØ ¹°ÀÌ °íÀÌ´Â Áö¿ª(flooded region)
+%> @param SDSNbrY   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
+%> @param SDSNbrX   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
+%> @param elev      : ÁöÇ¥ °íµµ [m]
 % =========================================================================
 function isTrue = IsDry(nbrY,nbrX,lowestY,lowestX,flood,SDSNbrY,SDSNbrX,elev)
 %
 %
 
-% ìƒìˆ˜ ì •ì˜
+% »ó¼ö Á¤ÀÇ
 UNFLOODED = 0;
 FLOODED = 1;
 SINK = 3; 
 
-% ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ì´ ìœ í–¥ì´ ì •ì˜ë˜ì–´ ìžˆê±°ë‚˜ SINKì¼ ê²½ìš°, trueë¥¼ ë°˜í™˜í•¨
+% °¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿ÀÌ À¯ÇâÀÌ Á¤ÀÇµÇ¾î ÀÖ°Å³ª SINKÀÏ °æ¿ì, true¸¦ ¹ÝÈ¯ÇÔ
 if ( ( flood(nbrY,nbrX) == UNFLOODED) || ( flood(nbrY,nbrX) == SINK) )
 
     isTrue = true;
 
-% ë§Œì•½ flooded regionì— í•´ë‹¹í•œë‹¤ë©´ falseë¥¼ ë°˜í™˜í•¨
+% ¸¸¾à flooded region¿¡ ÇØ´çÇÑ´Ù¸é false¸¦ ¹ÝÈ¯ÇÔ
 elseif ( flood(nbrY,nbrX) == FLOODED )
 
     isTrue = false;
 
-% ë§Œì•½ ê³¼ê±° ì²˜ë¦¬í•œ flooded regionì— í•´ë‹¹í•œë‹¤ë©´
+% ¸¸¾à °ú°Å Ã³¸®ÇÑ flooded region¿¡ ÇØ´çÇÑ´Ù¸é
 else
 
-    % ì´ì›ƒ ì…€ì˜ ìœ ì¶œêµ¬ ì¢Œë£Œë¥¼ í™•ì¸í•˜ì—¬
+    % ÀÌ¿ô ¼¿ÀÇ À¯Ãâ±¸ ÁÂ·á¸¦ È®ÀÎÇÏ¿©
     outletY = SDSNbrY(nbrY,nbrX);
     outletX = SDSNbrX(nbrY,nbrX);
 
-    % ì´ì˜ ê³ ë„, ì¦‰ ê³¼ê±° ì²˜ë¦¬í•œ flooded regionì˜ ìœ ì¶œêµ¬ì˜ ê³ ë„ì™€
-    % ê°€ìž¥ ë‚®ì€ ì…€ì˜ ê³ ë„ê°€ ë™ì¼í•œ ê²½ìš° falseë¥¼ ë°˜í™˜í•œë‹¤.
+    % ÀÌÀÇ °íµµ, Áï °ú°Å Ã³¸®ÇÑ flooded regionÀÇ À¯Ãâ±¸ÀÇ °íµµ¿Í
+    % °¡Àå ³·Àº ¼¿ÀÇ °íµµ°¡ µ¿ÀÏÇÑ °æ¿ì false¸¦ ¹ÝÈ¯ÇÑ´Ù.
     if ( elev(outletY,outletX) == elev(lowestY,lowestX) )
 
         isTrue = false;

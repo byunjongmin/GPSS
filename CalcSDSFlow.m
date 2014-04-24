@@ -1,95 +1,95 @@
 % =========================================================================
 %> @section INTRO CalcSDSFlow
 %>
-%> - ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ë¥¼ ê°€ì§€ëŠ” ì´ì›ƒ ì…€ì„ ì°¾ì•„ ì´ì˜ ë°©í–¥ê³¼ ê²½ì‚¬ë¥¼ ë°˜í™˜í•˜ê³ , 
-%>   ì´ ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ SDSNbrX, SDSNbrYì— ê¸°ë¡í•˜ëŠ” í•¨ìˆ˜.
+%> - ÃÖ´ë ÇÏºÎ °æ»ç¸¦ °¡Áö´Â ÀÌ¿ô ¼¿À» Ã£¾Æ ÀÌÀÇ ¹æÇâ°ú °æ»ç¸¦ ¹ÝÈ¯ÇÏ°í, 
+%>   ÀÌ ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ SDSNbrX, SDSNbrY¿¡ ±â·ÏÇÏ´Â ÇÔ¼ö.
 %>
-%>  - ì—°ì‚°ì€ CalcInfinitiveFlow í•¨ìˆ˜ì™€ ê°™ì´ ê²©ìž(ë°°ì—´) ë‹¨ìœ„ë¡œ ìˆ˜í–‰í•¨.
+%>  - ¿¬»êÀº CalcInfinitiveFlow ÇÔ¼ö¿Í °°ÀÌ °ÝÀÚ(¹è¿­) ´ÜÀ§·Î ¼öÇàÇÔ.
 %>
 %> @version 0.1
 %>
 %> @callgraph
 %> @callergraph
 %>
-%> @retval steepestDescentSlope         : ê²½ì‚¬
-%> @retval slopeAllNbr                  : 8ê°œ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬
-%> @retval SDSFlowDirection             : ìœ í–¥
-%> @retval SDSNbrY                      : ë‹¤ìŒ ì…€ Y ì¢Œí‘œê°’
-%> @retval SDSNbrX                      : ë‹¤ìŒ ì…€ X ì¢Œí‘œê°’
+%> @retval steepestDescentSlope         : °æ»ç
+%> @retval slopeAllNbr                  : 8°³ ÀÌ¿ô ¼¿°úÀÇ °æ»ç
+%> @retval SDSFlowDirection             : À¯Çâ
+%> @retval SDSNbrY                      : ´ÙÀ½ ¼¿ Y ÁÂÇ¥°ª
+%> @retval SDSNbrX                      : ´ÙÀ½ ¼¿ X ÁÂÇ¥°ª
 %>
-%> @param mRows                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
-%> @param nCols                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
-%> @param Y                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
-%> @param X                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
-%> @param Y_INI                         : ëª¨í˜• ì˜ì—­ Y ì‹œìž‘ ì¢Œí‘œê°’(=2)
-%> @param Y_MAX                         : ëª¨í˜• ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=Y+1)
-%> @param X_INI                         : ëª¨í˜• ì˜ì—­ X ì‹œìž‘ ì¢Œí‘œê°’(=2)
-%> @param X_MAX                         : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
-%> @param Y_TOP_BND                     : ëª¨í˜• ì™¸ê³½ ìœ„ ê²½ê³„ Y ì¢Œí‘œê°’
-%> @param Y_BOTTOM_BND                  : ëª¨í˜• ì™¸ê³½ ì•„ëž˜ ê²½ê³„ Y ì¢Œí‘œê°’
-%> @param X_LEFT_BND                    : ëª¨í˜• ì™¸ê³½ ì¢Œ ê²½ê³„ X ì¢Œí‘œê°’
-%> @param X_RIGHT_BND                   : ëª¨í˜• ì™¸ê³½ ìš° ê²½ê³„ X ì¢Œí‘œê°’
+%> @param mRows                         : ¸ðÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
+%> @param nCols                         : ¸ðÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
+%> @param Y                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
+%> @param X                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
+%> @param Y_INI                         : ¸ðÇü ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª(=2)
+%> @param Y_MAX                         : ¸ðÇü ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª(=Y+1)
+%> @param X_INI                         : ¸ðÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
+%> @param X_MAX                         : ¸ðÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
+%> @param Y_TOP_BND                     : ¸ðÇü ¿Ü°û À§ °æ°è Y ÁÂÇ¥°ª
+%> @param Y_BOTTOM_BND                  : ¸ðÇü ¿Ü°û ¾Æ·¡ °æ°è Y ÁÂÇ¥°ª
+%> @param X_LEFT_BND                    : ¸ðÇü ¿Ü°û ÁÂ °æ°è X ÁÂÇ¥°ª
+%> @param X_RIGHT_BND                   : ¸ðÇü ¿Ü°û ¿ì °æ°è X ÁÂÇ¥°ª
 %> @param QUARTER_PI                    : pi * 0.25
-%> @param DISTANCE_RATIO_TO_NBR         : ì…€ í¬ê¸°ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì´ì›ƒ ì…€ê°„ ê±°ë¦¬ë¹„ [m]
-%> @param elev                          : ì§€í‘œ ê³ ë„ [m]
-%> @param dX                            : ì…€ í¬ê¸° [m]
-%> @param IS_LEFT_RIGHT_CONNECTED       : ì¢Œìš° ì™¸ê³½ ê²½ê³„ ì—°ê²°ì„ ê²°ì •
-%> @param ithNbrYOffset                 : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Yì¶• ì˜µì…‹
-%> @param ithNbrXOffset                 : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Xì¶• ì˜µì…‹
-%> @param sE0LinearIndicies             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ ì¤‘ì•™ ì…€
-%> @param s3IthNbrLinearIndicies        : 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ëŠ” 3ì°¨ì› ìƒ‰ì¸ ë°°ì—´
+%> @param DISTANCE_RATIO_TO_NBR         : ¼¿ Å©±â¸¦ ±âÁØÀ¸·Î ÀÌ¿ô ¼¿°£ °Å¸®ºñ [m]
+%> @param elev                          : ÁöÇ¥ °íµµ [m]
+%> @param dX                            : ¼¿ Å©±â [m]
+%> @param IS_LEFT_RIGHT_CONNECTED       : ÁÂ¿ì ¿Ü°û °æ°è ¿¬°áÀ» °áÁ¤
+%> @param ithNbrYOffset                 : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ YÃà ¿É¼Â
+%> @param ithNbrXOffset                 : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ XÃà ¿É¼Â
+%> @param sE0LinearIndicies             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ Áß¾Ó ¼¿
+%> @param s3IthNbrLinearIndicies        : 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°´Â 3Â÷¿ø »öÀÎ ¹è¿­
 % =========================================================================
 function [steepestDescentSlope,slopeAllNbr,SDSFlowDirection,SDSNbrY,SDSNbrX] = CalcSDSFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,DISTANCE_RATIO_TO_NBR,elev,dX,IS_LEFT_RIGHT_CONNECTED,ithNbrYOffset,ithNbrXOffset,sE0LinearIndicies,s3IthNbrLinearIndicies)
 %
 % function CalcSDSFlow
 %
 
-% ìœ í–¥ ë° ê²½ì‚¬ ë³€ìˆ˜ ì´ˆê¸°í™”
+% À¯Çâ ¹× °æ»ç º¯¼ö ÃÊ±âÈ­
 SDSFlowDirection = nan(mRows,nCols);
 steepestDescentSlope = nan(mRows,nCols);
 slopeAllNbr = nan(mRows,nCols,8);
-% ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ë¥¼ ê°€ì§€ëŠ” ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ ê¸°ë¡í•˜ëŠ” í–‰ë ¬ ì´ˆê¸°í™”
+% ÃÖ´ë ÇÏºÎ °æ»ç¸¦ °¡Áö´Â ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ ±â·ÏÇÏ´Â Çà·Ä ÃÊ±âÈ­
 [SDSNbrX,SDSNbrY] = meshgrid(X_LEFT_BND:X_RIGHT_BND,Y_TOP_BND:Y_BOTTOM_BND);
-% * ì£¼ì˜ : ì—°ì‚°ì€ ê²©ìž ë‹¨ìœ„ë¡œ ìˆ˜í–‰ë˜ëŠ”ë° ëª¨ë¸ ì˜ì—­ ë‚´ë¶€ë§Œì„ ëŒ€ìƒìœ¼ë¡œ í•˜ê¸° ë•Œë¬¸ì—
-%   ê²½ê³„ë¥¼ ì œì™¸í•œ ë°°ì—´ì„ ìƒì„±í•˜ê³  ì´ˆê¸°í™”í•œë‹¤. sëŠ” mRows*nColsë³´ë‹¤ ìž‘ì€ Y*X
-%   í¬ê¸°ë¥¼ ê°€ì§€ëŠ” í–‰ë ¬ì„ ì˜ë¯¸í•œë‹¤.
+% * ÁÖÀÇ : ¿¬»êÀº °ÝÀÚ ´ÜÀ§·Î ¼öÇàµÇ´Âµ¥ ¸ðµ¨ ¿µ¿ª ³»ºÎ¸¸À» ´ë»óÀ¸·Î ÇÏ±â ¶§¹®¿¡
+%   °æ°è¸¦ Á¦¿ÜÇÑ ¹è¿­À» »ý¼ºÇÏ°í ÃÊ±âÈ­ÇÑ´Ù. s´Â mRows*nColsº¸´Ù ÀÛÀº Y*X
+%   Å©±â¸¦ °¡Áö´Â Çà·ÄÀ» ÀÇ¹ÌÇÑ´Ù.
 sSteepestDescentSlope = -inf(Y, X);
-% ìœ í–¥ì´ ì—†ì„ ê²½ìš°ì—ëŠ” NaNìœ¼ë¡œ ê¸°ë¡ëœë‹¤.
+% À¯ÇâÀÌ ¾øÀ» °æ¿ì¿¡´Â NaNÀ¸·Î ±â·ÏµÈ´Ù.
 sSDSFlowDirection = nan(Y, X);
 [sSDSNbrX,sSDSNbrY] = meshgrid(X_INI:X_MAX,Y_INI:Y_MAX);
 
-% ê°œë³„ ì…€ë³„ë¡œ ì—°ì‚°ì„ ìˆ˜í–‰í•˜ì—¬ ìœ í–¥ê³¼ ê²½ì‚¬ë¥¼ êµ¬í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼,
-% ê²©ìž(ë°°ì—´) ë‹¨ìœ„ë¡œ ì—°ì‚°ì„ ìˆ˜í–‰í•œë‹¤.
+% °³º° ¼¿º°·Î ¿¬»êÀ» ¼öÇàÇÏ¿© À¯Çâ°ú °æ»ç¸¦ ±¸ÇÏ´Â °ÍÀÌ ¾Æ´Ï¶ó,
+% °ÝÀÚ(¹è¿­) ´ÜÀ§·Î ¿¬»êÀ» ¼öÇàÇÑ´Ù.
 
-% ì¤‘ì•™ ì…€ì˜ (ì„ í˜• ìƒ‰ì¸ì´ ê°€ë¦¬í‚¤ëŠ”) ê³ ë„ë¥¼ ì €ìž¥í•œë‹¤.
+% Áß¾Ó ¼¿ÀÇ (¼±Çü »öÀÎÀÌ °¡¸®Å°´Â) °íµµ¸¦ ÀúÀåÇÑ´Ù.
 sE0Elevation = elev(sE0LinearIndicies);
 
-% ì¤‘ì•™ ì…€ì„ ê¸°ì¤€ìœ¼ë¡œ 8ê°œ ì´ì›ƒ ì…€ì˜ ê²½ì‚¬ë¥¼ íƒìƒ‰í•˜ì—¬ ìœ í–¥ê³¼ ê²½ì‚¬ë¥¼ ê²°ì •í•œë‹¤.
+% Áß¾Ó ¼¿À» ±âÁØÀ¸·Î 8°³ ÀÌ¿ô ¼¿ÀÇ °æ»ç¸¦ Å½»öÇÏ¿© À¯Çâ°ú °æ»ç¸¦ °áÁ¤ÇÑ´Ù.
 
-% ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ë¥¼ ê°€ì§€ëŠ” ì´ì›ƒ ì…€ì˜ Y,X ì¢Œí‘œê°’ ìž…ë ¥ì‹œ ê¸°ë³¸ì´ ë˜ëŠ” ì¢Œí‘œê°’
+% ÃÖ´ë ÇÏºÎ °æ»ç¸¦ °¡Áö´Â ÀÌ¿ô ¼¿ÀÇ Y,X ÁÂÇ¥°ª ÀÔ·Â½Ã ±âº»ÀÌ µÇ´Â ÁÂÇ¥°ª
 initialNbrX = sSDSNbrX;
 initialNbrY = sSDSNbrY;
 
 for ithNbr = 1:8
 
-    % ì„ í˜• ì˜µì…‹ì„ ì´ìš©í•œ k ë²ˆì§¸ ì´ì›ƒ ì…€ì˜ ê³ ë„
+    % ¼±Çü ¿É¼ÂÀ» ÀÌ¿ëÇÑ k ¹øÂ° ÀÌ¿ô ¼¿ÀÇ °íµµ
     sKthNbrElevation = elev(s3IthNbrLinearIndicies(:,:,ithNbr));
 
-    % ì¤‘ì•™ ì…€ê³¼ k ë²ˆì§¸ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ë¥¼ êµ¬í•¨
+    % Áß¾Ó ¼¿°ú k ¹øÂ° ÀÌ¿ô ¼¿°úÀÇ °æ»ç¸¦ ±¸ÇÔ
     sKthNbrSlope = (sE0Elevation - sKthNbrElevation) ...
     / (DISTANCE_RATIO_TO_NBR(ithNbr) * dX);
 
-    % ì°¨í›„ë¥¼ ìœ„í•´ k ë²ˆì§¸ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ë¥¼ ì €ìž¥í•¨
+    % Â÷ÈÄ¸¦ À§ÇØ k ¹øÂ° ÀÌ¿ô ¼¿°úÀÇ °æ»ç¸¦ ÀúÀåÇÔ
     slopeAllNbr(Y_INI:Y_MAX,X_INI:X_MAX, ithNbr) = sKthNbrSlope;
 
-    % k ë²ˆì§¸ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ ì´ì „ ìµœëŒ€ ê²½ì‚¬ë³´ë‹¤ í° ì…€ë“¤ì„
-    % biggerSlopeìœ¼ë¡œ ê¸°ë¡í•¨
+    % k ¹øÂ° ÀÌ¿ô ¼¿°úÀÇ °æ»ç°¡ ÀÌÀü ÃÖ´ë °æ»çº¸´Ù Å« ¼¿µéÀ»
+    % biggerSlopeÀ¸·Î ±â·ÏÇÔ
     biggerSlope = sKthNbrSlope > sSteepestDescentSlope;
 
-    % biggerSlopeì— í•´ë‹¹í•˜ëŠ” ì…€ë“¤ì„ ëŒ€ìƒìœ¼ë¡œ
-    % k ë²ˆì§¸ ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ sSDSNbrY, sSDSNbrXì— ê¸°ë¡í•¨
+    % biggerSlope¿¡ ÇØ´çÇÏ´Â ¼¿µéÀ» ´ë»óÀ¸·Î
+    % k ¹øÂ° ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ sSDSNbrY, sSDSNbrX¿¡ ±â·ÏÇÔ
 
-    % ì¢Œìš°ê°€ ì—°ê²°ë˜ì—ˆëŠ”ì§€ í™•ì¸í•˜ê³ , ì—°ê²°ë˜ì—ˆë‹¤ë©´ offset ì„ ìž¬ì„¤ì •í•œë‹¤.
+    % ÁÂ¿ì°¡ ¿¬°áµÇ¾ú´ÂÁö È®ÀÎÇÏ°í, ¿¬°áµÇ¾ú´Ù¸é offset À» Àç¼³Á¤ÇÑ´Ù.
     if IS_LEFT_RIGHT_CONNECTED == true
         
         if ithNbr == 1 || ithNbr == 2 || ithNbr == 8
@@ -131,21 +131,21 @@ for ithNbr = 1:8
         
     end
     
-    % k ë²ˆì§¸ ì´ì›ƒê³¼ì˜ ê²½ì‚¬ê°€ ì–‘ì¸ ì…€ì„ possitiveSlopeì´ë¼ê³  ê¸°ë¡í•œë‹¤.
+    % k ¹øÂ° ÀÌ¿ô°úÀÇ °æ»ç°¡ ¾çÀÎ ¼¿À» possitiveSlopeÀÌ¶ó°í ±â·ÏÇÑ´Ù.
     possitiveSlope = sKthNbrSlope > 0;
 
-    % k ë²ˆì§¸ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ ì–‘ì´ë©´ì„œ ë™ì‹œì— ì´ì „ ìµœëŒ€ ê²½ì‚¬ë³´ë‹¤ í° ì…€ì—ëŠ”
-    % k ë²ˆì§¸ ì´ì›ƒ ì…€ì˜ ë°©í–¥ì„ ìœ í–¥ìœ¼ë¡œ ê¸°ë¡í•œë‹¤.
+    % k ¹øÂ° ÀÌ¿ô ¼¿°úÀÇ °æ»ç°¡ ¾çÀÌ¸é¼­ µ¿½Ã¿¡ ÀÌÀü ÃÖ´ë °æ»çº¸´Ù Å« ¼¿¿¡´Â
+    % k ¹øÂ° ÀÌ¿ô ¼¿ÀÇ ¹æÇâÀ» À¯ÇâÀ¸·Î ±â·ÏÇÑ´Ù.
     sSDSFlowDirection(biggerSlope & possitiveSlope) ...
       = (ithNbr-1) * QUARTER_PI;
 
-    % k ë²ˆì§¸ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ë¥¼ ê²½ì‚¬ë¡œ ê¸°ë¡í•œë‹¤.
+    % k ¹øÂ° ÀÌ¿ô ¼¿°úÀÇ °æ»ç¸¦ °æ»ç·Î ±â·ÏÇÑ´Ù.
     sSteepestDescentSlope(biggerSlope) = sKthNbrSlope(biggerSlope);
 
 end % for ithNbr = 1:8
 
-% ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ ìœ í–¥ê³¼ ê²½ì‚¬ì˜ ê²½ê³„ê°’ì„ ì„¤ì •í•œë‹¤.
-% ëª¨ë¸ ì˜ì—­ ê²½ê³„ì˜ ìœ í–¥ê³¼ ê²½ì‚¬ëŠ” NaNìœ¼ë¡œ ê¸°ë¡ëœë‹¤.
+% ÃÖ´ë ÇÏºÎ °æ»ç À¯Çâ°ú °æ»çÀÇ °æ°è°ªÀ» ¼³Á¤ÇÑ´Ù.
+% ¸ðµ¨ ¿µ¿ª °æ°èÀÇ À¯Çâ°ú °æ»ç´Â NaNÀ¸·Î ±â·ÏµÈ´Ù.
 SDSFlowDirection(Y_INI:Y_MAX,X_INI:X_MAX) = sSDSFlowDirection;
 steepestDescentSlope(Y_INI:Y_MAX,X_INI:X_MAX) = sSteepestDescentSlope;
 SDSNbrX(Y_INI:Y_MAX,X_INI:X_MAX) = sSDSNbrX;

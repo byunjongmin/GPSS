@@ -1,22 +1,22 @@
 % =========================================================================
 %> @section INTRO ProcessSink
 %>
-%> - ìœ í–¥ì´ ì •ì˜ë˜ì§€ ì•Šì€ ì…€(SINK)ì˜ ìœ ì¶œêµ¬ë¥¼ ì°¾ì•„ ì´ì˜ ì¢Œí‘œë¥¼ SDSNbrY,
-%>   SDSNbrXì— ê¸°ë¡í•˜ëŠ” í•¨ìˆ˜
+%> - À¯ÇâÀÌ Á¤ÀÇµÇÁö ¾ÊÀº ¼¿(SINK)ÀÇ À¯Ãâ±¸¸¦ Ã£¾Æ ÀÌÀÇ ÁÂÇ¥¸¦ SDSNbrY,
+%>   SDSNbrX¿¡ ±â·ÏÇÏ´Â ÇÔ¼ö
 %>
-%>  - ì£¼ìš” ì•Œê³ ë¦¬ë“¬
-%>   - SINKì˜ ì´ì›ƒ ì…€ ì¤‘ ê°€ì¥ ë¹„ê³ ì°¨ê°€ ì‘ì€ ì…€ì´ ëŒ€ê°œ SINKì˜ ìœ ì¶œêµ¬ê°€ ë˜ì§€ë§Œ,
-%>    ì´ ì…€ì˜ ìœ í–¥ì´ ë‹¤ì‹œ ì²˜ìŒì˜ SINK ì…€ì„ ê°€ë¦¬í‚¤ëŠ” ê²½ìš°ê°€ ìˆìŒ. ì´ ê²½ìš°ì—
-%>    ì´ ì…€ì€ SINKì˜ ì‹¤ì§ˆì ì¸ ìœ ì¶œêµ¬ë¼ê³  ë³´ê¸° í˜ë“¦. ë”°ë¼ì„œ ë³¸ í•¨ìˆ˜ì—ì„œëŠ”
-%>    ìœ ì¶œêµ¬ë¥¼ ì°¾ëŠ” ê³¼ì •ì—ì„œ ìœ ì¶œêµ¬ë¡œ ì¶”ì •ë˜ì—ˆë˜ ì…€ì„ flooded region
-%>    (ë˜ëŠ” lake)ìœ¼ë¡œ ì •ì˜í•˜ê³ , ì´ ì£¼ë³€ì„ ë”°ë¼ ê°€ì¥ ë‚®ì€ ì…€ì„ ë‹¤ì‹œ ì°¾ìŒ.\n
-%>    ë§Œì•½ ê°€ì¥ ë‚®ì€ ì…€ì˜ ìœ í–¥ì´ flooded regionì— í•´ë‹¹í•˜ëŠ” ì…€ì„ ê°€ë¦¬í‚¤ì§€
-%>    ì•ŠëŠ”ë‹¤ë©´, ì´ ì…€ì€ ì‹¤ì§ˆì ì¸ ìœ ì¶œêµ¬ê°€ ë¨. í•˜ì§€ë§Œ ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ ì´ ì…€ì€
-%>    flooded region ëª©ë¡ì— í¬í•¨ë˜ê³  ìœ„ì˜ ê³¼ì •ì€ ìœ ì¶œêµ¬ë¥¼ ì°¾ì„ ë•Œê¹Œì§€ ë°˜ë³µë¨.
+%>  - ÁÖ¿ä ¾Ë°í¸®µë
+%>   - SINKÀÇ ÀÌ¿ô ¼¿ Áß °¡Àå ºñ°íÂ÷°¡ ÀÛÀº ¼¿ÀÌ ´ë°³ SINKÀÇ À¯Ãâ±¸°¡ µÇÁö¸¸,
+%>    ÀÌ ¼¿ÀÇ À¯ÇâÀÌ ´Ù½Ã Ã³À½ÀÇ SINK ¼¿À» °¡¸®Å°´Â °æ¿ì°¡ ÀÖÀ½. ÀÌ °æ¿ì¿¡
+%>    ÀÌ ¼¿Àº SINKÀÇ ½ÇÁúÀûÀÎ À¯Ãâ±¸¶ó°í º¸±â Èûµê. µû¶ó¼­ º» ÇÔ¼ö¿¡¼­´Â
+%>    À¯Ãâ±¸¸¦ Ã£´Â °úÁ¤¿¡¼­ À¯Ãâ±¸·Î ÃßÁ¤µÇ¾ú´ø ¼¿À» flooded region
+%>    (¶Ç´Â lake)À¸·Î Á¤ÀÇÇÏ°í, ÀÌ ÁÖº¯À» µû¶ó °¡Àå ³·Àº ¼¿À» ´Ù½Ã Ã£À½.\n
+%>    ¸¸¾à °¡Àå ³·Àº ¼¿ÀÇ À¯ÇâÀÌ flooded region¿¡ ÇØ´çÇÏ´Â ¼¿À» °¡¸®Å°Áö
+%>    ¾Ê´Â´Ù¸é, ÀÌ ¼¿Àº ½ÇÁúÀûÀÎ À¯Ãâ±¸°¡ µÊ. ÇÏÁö¸¸ ±×·¸Áö ¾Ê´Ù¸é ÀÌ ¼¿Àº
+%>    flooded region ¸ñ·Ï¿¡ Æ÷ÇÔµÇ°í À§ÀÇ °úÁ¤Àº À¯Ãâ±¸¸¦ Ã£À» ¶§±îÁö ¹İº¹µÊ.
 %>
 %>  - History
 %>   - 091221
-%>    - ì£¼í•¨ìˆ˜ì— ìˆë˜ ProcessSink í•¨ìˆ˜ì˜ ì˜ˆë¹„ ì ˆì°¨ë¥¼ í•¨ìˆ˜ ë‚´ë¶€ì— í¬í•¨ì‹œí‚´
+%>    - ÁÖÇÔ¼ö¿¡ ÀÖ´ø ProcessSink ÇÔ¼öÀÇ ¿¹ºñ ÀıÂ÷¸¦ ÇÔ¼ö ³»ºÎ¿¡ Æ÷ÇÔ½ÃÅ´
 %>
 %> @version 0.1
 %> @callgraph
@@ -24,46 +24,46 @@
 %> @see IsBoundary(), FindSDSDryNbr()
 %>
 %> @retval flood                        : flooded region
-%> @retval SDSNbrY                      : ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
-%> @retval SDSNbrX                      : ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
-%> @retval SDSFlowDirection             : ìˆ˜ì •ëœ ìœ í–¥
-%> @retval steepestDescentSlope         : ìˆ˜ì •ëœ ê²½ì‚¬
-%> @retval integratedSlope              : ìˆ˜ì •ëœ facet flow ê²½ì‚¬
-%> @retval floodedRegionIndex           : flooded region ìƒ‰ì¸
-%> @retval floodedRegionCellsNo         : flooded region êµ¬ì„± ì…€ ìˆ˜
-%> @retval floodedRegionLocalDepth      : flooded region ê³ ë„ì™€ ìœ ì¶œêµ¬ ê³ ë„ ì°¨ì´
-%> @retval floodedRegionTotalDepth      : flooded region local depth ì´ í•©
-%> @retval floodedRegionStorageVolume   : flooded region ì €ìˆ˜ëŸ‰
+%> @retval SDSNbrY                      : ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
+%> @retval SDSNbrX                      : ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
+%> @retval SDSFlowDirection             : ¼öÁ¤µÈ À¯Çâ
+%> @retval steepestDescentSlope         : ¼öÁ¤µÈ °æ»ç
+%> @retval integratedSlope              : ¼öÁ¤µÈ facet flow °æ»ç
+%> @retval floodedRegionIndex           : flooded region »öÀÎ
+%> @retval floodedRegionCellsNo         : flooded region ±¸¼º ¼¿ ¼ö
+%> @retval floodedRegionLocalDepth      : flooded region °íµµ¿Í À¯Ãâ±¸ °íµµ Â÷ÀÌ
+%> @retval floodedRegionTotalDepth      : flooded region local depth ÃÑ ÇÕ
+%> @retval floodedRegionStorageVolume   : flooded region Àú¼ö·®
 %>
-%> @param mRows                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
-%> @param nCols                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
-%> @param X_INI                         : ëª¨í˜• ì˜ì—­ X ì‹œì‘ ì¢Œí‘œê°’(=2)
-%> @param X_MAX                         : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
-%> @param Y_TOP_BND                     : ëª¨í˜• ì™¸ê³½ ìœ„ ê²½ê³„ Y ì¢Œí‘œê°’
-%> @param Y_BOTTOM_BND                  : ëª¨í˜• ì™¸ê³½ ì•„ë˜ ê²½ê³„ Y ì¢Œí‘œê°’
-%> @param X_LEFT_BND                    : ëª¨í˜• ì™¸ê³½ ì¢Œ ê²½ê³„ X ì¢Œí‘œê°’
-%> @param X_RIGHT_BND                   : ëª¨í˜• ì™¸ê³½ ìš° ê²½ê³„ X ì¢Œí‘œê°’
+%> @param mRows                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
+%> @param nCols                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
+%> @param X_INI                         : ¸ğÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
+%> @param X_MAX                         : ¸ğÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
+%> @param Y_TOP_BND                     : ¸ğÇü ¿Ü°û À§ °æ°è Y ÁÂÇ¥°ª
+%> @param Y_BOTTOM_BND                  : ¸ğÇü ¿Ü°û ¾Æ·¡ °æ°è Y ÁÂÇ¥°ª
+%> @param X_LEFT_BND                    : ¸ğÇü ¿Ü°û ÁÂ °æ°è X ÁÂÇ¥°ª
+%> @param X_RIGHT_BND                   : ¸ğÇü ¿Ü°û ¿ì °æ°è X ÁÂÇ¥°ª
 %> @param QUARTER_PI                	: pi * 0.25
-%> @param CELL_AREA                     : ì…€ ë©´ì  [m^2]
-%> @param elev                          : ì§€í‘œ ê³ ë„ [m]
-%> @param ithNbrYOffset                 : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Yì¶• ì˜µì…‹
-%> @param ithNbrXOffset                 : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Xì¶• ì˜µì…‹
-%> @param OUTER_BOUNDARY                : ëª¨í˜• ì˜ì—­ ì™¸ê³½ ê²½ê³„ ë§ˆìŠ¤í¬
-%> @param IS_LEFT_RIGHT_CONNECTED       : ì¢Œìš° ì™¸ê³½ ê²½ê³„ ì—°ê²°ì„ ê²°ì •
-%> @param slopeAllNbr                   : 8ë°©í–¥ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬
-%> @param steepestDescentSlope          : ìµœëŒ€í•˜ë¶€ê²½ì‚¬
-%> @param facetFlowSlope                : facet flow ê²½ì‚¬
-%> @param SDSNbrY                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
-%> @param SDSNbrX                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
-%> @param SDSFlowDirection              : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥
+%> @param CELL_AREA                     : ¼¿ ¸éÀû [m^2]
+%> @param elev                          : ÁöÇ¥ °íµµ [m]
+%> @param ithNbrYOffset                 : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ YÃà ¿É¼Â
+%> @param ithNbrXOffset                 : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ XÃà ¿É¼Â
+%> @param OUTER_BOUNDARY                : ¸ğÇü ¿µ¿ª ¿Ü°û °æ°è ¸¶½ºÅ©
+%> @param IS_LEFT_RIGHT_CONNECTED       : ÁÂ¿ì ¿Ü°û °æ°è ¿¬°áÀ» °áÁ¤
+%> @param slopeAllNbr                   : 8¹æÇâ ÀÌ¿ô ¼¿°úÀÇ °æ»ç
+%> @param steepestDescentSlope          : ÃÖ´ëÇÏºÎ°æ»ç
+%> @param facetFlowSlope                : facet flow °æ»ç
+%> @param SDSNbrY                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
+%> @param SDSNbrX                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
+%> @param SDSFlowDirection              : ÃÖ´ëÇÏºÎ°æ»ç À¯Çâ
 % =========================================================================
 function [flood,SDSNbrY,SDSNbrX,SDSFlowDirection,steepestDescentSlope,integratedSlope,floodedRegionIndex,floodedRegionCellsNo,floodedRegionLocalDepth,floodedRegionTotalDepth,floodedRegionStorageVolume] = ProcessSink(mRows,nCols,X_INI,X_MAX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA,elev,ithNbrYOffset,ithNbrXOffset,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED,slopeAllNbr,steepestDescentSlope,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection)
 %
 % function ProcessSink
 %
 
-% ìƒìˆ˜ ì •ì˜
-% flood ìƒíƒœ ì •ì˜
+% »ó¼ö Á¤ÀÇ
+% flood »óÅÂ Á¤ÀÇ
 UNFLOODED = 0;
 CURRENT_FLOODED = 1;
 OLD_FLOODED = 2;
@@ -72,80 +72,80 @@ SINK = 3;
 LISTMAX = mRows * nCols; % model domain cells number
 VERY_HIGH = inf;
 
-% ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™”
-flood = zeros(mRows,nCols); % flood ìƒíƒœë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë³€ìˆ˜
-currentFloodedRegionIndex = 0; % í˜„ flooded region ìƒ‰ì¸
-floodedRegionIndex = zeros(mRows, nCols); % flooded region ìƒ‰ì¸ ë¶„í¬
-floodedRegionCellsNo = zeros(mRows, nCols); % flooded region êµ¬ì„± ì…€ ê°œìˆ˜
-% flooded region ê¹Šì´. í•´ë‹¹ ìœ ì¶œêµ¬ì˜ ê³ ë„ì°¨ [m]
+% Ãâ·Â º¯¼ö ÃÊ±âÈ­
+flood = zeros(mRows,nCols); % flood »óÅÂ¸¦ ³ªÅ¸³»´Â º¯¼ö
+currentFloodedRegionIndex = 0; % Çö flooded region »öÀÎ
+floodedRegionIndex = zeros(mRows, nCols); % flooded region »öÀÎ ºĞÆ÷
+floodedRegionCellsNo = zeros(mRows, nCols); % flooded region ±¸¼º ¼¿ °³¼ö
+% flooded region ±íÀÌ. ÇØ´ç À¯Ãâ±¸ÀÇ °íµµÂ÷ [m]
 floodedRegionLocalDepth = zeros(mRows, nCols);
-floodedRegionTotalDepth = zeros(mRows, nCols); % Local Depth ì´ í•© [m]
-currentFloodedRegionCellsYXList ... % ì²˜ë¦¬í•  flooded region ì…€ ì¢Œí‘œ ê¸°ë¡ ë³€ìˆ˜
+floodedRegionTotalDepth = zeros(mRows, nCols); % Local Depth ÃÑ ÇÕ [m]
+currentFloodedRegionCellsYXList ... % Ã³¸®ÇÒ flooded region ¼¿ ÁÂÇ¥ ±â·Ï º¯¼ö
     = struct('Y',zeros(LISTMAX,1),'X',zeros(LISTMAX,1));
-% facet flow slopeì„ ê¸°ë°˜ìœ¼ë¡œ í•˜ì—¬ ProcessSink í•¨ìˆ˜ì—ì„œ ìˆ˜ì •ëœ ê°’ì„ í¬í•¨í•œ ê²½ì‚¬
+% facet flow slopeÀ» ±â¹İÀ¸·Î ÇÏ¿© ProcessSink ÇÔ¼ö¿¡¼­ ¼öÁ¤µÈ °ªÀ» Æ÷ÇÔÇÑ °æ»ç
 integratedSlope = facetFlowSlope;
 
-% 1. ìœ í–¥ì´ ì •ì˜ë˜ì§€ ì•Šì€ ì…€ë“¤ë§Œì„ flood ë³€ìˆ˜ì— ê¸°ë¡í•œë‹¤.
+% 1. À¯ÇâÀÌ Á¤ÀÇµÇÁö ¾ÊÀº ¼¿µé¸¸À» flood º¯¼ö¿¡ ±â·ÏÇÑ´Ù.
 
-% 1) ìœ í–¥ì´ ì •ì˜ë˜ì§€ ì•Šì€ ì…€ë“¤(ëª¨ë¸ ì˜ì—­ ë‚´ë¶€ ë§Œì„ ëŒ€ìƒìœ¼ë¡œ)ì„
-%    noFlowDirectionìœ¼ë¡œ ê¸°ë¡í•œë‹¤.
-% * ì£¼ì˜ : SDSFlowDirectionì—ì„œ ëª¨ë¸ ì˜ì—­ ê²½ê³„ ë¶€ë¶„ë„ NaNì´ê¸° ë•Œë¬¸ì— ë‹¤ë¥¸
-%   ì¡°ê±´ì„ ë”í•  í•„ìš”ê°€ ì—†ë‹¤.
+% 1) À¯ÇâÀÌ Á¤ÀÇµÇÁö ¾ÊÀº ¼¿µé(¸ğµ¨ ¿µ¿ª ³»ºÎ ¸¸À» ´ë»óÀ¸·Î)À»
+%    noFlowDirectionÀ¸·Î ±â·ÏÇÑ´Ù.
+% * ÁÖÀÇ : SDSFlowDirection¿¡¼­ ¸ğµ¨ ¿µ¿ª °æ°è ºÎºĞµµ NaNÀÌ±â ¶§¹®¿¡ ´Ù¸¥
+%   Á¶°ÇÀ» ´õÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
 noFlowDirection = isnan(SDSFlowDirection) & ~OUTER_BOUNDARY;
 
-% 2) noFlowDirectionì— í•´ë‹¹í•˜ëŠ” ì…€ë“¤ì˜ flood ë³€ìˆ˜ì— SINK(3)ë¥¼ ê¸°ë¡í•œë‹¤.
+% 2) noFlowDirection¿¡ ÇØ´çÇÏ´Â ¼¿µéÀÇ flood º¯¼ö¿¡ SINK(3)¸¦ ±â·ÏÇÑ´Ù.
 flood(noFlowDirection) = SINK;
 
-% 2. SINKì¸ ì…€ë“¤ì˜ ì¢Œí‘œë¥¼ ëª©ë¡ìœ¼ë¡œ ë§Œë“ ë‹¤.
+% 2. SINKÀÎ ¼¿µéÀÇ ÁÂÇ¥¸¦ ¸ñ·ÏÀ¸·Î ¸¸µç´Ù.
 [sinkCellsY,sinkCellsX] = find(flood == SINK);
 
-% 1) SINKì¸ ì…€ë“¤ì˜ ì´ ê°œìˆ˜ë¥¼ íŒŒì•…í•œë‹¤.
+% 1) SINKÀÎ ¼¿µéÀÇ ÃÑ °³¼ö¸¦ ÆÄ¾ÇÇÑ´Ù.
 allSinkCellsNo = size(sinkCellsY,1);
 
-% 3. ê°ê°ì˜ SINKì— ëŒ€í•´ SINKì™€ ì´ë¥¼ í¬í•¨í•˜ëŠ” flooded regeionì˜ ìœ ì¶œêµ¬ë¥¼ ì°¾ê³ 
-%    ìœ ì¶œêµ¬ì˜ ì¢Œí‘œë¥¼ flooded region êµ¬ì„± ì…€ë“¤ì˜ SDSNbrY,SDSNbrXì— ê¸°ë¡í•œë‹¤.
-%    ì´ë¥¼ ëª¨ë“  SINKì— ëŒ€í•´ ë°˜ë³µí•œë‹¤.
+% 3. °¢°¢ÀÇ SINK¿¡ ´ëÇØ SINK¿Í ÀÌ¸¦ Æ÷ÇÔÇÏ´Â flooded regeionÀÇ À¯Ãâ±¸¸¦ Ã£°í
+%    À¯Ãâ±¸ÀÇ ÁÂÇ¥¸¦ flooded region ±¸¼º ¼¿µéÀÇ SDSNbrY,SDSNbrX¿¡ ±â·ÏÇÑ´Ù.
+%    ÀÌ¸¦ ¸ğµç SINK¿¡ ´ëÇØ ¹İº¹ÇÑ´Ù.
 for ithSink=1:allSinkCellsNo
 
-    % 1) SINK ëª©ë¡ ì¤‘ í•˜ë‚˜ë¥¼ íƒí•œë‹¤.
+    % 1) SINK ¸ñ·Ï Áß ÇÏ³ª¸¦ ÅÃÇÑ´Ù.
     
-    % (1) forë¬¸ ë³€ìˆ˜ ì´ˆê¸°í™”
-    % flooded regionì˜ ìœ ì¶œêµ¬ë¥¼ ì°¾ì•˜ëŠ”ì§€ í‘œì‹œí•˜ëŠ” ìƒíƒœ ë³€ìˆ˜ ì´ˆê¸°í™”
+    % (1) for¹® º¯¼ö ÃÊ±âÈ­
+    % flooded regionÀÇ À¯Ãâ±¸¸¦ Ã£¾Ò´ÂÁö Ç¥½ÃÇÏ´Â »óÅÂ º¯¼ö ÃÊ±âÈ­
     OUTLET_FOUNDED = false;
-    % í˜„ì¬ ì²˜ë¦¬í•  flooded region êµ¬ì„± ì…€ë“¤ì˜ ì´ ê°œìˆ˜
+    % ÇöÀç Ã³¸®ÇÒ flooded region ±¸¼º ¼¿µéÀÇ ÃÑ °³¼ö
     currentFloodedRegionAllCellsNo = 1;
-    % ì´ë²ˆì— ì²˜ë¦¬í•  flooded regionì˜ ìƒ‰ì¸ ë²ˆí˜¸ë¥¼ í•˜ë‚˜ ì¦ê°€ì‹œí‚´
+    % ÀÌ¹ø¿¡ Ã³¸®ÇÒ flooded regionÀÇ »öÀÎ ¹øÈ£¸¦ ÇÏ³ª Áõ°¡½ÃÅ´
     currentFloodedRegionIndex = currentFloodedRegionIndex + 1;
     
-    % (2) ì´ë²ˆì— ì²˜ë¦¬í•  SINKì˜ ì¢Œí‘œ(Y,X)ë¥¼ ë¶ˆëŸ¬ì˜´
-    currentSinkCellY = sinkCellsY(ithSink,1); % SINK y ì¢Œí‘œ
-    currentSinkCellX = sinkCellsX(ithSink,1); % SINK x ì¢Œí‘œ
+    % (2) ÀÌ¹ø¿¡ Ã³¸®ÇÒ SINKÀÇ ÁÂÇ¥(Y,X)¸¦ ºÒ·¯¿È
+    currentSinkCellY = sinkCellsY(ithSink,1); % SINK y ÁÂÇ¥
+    currentSinkCellX = sinkCellsX(ithSink,1); % SINK x ÁÂÇ¥
 
-    % (3) SINK ì…€ì„ CURRENT_FLOODED ìƒíƒœë¡œ í‘œê¸°
+    % (3) SINK ¼¿À» CURRENT_FLOODED »óÅÂ·Î Ç¥±â
     flood(currentSinkCellY,currentSinkCellX) = CURRENT_FLOODED;
 
-    % (4) SINK ì¢Œí‘œë¥¼ currentFloodedRegionCellsYXList(1)ì— ê¸°ë¡í•¨
+    % (4) SINK ÁÂÇ¥¸¦ currentFloodedRegionCellsYXList(1)¿¡ ±â·ÏÇÔ
     currentFloodedRegionCellsYXList.Y(1) = currentSinkCellY;
     currentFloodedRegionCellsYXList.X(1) = currentSinkCellX;    
 
-    % 2) (ì´ë²ˆì— ì²˜ë¦¬í•  SINKë¡œë¶€í„° ì‹œì‘ëœ) flooded regionì˜ ìœ ì¶œêµ¬ë¥¼ ì°¾ëŠ”ë‹¤.
+    % 2) (ÀÌ¹ø¿¡ Ã³¸®ÇÒ SINK·ÎºÎÅÍ ½ÃÀÛµÈ) flooded regionÀÇ À¯Ãâ±¸¸¦ Ã£´Â´Ù.
     while (OUTLET_FOUNDED == false)
 
-        % (1) whileë¬¸ ë³€ìˆ˜ ì´ˆê¸°í™”
-        % ë¹„ê³ ì°¨ê°€ ê°€ì¥ ì‘ì€ ì´ì›ƒ ì…€ì„ ì°¾ê¸° ìœ„í•œ ê¸°ì¤€ ê³ ë„ ë³€ìˆ˜ ì´ˆê¸°í™”
+        % (1) while¹® º¯¼ö ÃÊ±âÈ­
+        % ºñ°íÂ÷°¡ °¡Àå ÀÛÀº ÀÌ¿ô ¼¿À» Ã£±â À§ÇÑ ±âÁØ °íµµ º¯¼ö ÃÊ±âÈ­
         lowerElev = VERY_HIGH;
-        % flooded regionì˜ ê°œë³„ ì…€ì„ ì§€ì •í•˜ëŠ” ë³€ìˆ˜ê°’ì„ 1ë¡œ ì´ˆê¸°í™”
-        % ì¦‰, flooded regionì˜ ì²« ë²ˆì§¸ ì…€ì—ì„œë¶€í„° ë‹¤ì‹œ ì‹œì‘í•œë‹¤.        
+        % flooded regionÀÇ °³º° ¼¿À» ÁöÁ¤ÇÏ´Â º¯¼ö°ªÀ» 1·Î ÃÊ±âÈ­
+        % Áï, flooded regionÀÇ Ã¹ ¹øÂ° ¼¿¿¡¼­ºÎÅÍ ´Ù½Ã ½ÃÀÛÇÑ´Ù.        
         processingCellIndex = 1;
         
-        % (2) flooded regionì˜ ì£¼ë³€ì„ ë”°ë¼ ê°€ì¥ ë¹„ê³ ì°¨ê°€ ì‘ì€ ì…€ì„ ì°¾ì•„ë¼.
-        % ë°˜ë³µë¬¸ ë‚´ì—ì„œ flooded regionì˜ ì…€ ìˆ˜ê°€ ì¦ê°€í•  ìˆ˜ ìˆê¸° ë•Œë¬¸ì—
-        % while ë°˜ë³µë¬¸ì„ ì‚¬ìš©í•¨
+        % (2) flooded regionÀÇ ÁÖº¯À» µû¶ó °¡Àå ºñ°íÂ÷°¡ ÀÛÀº ¼¿À» Ã£¾Æ¶ó.
+        % ¹İº¹¹® ³»¿¡¼­ flooded regionÀÇ ¼¿ ¼ö°¡ Áõ°¡ÇÒ ¼ö ÀÖ±â ¶§¹®¿¡
+        % while ¹İº¹¹®À» »ç¿ëÇÔ
         while (processingCellIndex <= currentFloodedRegionAllCellsNo)
             
-            % A. flooded regionì˜ në²ˆì§¸ ì…€ì˜ ì£¼ë³€ ì´ì›ƒ ì…€ì— ëŒ€í•´ ë‹¤ìŒì˜ ì¡°ê±´ì„
-            %    ë§Œì¡±í•˜ëŠ”ì§€ íŒŒì•…í•œë‹¤. flooded regionì˜ ì£¼ë³€ì„ ë”°ë¼ ê°€ì¥
-            %    ë¹„ê³ ì°¨ê°€ ì‘ì€ ì…€ì„ ì°¾ëŠ” ê³¼ì •ì´ë‹¤.
+            % A. flooded regionÀÇ n¹øÂ° ¼¿ÀÇ ÁÖº¯ ÀÌ¿ô ¼¿¿¡ ´ëÇØ ´ÙÀ½ÀÇ Á¶°ÇÀ»
+            %    ¸¸Á·ÇÏ´ÂÁö ÆÄ¾ÇÇÑ´Ù. flooded regionÀÇ ÁÖº¯À» µû¶ó °¡Àå
+            %    ºñ°íÂ÷°¡ ÀÛÀº ¼¿À» Ã£´Â °úÁ¤ÀÌ´Ù.
             for tmpNbrX ...
                 = currentFloodedRegionCellsYXList.X(processingCellIndex) - 1 ...
                 :currentFloodedRegionCellsYXList.X(processingCellIndex) + 1
@@ -153,8 +153,8 @@ for ithSink=1:allSinkCellsNo
                     = currentFloodedRegionCellsYXList.Y(processingCellIndex) - 1 ...
                     :currentFloodedRegionCellsYXList.Y(processingCellIndex) + 1                
                 
-                    % A) ì¢Œìš°ê°€ ì—°ê²°ë˜ì—ˆëŠ”ì§€ í™•ì¸í•˜ê³ , ì´ì— ë”°ë¼ ì´ì›ƒ ì…€ ì¢Œí‘œë¥¼
-                    %    ë‹¤ì‹œ ì •ì˜í•œë‹¤.
+                    % A) ÁÂ¿ì°¡ ¿¬°áµÇ¾ú´ÂÁö È®ÀÎÇÏ°í, ÀÌ¿¡ µû¶ó ÀÌ¿ô ¼¿ ÁÂÇ¥¸¦
+                    %    ´Ù½Ã Á¤ÀÇÇÑ´Ù.
                     if IS_LEFT_RIGHT_CONNECTED == true
                         
                         if tmpNbrX == X_LEFT_BND                            
@@ -171,20 +171,20 @@ for ithSink=1:allSinkCellsNo
                         
                     end
                     
-                    % A) ì´ì›ƒ ì…€ì´ í˜„ì¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì— í•´ë‹¹í•œë‹¤ë©´
-                    %    ë‹¤ìŒ ì´ì›ƒ ì…€ë¡œ ë„˜ì–´ê°„ë‹¤.
+                    % A) ÀÌ¿ô ¼¿ÀÌ ÇöÀç Ã³¸® ÁßÀÎ flooded region¿¡ ÇØ´çÇÑ´Ù¸é
+                    %    ´ÙÀ½ ÀÌ¿ô ¼¿·Î ³Ñ¾î°£´Ù.
                     %    if flood(nbrY, nbrX) == CURRENT_FLOODED
-                    %    * 3x3 ì°½ì˜ ì¤‘ì•™ ì…€ì€ CURRENT_FLOODED ìƒíƒœì„
+                    %    * 3x3 Ã¢ÀÇ Áß¾Ó ¼¿Àº CURRENT_FLOODED »óÅÂÀÓ
                     
-                    % B) ì´ì›ƒ ì…€ì´ í˜„ì¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì´ ì•„ë‹ˆë¼ë©´,
-                    %    ì¦‰ ìœ í–¥ì´ ì •ì˜ë˜ì–´ ìˆê±°ë‚˜ SINKì¸ ê²½ìš°ì—ëŠ”
-                    %    flooded region ì£¼ë³€ì„ ë”°ë¼ ë¹„ê³ ì°¨ê°€ ê°€ì¥ ì‘ì€
-                    %    ì…€ì¸ì§€ë¥¼ ì•Œì•„ë³¸ë‹¤.
+                    % B) ÀÌ¿ô ¼¿ÀÌ ÇöÀç Ã³¸® ÁßÀÎ flooded regionÀÌ ¾Æ´Ï¶ó¸é,
+                    %    Áï À¯ÇâÀÌ Á¤ÀÇµÇ¾î ÀÖ°Å³ª SINKÀÎ °æ¿ì¿¡´Â
+                    %    flooded region ÁÖº¯À» µû¶ó ºñ°íÂ÷°¡ °¡Àå ÀÛÀº
+                    %    ¼¿ÀÎÁö¸¦ ¾Ë¾Æº»´Ù.
                     if (flood(nbrY,nbrX) == UNFLOODED) || ...
                             (flood(nbrY,nbrX) == SINK)
                         
-                        % ë§Œì•½ ê°€ì¥ ë‚®ì€ ê³ ë„ì¸ ê²½ìš°ë¼ë©´
-                        % ì´ì˜ ê³ ë„ì™€ ì¢Œí‘œë¥¼ ì €ì¥í•´ë‘”ë‹¤.
+                        % ¸¸¾à °¡Àå ³·Àº °íµµÀÎ °æ¿ì¶ó¸é
+                        % ÀÌÀÇ °íµµ¿Í ÁÂÇ¥¸¦ ÀúÀåÇØµĞ´Ù.
                         if ( elev(nbrY,nbrX) < lowerElev )
 
                             lowerCellY = nbrY;
@@ -193,13 +193,13 @@ for ithSink=1:allSinkCellsNo
 
                         end
                         
-                    % C) ì´ì›ƒ ì…€ì´ ìœ ì¶œêµ¬ë¥¼ ì°¾ì€ flooded regionì´ë¼ë©´ í˜„ì¬
-                    %    í˜„ì¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì´ ê³¼ê±°
-                    %    flooded regionê³¼ ì—°ê²°ë˜ì–´ ìˆë‹¤ëŠ” ì˜ë¯¸ì´ë‹¤. ë”°ë¼ì„œ ë‘
-                    %    flooded regionì„ í•©í•˜ì—¬ ìœ ì¶œêµ¬ë¥¼ ì°¾ëŠ” ì‘ì—…ì„
-                    %    ì‹œë„í•´ì•¼ í•˜ë©°, ì´ë¥¼ ìœ„í•´ ê³¼ê±° ì²˜ë¦¬í•œ
-                    %    flooded regionì— í•´ë‹¹í•˜ëŠ” ì´ì›ƒ ì…€ì„ í˜„ì¬ ì²˜ë¦¬ ì¤‘ì¸
-                    %    flooded regionì˜ ëª©ë¡ì— í¬í•¨ì‹œí‚¨ë‹¤.
+                    % C) ÀÌ¿ô ¼¿ÀÌ À¯Ãâ±¸¸¦ Ã£Àº flooded regionÀÌ¶ó¸é ÇöÀç
+                    %    ÇöÀç Ã³¸® ÁßÀÎ flooded regionÀÌ °ú°Å
+                    %    flooded region°ú ¿¬°áµÇ¾î ÀÖ´Ù´Â ÀÇ¹ÌÀÌ´Ù. µû¶ó¼­ µÎ
+                    %    flooded regionÀ» ÇÕÇÏ¿© À¯Ãâ±¸¸¦ Ã£´Â ÀÛ¾÷À»
+                    %    ½ÃµµÇØ¾ß ÇÏ¸ç, ÀÌ¸¦ À§ÇØ °ú°Å Ã³¸®ÇÑ
+                    %    flooded region¿¡ ÇØ´çÇÏ´Â ÀÌ¿ô ¼¿À» ÇöÀç Ã³¸® ÁßÀÎ
+                    %    flooded regionÀÇ ¸ñ·Ï¿¡ Æ÷ÇÔ½ÃÅ²´Ù.
                     
                     elseif ( flood(nbrY,nbrX) == OLD_FLOODED )
 
@@ -211,16 +211,16 @@ for ithSink=1:allSinkCellsNo
                         currentFloodedRegionCellsYXList.Y(currentFloodedRegionAllCellsNo) = nbrY;
                         currentFloodedRegionCellsYXList.X(currentFloodedRegionAllCellsNo) = nbrX;
                         
-                        % ê³¼ê±° ì²˜ë¦¬í•œ flooded regionì˜ ìœ ì¶œêµ¬ì— ê¸°ë¡ëœ
-                        % ì •ë³´ë“¤ì„ ì œê±°í•œë‹¤. ì´ëŠ” ê³¼ê±° flooded regionì˜
-                        % ìœ ì¶œêµ¬ê°€ í˜„ì¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì˜ ìœ ì¶œêµ¬ê°€
-                        % ì•„ë‹ ìˆ˜ ìˆê¸° ë•Œë¬¸ì´ë‹¤.
+                        % °ú°Å Ã³¸®ÇÑ flooded regionÀÇ À¯Ãâ±¸¿¡ ±â·ÏµÈ
+                        % Á¤º¸µéÀ» Á¦°ÅÇÑ´Ù. ÀÌ´Â °ú°Å flooded regionÀÇ
+                        % À¯Ãâ±¸°¡ ÇöÀç Ã³¸® ÁßÀÎ flooded regionÀÇ À¯Ãâ±¸°¡
+                        % ¾Æ´Ò ¼ö ÀÖ±â ¶§¹®ÀÌ´Ù.
                         
-                        % ê³¼ê±° flooded regionì˜ ìœ ì¶œêµ¬ ì¢Œí‘œ íŒŒì•…
+                        % °ú°Å flooded regionÀÇ À¯Ãâ±¸ ÁÂÇ¥ ÆÄ¾Ç
                         outletY = SDSNbrY(nbrY,nbrX);
                         outletX = SDSNbrX(nbrY,nbrX);
                         
-                        % ìœ ì¶œêµ¬ì— ê¸°ë¡ëœ ì •ë³´ë¥¼ ì œê±°í•¨
+                        % À¯Ãâ±¸¿¡ ±â·ÏµÈ Á¤º¸¸¦ Á¦°ÅÇÔ
                         if floodedRegionCellsNo(outletY,outletX) > 0
 
                             floodedRegionIndex(outletY,outletX) = 0; 
@@ -232,35 +232,35 @@ for ithSink=1:allSinkCellsNo
                 end % for (nbrX=
             end % for (nbrY=
             
-            % B. flooded regionì˜ processingCellIndex+1 ë²ˆì§¸ ì…€ë¡œ ë„˜ì–´ê°„ë‹¤. 
+            % B. flooded regionÀÇ processingCellIndex+1 ¹øÂ° ¼¿·Î ³Ñ¾î°£´Ù. 
             processingCellIndex = processingCellIndex + 1; 
 
         end % while (processingCellIndex<
 
-        % (3) while ë°˜ë³µë¬¸ì„ í†µí•´, flooded region ì£¼ë³€ì„ ë”°ë¼ ê°€ì¥ ë‚®ì€ ì…€ì„
-        %     ì°¾ì•˜ë‹¤. ì´ì œ ì´ ì…€ì´ ì‹¤ì§ˆì ì¸ ìœ ì¶œêµ¬ì¸ì§€ë¥¼ íŒë‹¨í•œë‹¤.
+        % (3) while ¹İº¹¹®À» ÅëÇØ, flooded region ÁÖº¯À» µû¶ó °¡Àå ³·Àº ¼¿À»
+        %     Ã£¾Ò´Ù. ÀÌÁ¦ ÀÌ ¼¿ÀÌ ½ÇÁúÀûÀÎ À¯Ãâ±¸ÀÎÁö¸¦ ÆÇ´ÜÇÑ´Ù.
         
-        % A. ë§Œì•½ ê°€ì¥ ë‚®ì€ ì…€ì´ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì— í•´ë‹¹í•œë‹¤ë©´, ì´ë¥¼
-        %    flooded regionì˜ ì‹¤ì§ˆì ì¸ ìœ ì¶œêµ¬ë¡œ ê°€ì •í•˜ê³  ìœ ì¶œêµ¬ë¥¼ ì°¾ëŠ” ë°˜ë³µ
-        %    ê³¼ì •ì„ ì—¬ê¸°ì„œ ë§ˆì¹œë‹¤.
+        % A. ¸¸¾à °¡Àå ³·Àº ¼¿ÀÌ ¸ğµ¨ ¿µ¿ª °æ°è¿¡ ÇØ´çÇÑ´Ù¸é, ÀÌ¸¦
+        %    flooded regionÀÇ ½ÇÁúÀûÀÎ À¯Ãâ±¸·Î °¡Á¤ÇÏ°í À¯Ãâ±¸¸¦ Ã£´Â ¹İº¹
+        %    °úÁ¤À» ¿©±â¼­ ¸¶Ä£´Ù.
         if IsBoundary(lowerCellY,lowerCellX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND)
             
             OUTLET_FOUNDED = true;
 
-        % B. ë§Œì•½ ê°€ì¥ ë‚®ì€ ì…€ì´ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì— í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, ê°€ì¥ ë‚®ì€
-        %    ì…€ì˜ ì£¼ë³€ ì´ì›ƒ ì…€ì„ íƒìƒ‰í•˜ì—¬ ìœ ì¶œêµ¬ì˜ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ”ì§€ ì•Œì•„ë³¸ë‹¤.
+        % B. ¸¸¾à °¡Àå ³·Àº ¼¿ÀÌ ¸ğµ¨ ¿µ¿ª °æ°è¿¡ ÇØ´çÇÏÁö ¾Ê´Â´Ù¸é, °¡Àå ³·Àº
+        %    ¼¿ÀÇ ÁÖº¯ ÀÌ¿ô ¼¿À» Å½»öÇÏ¿© À¯Ãâ±¸ÀÇ Á¶°ÇÀ» ¸¸Á·ÇÏ´ÂÁö ¾Ë¾Æº»´Ù.
         else
             
-            % A) ê°€ì¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ ì¤‘ í˜„ì¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì—
-            %    í•´ë‹¹í•˜ì§€ ì•Šìœ¼ë©´ì„œ, í•˜ë¶€ ê²½ì‚¬ê°€ ê°€ì¥ í° ì…€ì„ ì°¾ëŠ”ë‹¤.
-            %    ì´ ì´ì›ƒ ì…€ì´ ì¡´ì¬í•œë‹¤ë©´,
-            %    - ì´ì™€ì˜ ê²½ì‚¬ë¥¼ ê°€ì¥ ë‚®ì€ ì…€ì—ì„œì˜ ê²½ì‚¬ë¡œ ì •ì˜í•˜ê³ ,
-            %    - ì´ ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ ê°€ì¥ ë‚®ì€ ì…€ì˜ SDSNbrYì™€ SDSNbrXì—
-            %      ê¸°ë¡í•˜ê³ ,
-            %    - ê°€ì¥ ë‚®ì€ ì…€ì˜ ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ ìœ í–¥(SDSFlowDirection)ë„
-            %      ì´ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ë„ë¡ ì •ì˜í•œë‹¤.
-            %    - ì‹¤ì§ˆì ì¸ ìœ ì¶œêµ¬ë¥¼ ì°¾ì•˜ë‹¤ëŠ” ê²°ê³¼ë¥¼ ë°˜í™˜í•œë‹¤.
-            %    ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ ìœ ì¶œêµ¬ë¥¼ ì°¾ì§€ ëª»í–ˆë‹¤ëŠ” ê²°ê³¼ë¥¼ ë°˜í™˜í•œë‹¤.
+            % A) °¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿ Áß ÇöÀç Ã³¸® ÁßÀÎ flooded region¿¡
+            %    ÇØ´çÇÏÁö ¾ÊÀ¸¸é¼­, ÇÏºÎ °æ»ç°¡ °¡Àå Å« ¼¿À» Ã£´Â´Ù.
+            %    ÀÌ ÀÌ¿ô ¼¿ÀÌ Á¸ÀçÇÑ´Ù¸é,
+            %    - ÀÌ¿ÍÀÇ °æ»ç¸¦ °¡Àå ³·Àº ¼¿¿¡¼­ÀÇ °æ»ç·Î Á¤ÀÇÇÏ°í,
+            %    - ÀÌ ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ °¡Àå ³·Àº ¼¿ÀÇ SDSNbrY¿Í SDSNbrX¿¡
+            %      ±â·ÏÇÏ°í,
+            %    - °¡Àå ³·Àº ¼¿ÀÇ ÃÖ´ë ÇÏºÎ °æ»ç À¯Çâ(SDSFlowDirection)µµ
+            %      ÀÌ ÀÌ¿ô ¼¿À» °¡¸®Å°µµ·Ï Á¤ÀÇÇÑ´Ù.
+            %    - ½ÇÁúÀûÀÎ À¯Ãâ±¸¸¦ Ã£¾Ò´Ù´Â °á°ú¸¦ ¹İÈ¯ÇÑ´Ù.
+            %    Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é À¯Ãâ±¸¸¦ Ã£Áö ¸øÇß´Ù´Â °á°ú¸¦ ¹İÈ¯ÇÑ´Ù.
             [SDSNbrY ...
             ,SDSNbrX ...
             ,SDSFlowDirection ...
@@ -273,23 +273,23 @@ for ithSink=1:allSinkCellsNo
                 ,flood,steepestDescentSlope,integratedSlope ...
                 ,ithNbrYOffset,ithNbrXOffset,IS_LEFT_RIGHT_CONNECTED);
            
-            % B-1) ë§Œì•½ ê°€ì¥ ë‚®ì€ ì…€ì´ ì‹¤ì§ˆì ì¸ ìœ ì¶œêµ¬ë¼ë©´, ë°˜ë³µì„ ë©ˆì¶”ì–´ë¼
+            % B-1) ¸¸¾à °¡Àå ³·Àº ¼¿ÀÌ ½ÇÁúÀûÀÎ À¯Ãâ±¸¶ó¸é, ¹İº¹À» ¸ØÃß¾î¶ó
             if isTrue == true
 
                 OUTLET_FOUNDED = true;
 
-            % B-2) ë§Œì•½ ê°€ì¥ ë‚®ì€ ì…€ì´ ìœ ì¶œêµ¬ê°€ ì•„ë‹ˆë¼ë©´, ì´ë¥¼
-            %     flooded regionì— í¬í•¨ì‹œí‚¤ê³  ë°˜ë³µì„ ê³„ì†í•œë‹¤.
+            % B-2) ¸¸¾à °¡Àå ³·Àº ¼¿ÀÌ À¯Ãâ±¸°¡ ¾Æ´Ï¶ó¸é, ÀÌ¸¦
+            %     flooded region¿¡ Æ÷ÇÔ½ÃÅ°°í ¹İº¹À» °è¼ÓÇÑ´Ù.
             else
                 
-                % ê°€ì¥ ë‚®ì€ ì…€ì˜ flood ë³€ìˆ˜ì— FLOODEDë¡œ ê¸°ë¡í•œë‹¤.
+                % °¡Àå ³·Àº ¼¿ÀÇ flood º¯¼ö¿¡ FLOODED·Î ±â·ÏÇÑ´Ù.
                 flood(lowerCellY,lowerCellX) = CURRENT_FLOODED;
                 
-                % flooded regionì˜ ì…€ ìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€ì‹œí‚¨ë‹¤.
+                % flooded regionÀÇ ¼¿ ¼ö¸¦ ÇÏ³ª Áõ°¡½ÃÅ²´Ù.
                 currentFloodedRegionAllCellsNo ...
                     = currentFloodedRegionAllCellsNo + 1;
                 
-                % ê°€ì¥ ë‚®ì€ ì…€ì˜ ì¢Œí‘œë„ ê¸°ë¡í•œë‹¤.
+                % °¡Àå ³·Àº ¼¿ÀÇ ÁÂÇ¥µµ ±â·ÏÇÑ´Ù.
                 currentFloodedRegionCellsYXList.Y(currentFloodedRegionAllCellsNo) ...
                     = lowerCellY;
                 currentFloodedRegionCellsYXList.X(currentFloodedRegionAllCellsNo) ...
@@ -301,50 +301,50 @@ for ithSink=1:allSinkCellsNo
         end % if IsBoundary(lowerCellY,lowerCellX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND)
     end % while (OUTLET_FOUNDED)
 
-    % 3) while ë°˜ë³µë¬¸ì„ í†µí•´ flooded regionì˜ ìœ ì¶œêµ¬ë¥¼ ì°¾ì•˜ë‹¤. ë”°ë¼ì„œ
-    %    flooded regionì„ ìœ ì¶œêµ¬ì™€ ì—°ê²°ì‹œí‚¤ê³ , flooded region ê´€ë ¨ ì†ì„±ì„
-    %    ê¸°ë¡í•´ì•¼ í•œë‹¤.
+    % 3) while ¹İº¹¹®À» ÅëÇØ flooded regionÀÇ À¯Ãâ±¸¸¦ Ã£¾Ò´Ù. µû¶ó¼­
+    %    flooded regionÀ» À¯Ãâ±¸¿Í ¿¬°á½ÃÅ°°í, flooded region °ü·Ã ¼Ó¼ºÀ»
+    %    ±â·ÏÇØ¾ß ÇÑ´Ù.
 
-    % (1) flooded region ì…€ë“¤ì˜ ìƒ‰ì¸í™”
+    % (1) flooded region ¼¿µéÀÇ »öÀÎÈ­
     floodedCellY ...
         = currentFloodedRegionCellsYXList.Y(1:currentFloodedRegionAllCellsNo);
     floodedCellX ...
         = currentFloodedRegionCellsYXList.X(1:currentFloodedRegionAllCellsNo);
     floodedCellIndex = sub2ind([mRows,nCols],floodedCellY,floodedCellX);
     
-    % (2) flooded regionì— ì†í•˜ëŠ” ëª¨ë“  ì…€ë“¤ì˜ SDSNbrY,SDSNbrXì— ìœ ì¶œêµ¬ì˜
-    %     ì¢Œí‘œë¥¼ ê¸°ë¡í•œë‹¤.
+    % (2) flooded region¿¡ ¼ÓÇÏ´Â ¸ğµç ¼¿µéÀÇ SDSNbrY,SDSNbrX¿¡ À¯Ãâ±¸ÀÇ
+    %     ÁÂÇ¥¸¦ ±â·ÏÇÑ´Ù.
     SDSNbrY(floodedCellIndex) = lowerCellY;
     SDSNbrX(floodedCellIndex) = lowerCellX;
     
-    % (3) í˜„ì¬ flooded regionì˜ flood ë³€ìˆ˜ì—ëŠ” OLD_FLOODEDë¼ê³  ê¸°ë¡í•˜ì—¬,
-    %     ë‹¤ìŒì— ì²˜ë¦¬í•  flooded regionê³¼ êµ¬ë¶„ë˜ë„ë¡ í•œë‹¤
+    % (3) ÇöÀç flooded regionÀÇ flood º¯¼ö¿¡´Â OLD_FLOODED¶ó°í ±â·ÏÇÏ¿©,
+    %     ´ÙÀ½¿¡ Ã³¸®ÇÒ flooded region°ú ±¸ºĞµÇµµ·Ï ÇÑ´Ù
     flood(floodedCellIndex) = OLD_FLOODED;
     
-    % (4) flooded regionì˜ ê°ì¢… ì†ì„±ê°’ë“¤ì„ ê¸°ë¡í•œë‹¤.
-    % A. flooded region ìƒ‰ì¸ ë²ˆí˜¸
+    % (4) flooded regionÀÇ °¢Á¾ ¼Ó¼º°ªµéÀ» ±â·ÏÇÑ´Ù.
+    % A. flooded region »öÀÎ ¹øÈ£
     floodedRegionIndex(floodedCellIndex) = currentFloodedRegionIndex;
     
-    % B. ìœ ì¶œêµ¬ì™€ì˜ ê³ ë„ì°¨
+    % B. À¯Ãâ±¸¿ÍÀÇ °íµµÂ÷
     floodedRegionLocalDepth(floodedCellIndex) ...
         = elev(lowerCellY,lowerCellX) - elev(floodedCellIndex);
     
-    % 4) í˜„ì¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì˜ ìœ ì¶œêµ¬ì— flooded regionì˜ ì†ì„±ê°’ë“¤ì„
-    %    ê¸°ë¡í•œë‹¤.
+    % 4) ÇöÀç Ã³¸® ÁßÀÎ flooded regionÀÇ À¯Ãâ±¸¿¡ flooded regionÀÇ ¼Ó¼º°ªµéÀ»
+    %    ±â·ÏÇÑ´Ù.
 
-    % (1) ìœ ì¶œêµ¬ì— flooded region ìƒ‰ì¸ ë²ˆí˜¸ë¥¼ ìŒìˆ˜ë¡œ ê¸°ë¡í•œë‹¤.
+    % (1) À¯Ãâ±¸¿¡ flooded region »öÀÎ ¹øÈ£¸¦ À½¼ö·Î ±â·ÏÇÑ´Ù.
     floodedRegionIndex(lowerCellY,lowerCellX) = - currentFloodedRegionIndex;
     
-    % (2) ìœ ì¶œêµ¬ì— flooded regionì˜ ì´ ì…€ ìˆ˜ë¥¼ ê¸°ë¡í•œë‹¤.
+    % (2) À¯Ãâ±¸¿¡ flooded regionÀÇ ÃÑ ¼¿ ¼ö¸¦ ±â·ÏÇÑ´Ù.
     floodedRegionCellsNo(lowerCellY,lowerCellX) = currentFloodedRegionAllCellsNo;
     
-    % (3) ìœ ì¶œêµ¬ì— flooded regionì˜ ì´ floodedRegionLocalDepth í•©ì„ ê¸°ë¡í•œë‹¤.
+    % (3) À¯Ãâ±¸¿¡ flooded regionÀÇ ÃÑ floodedRegionLocalDepth ÇÕÀ» ±â·ÏÇÑ´Ù.
     floodedRegionTotalDepth(lowerCellY,lowerCellX) ...
         = sum(floodedRegionLocalDepth(floodedCellIndex));
     
 end % for (ithSink=0 */
 
-% flooded regionì˜ ì €ì¥ëŸ‰[m^3]
+% flooded regionÀÇ ÀúÀå·®[m^3]
 floodedRegionStorageVolume = floodedRegionTotalDepth * CELL_AREA;
 
 end % ProcessSink end

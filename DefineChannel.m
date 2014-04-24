@@ -1,24 +1,24 @@
 % =========================================================================
 %> @section INTRO DefineChannel
 %>
-%> - í•˜ì²œì—ì˜í•œ ë¬¼ì§ˆìš´ë°˜ì´ ë°œìƒí•˜ëŠ” í•˜ë„ë¥¼ í¬í•¨í•˜ëŠ” ì…€ì„ ì •ì˜í•˜ëŠ” í•¨ìˆ˜
+%> - ÇÏÃµ¿¡ÀÇÇÑ ¹°Áú¿î¹ÝÀÌ ¹ß»ýÇÏ´Â ÇÏµµ¸¦ Æ÷ÇÔÇÏ´Â ¼¿À» Á¤ÀÇÇÏ´Â ÇÔ¼ö
 %>
 %> - Histroy
 %>  - 2011-10-13
-%>   - GPSSMainê³¼ LoadParameterValues ê·¸ë¦¬ê³  AnalyseResult í•¨ìˆ˜ì—ì„œ ì´ìš©ë¨
+%>   - GPSSMain°ú LoadParameterValues ±×¸®°í AnalyseResult ÇÔ¼ö¿¡¼­ ÀÌ¿ëµÊ
 %>
 %> @callgraph
 %> @callergraph
 %> @version 1.82
 %> @see 
 %> 
-%> @retval channel	                    : í•˜ë„ë¥¼ í¬í•¨í•˜ëŠ” ì…€
+%> @retval channel	                    : ÇÏµµ¸¦ Æ÷ÇÔÇÏ´Â ¼¿
 %>
-%> @param upslopeArea                       : ìƒë¶€ìœ ì—­ë©´ì 
-%> @param integratedSlope                   : ìˆ˜ì •ëœ (ë¬´í•œìœ í–¥ ì•Œê³ ë¦¬ë“¬) ê²½ì‚¬
-%> @param channelInitation                  : í•˜ì²œì‹œìž‘ì§€ì  ìž„ê³„ ê°’
-%> @param CELL_AREA                         : ì…€ ë©´ì 
-%> @param criticalUpslopeCellsNo            : í•˜ì²œì‹œìž‘ì§€ì ì˜ ìƒë¶€ìœ ì—­ ì…€ ìž„ê³„ ê°œìˆ˜
+%> @param upslopeArea                       : »óºÎÀ¯¿ª¸éÀû
+%> @param integratedSlope                   : ¼öÁ¤µÈ (¹«ÇÑÀ¯Çâ ¾Ë°í¸®µë) °æ»ç
+%> @param channelInitation                  : ÇÏÃµ½ÃÀÛÁöÁ¡ ÀÓ°è °ª
+%> @param CELL_AREA                         : ¼¿ ¸éÀû
+%> @param criticalUpslopeCellsNo            : ÇÏÃµ½ÃÀÛÁöÁ¡ÀÇ »óºÎÀ¯¿ª ¼¿ ÀÓ°è °³¼ö
 %> @param FLOODED                           : flooded region
 % =========================================================================
 function channel = DefineChannel(upslopeArea,integratedSlope,channelInitiation,CELL_AREA,criticalUpslopeCellsNo,flood,FLOODED)
@@ -27,7 +27,7 @@ function channel = DefineChannel(upslopeArea,integratedSlope,channelInitiation,C
 %
 
 channel ...
-	= ((upslopeArea .* integratedSlope .^ 2 > channelInitiation) ... 	% í•˜ì²œì‹œìž‘ìž„ê³„ ê°’ì„ ë„˜ì€ ì…€
-	& (integratedSlope ~= -inf)) ... 					% ì´ˆê¸° ê²½ì‚¬ê°’ì€ ì œì™¸í•¨
-	| (upslopeArea / CELL_AREA) > criticalUpslopeCellsNo ... 		% ì´ˆê¸° ì§€í˜•ì´ í‰íƒ„í•˜ì—¬ í•˜ë„ê°€ í˜•ì„±ë˜ì§€ ì•Šì„ ê²½ìš°ë¥¼ ëŒ€ë¹„í•œ ì´ˆê¸°ì§€í˜• í•˜ë„ í˜•ì„± ì¡°ê±´
+	= ((upslopeArea .* integratedSlope .^ 2 > channelInitiation) ... 	% ÇÏÃµ½ÃÀÛÀÓ°è °ªÀ» ³ÑÀº ¼¿
+	& (integratedSlope ~= -inf)) ... 					% ÃÊ±â °æ»ç°ªÀº Á¦¿ÜÇÔ
+	| (upslopeArea / CELL_AREA) > criticalUpslopeCellsNo ... 		% ÃÊ±â ÁöÇüÀÌ ÆòÅºÇÏ¿© ÇÏµµ°¡ Çü¼ºµÇÁö ¾ÊÀ» °æ¿ì¸¦ ´ëºñÇÑ ÃÊ±âÁöÇü ÇÏµµ Çü¼º Á¶°Ç
 	| (flood == FLOODED); 

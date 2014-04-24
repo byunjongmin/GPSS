@@ -1,263 +1,263 @@
 % =========================================================================
 %> @section INTRO LoadParameterValues
 %>
-%> - íŒŒì¼ì—ì„œ ì´ˆê¸° ë³€ìˆ˜ê°’ì„ ì½ê³  ì´ë¥¼ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
-%>  - ë˜í•œ í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ëŸ‰ ìˆ˜ì‹ì˜ ê³„ìˆ˜ë¥¼ êµ¬í•˜ê³  ì´ë¥¼ ë°˜í™˜í•¨
+%> - ÆÄÀÏ¿¡¼­ ÃÊ±â º¯¼ö°ªÀ» ÀÐ°í ÀÌ¸¦ Ãâ·ÂÇÏ´Â ÇÔ¼ö
+%>  - ¶ÇÇÑ ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹Ý·® ¼ö½ÄÀÇ °è¼ö¸¦ ±¸ÇÏ°í ÀÌ¸¦ ¹ÝÈ¯ÇÔ
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %> @see ReadParameterValue()
 %>
-%> @retval OUTPUT_SUBDIR                    : ì¶œë ¥ íŒŒì¼ì„ ì €ìž¥í•  ì„¸ë¶€ ë””ë ‰í„°ë¦¬
-%> @retval Y                                : (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
-%> @retval X                                : (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
-%> @retval dX                               : ì…€ í¬ê¸° [m]
-%> @retval PLANE_ANGLE                      : (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) í‰íƒ„ë©´ì˜ ê²½ì‚¬ [m/m]
-%> @retval INIT_BEDROCK_ELEV_FILE           : (ì´ˆê¸° ì§€í˜•ì„ ë¶ˆëŸ¬ì˜¬ ê²½ìš°) ì´ˆê¸° ì§€í˜•ì„ ì €ìž¥í•œ íŒŒì¼
-%> @retval initSedThick                     : ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ [m]
-%> @retval INIT_SED_THICK_FILE              : ì´ˆê¸° ì§€í˜•ì˜ í‡´ì ì¸µ ë‘ê»˜ë¥¼ ë¶ˆëŸ¬ì˜¬ ê²½ìš° ì´ë¥¼ ì €ìž¥í•œ íŒŒì¼
-%> @retval TIME_STEPS_NO                    : ì´ ì‹¤í–‰ íšŸìˆ˜
-%> @retval INIT_TIME_STEP_NO                : ì´ì „ ëª¨í˜• ê²°ê³¼ì—ì„œ ì´ì–´ì„œ í•  ê²½ìš°ì˜ ì´ˆê¸° ì‹¤í–‰ íšŸìˆ˜
-%> @retval dT                               : TIME_STEPS_NOë¥¼ ì¤„ì´ê¸° ìœ„í•œ ë§Œìˆ˜ìœ ëŸ‰ ìž¬í˜„ê¸°ê°„ [year]
-%> @retval WRITE_INTERVAL                   : ëª¨ì˜ ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ëŠ” ë¹ˆë„ ê²°ì •
-%> @retval BOUNDARY_OUTFLOW_COND            : ëª¨ë¸ ì˜ì—­ìœ¼ë¡œë¶€í„° ìœ ì¶œì´ ë°œìƒí•˜ëŠ” ìœ ì¶œêµ¬ ë˜ëŠ” ê²½ê³„ë¥¼ ì§€ì •
-%> @retval TOP_BOUNDARY_ELEV_COND           : ìœ„ ì™¸ê³½ ê²½ê³„ ê³ ë„ ì¡°ê±´
-%> @retval IS_LEFT_RIGHT_CONNECTED          : ì¢Œìš° ì™¸ê³½ ê²½ê³„ ì—°ê²°ì„ ê²°ì •
-%> @retval TOTAL_ACCUMULATED_UPLIFT         : ëª¨ì˜ ê¸°ê°„ ë™ì•ˆ ì´ ì§€ë°˜ ìœµê¸°ëŸ‰ [m]
-%> @retval IS_TILTED_UPWARPING              : ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ìš´ë™ì„ ê²°ì •
-%> @retval UPLIFT_AXIS_DISTANCE_FROM_COAST  : í•´ì•ˆì„ ìœ¼ë¡œë¶€í„° ìœµê¸°ì¶•ê¹Œì§€ì˜ ê±°ë¦¬ [m]
-%> @retval RAMP_ANGLE_TO_TOP                : (ëˆ„ì  ì§€ë°˜ ìœµê¸°ëŸ‰ì„ ê¸°ì¤€) ìœµê¸°ì¶•ì—ì„œ ìœ„ ê²½ê³„ë¡œì˜ ê° [radian]
-%> @retval Y_TOP_BND_FINAL_ELEV             : ìœ„ ê²½ê³„ì˜ ìµœì¢… ê³ ë„ [m]
-%> @retval UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND : ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬ ê²°ì •
-%> @retval acceleratedUpliftPhaseNo         : (ìœµê¸°ìœ¨ ë³€ë™ ë¶„í¬ ì¡°ê±´) ëª¨ì˜ê¸°ê°„ ë™ì•ˆ ë†’ì€ ìœµê¸°ìœ¨ì´ ë°œìƒí•˜ëŠ” ë¹ˆë„
-%> @retval dUpliftRate                      : (ìœµê¸°ìœ¨ ë³€ë™ ë¶„í¬ ì¡°ê±´) í‰ê·  ì—°ê°„ ìœµê¸°ìœ¨ì„ ê¸°ì¤€ìœ¼ë¡œ ìµœëŒ€ ìµœì†Œ ìœµê¸°ìœ¨ì˜ ì°¨ì´ ë¹„ìœ¨
-%> @retval upliftRate0                      : (ìœµê¸°ìœ¨ ëŒì¶œ-ê°ì‡  ë¶„í¬ ì¡°ê±´) ìœµê¸°ìœ¨ ê°ì‡ ë¶„í¬ì˜ ì´ˆê¸° ìœµê¸°ìœ¨ [m/yearr]
-%> @retval waveArrivalTime                  : (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ì˜ì„œ ì™¸ê³½ ê²½ê³„ ê³ ë„ê°€ ë³¸ê²©ì ìœ¼ë¡œ í•˜ê°•í•˜ëŠ” ì‹œì  (ëª¨ì˜ ê¸°ê°„ì—ì„œ ë¹„ìœ¨)
-%> @retval initUpliftRate                   : (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ë³¸ê²©ì  í•˜ê°• ì´ì „ ì¹¨ì‹ ê¸°ì¤€ë©´ í•˜ê°•ìœ¨ [m/year]
-%> @retval kw0                              : ì„ í˜• í’í™”í•¨ìˆ˜ì—ì„œ ì—°ìž¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/year]
-%> @retval kwa                              : ì„ í˜• í’í™”í•¨ìˆ˜ì˜ ì¦ê°€ìœ¨
-%> @retval kw1                              : ì§€ìˆ˜ ê°ì†Œ í’í™”í•¨ìˆ˜ì—ì„œ ì—°ìž¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/year]
-%> @retval kwm                              : í’í™”ì¸µ ë‘ê»˜ ì¶•ì  [m]
-%> @retval kmd                              : ì‚¬ë©´ìž‘ìš©ì˜ í™•ì‚° ê³„ìˆ˜
-%> @retval soilCriticalSlopeForFailure      : ì²œë¶€í™œë™ì˜ ì•ˆì • ì‚¬ë©´ê° [radian]
-%> @retval rockCriticalSlopeForFailure      : ê¸°ë°˜ì•”í™œë™ì˜ ì•ˆì • ì‚¬ë©´ê° [radian]
-%> @retval annualPrecipitation              : ì—° ê°•ìš°ëŸ‰ [m/year]
-%> @retval annualEvapotranspiration         : ì—° ì¦ë°œì‚°ëŸ‰ [m/year]
-%> @retval kqb                              : í‰ê· ìœ ëŸ‰ê³¼ ë§Œìˆ˜ìœ ëŸ‰ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
-%> @retval mqb                              : í‰ê· ìœ ëŸ‰ê³¼ ë§Œìˆ˜ìœ ëŸ‰ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
-%> @retval bankfullTime                     : ë§Œìˆ˜ìœ ëŸ‰ ì§€ì† ê¸°ê°„ [s]
-%> @retval timeWeight                       : ë§Œìˆ˜ìœ ëŸ‰ ì§€ì†ê¸°ê°„ì„ ì¤„ì´ê¸° ìœ„í•œ ì¹¨ì‹ìœ¨ ê°€ì¤‘ì¹˜
-%> @retval minSubDT                         : ìµœì†Œí•œì˜ ì„¸ë¶€ë‹¨ìœ„ ì‹œê°„ [s]
-%> @retval khw                              : ë§Œìˆ˜ìœ ëŸ‰ê³¼ í•˜í­ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
-%> @retval mhw                              : ë§Œìˆ˜ìœ ëŸ‰ê³¼ í•˜í­ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
-%> @retval khd                              : ë§Œìˆ˜ìœ ëŸ‰ê³¼ ìˆ˜ì‹¬ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
-%> @retval mhd                              : ë§Œìˆ˜ìœ ëŸ‰ê³¼ ìˆ˜ì‹¬ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
-%> @retval FLUVIALPROCESS_COND              : flooded regionì˜ ìˆœ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ ì¶”ì •í•˜ëŠ” ë°©ë²•
-%> @retval channelInitiation                : í•˜ì²œ ì‹œìž‘ ì§€ì  ìž„ê³„ê°’
-%> @retval criticalUpslopeCellsNo           : í•˜ì²œ ì‹œìž‘ ìž„ê³„ ìƒë¶€ìœ ì—­ ì…€ ê°œìˆ˜
-%> @retval mfa                              : í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ìœ¨ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
-%> @retval nfa                              : í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ìœ¨ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
-%> @retval fSRho                            : ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ í‰ê·  ë°€ë„ [kg/m^3]
-%> @retval fSD50                            : ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ ì¤‘ê°„ ìž…ê²½ [m]
-%> @retval eta                              : ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ í‰ê·  ê³µê·¹ìœ¨
-%> @retval nA                               : ì¶©ì  í•˜ì²œ í•˜ë„ì—ì„œì˜ Manning ì €í•­ ê³„ìˆ˜
-%> @retval mfb                              : ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
-%> @retval nfb                              : ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
-%> @retval kfbre                            : ê¸°ë°˜ì•” í•˜ìƒ ì—°ì•½ë„
-%> @retval nB                               : ê¸°ë°˜ì•” í•˜ìƒ í•˜ë„ì—ì„œì˜ Manning ì €í•­ ê³„ìˆ˜
+%> @retval OUTPUT_SUBDIR                    : Ãâ·Â ÆÄÀÏÀ» ÀúÀåÇÒ ¼¼ºÎ µð·ºÅÍ¸®
+%> @retval Y                                : (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
+%> @retval X                                : (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
+%> @retval dX                               : ¼¿ Å©±â [m]
+%> @retval PLANE_ANGLE                      : (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ÆòÅº¸éÀÇ °æ»ç [m/m]
+%> @retval INIT_BEDROCK_ELEV_FILE           : (ÃÊ±â ÁöÇüÀ» ºÒ·¯¿Ã °æ¿ì) ÃÊ±â ÁöÇüÀ» ÀúÀåÇÑ ÆÄÀÏ
+%> @retval initSedThick                     : ÃÊ±â ÅðÀûÃþ µÎ²² [m]
+%> @retval INIT_SED_THICK_FILE              : ÃÊ±â ÁöÇüÀÇ ÅðÀûÃþ µÎ²²¸¦ ºÒ·¯¿Ã °æ¿ì ÀÌ¸¦ ÀúÀåÇÑ ÆÄÀÏ
+%> @retval TIME_STEPS_NO                    : ÃÑ ½ÇÇà È½¼ö
+%> @retval INIT_TIME_STEP_NO                : ÀÌÀü ¸ðÇü °á°ú¿¡¼­ ÀÌ¾î¼­ ÇÒ °æ¿ìÀÇ ÃÊ±â ½ÇÇà È½¼ö
+%> @retval dT                               : TIME_STEPS_NO¸¦ ÁÙÀÌ±â À§ÇÑ ¸¸¼öÀ¯·® ÀçÇö±â°£ [year]
+%> @retval WRITE_INTERVAL                   : ¸ðÀÇ °á°ú¸¦ Ãâ·ÂÇÏ´Â ºóµµ °áÁ¤
+%> @retval BOUNDARY_OUTFLOW_COND            : ¸ðµ¨ ¿µ¿ªÀ¸·ÎºÎÅÍ À¯ÃâÀÌ ¹ß»ýÇÏ´Â À¯Ãâ±¸ ¶Ç´Â °æ°è¸¦ ÁöÁ¤
+%> @retval TOP_BOUNDARY_ELEV_COND           : À§ ¿Ü°û °æ°è °íµµ Á¶°Ç
+%> @retval IS_LEFT_RIGHT_CONNECTED          : ÁÂ¿ì ¿Ü°û °æ°è ¿¬°áÀ» °áÁ¤
+%> @retval TOTAL_ACCUMULATED_UPLIFT         : ¸ðÀÇ ±â°£ µ¿¾È ÃÑ Áö¹Ý À¶±â·® [m]
+%> @retval IS_TILTED_UPWARPING              : °æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â ¿îµ¿À» °áÁ¤
+%> @retval UPLIFT_AXIS_DISTANCE_FROM_COAST  : ÇØ¾È¼±À¸·ÎºÎÅÍ À¶±âÃà±îÁöÀÇ °Å¸® [m]
+%> @retval RAMP_ANGLE_TO_TOP                : (´©Àû Áö¹Ý À¶±â·®À» ±âÁØ) À¶±âÃà¿¡¼­ À§ °æ°è·ÎÀÇ °¢ [radian]
+%> @retval Y_TOP_BND_FINAL_ELEV             : À§ °æ°èÀÇ ÃÖÁ¾ °íµµ [m]
+%> @retval UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND : À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷ °áÁ¤
+%> @retval acceleratedUpliftPhaseNo         : (À¶±âÀ² º¯µ¿ ºÐÆ÷ Á¶°Ç) ¸ðÀÇ±â°£ µ¿¾È ³ôÀº À¶±âÀ²ÀÌ ¹ß»ýÇÏ´Â ºóµµ
+%> @retval dUpliftRate                      : (À¶±âÀ² º¯µ¿ ºÐÆ÷ Á¶°Ç) Æò±Õ ¿¬°£ À¶±âÀ²À» ±âÁØÀ¸·Î ÃÖ´ë ÃÖ¼Ò À¶±âÀ²ÀÇ Â÷ÀÌ ºñÀ²
+%> @retval upliftRate0                      : (À¶±âÀ² µ¹Ãâ-°¨¼è ºÐÆ÷ Á¶°Ç) À¶±âÀ² °¨¼èºÐÆ÷ÀÇ ÃÊ±â À¶±âÀ² [m/yearr]
+%> @retval waveArrivalTime                  : (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) ¿µ¼­ ¿Ü°û °æ°è °íµµ°¡ º»°ÝÀûÀ¸·Î ÇÏ°­ÇÏ´Â ½ÃÁ¡ (¸ðÀÇ ±â°£¿¡¼­ ºñÀ²)
+%> @retval initUpliftRate                   : (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) º»°ÝÀû ÇÏ°­ ÀÌÀü Ä§½Ä ±âÁØ¸é ÇÏ°­À² [m/year]
+%> @retval kw0                              : ¼±Çü Ç³È­ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹Ý¾ÏÀÇ Ç³È­À² [m/year]
+%> @retval kwa                              : ¼±Çü Ç³È­ÇÔ¼öÀÇ Áõ°¡À²
+%> @retval kw1                              : Áö¼ö °¨¼Ò Ç³È­ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹Ý¾ÏÀÇ Ç³È­À² [m/year]
+%> @retval kwm                              : Ç³È­Ãþ µÎ²² ÃàÀû [m]
+%> @retval kmd                              : »ç¸éÀÛ¿ëÀÇ È®»ê °è¼ö
+%> @retval soilCriticalSlopeForFailure      : ÃµºÎÈ°µ¿ÀÇ ¾ÈÁ¤ »ç¸é°¢ [radian]
+%> @retval rockCriticalSlopeForFailure      : ±â¹Ý¾ÏÈ°µ¿ÀÇ ¾ÈÁ¤ »ç¸é°¢ [radian]
+%> @retval annualPrecipitation              : ¿¬ °­¿ì·® [m/year]
+%> @retval annualEvapotranspiration         : ¿¬ Áõ¹ß»ê·® [m/year]
+%> @retval kqb                              : Æò±ÕÀ¯·®°ú ¸¸¼öÀ¯·®°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
+%> @retval mqb                              : Æò±ÕÀ¯·®°ú ¸¸¼öÀ¯·®°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
+%> @retval bankfullTime                     : ¸¸¼öÀ¯·® Áö¼Ó ±â°£ [s]
+%> @retval timeWeight                       : ¸¸¼öÀ¯·® Áö¼Ó±â°£À» ÁÙÀÌ±â À§ÇÑ Ä§½ÄÀ² °¡ÁßÄ¡
+%> @retval minSubDT                         : ÃÖ¼ÒÇÑÀÇ ¼¼ºÎ´ÜÀ§ ½Ã°£ [s]
+%> @retval khw                              : ¸¸¼öÀ¯·®°ú ÇÏÆø°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
+%> @retval mhw                              : ¸¸¼öÀ¯·®°ú ÇÏÆø°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
+%> @retval khd                              : ¸¸¼öÀ¯·®°ú ¼ö½É°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
+%> @retval mhd                              : ¸¸¼öÀ¯·®°ú ¼ö½É°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
+%> @retval FLUVIALPROCESS_COND              : flooded regionÀÇ ¼ø ÅðÀû¹° µÎ²² º¯È­À²À» ÃßÁ¤ÇÏ´Â ¹æ¹ý
+%> @retval channelInitiation                : ÇÏÃµ ½ÃÀÛ ÁöÁ¡ ÀÓ°è°ª
+%> @retval criticalUpslopeCellsNo           : ÇÏÃµ ½ÃÀÛ ÀÓ°è »óºÎÀ¯¿ª ¼¿ °³¼ö
+%> @retval mfa                              : ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹ÝÀ² ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
+%> @retval nfa                              : ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹ÝÀ² ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
+%> @retval fSRho                            : ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Æò±Õ ¹Ðµµ [kg/m^3]
+%> @retval fSD50                            : ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Áß°£ ÀÔ°æ [m]
+%> @retval eta                              : ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Æò±Õ °ø±ØÀ²
+%> @retval nA                               : ÃæÀû ÇÏÃµ ÇÏµµ¿¡¼­ÀÇ Manning ÀúÇ× °è¼ö
+%> @retval mfb                              : ±â¹Ý¾Ï ÇÏ»ó Ä§½ÄÀ² ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
+%> @retval nfb                              : ±â¹Ý¾Ï ÇÏ»ó Ä§½ÄÀ² ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
+%> @retval kfbre                            : ±â¹Ý¾Ï ÇÏ»ó ¿¬¾àµµ
+%> @retval nB                               : ±â¹Ý¾Ï ÇÏ»ó ÇÏµµ¿¡¼­ÀÇ Manning ÀúÇ× °è¼ö
 %>
-%> @param INPUT_FILE_PARAM_PATH             : ì´ˆê¸° ìž…ë ¥ë³€ìˆ˜ê°€ ê¸°ë¡ëœ íŒŒì¼ ì´ë¦„
+%> @param INPUT_FILE_PARAM_PATH             : ÃÊ±â ÀÔ·Âº¯¼ö°¡ ±â·ÏµÈ ÆÄÀÏ ÀÌ¸§
 % =========================================================================
 function [OUTPUT_SUBDIR,Y,X,dX,PLANE_ANGLE,INIT_BEDROCK_ELEV_FILE,initSedThick,INIT_SED_THICK_FILE,TIME_STEPS_NO,INIT_TIME_STEP_NO,dT,WRITE_INTERVAL,BOUNDARY_OUTFLOW_COND,TOP_BOUNDARY_ELEV_COND,IS_LEFT_RIGHT_CONNECTED,TOTAL_ACCUMULATED_UPLIFT,IS_TILTED_UPWARPING,UPLIFT_AXIS_DISTANCE_FROM_COAST,RAMP_ANGLE_TO_TOP,Y_TOP_BND_FINAL_ELEV,UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND,acceleratedUpliftPhaseNo,dUpliftRate,upliftRate0,waveArrivalTime,initUpliftRate,kw0,kwa,kw1,kwm,kmd,soilCriticalSlopeForFailure,rockCriticalSlopeForFailure,annualPrecipitation,annualEvapotranspiration,kqb,mqb,bankfullTime,timeWeight,minSubDT,khw,mhw,khd,mhd,FLUVIALPROCESS_COND,channelInitiation,criticalUpslopeCellsNo,mfa,nfa,fSRho,fSD50,eta,nA,mfb,nfb,kfbre,nB] = LoadParameterValues(INPUT_FILE_PARAM_PATH)
 %
 %
 
-% ìƒìˆ˜ ì •ì˜
+% »ó¼ö Á¤ÀÇ
 NUMERIC = 1;
 STRING = 2;
 
-% íŒŒì¼ ì—´ê¸°
+% ÆÄÀÏ ¿­±â
 fid = fopen(INPUT_FILE_PARAM_PATH,'r');
 if fid == -1
-    error('ì´ˆê¸° ë³€ìˆ˜ê°’ì´ ì €ìž¥ëœ íŒŒì¼ì„ ì—´ì§€ ëª»í•œë‹¤.\n');
+    error('ÃÊ±â º¯¼ö°ªÀÌ ÀúÀåµÈ ÆÄÀÏÀ» ¿­Áö ¸øÇÑ´Ù.\n');
 end
 
-% parameterValue fileì— ëŒ€í•œ ì„¤ëª… ë¶€ë¶„ì„ ê±´ë„ˆ ëœ€
+% parameterValue file¿¡ ´ëÇÑ ¼³¸í ºÎºÐÀ» °Ç³Ê ¶Ü
 % tmpStrLine = fgetl(fid);
 % tmpStrLine = fgetl(fid);
  
-% ì´ˆê¸° ë³€ìˆ˜ê°’ ìž…ë ¥
+% ÃÊ±â º¯¼ö°ª ÀÔ·Â
 %--------------------------------------------------------------------------
-% ë””ë ‰í„°ë¦¬ ë° íŒŒì¼ëª…
+% µð·ºÅÍ¸® ¹× ÆÄÀÏ¸í
 
-OUTPUT_SUBDIR ... % ì¶œë ¥ íŒŒì¼ì„ ì €ìž¥í•  ì„¸ë¶€ ë””ë ‰í„°ë¦¬
+OUTPUT_SUBDIR ... % Ãâ·Â ÆÄÀÏÀ» ÀúÀåÇÒ ¼¼ºÎ µð·ºÅÍ¸®
     = ReadParameterValue(fid,'OUTPUT_SUBDIR',STRING); 
 
 %--------------------------------------------------------------------------
-% ëª¨ë¸ ì˜ì—­
+% ¸ðµ¨ ¿µ¿ª
 
-Y ... % (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Y ì¶• í¬ê¸°
+Y ... % (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ Y Ãà Å©±â
     = ReadParameterValue(fid,'Y',NUMERIC); 
-X ... % (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ X ì¶• í¬ê¸°
+X ... % (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ X Ãà Å©±â
     = ReadParameterValue(fid,'X',NUMERIC); 
-dX ... % ì…€ í¬ê¸° [m]
+dX ... % ¼¿ Å©±â [m]
     = ReadParameterValue(fid,'dX',NUMERIC);
-PLANE_ANGLE ... % (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) í‰íƒ„ë©´ì˜ ê²½ì‚¬ [radian]
+PLANE_ANGLE ... % (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ÆòÅº¸éÀÇ °æ»ç [radian]
     = ReadParameterValue(fid,'PLANE_ANGLE',NUMERIC);
-INIT_BEDROCK_ELEV_FILE ... % (ì´ˆê¸° ì§€í˜•ì„ ë¶ˆëŸ¬ì˜¬ ê²½ìš°) ì´ˆê¸° ì§€í˜•ì„ ì €ìž¥í•œ íŒŒì¼
+INIT_BEDROCK_ELEV_FILE ... % (ÃÊ±â ÁöÇüÀ» ºÒ·¯¿Ã °æ¿ì) ÃÊ±â ÁöÇüÀ» ÀúÀåÇÑ ÆÄÀÏ
     = ReadParameterValue(fid,'INIT_BEDROCK_ELEV_FILE',STRING);
-initSedThick ... % ì´ˆê¸° ì§€í˜•ì˜ í‡´ì ì¸µ ë‘ê²Œ [m]
+initSedThick ... % ÃÊ±â ÁöÇüÀÇ ÅðÀûÃþ µÎ°Ô [m]
     = ReadParameterValue(fid,'initSedThick',NUMERIC);
-INIT_SED_THICK_FILE ...    % ì´ˆê¸° ì§€í˜•ì˜ í‡´ì ì¸µ ë‘ê»˜ë¥¼ ë¶ˆëŸ¬ì˜¬ ê²½ìš° ì´ë¥¼ ì €ìž¥í•œ íŒŒì¼
+INIT_SED_THICK_FILE ...    % ÃÊ±â ÁöÇüÀÇ ÅðÀûÃþ µÎ²²¸¦ ºÒ·¯¿Ã °æ¿ì ÀÌ¸¦ ÀúÀåÇÑ ÆÄÀÏ
     = ReadParameterValue(fid,'INIT_SED_THICK_FILE',STRING);
 
 %--------------------------------------------------------------------------
-% ì‹¤í–‰ ë° ì¶œë ¥ íšŸìˆ˜
+% ½ÇÇà ¹× Ãâ·Â È½¼ö
 
-TIME_STEPS_NO ... % ì´ ì‹¤í–‰ íšŸìˆ˜
+TIME_STEPS_NO ... % ÃÑ ½ÇÇà È½¼ö
     = ReadParameterValue(fid,'TIME_STEPS_NO',NUMERIC);
-INIT_TIME_STEP_NO ... % ì´ì „ ëª¨í˜• ê²°ê³¼ì—ì„œ ì´ì–´ì„œ í•  ê²½ìš°ì˜ ì´ˆê¸° ì‹¤í–‰ íšŸìˆ˜
+INIT_TIME_STEP_NO ... % ÀÌÀü ¸ðÇü °á°ú¿¡¼­ ÀÌ¾î¼­ ÇÒ °æ¿ìÀÇ ÃÊ±â ½ÇÇà È½¼ö
     = ReadParameterValue(fid,'INIT_TIME_STEP_NO',NUMERIC);
-dT ... % TIME_STEPS_NOë¥¼ ì¤„ì´ê¸° ìœ„í•œ ë§Œìˆ˜ìœ ëŸ‰ ìž¬í˜„ê¸°ê°„ [yr]
+dT ... % TIME_STEPS_NO¸¦ ÁÙÀÌ±â À§ÇÑ ¸¸¼öÀ¯·® ÀçÇö±â°£ [yr]
     = ReadParameterValue(fid,'dT',NUMERIC);
-WRITE_INTERVAL ... % ëª¨ì˜ ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ëŠ” ë¹ˆë„ ê²°ì •
+WRITE_INTERVAL ... % ¸ðÀÇ °á°ú¸¦ Ãâ·ÂÇÏ´Â ºóµµ °áÁ¤
     = ReadParameterValue(fid,'WRITE_INTERVAL',NUMERIC);
 
 %--------------------------------------------------------------------------
-% ê²½ê³„ì¡°ê±´
+% °æ°èÁ¶°Ç
 
-BOUNDARY_OUTFLOW_COND ... % ëª¨ë¸ ì˜ì—­ìœ¼ë¡œë¶€í„° ìœ ì¶œì´ ë°œìƒí•˜ëŠ” ìœ ì¶œêµ¬ ë˜ëŠ” ê²½ê³„ì¡°ê±´
+BOUNDARY_OUTFLOW_COND ... % ¸ðµ¨ ¿µ¿ªÀ¸·ÎºÎÅÍ À¯ÃâÀÌ ¹ß»ýÇÏ´Â À¯Ãâ±¸ ¶Ç´Â °æ°èÁ¶°Ç
     = ReadParameterValue(fid,'BOUNDARY_OUTFLOW_COND',NUMERIC);
-TOP_BOUNDARY_ELEV_COND ... % ìœ ì¶œêµ¬ ë˜ëŠ” ì™¸ê³½ ê²½ê³„ ê³ ë„ ì¡°ê±´
+TOP_BOUNDARY_ELEV_COND ... % À¯Ãâ±¸ ¶Ç´Â ¿Ü°û °æ°è °íµµ Á¶°Ç
     = ReadParameterValue(fid,'TOP_BOUNDARY_ELEV_COND',NUMERIC);
-IS_LEFT_RIGHT_CONNECTED ... % ì¢Œìš° ì™¸ê³½ ê²½ê³„ ì—°ê²° ì¡°ê±´
+IS_LEFT_RIGHT_CONNECTED ... % ÁÂ¿ì ¿Ü°û °æ°è ¿¬°á Á¶°Ç
     = ReadParameterValue(fid,'IS_LEFT_RIGHT_CONNECTED',NUMERIC);
 
 %--------------------------------------------------------------------------
-% ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ì‹œê°„ì  ë¶„í¬
+% À¶±âÀ²ÀÇ °ø°£Àû ½Ã°£Àû ºÐÆ÷
 
-TOTAL_ACCUMULATED_UPLIFT ... % ëª¨ì˜ ê¸°ê°„ ë™ì•ˆ ì´ ì§€ë°˜ìœµê¸°ëŸ‰ [m]
+TOTAL_ACCUMULATED_UPLIFT ... % ¸ðÀÇ ±â°£ µ¿¾È ÃÑ Áö¹ÝÀ¶±â·® [m]
     = ReadParameterValue(fid,'TOTAL_ACCUMULATED_UPLIFT',NUMERIC);
-IS_TILTED_UPWARPING ... % ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´
+IS_TILTED_UPWARPING ... % °æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç
     = ReadParameterValue(fid,'IS_TILTED_UPWARPING',NUMERIC);
-UPLIFT_AXIS_DISTANCE_FROM_COAST ... % í•´ì•ˆì„ ìœ¼ë¡œë¶€í„° ìœµê¸°ì¶•ê¹Œì§€ì˜ ê±°ë¦¬ [m]
+UPLIFT_AXIS_DISTANCE_FROM_COAST ... % ÇØ¾È¼±À¸·ÎºÎÅÍ À¶±âÃà±îÁöÀÇ °Å¸® [m]
     = ReadParameterValue(fid,'UPLIFT_AXIS_DISTANCE_FROM_COAST',NUMERIC);
-RAMP_ANGLE_TO_TOP ... % (ëˆ„ì  ì§€ë°˜ìœµê¸°ëŸ‰ì„ ê¸°ì¤€) ìœµê¸°ì¶•ì—ì„œ ìœ„ ê²½ê³„ë¡œì˜ ê°
+RAMP_ANGLE_TO_TOP ... % (´©Àû Áö¹ÝÀ¶±â·®À» ±âÁØ) À¶±âÃà¿¡¼­ À§ °æ°è·ÎÀÇ °¢
     = ReadParameterValue(fid,'RAMP_ANGLE_TO_TOP',NUMERIC);
-Y_TOP_BND_FINAL_ELEV ... % (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ëª¨ì˜ì‹œ) ìœ„ ê²½ê³„ì˜ ìµœì¢… ê³ ë„
+Y_TOP_BND_FINAL_ELEV ... % (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â ¸ðÀÇ½Ã) À§ °æ°èÀÇ ÃÖÁ¾ °íµµ
     = ReadParameterValue(fid,'Y_TOP_BND_FINAL_ELEV',NUMERIC);
-UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND ... % ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬ ì¡°ê±´
+UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND ... % À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷ Á¶°Ç
     = ReadParameterValue(fid,'UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND',NUMERIC);
-acceleratedUpliftPhaseNo ... % (ìœµê¸°ìœ¨ ë³€ë™ ë¶„í¬ ì¡°ê±´) ëª¨ì˜ê¸°ê°„ ë™ì•ˆ ë†’ì€ ìœµê¸°ìœ¨ì´ ë°œìƒí•˜ëŠ” ë¹ˆë„
+acceleratedUpliftPhaseNo ... % (À¶±âÀ² º¯µ¿ ºÐÆ÷ Á¶°Ç) ¸ðÀÇ±â°£ µ¿¾È ³ôÀº À¶±âÀ²ÀÌ ¹ß»ýÇÏ´Â ºóµµ
 	=  ReadParameterValue(fid,'acceleratedUpliftPhaseNo',NUMERIC);
-dUpliftRate ... % (ìœµê¸°ìœ¨ ë³€ë™ ë¶„í¬ ì¡°ê±´) í‰ê·  ì—°ê°„ ìœµê¸°ìœ¨ì„ ê¸°ì¤€ìœ¼ë¡œ ìµœëŒ€ ìµœì†Œ ìœµê¸°ìœ¨ì˜ ì°¨ì´ ë¹„ìœ¨ 
-	=  ReadParameterValue(fid,'dUpliftRate',NUMERIC); % * ì£¼ì˜: 0 < dUFraction <= 1
-upliftRate0 ... % (ìœµê¸°ìœ¨ ëŒì¶œ-ê°ì‡  ë¶„í¬ ì¡°ê±´) ìœµê¸°ìœ¨ ê°ì‡ ë¶„í¬ì˜ ì´ˆê¸° ìœµê¸°ìœ¨ [m/yr]
-	=  ReadParameterValue(fid,'upliftRate0',NUMERIC); % * ì°¸ê³ : Min et al. (2008)
-waveArrivalTime ... % (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ì˜ì„œ ì™¸ê³½ ê²½ê³„ ê³ ë„ê°€ ë³¸ê²©ì ìœ¼ë¡œ í•˜ê°•í•˜ëŠ” ì‹œì  (ëª¨ì˜ ê¸°ê°„ì—ì„œ ë¹„ìœ¨)
+dUpliftRate ... % (À¶±âÀ² º¯µ¿ ºÐÆ÷ Á¶°Ç) Æò±Õ ¿¬°£ À¶±âÀ²À» ±âÁØÀ¸·Î ÃÖ´ë ÃÖ¼Ò À¶±âÀ²ÀÇ Â÷ÀÌ ºñÀ² 
+	=  ReadParameterValue(fid,'dUpliftRate',NUMERIC); % * ÁÖÀÇ: 0 < dUFraction <= 1
+upliftRate0 ... % (À¶±âÀ² µ¹Ãâ-°¨¼è ºÐÆ÷ Á¶°Ç) À¶±âÀ² °¨¼èºÐÆ÷ÀÇ ÃÊ±â À¶±âÀ² [m/yr]
+	=  ReadParameterValue(fid,'upliftRate0',NUMERIC); % * Âü°í: Min et al. (2008)
+waveArrivalTime ... % (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) ¿µ¼­ ¿Ü°û °æ°è °íµµ°¡ º»°ÝÀûÀ¸·Î ÇÏ°­ÇÏ´Â ½ÃÁ¡ (¸ðÀÇ ±â°£¿¡¼­ ºñÀ²)
 	=  ReadParameterValue(fid,'waveArrivalTime',NUMERIC);
-initUpliftRate ... % (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ë³¸ê²©ì  í•˜ê°• ì´ì „ ì¹¨ì‹ ê¸°ì¤€ë©´ í•˜ê°•ìœ¨ [m/yr]
+initUpliftRate ... % (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) º»°ÝÀû ÇÏ°­ ÀÌÀü Ä§½Ä ±âÁØ¸é ÇÏ°­À² [m/yr]
 	=  ReadParameterValue(fid,'initUpliftRate',NUMERIC);
 
 %--------------------------------------------------------------------------
-% ê¸°ë°˜ì•” í’í™” í•¨ìˆ˜
+% ±â¹Ý¾Ï Ç³È­ ÇÔ¼ö
 
-% * ì›ë¦¬: Anderson(2002)ì˜ ê¸°ë°˜ì•” í’í™” í•¨ìˆ˜ë¥¼ ì´ìš©.
-kw0 ... % ì„ í˜• í’í™” í•¨ìˆ˜ì—ì„œ ì—°ìž¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/yr]
+% * ¿ø¸®: Anderson(2002)ÀÇ ±â¹Ý¾Ï Ç³È­ ÇÔ¼ö¸¦ ÀÌ¿ë.
+kw0 ... % ¼±Çü Ç³È­ ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹Ý¾ÏÀÇ Ç³È­À² [m/yr]
     = ReadParameterValue(fid,'kw0',NUMERIC);
-kwa ... % ì„ í˜• í’í™” í•¨ìˆ˜ì˜ ì¦ê°€ìœ¨
+kwa ... % ¼±Çü Ç³È­ ÇÔ¼öÀÇ Áõ°¡À²
     = ReadParameterValue(fid,'kwa',NUMERIC);
-kw1 ... % ì§€ìˆ˜ ê°ì†Œ í’í™” í•¨ìˆ˜ì—ì„œ ì—°ìž¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/yr]
+kw1 ... % Áö¼ö °¨¼Ò Ç³È­ ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹Ý¾ÏÀÇ Ç³È­À² [m/yr]
     = ReadParameterValue(fid,'kw1',NUMERIC);
-kwm ... % í’í™”ì¸µ ë‘ê»˜ ì¶•ì  [m]
+kwm ... % Ç³È­Ãþ µÎ²² ÃàÀû [m]
     = ReadParameterValue(fid,'kwm',NUMERIC);
 
 %--------------------------------------------------------------------------
-% ì‚¬ë©´ìž‘ìš©
+% »ç¸éÀÛ¿ë
 
-kmd ... % ì‚¬ë©´ìž‘ìš©ì˜ í™•ì‚° ê³„ìˆ˜ [m2/m yr]
+kmd ... % »ç¸éÀÛ¿ëÀÇ È®»ê °è¼ö [m2/m yr]
     = ReadParameterValue(fid,'kmd',NUMERIC);
-% * ì£¼ì˜: ì•”ì„ë¶•ê´´ ì•ˆì •ì‚¬ë©´ê°ë³´ë‹¤ ìž‘ê²Œ ì„¤ì •í•¨
-soilCriticalSlopeForFailure ... % ì‡„ì„¤ë¥˜ì˜ ì•ˆì • ì‚¬ë©´ê°
+% * ÁÖÀÇ: ¾Ï¼®ºØ±« ¾ÈÁ¤»ç¸é°¢º¸´Ù ÀÛ°Ô ¼³Á¤ÇÔ
+soilCriticalSlopeForFailure ... % ¼â¼³·ùÀÇ ¾ÈÁ¤ »ç¸é°¢
     = ReadParameterValue(fid,'soilCriticalSlopeForFailure',NUMERIC);
-% * ì°¸ê³ : ë‚¨ëŒ€ì²œ ë° ì‚¬ì²œì²œ ìµœìƒë¥˜ì—ì„œëŠ” 0.5. * ì£¼ì˜: í•´ìƒë„ì— ë”°ë¼ ë‹¬ë¼ì§
-rockCriticalSlopeForFailure ... % ì•”ì„ë¶•ê´´ì˜ ì•ˆì • ì‚¬ë©´ê°
+% * Âü°í: ³²´ëÃµ ¹× »çÃµÃµ ÃÖ»ó·ù¿¡¼­´Â 0.5. * ÁÖÀÇ: ÇØ»óµµ¿¡ µû¶ó ´Þ¶óÁü
+rockCriticalSlopeForFailure ... % ¾Ï¼®ºØ±«ÀÇ ¾ÈÁ¤ »ç¸é°¢
     = ReadParameterValue(fid,'rockCriticalSlopeForFailure',NUMERIC);
 
 %--------------------------------------------------------------------------
-% ìˆ˜ë¬¸
+% ¼ö¹®
 
-annualPrecipitation ... % ì—°ê°„ ê°•ìš°ëŸ‰ [m/yr]
+annualPrecipitation ... % ¿¬°£ °­¿ì·® [m/yr]
     = ReadParameterValue(fid,'annualPrecipitation',NUMERIC);
-annualEvapotranspiration ... % ì—°ê°„ ì¦ë°œì‚°ëŸ‰ [m/yr]
+annualEvapotranspiration ... % ¿¬°£ Áõ¹ß»ê·® [m/yr]
     = ReadParameterValue(fid,'annualEvapotranspiration', NUMERIC);
 
 %--------------------------------------------------------------------------
-% ë§Œìˆ˜ìœ ëŸ‰
+% ¸¸¼öÀ¯·®
 
-kqb ... % í‰ê· ìœ ëŸ‰ê³¼ ë§Œìˆ˜ìœ ëŸ‰ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
+kqb ... % Æò±ÕÀ¯·®°ú ¸¸¼öÀ¯·®°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
     = ReadParameterValue(fid,'kqb',NUMERIC); 
-mqb ... % í‰ê· ìœ ëŸ‰ê³¼ ë§Œìˆ˜ìœ ëŸ‰ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
+mqb ... % Æò±ÕÀ¯·®°ú ¸¸¼öÀ¯·®°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
     = ReadParameterValue(fid,'mqb',NUMERIC);
-bankfullTime ... % ë§Œìˆ˜ìœ ëŸ‰ ì§€ì†ê¸°ê°„[s]
+bankfullTime ... % ¸¸¼öÀ¯·® Áö¼Ó±â°£[s]
     = ReadParameterValue(fid,'bankfullTime',NUMERIC);
-timeWeight ... % ë§Œìˆ˜ìœ ëŸ‰ ì§€ì†ê¸°ê°„ì„ ì¤„ì´ê¸° ìœ„í•œ ìš´ë°˜ìœ¨ ë° ì¹¨ì‹ìœ¨ ê°€ì¤‘ì¹˜
+timeWeight ... % ¸¸¼öÀ¯·® Áö¼Ó±â°£À» ÁÙÀÌ±â À§ÇÑ ¿î¹ÝÀ² ¹× Ä§½ÄÀ² °¡ÁßÄ¡
     = ReadParameterValue(fid,'timeWeight',NUMERIC);
-minSubDT ... % ìµœì†Œí•œì˜ ì„¸ë¶€ë‹¨ìœ„ ì‹œê°„[s]
+minSubDT ... % ÃÖ¼ÒÇÑÀÇ ¼¼ºÎ´ÜÀ§ ½Ã°£[s]
     = ReadParameterValue(fid,'minSubDT',NUMERIC);
 
 %--------------------------------------------------------------------------
-% í•˜ì²œì˜ ìˆ˜ë¦¬ ê¸°í•˜
+% ÇÏÃµÀÇ ¼ö¸® ±âÇÏ
 
-khw ... % ë§Œìˆ˜ìœ ëŸ‰ê³¼ í•˜í­ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
+khw ... % ¸¸¼öÀ¯·®°ú ÇÏÆø°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
     = ReadParameterValue(fid,'khw',NUMERIC); 
-mhw ... % ë§Œìˆ˜ìœ ëŸ‰ê³¼ í•˜í­ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
+mhw ... % ¸¸¼öÀ¯·®°ú ÇÏÆø°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
     = ReadParameterValue(fid,'mhw',NUMERIC);
-khd ... % ë§Œìˆ˜ìœ ëŸ‰ê³¼ ìˆ˜ì‹¬ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
+khd ... % ¸¸¼öÀ¯·®°ú ¼ö½É°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
     = ReadParameterValue(fid,'khd',NUMERIC); 
-mhd ... % ë§Œìˆ˜ìœ ëŸ‰ê³¼ ìˆ˜ì‹¬ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
+mhd ... % ¸¸¼öÀ¯·®°ú ¼ö½É°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
     = ReadParameterValue(fid,'mhd',NUMERIC);
 
 %--------------------------------------------------------------------------
-% í•˜ì²œ ìž‘ìš©
+% ÇÏÃµ ÀÛ¿ë
 
-FLUVIALPROCESS_COND ... % flooded regionì˜ ìˆœ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ ì¶”ì •í•˜ëŠ” ë°©ë²•
+FLUVIALPROCESS_COND ... % flooded regionÀÇ ¼ø ÅðÀû¹° µÎ²² º¯È­À²À» ÃßÁ¤ÇÏ´Â ¹æ¹ý
     = ReadParameterValue(fid,'FLUVIALPROCESS_COND',NUMERIC);
-% * ì›ë¦¬: ë‹¤ìŒ ê¸°ì¤€(AS^2 > ìž„ì˜ì˜ ê°’)ì„ ë§Œì¡±í•  ê²½ìš° í•˜ì²œì´ë¼ ê°„ì£¼í•¨
-%   ì°¸ê³ ë¬¸í—Œ : Montgomery and Dietrich (1992)
-% * ì°¸ê³ : 2ë§Œ 5ì²œ ì§€í˜•ë„ ê¸°ì¤€ìœ¼ë¡œ ë‚¨ëŒ€ì²œ ìµœìƒë¥˜ ì¼ì°¨ í•˜ì²œì˜ ì‹œìž‘ ì§€ì ì˜
-%   AS^2ëŠ” 28351, ê³¤ì‹ ë´‰ ì¼ëŒ€ëŠ” 6319ë¡œ íŽ¸ì°¨ê°€ í¼. í•˜ì§€ë§Œ ì´ ê°’ì„ ê¸°ì¤€ìœ¼ë¡œ
-%   í•˜ë©´ ëª¨ì˜ ì´ˆê¸°ì— í•˜ì²œì´ ë°œë‹¬í•˜ì§€ ì•Šê³  ê·¸ê²ƒì´ ê³„ì†ë˜ëŠ” í˜„ìƒì´ ë°œìƒí•¨.
-%   ì•¼ì™¸ì¡°ì‚¬ ê²°ê³¼ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì‹¬ê³¡ë¦¬ ìƒë¥˜ í™•ì‹¤í•œ ì‚¬ë©´ ì§€ì—­ì€ 30 ì •ë„ìž„.
-%   ë”°ë¼ì„œ 100 ì •ë„ë¥¼ ê³ ë ¤í•˜ê³  ìžˆìŒ. ì¶”í›„ ì•¼ì™¸ì¡°ì‚¬ë¥¼ í†µí•´ ë³´ì™„í•  ìƒê°ìž„
-channelInitiation ...           % í•˜ì²œ ì‹œìž‘ ì§€ì  ìž„ê³„ê°’
+% * ¿ø¸®: ´ÙÀ½ ±âÁØ(AS^2 > ÀÓÀÇÀÇ °ª)À» ¸¸Á·ÇÒ °æ¿ì ÇÏÃµÀÌ¶ó °£ÁÖÇÔ
+%   Âü°í¹®Çå : Montgomery and Dietrich (1992)
+% * Âü°í: 2¸¸ 5Ãµ ÁöÇüµµ ±âÁØÀ¸·Î ³²´ëÃµ ÃÖ»ó·ù ÀÏÂ÷ ÇÏÃµÀÇ ½ÃÀÛ ÁöÁ¡ÀÇ
+%   AS^2´Â 28351, °ï½ÅºÀ ÀÏ´ë´Â 6319·Î ÆíÂ÷°¡ Å­. ÇÏÁö¸¸ ÀÌ °ªÀ» ±âÁØÀ¸·Î
+%   ÇÏ¸é ¸ðÀÇ ÃÊ±â¿¡ ÇÏÃµÀÌ ¹ß´ÞÇÏÁö ¾Ê°í ±×°ÍÀÌ °è¼ÓµÇ´Â Çö»óÀÌ ¹ß»ýÇÔ.
+%   ¾ß¿ÜÁ¶»ç °á°ú¸¦ ±âÁØÀ¸·Î ½É°î¸® »ó·ù È®½ÇÇÑ »ç¸é Áö¿ªÀº 30 Á¤µµÀÓ.
+%   µû¶ó¼­ 100 Á¤µµ¸¦ °í·ÁÇÏ°í ÀÖÀ½. ÃßÈÄ ¾ß¿ÜÁ¶»ç¸¦ ÅëÇØ º¸¿ÏÇÒ »ý°¢ÀÓ
+channelInitiation ...           % ÇÏÃµ ½ÃÀÛ ÁöÁ¡ ÀÓ°è°ª
 	= ReadParameterValue(fid,'channelInitiation',NUMERIC);
-criticalUpslopeCellsNo ...      % í•˜ì²œ ì‹œìž‘ ìž„ê³„ ìƒë¶€ìœ ì—­ ì…€ ê°œìˆ˜
+criticalUpslopeCellsNo ...      % ÇÏÃµ ½ÃÀÛ ÀÓ°è »óºÎÀ¯¿ª ¼¿ °³¼ö
 	= ReadParameterValue(fid,'criticalUpslopeCellsNo',NUMERIC);
-mfa ...                         % í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
+mfa ...                         % ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹Ý ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
     = ReadParameterValue(fid,'mfa',NUMERIC); 
-nfa ...                         % í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
+nfa ...                         % ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹Ý ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
     = ReadParameterValue(fid,'nfa',NUMERIC); 
-fSRho ...                       % ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ í‰ê·  ë°€ë„
+fSRho ...                       % ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Æò±Õ ¹Ðµµ
     = ReadParameterValue(fid,'fSRho',NUMERIC); 
-fSD50 ...                       % ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ ì¤‘ê°„ ìž…ê²½
+fSD50 ...                       % ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Áß°£ ÀÔ°æ
     = ReadParameterValue(fid,'fSD50',NUMERIC); 
-eta ...                         % ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ í‰ê·  ê³µê·¹ìœ¨
+eta ...                         % ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Æò±Õ °ø±ØÀ²
     = ReadParameterValue(fid,'eta',NUMERIC); 
-nA ...                          % ì¶©ì  í•˜ì²œ í•˜ë„ì—ì„œì˜ Manning ì €í•­ ê³„ìˆ˜
+nA ...                          % ÃæÀû ÇÏÃµ ÇÏµµ¿¡¼­ÀÇ Manning ÀúÇ× °è¼ö
     = ReadParameterValue(fid,'nA',NUMERIC); 
-mfb ...                         % ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
+mfb ...                         % ±â¹Ý¾Ï ÇÏ»ó Ä§½Ä ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
     = ReadParameterValue(fid,'mfb',NUMERIC);
-nfb ...                         % ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
+nfb ...                         % ±â¹Ý¾Ï ÇÏ»ó Ä§½Ä ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
     = ReadParameterValue(fid,'nfb',NUMERIC);
-kfbre ...                       % ê¸°ë°˜ì•” í•˜ìƒ ì—°ì•½ë„
+kfbre ...                       % ±â¹Ý¾Ï ÇÏ»ó ¿¬¾àµµ
     = ReadParameterValue(fid,'kfbre',NUMERIC); 
-nB ...                          % ê¸°ë°˜ì•” í•˜ìƒ í•˜ë„ì—ì„œì˜ Manning ì €í•­ ê³„ìˆ˜
+nB ...                          % ±â¹Ý¾Ï ÇÏ»ó ÇÏµµ¿¡¼­ÀÇ Manning ÀúÇ× °è¼ö
     = ReadParameterValue(fid,'nB',NUMERIC); 
 
 %--------------------------------------------------------------------------
-% parameterValuesFileì„ ë‹«ëŠ”ë‹¤.
+% parameterValuesFileÀ» ´Ý´Â´Ù.
 fclose(fid);
 
 end % LoadParameterValues end

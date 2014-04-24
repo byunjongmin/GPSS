@@ -1,22 +1,22 @@
 % =========================================================================
 %> @section INTRO AnalyseFinalResult
 %>
-%> ì„œë¡œ ë‹¤ë¥¸ ì¡°ê±´ì˜ ëª¨ì˜ì‹¤í—˜ ê²°ê³¼ë¥¼ ë¹„êµí•˜ì—¬ ë¶„ì„í•˜ëŠ” í•¨ìˆ˜.
-%> AnalyseResult í•¨ìˆ˜ì˜ ì¶œë ¥ë³€ìˆ˜ majorOutputsë¥¼ ì½ì–´ë“¤ì„.
+%> ¼­·Î ´Ù¸¥ Á¶°ÇÀÇ ¸ğÀÇ½ÇÇè °á°ú¸¦ ºñ±³ÇÏ¿© ºĞ¼®ÇÏ´Â ÇÔ¼ö.
+%> AnalyseResult ÇÔ¼öÀÇ Ãâ·Âº¯¼ö majorOutputs¸¦ ÀĞ¾îµéÀÓ.
 %>
-%> ë¶„ì„ ë‚´ìš©
-%>  - 1. ìµœì¢… ëª¨ì˜ê²°ê³¼ ê³ ë„ë¹„êµ
-%>  - 2. ëŒ€í‘œ ìœ ì—­ì„ ì„ ì •í•˜ê³ , ì´ì˜ í•˜ì²œì¢…ë‹¨ê³¡ì„ , ë¶„ìˆ˜ê³„ê³ ë„ë¶„í¬, í™ì†Œë©”íŠ¸ë¦¬ê³¡ì„ , 
-%>    Area-Slope, Elevation-Slope ë¶„ì‚°ë„ë¥¼ ì‘ì„±í•¨
-%>  - 3. ì†Œê·œëª¨ íš¡ë‹¨ìƒì˜ ê³ ë„ ë³€í™”
+%> ºĞ¼® ³»¿ë
+%>  - 1. ÃÖÁ¾ ¸ğÀÇ°á°ú °íµµºñ±³
+%>  - 2. ´ëÇ¥ À¯¿ªÀ» ¼±Á¤ÇÏ°í, ÀÌÀÇ ÇÏÃµÁ¾´Ü°î¼±, ºĞ¼ö°è°íµµºĞÆ÷, Èü¼Ò¸ŞÆ®¸®°î¼±, 
+%>    Area-Slope, Elevation-Slope ºĞ»êµµ¸¦ ÀÛ¼ºÇÔ
+%>  - 3. ¼Ò±Ô¸ğ È¾´Ü»óÀÇ °íµµ º¯È­
 %>
 %> @version 0.02
 %> @see 
 %> @retval
 %>
-%> @param OUTPUT_SUBDIR             : ìµœì¢… ëª¨ì˜ê²°ê³¼ê°€ ì €ì¥ëœ ë””ë ‰í„°ë¦¬ (*ì£¼ì˜:ì…€,ì—´ìš°ì„  ì •ë¦¬. ì˜ˆ{'100831_1501';'100831_1507';'100831_1513'})
-%> @param mRows                     : ëª¨í˜• ì˜ì—­ í–‰ ê°œìˆ˜
-%> @param nCols                     : ëª¨í˜• ì˜ì—­ ì—´ ê°œìˆ˜
+%> @param OUTPUT_SUBDIR             : ÃÖÁ¾ ¸ğÀÇ°á°ú°¡ ÀúÀåµÈ µğ·ºÅÍ¸® (*ÁÖÀÇ:¼¿,¿­¿ì¼± Á¤¸®. ¿¹{'100831_1501';'100831_1507';'100831_1513'})
+%> @param mRows                     : ¸ğÇü ¿µ¿ª Çà °³¼ö
+%> @param nCols                     : ¸ğÇü ¿µ¿ª ¿­ °³¼ö
 %>
 %> * Example
 %> - AnalyseFinalResult({'100831_1501';'100831_1507';'100831_1513'},102,52)
@@ -28,8 +28,8 @@ function AnalyseFinalResult(OUTPUT_SUBDIRs,mRows,nCols)
 %
 
 %--------------------------------------------------------------------------
-DATA_DIR = 'data';                  % ì…ì¶œë ¥ íŒŒì¼ì„ ì €ì¥í•˜ëŠ” ìµœìƒìœ„ ë””ë ‰í„°ë¦¬
-OUTPUT_DIR = 'output';              % ì¶œë ¥ íŒŒì¼ì„ ì €ì¥í•  ë””ë ‰í„°ë¦¬
+DATA_DIR = 'data';                  % ÀÔÃâ·Â ÆÄÀÏÀ» ÀúÀåÇÏ´Â ÃÖ»óÀ§ µğ·ºÅÍ¸®
+OUTPUT_DIR = 'output';              % Ãâ·Â ÆÄÀÏÀ» ÀúÀåÇÒ µğ·ºÅÍ¸®
 [totalSubDirs,tmpNCols]= size(OUTPUT_SUBDIRs);
 
 sedimentThick = zeros(mRows,nCols,totalSubDirs);
@@ -38,16 +38,16 @@ upslopeArea = zeros(mRows,nCols,totalSubDirs);
 transportMode = zeros(mRows,nCols,totalSubDirs);
 facetFlowSlope = zeros(mRows,nCols,totalSubDirs);
 
-% OUTPUT_SUBDIRs ë””ë ‰í„°ë¦¬ ìˆ˜ë§Œí¼ ìµœì¢… ëª¨ì˜ê²°ê³¼ë¥¼ ì½ì–´ë“¤ì´ê³ , ì´ë¥¼ 3ì°¨ì› ë°°ì—´ë¡œ ì €ì¥í•¨
+% OUTPUT_SUBDIRs µğ·ºÅÍ¸® ¼ö¸¸Å­ ÃÖÁ¾ ¸ğÀÇ°á°ú¸¦ ÀĞ¾îµéÀÌ°í, ÀÌ¸¦ 3Â÷¿ø ¹è¿­·Î ÀúÀåÇÔ
 for ithSubDir = 1:totalSubDirs
     
-    % A. ì¶œë ¥ ë””ë ‰í„°ë¦¬ì— ìˆëŠ” ìµœì¢… ëª¨ì˜ê²°ê³¼ë¥¼ ë¶ˆëŸ¬ì˜´
+    % A. Ãâ·Â µğ·ºÅÍ¸®¿¡ ÀÖ´Â ÃÖÁ¾ ¸ğÀÇ°á°ú¸¦ ºÒ·¯¿È
     ithOutputSubdir = OUTPUT_SUBDIRs{ithSubDir,1};
     matFileName = strcat('s',ithOutputSubdir,'.mat');
     MAT_FILE_PATH = fullfile(DATA_DIR,OUTPUT_DIR,ithOutputSubdir,matFileName);
     load(MAT_FILE_PATH)
 
-    % ë³€ìˆ˜í‘œê¸° ê°„ëµí™”
+    % º¯¼öÇ¥±â °£·«È­
     Y = majorOutputs.Y;
     X = majorOutputs.X;
     Y_INI = majorOutputs.Y_INI;
@@ -61,9 +61,9 @@ for ithSubDir = 1:totalSubDirs
     middleCrossProfileY = majorOutputs.middleCrossProfileY;
     lowerCrossProfileY = majorOutputs.lowerCrossProfileY;
 
-    lastSedimentThick ...   % ì´ˆê¸° ì§€í˜• ê³ ë ¤
+    lastSedimentThick ...   % ÃÊ±â ÁöÇü °í·Á
         = majorOutputs.sedimentThick(:,:,totalExtractTimesNo + 1);
-    lastBedrockElev ...     % ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ ê³ ë ¤
+    lastBedrockElev ...     % ÃÊ±â ÅğÀûÃş µÎ²² °í·Á
         = majorOutputs.bedrockElev(:,:,totalExtractTimesNo + 1);
     lastUpslopeArea ...
         = majorOutputs.upslopeArea(:,:,totalExtractTimesNo);
@@ -72,7 +72,7 @@ for ithSubDir = 1:totalSubDirs
     lastFacetFlowSlope ...
         = majorOutputs.facetFlowSlope(:,:,totalExtractTimesNo);
 
-    % ë©”ëª¨ë¦¬ ì²­ì†Œ
+    % ¸Ş¸ğ¸® Ã»¼Ò
     clear('majorOutputs.Y' ...
         ,'majorOutputs.X' ...
         ,'majorOutputs.Y_INI' ...
@@ -99,55 +99,55 @@ for ithSubDir = 1:totalSubDirs
 end
 %--------------------------------------------------------------------------
 
-% ìƒìˆ˜ ë° ë³€ìˆ˜ ì •ì˜
+% »ó¼ö ¹× º¯¼ö Á¤ÀÇ
 ROOT2 = 1.41421356237310;           % sqrt(2)
 
-% ìš´ë°˜í™˜ê²½ ë¶„ë¥˜ ìƒìˆ˜
-% ALLUVIAL_CHANNEL = 1;               % ì¶©ì  í•˜ë„
-BEDROCK_CHANNEL = 2;                % ê¸°ë°˜ì•” í•˜ìƒ í•˜ë„
-BEDROCK_EXPOSED_HILLSLOPE = 3;      % ê¸°ë°˜ì•”ì´ ë…¸ì¶œëœ ì‚¬ë©´
-SOIL_MANTLED_HILLSLOPE = 4;         % ì „í† ì¸µìœ¼ë¡œ ë®íŒ ì‚¬ë©´
+% ¿î¹İÈ¯°æ ºĞ·ù »ó¼ö
+% ALLUVIAL_CHANNEL = 1;               % ÃæÀû ÇÏµµ
+BEDROCK_CHANNEL = 2;                % ±â¹İ¾Ï ÇÏ»ó ÇÏµµ
+BEDROCK_EXPOSED_HILLSLOPE = 3;      % ±â¹İ¾ÏÀÌ ³ëÃâµÈ »ç¸é
+SOIL_MANTLED_HILLSLOPE = 4;         % ÀüÅäÃşÀ¸·Î µ¤Èù »ç¸é
 
-% ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ êµ¬í•˜ê¸° ìœ„í•œ offset. í•˜ì²œì¢…ë‹¨ê³¡ì„  ì¢Œí‘œë¥¼ êµ¬í•˜ê¸° ìœ„í•´ í•„ìš”í•¨
-% * ì£¼ì˜: ë™ìª½ì— ìˆëŠ” ì´ì›ƒ ì…€ë¶€í„° ë°˜ì‹œê³„ ë°©í–¥ì„
+% ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ ±¸ÇÏ±â À§ÇÑ offset. ÇÏÃµÁ¾´Ü°î¼± ÁÂÇ¥¸¦ ±¸ÇÏ±â À§ÇØ ÇÊ¿äÇÔ
+% * ÁÖÀÇ: µ¿ÂÊ¿¡ ÀÖ´Â ÀÌ¿ô ¼¿ºÎÅÍ ¹İ½Ã°è ¹æÇâÀÓ
 offsetY = [0; -1; -1; -1; 0; 1; 1; 1];
 offsetX = [1; 1; 0; -1; -1; -1; 0; 1];
 
-endXAxisDistance = X * dX;          % ê·¸ë˜í”„ X ì¶• ë ê±°ë¦¬
-endYAxisDistance = Y * dX;          % ê·¸ë˜í”„ Y ì¶• ë ê±°ë¦¬
+endXAxisDistance = X * dX;          % ±×·¡ÇÁ X Ãà ³¡ °Å¸®
+endYAxisDistance = Y * dX;          % ±×·¡ÇÁ Y Ãà ³¡ °Å¸®
 
-axisXDistance = 0.5*dX:dX:endXAxisDistance-0.5*dX;  % X ì¶• ê±°ë¦¬ ì¢Œí‘œ
+axisXDistance = 0.5*dX:dX:endXAxisDistance-0.5*dX;  % X Ãà °Å¸® ÁÂÇ¥
 
 %--------------------------------------------------------------------------
-% 1. ìµœì¢… ëª¨ì˜ê²°ê³¼ ê³ ë„ ë¹„ê³ 
+% 1. ÃÖÁ¾ ¸ğÀÇ°á°ú °íµµ ºñ°í
 
 figure(01)
 set(gcf,'Color',[1 1 1])
 
-% ìµœì¢… ëª¨ì˜ê²°ê³¼ë¥¼ ì—°ì†ì ìœ¼ë¡œ ë³´ì—¬ì£¼ê¸° ìœ„í•´ ì¼ì •í•œ ê°„ê²©ìœ¼ë¡œ ë°°ì—´í•¨
-spacing = 1;                % ê°„ê²©
+% ÃÖÁ¾ ¸ğÀÇ°á°ú¸¦ ¿¬¼ÓÀûÀ¸·Î º¸¿©ÁÖ±â À§ÇØ ÀÏÁ¤ÇÑ °£°İÀ¸·Î ¹è¿­ÇÔ
+spacing = 1;                % °£°İ
 
-mergedElev ...              % ê°„ê²©ì„ ê³ ë ¤í•œ ì—°ì†ëœ ê³ ë„ ìë£Œ ë³€ìˆ˜ ì´ˆê¸°í™”
+mergedElev ...              % °£°İÀ» °í·ÁÇÑ ¿¬¼ÓµÈ °íµµ ÀÚ·á º¯¼ö ÃÊ±âÈ­
     = NaN(Y,X*totalSubDirs + (totalSubDirs - 1) * spacing);
 
-% ì¼ì •í•œ ê°„ê²©ìœ¼ë¡œ ë°°ì—´í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ ì´ˆê¸°í™”
-xIni = 1;                   % DEM ì‹œì‘ X ì¢Œí‘œ
-xEnd = X;                   % DEM ë X ì¢Œí‘œ
+% ÀÏÁ¤ÇÑ °£°İÀ¸·Î ¹è¿­ÇÏ±â À§ÇÑ º¯¼ö ÃÊ±âÈ­
+xIni = 1;                   % DEM ½ÃÀÛ X ÁÂÇ¥
+xEnd = X;                   % DEM ³¡ X ÁÂÇ¥
 
 for ithSubDir = 1:totalSubDirs
     
-    % ì¶œë ¥ ì‹œê¸°ë¥¼ ê²°ì •í•  ê²½ìš°
+    % Ãâ·Â ½Ã±â¸¦ °áÁ¤ÇÒ °æ¿ì
     mergedElev(:,xIni:xEnd) ...
         = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir) ...
         + sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
     
-    xIni = X*ithSubDir + ithSubDir + spacing;               % ë‹¤ìŒ DEM ì‹œì‘ X ì¢Œí‘œ
+    xIni = X*ithSubDir + ithSubDir + spacing;               % ´ÙÀ½ DEM ½ÃÀÛ X ÁÂÇ¥
     
-    xEnd = xIni + X - spacing;                      % ë‹¤ìŒ DEM ë X ì¢Œí‘œ
+    xEnd = xIni + X - spacing;                      % ´ÙÀ½ DEM ³¡ X ÁÂÇ¥
     
 end
 
-% surfl í•¨ìˆ˜ë¥¼ ë§Œë“¤ê¸° ìœ„í•œ ê²©ì
+% surfl ÇÔ¼ö¸¦ ¸¸µé±â À§ÇÑ °İÀÚ
 endXAxisDistanceForMergedElev ...
     = (X*totalSubDirs + (totalSubDirs - 1) * spacing) * dX;
 
@@ -155,7 +155,7 @@ endXAxisDistanceForMergedElev ...
     = meshgrid(0.5*dX:dX:endXAxisDistanceForMergedElev-0.5*dX ...
     ,0.5*dX:dX:endYAxisDistance-0.5*dX);
 
-% surfl ê·¸ë˜í”„
+% surfl ±×·¡ÇÁ
 surf(meshgridXForMergedElev,meshgridYForMergedElev,mergedElev)
 
 view(150,50)
@@ -173,29 +173,29 @@ grid(gca,'on')
 
 shading interp
 
-colormap(demcmap(mergedElev))               % PPT ìš©
-% colormap(flipud(gray))                    % ì¶œíŒìš©
+colormap(demcmap(mergedElev))               % PPT ¿ë
+% colormap(flipud(gray))                    % ÃâÆÇ¿ë
 
 %--------------------------------------------------------------------------
-% 2. ëŒ€í‘œ ìœ ì—­ì„ ì„ ì •í•˜ê³ , ì´ì˜ í•˜ì²œì¢…ë‹¨ê³¡ì„ , í™ì†Œë©”íŠ¸ë¦¬ê³¡ì„ , Area-Slope
-%    Elevation-Slope ë¶„ì‚°ë„ë¥¼ ì‘ì„±í•¨
+% 2. ´ëÇ¥ À¯¿ªÀ» ¼±Á¤ÇÏ°í, ÀÌÀÇ ÇÏÃµÁ¾´Ü°î¼±, Èü¼Ò¸ŞÆ®¸®°î¼±, Area-Slope
+%    Elevation-Slope ºĞ»êµµ¸¦ ÀÛ¼ºÇÔ
 
-% ë³€ìˆ˜ ì •ì˜
+% º¯¼ö Á¤ÀÇ
 endColor = 256;
-cMap = colormap(jet(endColor));           % plot ìƒ‰ ê·¸ë¼ë””ì–¸íŠ¸
-hypsometricIntegral = zeros(totalSubDirs,1);    % í™ì†Œë©”íŠ¸ë¦¬ ì ë¶„ê°’
+cMap = colormap(jet(endColor));           % plot »ö ±×¶óµğ¾ğÆ®
+hypsometricIntegral = zeros(totalSubDirs,1);    % Èü¼Ò¸ŞÆ®¸® ÀûºĞ°ª
 
 
 figure(9);
 set(gcf,'Color',[1 1 1])
 
-% subplot ì´ˆê¸°í™”
+% subplot ÃÊ±âÈ­
 subplotM = totalSubDirs;
 subplotN = 1;
 
 XMin = 0.1;
 XMax = 0.95;
-YMin = 0.1;     % * ì£¼ì˜: 0.1 ë³´ë‹¤ ì‘ì„ ê²½ìš° ë¬¸ì œê°€ ë§ˆì§€ë§‰ ê·¸ë˜í”„ê°€ ì‘ì„±ë˜ì§€ ì•ŠìŒ
+YMin = 0.1;     % * ÁÖÀÇ: 0.1 º¸´Ù ÀÛÀ» °æ¿ì ¹®Á¦°¡ ¸¶Áö¸· ±×·¡ÇÁ°¡ ÀÛ¼ºµÇÁö ¾ÊÀ½
 YMax = 0.95;
 XGap = 0.02;
 YGap = 0.02;
@@ -226,7 +226,7 @@ subplotN = totalSubDirs;
 
 XMin = 0.1;
 XMax = 0.95;
-YMin = 0.1;     % * ì£¼ì˜: 0.1 ë³´ë‹¤ ì‘ì„ ê²½ìš° ë¬¸ì œê°€ ë§ˆì§€ë§‰ ê·¸ë˜í”„ê°€ ì‘ì„±ë˜ì§€ ì•ŠìŒ
+YMin = 0.1;     % * ÁÖÀÇ: 0.1 º¸´Ù ÀÛÀ» °æ¿ì ¹®Á¦°¡ ¸¶Áö¸· ±×·¡ÇÁ°¡ ÀÛ¼ºµÇÁö ¾ÊÀ½
 YMax = 0.95;
 XGap = 0.04;
 YGap = 0.02;
@@ -251,19 +251,19 @@ set(hSP6,'Position',[XMin + XSize*2,YMin,XBox,YBox])
 
 for ithSubDir = 1:totalSubDirs
         
-    % 1) ê°€ì¥ ë„“ì€ ìœ ì—­ ë¶„ì§€ë¥¼ ì°¾ì•„ì„œ ì´ë¥¼ ëŒ€í‘œ ìœ ì—­ìœ¼ë¡œ ì •ì˜í•¨
+    % 1) °¡Àå ³ĞÀº À¯¿ª ºĞÁö¸¦ Ã£¾Æ¼­ ÀÌ¸¦ ´ëÇ¥ À¯¿ªÀ¸·Î Á¤ÀÇÇÔ
     isProper = false;    
     iterationNo = 0;
     GOTTEN_ZERO = 0;
     
-    % (1) watershed í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ìœ ì—­ì„ êµ¬ë¶„í•¨
+    % (1) watershed ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© À¯¿ªÀ» ±¸ºĞÇÔ
     
     ithSubDirElev = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir) ...
         + sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
     
-    watersheds = watershed(ithSubDirElev);                   % ìœ ì—­ êµ¬ë¶„
+    watersheds = watershed(ithSubDirElev);                   % À¯¿ª ±¸ºĞ
 
-    % ìœ ì—­êµ¬ë¶„í•œ ê²ƒ ë³´ê¸°
+    % À¯¿ª±¸ºĞÇÑ °Í º¸±â
     figure(101)
     rgb = label2rgb(watersheds,'jet','w','shuffle');
     imshow(rgb,'initialMagnification','fit')
@@ -272,20 +272,20 @@ for ithSubDir = 1:totalSubDirs
 
     sortedWatershedTable = sortrows(watershedTable,-2);
     
-    % i ë²ˆì§¸ ìœ ì—­ë©´ì 
+    % i ¹øÂ° À¯¿ª¸éÀû
     ithSubDirUpslopeArea = upslopeArea(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
     
-    % (2) ì í•©í•œ ëŒ€í‘œ ìœ ì—­ì„ ì„ ì •í•  ë•Œê¹Œì§€ ë°˜ë³µí•¨
-    % * ì£¼ì˜: ì¢Œìš°ë¡œ ì—°ê²°ëœ ê²½ìš°ë¼ë©´ ëª¨í˜•ì˜ì—­ì„ ì„¸ ê°œë¥¼ í•©ì³ì„œ whileë¬¸ ì‚¬ìš©ì„
-    %   í”¼í•  ìˆ˜ ìˆìŒ
+    % (2) ÀûÇÕÇÑ ´ëÇ¥ À¯¿ªÀ» ¼±Á¤ÇÒ ¶§±îÁö ¹İº¹ÇÔ
+    % * ÁÖÀÇ: ÁÂ¿ì·Î ¿¬°áµÈ °æ¿ì¶ó¸é ¸ğÇü¿µ¿ªÀ» ¼¼ °³¸¦ ÇÕÃÄ¼­ while¹® »ç¿ëÀ»
+    %   ÇÇÇÒ ¼ö ÀÖÀ½
     while isProper == false
         
         iterationNo = iterationNo + 1;
 
         modeWatershedNo = sortedWatershedTable(iterationNo + GOTTEN_ZERO,1);
 
-        % * ì£¼ì˜: ì´ˆê¸° ì§€í˜•ì€ watershed í•¨ìˆ˜ë¡œ êµ¬ë¶„ë˜ëŠ” ìœ ì—­ì´ ë§ìŒ.
-        % * ì£¼ì˜: ì•ìœ¼ë¡œ tableì—ì„œ 0ì´ ìˆëŠ” í–‰ì„ ë¹¼ë²„ë¦¬ì!
+        % * ÁÖÀÇ: ÃÊ±â ÁöÇüÀº watershed ÇÔ¼ö·Î ±¸ºĞµÇ´Â À¯¿ªÀÌ ¸¹À½.
+        % * ÁÖÀÇ: ¾ÕÀ¸·Î table¿¡¼­ 0ÀÌ ÀÖ´Â ÇàÀ» »©¹ö¸®ÀÚ!
         if modeWatershedNo == 0
 
             GOTTEN_ZERO = 1;
@@ -293,54 +293,54 @@ for ithSubDir = 1:totalSubDirs
 
         end
 
-        representDrainage = watersheds == modeWatershedNo;      % ëŒ€í‘œ ìœ ì—­(ë…¼ë¦¬)
+        representDrainage = watersheds == modeWatershedNo;      % ´ëÇ¥ À¯¿ª(³í¸®)
 
-        repDrainCoord = find(watersheds == modeWatershedNo);    % ëŒ€í‘œ ìœ ì—­ ìƒ‰ì¸    
+        repDrainCoord = find(watersheds == modeWatershedNo);    % ´ëÇ¥ À¯¿ª »öÀÎ    
 
-        % A. bwboundaries í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ëŒ€í‘œ ìœ ì—­ ê²½ê³„ ì¢Œí‘œ ë° ìƒ‰ì¸ì„ êµ¬í•¨
-        % * ì£¼ì˜: ì´ì›ƒ ì…€ ì—°ê²° ê°œìˆ˜ë¥¼ 4ê°œë¡œ í•˜ëŠ” ê²ƒì´ ë³´ë‹¤ ë‚³ì€ ê²ƒ ê°™ìŒ. ë˜í•œ ëŒ€í‘œ
-        %   ìœ ì—­ì˜ í…Œë‘ë¦¬ì— í•´ë‹¹í•¨. ì¦‰ ìœ ì—­ ì™¸ë¶€ê°€ ì•„ë‹˜.
+        % A. bwboundaries ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© ´ëÇ¥ À¯¿ª °æ°è ÁÂÇ¥ ¹× »öÀÎÀ» ±¸ÇÔ
+        % * ÁÖÀÇ: ÀÌ¿ô ¼¿ ¿¬°á °³¼ö¸¦ 4°³·Î ÇÏ´Â °ÍÀÌ º¸´Ù ³ºÀº °Í °°À½. ¶ÇÇÑ ´ëÇ¥
+        %   À¯¿ªÀÇ Å×µÎ¸®¿¡ ÇØ´çÇÔ. Áï À¯¿ª ¿ÜºÎ°¡ ¾Æ´Ô.
 
-        % repDrainBoundary = bwboundaries(representDrainage,4);   % ëŒ€í‘œ ìœ ì—­ ê²½ê³„ ì¢Œí‘œ ì¶”ì¶œ
-        % * ì£¼ì˜: ìœ ì—­ì„ í™•ì¥ ì‹œí‚¤ì§€ ì•Šìœ¼ë©´ ìœ ì—­ ë‚´ë¶€ì˜ ê²½ê³„ë¥¼ ì¶”ì¶œí•˜ê²Œ ë¨
+        % repDrainBoundary = bwboundaries(representDrainage,4);   % ´ëÇ¥ À¯¿ª °æ°è ÁÂÇ¥ ÃßÃâ
+        % * ÁÖÀÇ: À¯¿ªÀ» È®Àå ½ÃÅ°Áö ¾ÊÀ¸¸é À¯¿ª ³»ºÎÀÇ °æ°è¸¦ ÃßÃâÇÏ°Ô µÊ
         % repDrainBoundary = bwboundaries(imdilate(representDrainage,ones(3,3)));
         repDrainBoundary = bwboundaries(imdilate(representDrainage,[0 1 0; 1 1 1; 0 1 0]));
 
         repDrainBoundary1 = repDrainBoundary{1};
-        repDrainBoundaryY = repDrainBoundary1(:,1);             % ëŒ€í‘œ ìœ ì—­ ê²½ê³„ Y ì¢Œí‘œ
-        repDrainBoundaryX = repDrainBoundary1(:,2);             % ëŒ€í‘œ ìœ ì—­ ê²½ê³„ X ì¢Œí‘œ
+        repDrainBoundaryY = repDrainBoundary1(:,1);             % ´ëÇ¥ À¯¿ª °æ°è Y ÁÂÇ¥
+        repDrainBoundaryX = repDrainBoundary1(:,2);             % ´ëÇ¥ À¯¿ª °æ°è X ÁÂÇ¥
 
-        repDrainBoundaryCoord ...                               % ëŒ€í‘œ ìœ ì—­ ê²½ê³„ ì„ í˜• ì¢Œí‘œ
+        repDrainBoundaryCoord ...                               % ´ëÇ¥ À¯¿ª °æ°è ¼±Çü ÁÂÇ¥
             = sub2ind([Y X],repDrainBoundaryY,repDrainBoundaryX);
 
-        % ìœ ì—­ ê²½ê³„ ë³´ê¸°
+        % À¯¿ª °æ°è º¸±â
         % figure(102)
         % plot(repDrainBoundaryX,repDrainBoundaryY,'r');
         % set(gca,'XLim',[1 X],'YLIM',[1 Y],'YDir','reverse','DataAspectRatio',[1 1 1])
         % colorbar
 
-        repDrainUpslopeArea = ithSubDirUpslopeArea(repDrainCoord);    % ëŒ€í‘œ ìœ ì—­ì˜ ìœ ì—­ë©´ì 
+        repDrainUpslopeArea = ithSubDirUpslopeArea(repDrainCoord);    % ´ëÇ¥ À¯¿ªÀÇ À¯¿ª¸éÀû
 
-        % ëŒ€í‘œ ìœ ì—­ì˜ í•˜êµ¬ ìƒ‰ì¸: ìœ ì—­ë©´ì ì´ ê°€ì¥ í° ì§€ì  ìƒ‰ì¸
-        % * ë™ì„œê°€ ì—°ê²°ëœ ì¡°ê±´ì´ë¼ë©´, ê°€ìš´ë° ëª¨í˜•ì˜ì—­ì„ ì„ íƒí•¨
+        % ´ëÇ¥ À¯¿ªÀÇ ÇÏ±¸ »öÀÎ: À¯¿ª¸éÀûÀÌ °¡Àå Å« ÁöÁ¡ »öÀÎ
+        % * µ¿¼­°¡ ¿¬°áµÈ Á¶°ÇÀÌ¶ó¸é, °¡¿îµ¥ ¸ğÇü¿µ¿ªÀ» ¼±ÅÃÇÔ
         [repDrainMaxUpslopeArea,tmpRepDrainMaxUpslopeCoord] = max(repDrainUpslopeArea);
 
         repDrainMaxUpslopeCoord = repDrainCoord(tmpRepDrainMaxUpslopeCoord);
 
-        % ìœ„ ìƒ‰ì¸ê³¼ ëŒ€í‘œ ìœ ì—­ ê²½ê³„ì˜ ìƒ‰ì¸ì´ ì¼ì¹˜í•˜ëŠ” ì§€ì (í•˜ì²œ ë° ëŠ¥ì„  ì‹œì‘ì ) ìƒ‰ì¸
+        % À§ »öÀÎ°ú ´ëÇ¥ À¯¿ª °æ°èÀÇ »öÀÎÀÌ ÀÏÄ¡ÇÏ´Â ÁöÁ¡(ÇÏÃµ ¹× ´É¼± ½ÃÀÛÁ¡) »öÀÎ
         repDrainMaxUpslopeBoundaryCoord ...
             = find(repDrainBoundaryCoord == repDrainMaxUpslopeCoord);
 
-        % í•˜ì²œ ë° ëŠ¥ì„  ì‹œì‘ì ì˜ ì¢Œí‘œ
-        % * ì£¼ì˜: ëŒ€í‘œ ìœ ì—­ ê²½ê³„ ì¢Œí‘œì˜ ì²˜ìŒê³¼ ëì´ ê³µêµë¡­ê²Œë„ ê°™ì€ ì§€ì ì¼ ê²½ìš°,
-        %   repDrainMaxUpslopeBoundaryCoord ì›ì†ŒëŠ” 2ê°œê°€ ë¨. ë”°ë¼ì„œ ì˜¤ë¥˜ë¥¼
-        %   ë°©ì§€í•˜ê¸° ìœ„í•´ ì²«ë²ˆì§¸ ì›ì†Œë§Œì„ ì‚¬ìš©í•¨
+        % ÇÏÃµ ¹× ´É¼± ½ÃÀÛÁ¡ÀÇ ÁÂÇ¥
+        % * ÁÖÀÇ: ´ëÇ¥ À¯¿ª °æ°è ÁÂÇ¥ÀÇ Ã³À½°ú ³¡ÀÌ °ø±³·Ó°Ôµµ °°Àº ÁöÁ¡ÀÏ °æ¿ì,
+        %   repDrainMaxUpslopeBoundaryCoord ¿ø¼Ò´Â 2°³°¡ µÊ. µû¶ó¼­ ¿À·ù¸¦
+        %   ¹æÁöÇÏ±â À§ÇØ Ã¹¹øÂ° ¿ø¼Ò¸¸À» »ç¿ëÇÔ
         repDrainMaxUpslopeCoordY = repDrainBoundaryY(repDrainMaxUpslopeBoundaryCoord(1));
         repDrainMaxUpslopeCoordX = repDrainBoundaryX(repDrainMaxUpslopeBoundaryCoord(1));
 
         
-        % ë§Œì•½ ì¤‘ì•™ì— ìˆëŠ” ìœ ì—­ì´ ì•„ë‹ˆë¼ë©´ ë©´ì ì´ ê°€ì¥ ë„“ì–´ë„ ë‹¤ë¥¸ ìœ ì—­ë¶„ì§€ë¥¼
-        % ì°¾ìŒ. ì´ëŠ” ë™ì„œê°€ ì—°ê²°ëœ ê²½ìš°ì—ì„œ ëª¨ì˜í•œ ê²ƒë„ ìˆê¸° ë•Œë¬¸ì„
+        % ¸¸¾à Áß¾Ó¿¡ ÀÖ´Â À¯¿ªÀÌ ¾Æ´Ï¶ó¸é ¸éÀûÀÌ °¡Àå ³Ğ¾îµµ ´Ù¸¥ À¯¿ªºĞÁö¸¦
+        % Ã£À½. ÀÌ´Â µ¿¼­°¡ ¿¬°áµÈ °æ¿ì¿¡¼­ ¸ğÀÇÇÑ °Íµµ ÀÖ±â ¶§¹®ÀÓ
         if repDrainMaxUpslopeCoordX > nCols/2 - nCols/4 ...
             && repDrainMaxUpslopeCoordX < nCols/2 + nCols/4
 
@@ -350,61 +350,61 @@ for ithSubDir = 1:totalSubDirs
         
     end
     
-    % 2) í•˜ì²œì¢…ë‹¨ê³¡ì„  ê²½ë¡œ êµ¬í•˜ê¸°:
-    % * ì›ë¦¬: ìœ ì—­ ë©´ì ì´ ê°€ì¥ í° ì´ì›ƒ ì…€ì„ ë”°ë¼ ê²½ë¡œë¥¼ ì €ì¥í•¨
+    % 2) ÇÏÃµÁ¾´Ü°î¼± °æ·Î ±¸ÇÏ±â:
+    % * ¿ø¸®: À¯¿ª ¸éÀûÀÌ °¡Àå Å« ÀÌ¿ô ¼¿À» µû¶ó °æ·Î¸¦ ÀúÀåÇÔ
 
-    % ìœ ì—­ë©´ì ì´ ê°€ì¥ ë„“ì€ (í•˜êµ¬) ì…€ì˜ ì¢Œí‘œ
+    % À¯¿ª¸éÀûÀÌ °¡Àå ³ĞÀº (ÇÏ±¸) ¼¿ÀÇ ÁÂÇ¥
     pY = repDrainMaxUpslopeCoordY;
     pX = repDrainMaxUpslopeCoordX;
 
-    % í•˜ì²œì¢…ë‹¨ê³¡ì„  ê²½ë¡œ ê¸°ë¡ ë³€ìˆ˜ ì´ˆê¸°í™”
-    ithRiverProfileYX = zeros(Y*X,2);           % ê²½ë¡œ ì¢Œí‘œ
-    ithRivProfDistance = zeros(Y*X,1);          % ì´ì›ƒ ì…€ê³¼ì˜ ê±°ë¦¬
+    % ÇÏÃµÁ¾´Ü°î¼± °æ·Î ±â·Ï º¯¼ö ÃÊ±âÈ­
+    ithRiverProfileYX = zeros(Y*X,2);           % °æ·Î ÁÂÇ¥
+    ithRivProfDistance = zeros(Y*X,1);          % ÀÌ¿ô ¼¿°úÀÇ °Å¸®
     ithRivProfPath = false(Y,X);
 
-    % í•˜êµ¬ ì…€ì—ì„œë¶€í„° ìœ ì—­ë©´ì ì´ ê°€ì¥ í° ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ ê¸°ë¡í•¨
-    ithSubDirRivProfNode = 1;                                 % í•˜êµ¬ë¡œë¶€í„°ì˜ ì¢…ë‹¨ê³¡ì„ ìƒ ì…€ ìƒ‰ì¸
-    ithRiverProfileYX(ithSubDirRivProfNode,:) = [pY,pX];      % í•˜êµ¬ ì…€ì˜ ì¢Œí‘œë¥¼ ì²˜ìŒì— ê¸°ë¡
-    ithRivProfDistance(ithSubDirRivProfNode) = 0;             % í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬ [m]
+    % ÇÏ±¸ ¼¿¿¡¼­ºÎÅÍ À¯¿ª¸éÀûÀÌ °¡Àå Å« ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ ±â·ÏÇÔ
+    ithSubDirRivProfNode = 1;                                 % ÇÏ±¸·ÎºÎÅÍÀÇ Á¾´Ü°î¼±»ó ¼¿ »öÀÎ
+    ithRiverProfileYX(ithSubDirRivProfNode,:) = [pY,pX];      % ÇÏ±¸ ¼¿ÀÇ ÁÂÇ¥¸¦ Ã³À½¿¡ ±â·Ï
+    ithRivProfDistance(ithSubDirRivProfNode) = 0;             % ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸® [m]
     isEnd = false;
     onlyRiverNodesNo = 0;
 
-    % í•˜êµ¬ì—ì„œë¶€í„° ìœ ì—­ ìµœìƒë¥˜ê¹Œì§€ ì¢Œí‘œë¥¼ ê¸°ë¡í•¨
+    % ÇÏ±¸¿¡¼­ºÎÅÍ À¯¿ª ÃÖ»ó·ù±îÁö ÁÂÇ¥¸¦ ±â·ÏÇÔ
     while(isEnd == false)
 
-        ithRivProfPath(pY,pX) = true;                   % ì§€ë‚˜ì˜¨ ê²½ë¡œë¥¼ í‘œì‹œí•¨
+        ithRivProfPath(pY,pX) = true;                   % Áö³ª¿Â °æ·Î¸¦ Ç¥½ÃÇÔ
 
-        % (1) ì´ì›ƒ ì…€ì˜ ì¢Œí‘œ ë° ìƒ‰ì¸ì„ êµ¬í•¨
-        nbrY = pY + offsetY;                            % ì´ì›ƒ ì…€ Y ì¢Œí‘œ ë°°ì—´
-        nbrX = pX + offsetX;                            % ì´ì›ƒ ì…€ X ì¢Œí‘œ ë°°ì—´
+        % (1) ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥ ¹× »öÀÎÀ» ±¸ÇÔ
+        nbrY = pY + offsetY;                            % ÀÌ¿ô ¼¿ Y ÁÂÇ¥ ¹è¿­
+        nbrX = pX + offsetX;                            % ÀÌ¿ô ¼¿ X ÁÂÇ¥ ¹è¿­
 
-        % * ì£¼ì˜: ì˜ì—­ì„ ë„˜ì–´ê°€ëŠ” ì…€ì€ ì œì™¸í•¨
+        % * ÁÖÀÇ: ¿µ¿ªÀ» ³Ñ¾î°¡´Â ¼¿Àº Á¦¿ÜÇÔ
         outOfDomainCoord = find(nbrY > Y | nbrX > X | nbrY < 1 | nbrX < 1);
         nbrY(outOfDomainCoord) = [];
         nbrX(outOfDomainCoord) = [];
         
-        nbrIdx = sub2ind([Y,X],nbrY,nbrX);              % ì´ì›ƒ ì…€ ìƒ‰ì¸
+        nbrIdx = sub2ind([Y,X],nbrY,nbrX);              % ÀÌ¿ô ¼¿ »öÀÎ
 
-        % (2) ì´ì›ƒ ì…€ ì¤‘ ìœ ì—­ë©´ì ì´ ê°€ì¥ í° ì…€ì„ ì°¾ìŒ
-        % * ì›ë¦¬: ìœ ì—­ë©´ì ì´ ê°€ì¥ í¬ë©´ì„œ, ì´ë¯¸ ì§€ë‚˜ì˜¨ ì…€ì´ ì•„ë‹Œ ì´ì›ƒ ì…€ì„ ì°¾ìŒ
-        % * ì£¼ì˜: í•˜ì§€ë§Œ ê³ ë„ê°€ ë” ë†’ì•„ì•¼ í•¨
+        % (2) ÀÌ¿ô ¼¿ Áß À¯¿ª¸éÀûÀÌ °¡Àå Å« ¼¿À» Ã£À½
+        % * ¿ø¸®: À¯¿ª¸éÀûÀÌ °¡Àå Å©¸é¼­, ÀÌ¹Ì Áö³ª¿Â ¼¿ÀÌ ¾Æ´Ñ ÀÌ¿ô ¼¿À» Ã£À½
+        % * ÁÖÀÇ: ÇÏÁö¸¸ °íµµ°¡ ´õ ³ô¾Æ¾ß ÇÔ
         
-        nbrUpslopeArea = ithSubDirUpslopeArea(nbrIdx);  % ì´ì›ƒ ì…€ ìœ ì—­ë©´ì  ë°°ì—´
+        nbrUpslopeArea = ithSubDirUpslopeArea(nbrIdx);  % ÀÌ¿ô ¼¿ À¯¿ª¸éÀû ¹è¿­
 
-        nbrProfilePath = ithRivProfPath(nbrIdx);        % ì§€ë‚˜ì˜¨ ê²½ë¡œ
+        nbrProfilePath = ithRivProfPath(nbrIdx);        % Áö³ª¿Â °æ·Î
 
-        % ì´ì›ƒ ì…€ ì¢Œí‘œ, ìœ ì—­ë©´ì  ë° ì§€í˜•ë‹¨ìœ„ ì •ë³´ë¥¼ ë¬¶ìŒ
+        % ÀÌ¿ô ¼¿ ÁÂÇ¥, À¯¿ª¸éÀû ¹× ÁöÇü´ÜÀ§ Á¤º¸¸¦ ¹­À½
         nbrInfo = [nbrY,nbrX,nbrUpslopeArea,nbrProfilePath];
 
-        % ì§€ë‚˜ì˜¨ ê²½ë¡œìƒì— ìˆëŠ” ì…€ì´ ì•„ë‹ˆë©´ì„œ ìœ ì—­ë©´ì ì´ ê°€ì¥ ë„“ì€ ìˆœì„œë¡œ ì •ë ¬í•¨
+        % Áö³ª¿Â °æ·Î»ó¿¡ ÀÖ´Â ¼¿ÀÌ ¾Æ´Ï¸é¼­ À¯¿ª¸éÀûÀÌ °¡Àå ³ĞÀº ¼ø¼­·Î Á¤·ÄÇÔ
         sortedNbrInfo = sortrows(nbrInfo,[4,-3]);
 
-        % ì´ì›ƒ ì…€ ì¤‘ ìœ ì—­ë©´Ğ® ê°€ì¥ ë„“ì€ ì…€ì˜ ì¢Œí‘œ               
+        % ÀÌ¿ô ¼¿ Áß À¯¿ª¸é¬À °¡Àå ³ĞÀº ¼¿ÀÇ ÁÂÇ¥               
         newPY = sortedNbrInfo(1,1);
         newPX = sortedNbrInfo(1,2);
         
         
-        % ìœ ì—­ë©´ì ì´ ê°€ì¥ ë„“ì€ ì…€ì´ë”ë¼ë„ í˜„ ì¢Œí‘œì˜ ê³ ë„ë³´ë‹¤ ì»¤ì•¼í•¨
+        % À¯¿ª¸éÀûÀÌ °¡Àå ³ĞÀº ¼¿ÀÌ´õ¶óµµ Çö ÁÂÇ¥ÀÇ °íµµº¸´Ù Ä¿¾ßÇÔ
         isHigher = false;
         
         nextNbr = 1;
@@ -426,12 +426,12 @@ for ithSubDir = 1:totalSubDirs
             
         end        
 
-        % (3) ëŒ€í‘œ ìœ ì—­ì— ì†í•œë‹¤ë©´ ì¢Œí‘œë¥¼ ê¸°ë¡í•¨        
+        % (3) ´ëÇ¥ À¯¿ª¿¡ ¼ÓÇÑ´Ù¸é ÁÂÇ¥¸¦ ±â·ÏÇÔ        
         if representDrainage(newPY,newPX) == true ...
             
-            % * ì£¼ì˜: ë¶„ìˆ˜ê³„ê¹Œì§€ ë„ë‹¬í•œ ê²½ìš°ì—ë„ ìœ ì—­ë©´ì ì´ ë„“ì€ ì´ì›ƒ ì…€ì„
-            %   ì°¾ê¸°ìœ„í•´ ìœ ì—­ ë‚´ë¶€ë¥¼ íƒìƒ‰í•˜ëŠ” ê²½ìš°ê°€ ìˆìŒ ì´ë¥¼ ë°©ì§€í•˜ê¸° ìœ„í•´
-            %   ë¶„ìˆ˜ê³„ì— ë„ë‹¬í•œ ê²½ìš°ëŠ” íƒìƒ‰ì„ ë©ˆì¶”ê²Œ í•¨
+            % * ÁÖÀÇ: ºĞ¼ö°è±îÁö µµ´ŞÇÑ °æ¿ì¿¡µµ À¯¿ª¸éÀûÀÌ ³ĞÀº ÀÌ¿ô ¼¿À»
+            %   Ã£±âÀ§ÇØ À¯¿ª ³»ºÎ¸¦ Å½»öÇÏ´Â °æ¿ì°¡ ÀÖÀ½ ÀÌ¸¦ ¹æÁöÇÏ±â À§ÇØ
+            %   ºĞ¼ö°è¿¡ µµ´ŞÇÑ °æ¿ì´Â Å½»öÀ» ¸ØÃß°Ô ÇÔ
             newPCoord = sub2ind([Y X],newPY,newPX);
             
             tmpInd = find(repDrainBoundaryCoord == newPCoord);
@@ -443,8 +443,8 @@ for ithSubDir = 1:totalSubDirs
                 
             end
             
-            % * ì£¼ì˜: ì¢…ë‹¨ê³¡ì„  ê²½ë¡œ ì¤‘ ì‚¬ë©´ì¸ ì…€ì„ ë§Œë‚˜ê²Œ ë˜ë©´, ì§€ê¸ˆê¹Œì§€ì˜ ì…€
-            %   ê°œìˆ˜ë¥¼ ì €ì¥í•˜ì—¬ í•˜ì²œì¢…ë‹¨ê³¡ì„ ì„ ì‘ì„±í•˜ëŠ”ë° ì´ìš©í•¨
+            % * ÁÖÀÇ: Á¾´Ü°î¼± °æ·Î Áß »ç¸éÀÎ ¼¿À» ¸¸³ª°Ô µÇ¸é, Áö±İ±îÁöÀÇ ¼¿
+            %   °³¼ö¸¦ ÀúÀåÇÏ¿© ÇÏÃµÁ¾´Ü°î¼±À» ÀÛ¼ºÇÏ´Âµ¥ ÀÌ¿ëÇÔ
             ithSubDirTransportMode ...
                 = transportMode(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
             
@@ -455,9 +455,9 @@ for ithSubDir = 1:totalSubDirs
                 
             end
             
-            ithSubDirRivProfNode = ithSubDirRivProfNode + 1;    % ì¢…ë‹¨ê³¡ì„ ìƒ ì…€ ìƒ‰ì¸ 1 ì¦ê°€
+            ithSubDirRivProfNode = ithSubDirRivProfNode + 1;    % Á¾´Ü°î¼±»ó ¼¿ »öÀÎ 1 Áõ°¡
 
-            % ì´ì›ƒ ì…€ê³¼ì˜ ê±°ë¦¬ë¥¼ êµ¬í•¨
+            % ÀÌ¿ô ¼¿°úÀÇ °Å¸®¸¦ ±¸ÇÔ
             if abs(pY-newPY) == 1 && abs(pX-newPX) == 1
 
                 ithRivProfDistance(ithSubDirRivProfNode) ...
@@ -469,7 +469,7 @@ for ithSubDir = 1:totalSubDirs
 
             end
 
-            % ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ ì¢…ë‹¨ê³¡ì„ ì— ê¸°ë¡í•¨
+            % ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ Á¾´Ü°î¼±¿¡ ±â·ÏÇÔ
             pY = newPY;
             pX = newPX;
 
@@ -483,25 +483,25 @@ for ithSubDir = 1:totalSubDirs
 
     end
 
-    % í•˜ì²œ ì…€ì˜ ê°œìˆ˜ê°€ ì „ì²´ ì¢…ë‹¨ê³¡ì„  ì…€ ê°œìˆ˜ë³´ë‹¤ í¬ë‹¤ë©´ ì¡°ì •í•¨
+    % ÇÏÃµ ¼¿ÀÇ °³¼ö°¡ ÀüÃ¼ Á¾´Ü°î¼± ¼¿ °³¼öº¸´Ù Å©´Ù¸é Á¶Á¤ÇÔ
     if onlyRiverNodesNo > ithSubDirRivProfNode || onlyRiverNodesNo == 0
         
         onlyRiverNodesNo = ithSubDirRivProfNode;        
         
     end
     
-    % 3) ì¢…ë‹¨ê³¡ì„  ì¤‘ í•„ìš”ì—†ëŠ” ê°’ ì œê±°
-    % * ì›ë¦¬: Null ê°’ì´ ë‚˜ì˜¤ëŠ” ê²ƒë¶€í„° ì œê±°í•¨
-    [tmp,ithRivProfEnd] = min(ithRiverProfileYX(:,2));      % Nullê°’ì´ ë‚˜ì˜¤ëŠ” ìœ„ì¹˜
+    % 3) Á¾´Ü°î¼± Áß ÇÊ¿ä¾ø´Â °ª Á¦°Å
+    % * ¿ø¸®: Null °ªÀÌ ³ª¿À´Â °ÍºÎÅÍ Á¦°ÅÇÔ
+    [tmp,ithRivProfEnd] = min(ithRiverProfileYX(:,2));      % Null°ªÀÌ ³ª¿À´Â À§Ä¡
     
-    ithRiverProfileCoord = sub2ind([Y,X] ...                   % ì„ í˜•ìƒ‰ì¸ìœ¼ë¡œ ë³€í™˜
+    ithRiverProfileCoord = sub2ind([Y,X] ...                   % ¼±Çü»öÀÎÀ¸·Î º¯È¯
         ,ithRiverProfileYX(1:ithRivProfEnd-1,1),ithRiverProfileYX(1:ithRivProfEnd-1,2));
     
     ithRivProfDistance = ithRivProfDistance(1:ithRivProfEnd-1,1);
 
-    % 4) í•˜ì²œì¢…ë‹¨ê³¡ì„  ë³´ì—¬ì£¼ê¸°
+    % 4) ÇÏÃµÁ¾´Ü°î¼± º¸¿©ÁÖ±â
     
-    % (1) í•˜ì²œì¢…ë‹¨ê³¡ì„  ê²½ë¡œ ë¶„í¬
+    % (1) ÇÏÃµÁ¾´Ü°î¼± °æ·Î ºĞÆ÷
     
     figure(105)
     set(gcf,'Color',[1 1 1])
@@ -515,17 +515,17 @@ for ithSubDir = 1:totalSubDirs
     
     hold on
     
-    % ì¸µ 1: ì¢…ë‹¨ê³¡ì„ 
+    % Ãş 1: Á¾´Ü°î¼±
     plot(ithRiverProfileYX(1:ithRivProfEnd-1,2) ... % X
         ,ithRiverProfileYX(1:ithRivProfEnd-1,1) ... % Y
         ,'k*')                                      %
     
     hold on
     
-    % ì¸µ 2: ëŒ€í‘œ ìœ ì—­ ê²½ê³„
+    % Ãş 2: ´ëÇ¥ À¯¿ª °æ°è
     plot(repDrainBoundaryX,repDrainBoundaryY,'r');    
     
-    % (2) í•˜ì²œì¢…ë‹¨ê³¡ì„ 
+    % (2) ÇÏÃµÁ¾´Ü°î¼±
     figure(08)
     set(gcf,'Color',[1 1 1])
     
@@ -537,7 +537,7 @@ for ithSubDir = 1:totalSubDirs
         
     set(gca,'YLim',[0 1300] ...
         ,'XLim',[0 30000] ...
-        ,'XDir','reverse' ...           % ì˜ë™ìª½ì€ Xì¶•ì„ ë°˜ëŒ€ë¡œ!
+        ,'XDir','reverse' ...           % ¿µµ¿ÂÊÀº XÃàÀ» ¹İ´ë·Î!
         ,'Box','off' ...
         ,'TickDir','out' ...
         ,'TickLength',[0.02 0.02] ...    
@@ -550,13 +550,13 @@ for ithSubDir = 1:totalSubDirs
 
     set(hT1,'FontSize',11 ...
         ,'FontWeight','bold' ...
-        ,'FontName','ë‚˜ëˆ”ê³ ë”•')
+        ,'FontName','³ª´®°íµñ')
     
     % grid on
     
     hold on
     
-    % ê¸°ë°˜ì•” í•˜ìƒì— ëŒ€í•œ í‘œì‹œ
+    % ±â¹İ¾Ï ÇÏ»ó¿¡ ´ëÇÑ Ç¥½Ã
     ithSubDirTransportMode ...
         = transportMode(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);    
     ithSubDirBedrockChannel ...
@@ -569,7 +569,7 @@ for ithSubDir = 1:totalSubDirs
     
     hold on
     
-    % 6) ì¢…ë‹¨ê³¡ì„  ì¢Œí‘œë¥¼ ì „ì²´ ì¢…ë‹¨ê³¡ì„ ì— ê¸°ë¡í•¨
+    % 6) Á¾´Ü°î¼± ÁÂÇ¥¸¦ ÀüÃ¼ Á¾´Ü°î¼±¿¡ ±â·ÏÇÔ
     rivProfNodesNo(ithSubDir,1) = ithSubDirRivProfNode;
    
     accRivProfNodeNo = cumsum(rivProfNodesNo);
@@ -590,182 +590,182 @@ for ithSubDir = 1:totalSubDirs
 
     end
     
-    % 7) ëŒ€í‘œìœ ì—­ ëŠ¥ì„  ì¢Œí‘œ êµ¬í•˜ê¸°
-    % * ì›ë¦¬: bwboundaries í•¨ìˆ˜ë¥¼ ì´ìš©í•´ êµ¬í•œ ëŒ€í‘œìœ ì—­ ê²½ê³„ëŠ” ì„ì˜ì˜ ì§€ì ì—ì„œ
-    %   ì‹œì‘í•˜ì—¬ ì‹œê³„ë°©í–¥ ìˆœì„œë¡œ ì¢Œí‘œë¥¼ ê¸°ë¡í•¨. ë”°ë¼ì„œ ëŒ€í‘œìœ ì—­ ê²½ê³„ì—ì„œ í•˜êµ¬ì™€
-    %   ìœ ì—­ ìµœìƒìœ„ ì§€ì ì˜ ìœ„ì¹˜ë¥¼ í™•ì¸í•˜ì—¬, í•˜ë‚˜ëŠ” ì‹œê³„ë°©í–¥ìœ¼ë¡œ ë˜ ë‹¤ë¥¸ í•˜ë‚˜ëŠ”
-    %   ì‹œê³„ë°˜ëŒ€ë°©í–¥ìœ¼ë¡œ í•˜êµ¬ì—ì„œ ì¶œë°œí•˜ëŠ” ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„ ê²½ë¡œë¥¼ êµ¬í•¨
-    % * ì£¼ì˜: bwboundaries í•¨ìˆ˜ë¥¼ ì´ìš©í•´ êµ¬í•œ ëŒ€í‘œìœ ì—­ ê²½ê³„ëŠ” ì„ì˜ì˜ ì§€ì ì—ì„œ
-    %   ì‹œì‘í•˜ê³  ë‹¤ì‹œ ê·¸ ì§€ì ì—ì„œ ëì´ ë‚¨. ë”°ë¼ì„œ ì‹œì‘ë˜ëŠ” ì§€ì ê³¼ ì¢…ë£Œë˜ëŠ”
-    %   ì§€ì ì´ ì¤‘ë³µë˜ëŠ” ê²ƒì„ ì¡°ì‹¬í•´ì•¼í•¨
+    % 7) ´ëÇ¥À¯¿ª ´É¼± ÁÂÇ¥ ±¸ÇÏ±â
+    % * ¿ø¸®: bwboundaries ÇÔ¼ö¸¦ ÀÌ¿ëÇØ ±¸ÇÑ ´ëÇ¥À¯¿ª °æ°è´Â ÀÓÀÇÀÇ ÁöÁ¡¿¡¼­
+    %   ½ÃÀÛÇÏ¿© ½Ã°è¹æÇâ ¼ø¼­·Î ÁÂÇ¥¸¦ ±â·ÏÇÔ. µû¶ó¼­ ´ëÇ¥À¯¿ª °æ°è¿¡¼­ ÇÏ±¸¿Í
+    %   À¯¿ª ÃÖ»óÀ§ ÁöÁ¡ÀÇ À§Ä¡¸¦ È®ÀÎÇÏ¿©, ÇÏ³ª´Â ½Ã°è¹æÇâÀ¸·Î ¶Ç ´Ù¸¥ ÇÏ³ª´Â
+    %   ½Ã°è¹İ´ë¹æÇâÀ¸·Î ÇÏ±¸¿¡¼­ Ãâ¹ßÇÏ´Â ºĞ¼ö°è Á¾´Ü°î¼±°æ·Î¸¦ ±¸ÇÔ
+    % * ÁÖÀÇ: bwboundaries ÇÔ¼ö¸¦ ÀÌ¿ëÇØ ±¸ÇÑ ´ëÇ¥À¯¿ª °æ°è´Â ÀÓÀÇÀÇ ÁöÁ¡¿¡¼­
+    %   ½ÃÀÛÇÏ°í ´Ù½Ã ±× ÁöÁ¡¿¡¼­ ³¡ÀÌ ³². µû¶ó¼­ ½ÃÀÛµÇ´Â ÁöÁ¡°ú Á¾·áµÇ´Â
+    %   ÁöÁ¡ÀÌ Áßº¹µÇ´Â °ÍÀ» Á¶½ÉÇØ¾ßÇÔ
     
-    % (1) ìœ ì—­ì˜ ìµœìƒìœ„ ì§€ì  ì¢Œí‘œ: í•˜ì²œì¢…ë‹¨ê³¡ì„  ìƒì—ì„œ ìœ ì—­ë©´ì ì´ ê°€ì¥ ì‘ì€ ì…€
+    % (1) À¯¿ªÀÇ ÃÖ»óÀ§ ÁöÁ¡ ÁÂÇ¥: ÇÏÃµÁ¾´Ü°î¼± »ó¿¡¼­ À¯¿ª¸éÀûÀÌ °¡Àå ÀÛÀº ¼¿
     [repDrainHeighstY,repDrainHeighstX] ...
         = ind2sub([Y,X],ithRiverProfileCoord(end));
 
-    % (2) ìœ ì—­ ìµœìƒìœ„ ì§€ì  ìƒ‰ì¸ê³¼ ì¼ì¹˜í•˜ëŠ” ëŒ€í‘œìœ ì—­ê²½ê³„ ì¢Œí‘œì˜ ìƒ‰ì¸
+    % (2) À¯¿ª ÃÖ»óÀ§ ÁöÁ¡ »öÀÎ°ú ÀÏÄ¡ÇÏ´Â ´ëÇ¥À¯¿ª°æ°è ÁÂÇ¥ÀÇ »öÀÎ
     repDrainHeighstBoundaryCoord ...
         = find(repDrainBoundaryCoord == ithRiverProfileCoord(end));
 
     % repDrainBoundaryYX = [repDrainBoundaryY repDrainBoundaryX];
 
-    % * ì£¼ì˜: í•˜êµ¬ì§€ì  ìƒ‰ì¸ê³¼ ìµœìƒë¥˜ ìœ ì—­ ì§€ì  ìƒ‰ì¸ì„ íŒŒì•…í•œ ë’¤ì— ì´ë“¤ ê°’ì—
-    % ë”°ë¼ ë¶„ìˆ˜ê³„ì¢…ë‹¨ê³¡ì„  ê²½ë¡œë¥¼ ë‹¬ë¦¬í•¨
+    % * ÁÖÀÇ: ÇÏ±¸ÁöÁ¡ »öÀÎ°ú ÃÖ»ó·ù À¯¿ª ÁöÁ¡ »öÀÎÀ» ÆÄ¾ÇÇÑ µÚ¿¡ ÀÌµé °ª¿¡
+    % µû¶ó ºĞ¼ö°èÁ¾´Ü°î¼± °æ·Î¸¦ ´Ş¸®ÇÔ
     if repDrainMaxUpslopeBoundaryCoord < repDrainHeighstBoundaryCoord
 
-        % í•˜êµ¬ì§€ì  ìƒ‰ì¸ì´ ìœ ì—­ ìµœìƒë¥˜ ì§€ì  ìƒ‰ì¸ë³´ë‹¤ ì‘ì„ ë•Œ
+        % ÇÏ±¸ÁöÁ¡ »öÀÎÀÌ À¯¿ª ÃÖ»ó·ù ÁöÁ¡ »öÀÎº¸´Ù ÀÛÀ» ¶§
         
-        % ë°˜ì‹œê³„ ë°©í•­ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œ
+        % ¹İ½Ã°è ¹æÇ× ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î
         antiClockwiseHillslopeProfile ...
             = [repDrainBoundaryCoord(repDrainMaxUpslopeBoundaryCoord:-1:1) ...
             ;repDrainBoundaryCoord(end-1:repDrainHeighstBoundaryCoord)];
 
-        % ë°˜ì‹œê³„ ë°©í–¥ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œìƒì˜ í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬ë¥¼ êµ¬í•¨
+        % ¹İ½Ã°è ¹æÇâ ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î»óÀÇ ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®¸¦ ±¸ÇÔ
 
-        antiClockwiseHillslopeProfileY ...                          % Y ì¢Œí‘œ
+        antiClockwiseHillslopeProfileY ...                          % Y ÁÂÇ¥
             = [repDrainBoundaryY(repDrainMaxUpslopeBoundaryCoord:-1:1) ...
             ;repDrainBoundaryY(end-1:repDrainHeighstBoundaryCoord)];
-        antiClockwiseHillslopeProfileX ...                          % X ì¢Œí‘œ
+        antiClockwiseHillslopeProfileX ...                          % X ÁÂÇ¥
             = [repDrainBoundaryX(repDrainMaxUpslopeBoundaryCoord:-1:1) ...
             ;repDrainBoundaryX(end-1:repDrainHeighstBoundaryCoord)];
 
-        [profYSize,tmp] = size(antiClockwiseHillslopeProfileY);     % ì¢…ë‹¨ê³¡ì„  ë…¸ë“œ ê°œìˆ˜
+        [profYSize,tmp] = size(antiClockwiseHillslopeProfileY);     % Á¾´Ü°î¼± ³ëµå °³¼ö
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ Y ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ Y ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfY = zeros(profYSize,1);
 
         dHillProfY(2:end) = abs(antiClockwiseHillslopeProfileY(1:end-1) ...
             - antiClockwiseHillslopeProfileY(2:end));
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ X ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ X ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfX = zeros(profYSize,1);
 
         dHillProfX(2:end) = abs(antiClockwiseHillslopeProfileX(1:end-1) ...
             - antiClockwiseHillslopeProfileX(2:end));    
 
-        % ë‹¤ìŒ ì´ì›ƒ ì…€ê³¼ì˜ ê±°ë¦¬
+        % ´ÙÀ½ ÀÌ¿ô ¼¿°úÀÇ °Å¸®
         antiClockwiseHillslopeProfileDiffDistance = zeros(profYSize,1);
         antiClockwiseHillslopeProfileDiffDistance(2:end) = dX;
         antiClockwiseHillslopeProfileDiffDistance(dHillProfY == 1 & dHillProfX == 1) = dX * ROOT2;
 
-        % í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬
+        % ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®
         antiClockwiseHillslopeProfileDistance = cumsum(antiClockwiseHillslopeProfileDiffDistance);
 
 
-        % ì‹œê³„ë°©í–¥ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œ
+        % ½Ã°è¹æÇâ ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î
         clockwiseHillslopeProfile ...        
             = repDrainBoundaryCoord(repDrainMaxUpslopeBoundaryCoord:repDrainHeighstBoundaryCoord);
 
-        % ì‹œê³„ë°©í–¥ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œìƒì˜ í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬ë¥¼ êµ¬í•¨
+        % ½Ã°è¹æÇâ ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î»óÀÇ ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®¸¦ ±¸ÇÔ
 
-        clockwiseHillslopeProfileY ...                              % Y ì¢Œí‘œ
+        clockwiseHillslopeProfileY ...                              % Y ÁÂÇ¥
             = repDrainBoundaryY(repDrainMaxUpslopeBoundaryCoord:repDrainHeighstBoundaryCoord);
 
-        clockwiseHillslopeProfileX ...                              % X ì¢Œí‘œ
+        clockwiseHillslopeProfileX ...                              % X ÁÂÇ¥
             = repDrainBoundaryX(repDrainMaxUpslopeBoundaryCoord:repDrainHeighstBoundaryCoord);
 
-        [profYSize,tmp] = size(clockwiseHillslopeProfileY);       % ì¢…ë‹¨ê³¡ì„  ë…¸ë“œ ê°œìˆ˜
+        [profYSize,tmp] = size(clockwiseHillslopeProfileY);       % Á¾´Ü°î¼± ³ëµå °³¼ö
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ Y ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ Y ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfY = zeros(profYSize,1);
 
         dHillProfY(2:end) = abs(clockwiseHillslopeProfileY(1:end-1) ...
             - clockwiseHillslopeProfileY(2:end));
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ X ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ X ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfX = zeros(profYSize,1);
 
         dHillProfX(2:end) = abs(clockwiseHillslopeProfileX(1:end-1) ...
             - clockwiseHillslopeProfileX(2:end));    
 
-        % ë‹¤ìŒ ì´ì›ƒ ì…€ê³¼ì˜ ê±°ë¦¬
+        % ´ÙÀ½ ÀÌ¿ô ¼¿°úÀÇ °Å¸®
         clockwiseHillslopeProfileDiffDistance = zeros(profYSize,1);
         clockwiseHillslopeProfileDiffDistance(2:end) = dX;
         clockwiseHillslopeProfileDiffDistance(dHillProfY == 1 & dHillProfX == 1) = dX * ROOT2;
 
-        % í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬
+        % ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®
         clockwiseHillslopeProfileDistance ...
             = cumsum(clockwiseHillslopeProfileDiffDistance);
 
     else % repDrainMaxUpslopeBoundaryCoord >= repDrainHeighstBoundaryCoord
 
-        % í•˜êµ¬ ì§€ì  ìƒ‰ì¸ì´ ìœ ì—­ ìµœìƒë¥˜ ì§€ì  ìƒ‰ì¸ë³´ë‹¤ í´ ë•Œ
+        % ÇÏ±¸ ÁöÁ¡ »öÀÎÀÌ À¯¿ª ÃÖ»ó·ù ÁöÁ¡ »öÀÎº¸´Ù Å¬ ¶§
         
-        % ë°˜ì‹œê³„ ë°©í•­ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œ
+        % ¹İ½Ã°è ¹æÇ× ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î
         antiClockwiseHillslopeProfile ...
             = repDrainBoundaryCoord(repDrainMaxUpslopeBoundaryCoord:-1:repDrainHeighstBoundaryCoord);
 
-        % ë°˜ì‹œê³„ ë°©í–¥ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œìƒì˜ í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬ë¥¼ êµ¬í•¨
+        % ¹İ½Ã°è ¹æÇâ ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î»óÀÇ ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®¸¦ ±¸ÇÔ
 
-        antiClockwiseHillslopeProfileY ...                          % Y ì¢Œí‘œ
+        antiClockwiseHillslopeProfileY ...                          % Y ÁÂÇ¥
             = repDrainBoundaryY(repDrainMaxUpslopeBoundaryCoord:-1:repDrainHeighstBoundaryCoord);
-        antiClockwiseHillslopeProfileX ...                          % X ì¢Œí‘œ
+        antiClockwiseHillslopeProfileX ...                          % X ÁÂÇ¥
             = repDrainBoundaryX(repDrainMaxUpslopeBoundaryCoord:-1:repDrainHeighstBoundaryCoord);
 
-        [profYSize,tmp] = size(antiClockwiseHillslopeProfileY);     % ì¢…ë‹¨ê³¡ì„  ë…¸ë“œ ê°œìˆ˜
+        [profYSize,tmp] = size(antiClockwiseHillslopeProfileY);     % Á¾´Ü°î¼± ³ëµå °³¼ö
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ Y ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ Y ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfY = zeros(profYSize,1);
 
         dHillProfY(2:end) = abs(antiClockwiseHillslopeProfileY(1:end-1) ...
             - antiClockwiseHillslopeProfileY(2:end));
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ X ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ X ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfX = zeros(profYSize,1);
 
         dHillProfX(2:end) = abs(antiClockwiseHillslopeProfileX(1:end-1) ...
             - antiClockwiseHillslopeProfileX(2:end));    
 
-        % ë‹¤ìŒ ì´ì›ƒ ì…€ê³¼ì˜ ê±°ë¦¬
+        % ´ÙÀ½ ÀÌ¿ô ¼¿°úÀÇ °Å¸®
         antiClockwiseHillslopeProfileDiffDistance = zeros(profYSize,1);
         antiClockwiseHillslopeProfileDiffDistance(2:end) = dX;
         antiClockwiseHillslopeProfileDiffDistance(dHillProfY == 1 & dHillProfX == 1) = dX * ROOT2;
 
-        % í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬
+        % ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®
         antiClockwiseHillslopeProfileDistance = cumsum(antiClockwiseHillslopeProfileDiffDistance);
 
 
-        % ì‹œê³„ë°©í–¥ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œ
+        % ½Ã°è¹æÇâ ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î
         clockwiseHillslopeProfile ...        
             = [repDrainBoundaryCoord(repDrainMaxUpslopeBoundaryCoord:end-1) ...
             ;repDrainBoundaryCoord(1:repDrainHeighstBoundaryCoord)];
 
-        % ì‹œê³„ë°©í–¥ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê²½ë¡œìƒì˜ í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬ë¥¼ êµ¬í•¨
+        % ½Ã°è¹æÇâ ºĞ¼ö°è Á¾´Ü°î¼± °æ·Î»óÀÇ ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®¸¦ ±¸ÇÔ
 
-        clockwiseHillslopeProfileY ...                              % Y ì¢Œí‘œ
+        clockwiseHillslopeProfileY ...                              % Y ÁÂÇ¥
             = [repDrainBoundaryY(repDrainMaxUpslopeBoundaryCoord:end-1) ...
             ;repDrainBoundaryY(1:repDrainHeighstBoundaryCoord)];
 
-        clockwiseHillslopeProfileX ...                              % X ì¢Œí‘œ
+        clockwiseHillslopeProfileX ...                              % X ÁÂÇ¥
             = [repDrainBoundaryX(repDrainMaxUpslopeBoundaryCoord:end-1) ...
             ;repDrainBoundaryX(1:repDrainHeighstBoundaryCoord)];
 
-        [profYSize,tmp] = size(clockwiseHillslopeProfileY);       % ì¢…ë‹¨ê³¡ì„  ë…¸ë“œ ê°œìˆ˜
+        [profYSize,tmp] = size(clockwiseHillslopeProfileY);       % Á¾´Ü°î¼± ³ëµå °³¼ö
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ Y ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ Y ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfY = zeros(profYSize,1);
 
         dHillProfY(2:end) = abs(clockwiseHillslopeProfileY(1:end-1) ...
             - clockwiseHillslopeProfileY(2:end));
 
-        % ë‹¤ìŒ ë¶„ìˆ˜ê³„ ë…¸ë“œì™€ì˜ X ì¢Œí‘œê°’ ì°¨ì´
+        % ´ÙÀ½ ºĞ¼ö°è ³ëµå¿ÍÀÇ X ÁÂÇ¥°ª Â÷ÀÌ
         dHillProfX = zeros(profYSize,1);
 
         dHillProfX(2:end) = abs(clockwiseHillslopeProfileX(1:end-1) ...
             - clockwiseHillslopeProfileX(2:end));    
 
-        % ë‹¤ìŒ ì´ì›ƒ ì…€ê³¼ì˜ ê±°ë¦¬
+        % ´ÙÀ½ ÀÌ¿ô ¼¿°úÀÇ °Å¸®
         clockwiseHillslopeProfileDiffDistance = zeros(profYSize,1);
         clockwiseHillslopeProfileDiffDistance(2:end) = dX;
         clockwiseHillslopeProfileDiffDistance(dHillProfY == 1 & dHillProfX == 1) = dX * ROOT2;
 
-        % í•˜êµ¬ë¡œë¶€í„°ì˜ ê±°ë¦¬
+        % ÇÏ±¸·ÎºÎÅÍÀÇ °Å¸®
         clockwiseHillslopeProfileDistance ...
             = cumsum(clockwiseHillslopeProfileDiffDistance);
 
     end
     
-    % 8) ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„  ê·¸ë˜í”„ ë³´ê¸°        
+    % 8) ºĞ¼ö°è Á¾´Ü°î¼± ±×·¡ÇÁ º¸±â        
     figure(9)
     set(gcf,'Color',[1 1 1])
 
@@ -774,22 +774,22 @@ for ithSubDir = 1:totalSubDirs
     hSPNo = ['hSP',num2str(ithSubDir)];
     
     plot(eval(hSPNo),ithRivProfDistance ...
-        ,ithSubDirBedrockElev(ithRiverProfileCoord) ...   % 1. í•˜ì²œì¢…ë‹¨ê³¡ì„ 
+        ,ithSubDirBedrockElev(ithRiverProfileCoord) ...   % 1. ÇÏÃµÁ¾´Ü°î¼±
         ,'k:','Linewidth',1.5)
 
     hold on
 
-    % í•˜ì²œ ì–‘ìª½ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„ ì„ ì‘ì„±í•˜ê¸°: í•˜ì§€ë§Œ ë³µì¡í•´ì„œ ìƒëµí•¨
+    % ÇÏÃµ ¾çÂÊ ºĞ¼ö°è Á¾´Ü°î¼±À» ÀÛ¼ºÇÏ±â: ÇÏÁö¸¸ º¹ÀâÇØ¼­ »ı·«ÇÔ
     %  plot(eval(hSPNo)clockwiseHillslopeProfileDistance,ithSubDirElev(clockwiseHillslopeProfile) ...
     %      ,antiClockwiseHillslopeProfileDistance,ithSubDirElev(antiClockwiseHillslopeProfile) ...
     %      ,'Color','Blue','LineWidth',1)
 
-    % í•œìª½ ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„ ë§Œì„ ì‘ì„±í•¨
+    % ÇÑÂÊ ºĞ¼ö°è Á¾´Ü°î¼±¸¸À» ÀÛ¼ºÇÔ
     plot(eval(hSPNo),clockwiseHillslopeProfileDistance ...
-        ,ithSubDirElev(clockwiseHillslopeProfile) ...    % 2. ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„ 
+        ,ithSubDirElev(clockwiseHillslopeProfile) ...    % 2. ºĞ¼ö°è Á¾´Ü°î¼±
         ,'Color',[0 0 0],'LineWidth',1.5)
 
-    set(eval(hSPNo),'XDir','reverse' ...        % ì˜ë™ìª½ì€ Xì¶•ì„ ë°˜ëŒ€ë¡œ!
+    set(eval(hSPNo),'XDir','reverse' ...        % ¿µµ¿ÂÊÀº XÃàÀ» ¹İ´ë·Î!
         ,'Box','off' ...
         ,'YLim',[0 1000],'XLim',[0 25000] ...
         ,'TickDir','out' ...
@@ -805,7 +805,7 @@ for ithSubDir = 1:totalSubDirs
     hold on
 
 
-    % ë¶„ìˆ˜ê³„ ì¢…ë‹¨ê³¡ì„ ì— ê¸°ë°˜ì•” ë…¸ì¶œ ì‚¬ë©´ í‘œì‹œí•˜ê¸°
+    % ºĞ¼ö°è Á¾´Ü°î¼±¿¡ ±â¹İ¾Ï ³ëÃâ »ç¸é Ç¥½ÃÇÏ±â
     ithClockwiseBedrockExposedHill ...
         = ithSubDirTransportMode(clockwiseHillslopeProfile) == BEDROCK_EXPOSED_HILLSLOPE;
 
@@ -814,29 +814,29 @@ for ithSubDir = 1:totalSubDirs
 
     ithClockwiseBedrockExposedHill(ithClockwiseBedrockExposedHill == 0) = NaN;
 
-    plot(clockwiseHillslopeProfileDistance ...      % 3. ê¸°ë°˜ì•” ë…¸ì¶œì‚¬ë©´ í‘œì‹œ
+    plot(clockwiseHillslopeProfileDistance ...      % 3. ±â¹İ¾Ï ³ëÃâ»ç¸é Ç¥½Ã
         ,ithClockwiseBedrockExposedHill,'k*');
 
     hold on
 
-    % ì œëª© ê¸°ì¬
+    % Á¦¸ñ ±âÀç
     if ithSubDir == 1
     
         hT = title(eval(hSPNo),'Interfluve and River Longitudinal Profile');
         set(hT,'FontSize',11 ...
             ,'FontWeight','bold' ...
-            ,'FontName','ë‚˜ëˆ”ê³ ë”•')
+            ,'FontName','³ª´®°íµñ')
         
     end
 
-    % ë§ˆì§€ë§‰ subplot ì„ ì œì™¸í•˜ê³ ëŠ” XTick ê³¼ XTickLabel ì œê±°í•¨
+    % ¸¶Áö¸· subplot À» Á¦¿ÜÇÏ°í´Â XTick °ú XTickLabel Á¦°ÅÇÔ
     if ithSubDir ~= totalSubDirs
 
         set(eval(hSPNo),'XTick',[],'XTickLabel',[])
 
     end                       
 
-    % 10) area-slope ê·¸ë˜í”„ ê·¸ë¦¬ê¸°        
+    % 10) area-slope ±×·¡ÇÁ ±×¸®±â        
     ithFacetFlowSlope = facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
 
     figure(10)
@@ -863,7 +863,7 @@ for ithSubDir = 1:totalSubDirs
 %         ,'FontName','Helvetica')
 
  
-    % 11) Hypsometric curve ê·¸ë¦¬ê¸°
+    % 11) Hypsometric curve ±×¸®±â
     figHypsometry = figure(11);
     set(gcf,'Color',[1 1 1])
     
@@ -873,31 +873,31 @@ for ithSubDir = 1:totalSubDirs
     
 end
     
-% ì „ì²´ ì¢…ë‹¨ê³¡ì„ ì˜ ë’·ë¶€ë¶„ì„ ì˜ë¼ëƒ„. ë‚˜ì¤‘ì— ì´ë¥¼ ì´ìš©í•  ì¼ì´ ìˆìœ¼ë©´ ì‚¬ìš©í•˜ì§€ë§Œ
-% í˜„ì¬ë¡œì„œëŠ” í•„ìš”ì—†ìŒ
-% * ì›ë¦¬: Null ê°’ì´ ë‚˜ì˜¤ëŠ” ê²ƒë¶€í„° ì œê±°í•¨
-% [tmp,rivProfEnd] = min(riverProfileCoord);              % Nullê°’ì´ ë‚˜ì˜¤ëŠ” ìœ„ì¹˜
-% riverProfileCoord = riverProfileCoord(1:rivProfEnd-1);  % ì¢…ë‹¨ê³¡ì„  ê²½ë¡œ ì¢Œí‘œ ì •ë¦¬
-% rivProfDistance = rivProfDistance(1:rivProfEnd-1,1);    % ê²½ë¡œ ê° ì§€ì ì˜ ê±°ë¦¬ ì •ë¦¬
+% ÀüÃ¼ Á¾´Ü°î¼±ÀÇ µŞºÎºĞÀ» Àß¶ó³¿. ³ªÁß¿¡ ÀÌ¸¦ ÀÌ¿ëÇÒ ÀÏÀÌ ÀÖÀ¸¸é »ç¿ëÇÏÁö¸¸
+% ÇöÀç·Î¼­´Â ÇÊ¿ä¾øÀ½
+% * ¿ø¸®: Null °ªÀÌ ³ª¿À´Â °ÍºÎÅÍ Á¦°ÅÇÔ
+% [tmp,rivProfEnd] = min(riverProfileCoord);              % Null°ªÀÌ ³ª¿À´Â À§Ä¡
+% riverProfileCoord = riverProfileCoord(1:rivProfEnd-1);  % Á¾´Ü°î¼± °æ·Î ÁÂÇ¥ Á¤¸®
+% rivProfDistance = rivProfDistance(1:rivProfEnd-1,1);    % °æ·Î °¢ ÁöÁ¡ÀÇ °Å¸® Á¤¸®
 
-% 3. ì†Œê·œëª¨
+% 3. ¼Ò±Ô¸ğ
 
-% 1) íš¡ë‹¨ìƒì˜ ê³ ë„ ë³€í™”
+% 1) È¾´Ü»óÀÇ °íµµ º¯È­
 figure(12)
 set(gcf,'Color',[1 1 1])
 
-% ì¶œë ¥íšŸìˆ˜ ì„¤ì •
-theBiggestY = 1000;                      % Y ì¶• ìµœëŒ€ê°’ ì„¤ì •
+% Ãâ·ÂÈ½¼ö ¼³Á¤
+theBiggestY = 1000;                      % Y Ãà ÃÖ´ë°ª ¼³Á¤
 endColor = 256;
-cMap = colormap(jet(endColor));   % plot ìƒ‰ ê·¸ë¼ë””ì–¸íŠ¸
+cMap = colormap(jet(endColor));   % plot »ö ±×¶óµğ¾ğÆ®
 
-% subplot ê°„ê²© ì¡°ì •
+% subplot °£°İ Á¶Á¤
 subplotM = 3;
 subplotN = 1;
 
 XMin = 0.1;
 XMax = 0.95;
-YMin = 0.1;     % * ì£¼ì˜: 0.1 ë³´ë‹¤ ì‘ì„ ê²½ìš° ë¬¸ì œê°€ ë§ˆì§€ë§‰ ê·¸ë˜í”„ê°€ ì‘ì„±ë˜ì§€ ì•ŠìŒ
+YMin = 0.1;     % * ÁÖÀÇ: 0.1 º¸´Ù ÀÛÀ» °æ¿ì ¹®Á¦°¡ ¸¶Áö¸· ±×·¡ÇÁ°¡ ÀÛ¼ºµÇÁö ¾ÊÀ½
 YMax = 0.95;
 XGap = 0.02;
 YGap = 0.05;
@@ -908,7 +908,7 @@ YSize = (YMax - YMin) / subplotM;
 XBox = XSize - XGap;
 YBox = YSize - YGap;
 
-% subplot ì´ˆê¸°í™”
+% subplot ÃÊ±âÈ­
 
 hSP1 = subplot(3,1,1);
 set(hSP1,'Position',[XMin,YMax - YSize*1,XBox,YBox])
@@ -924,13 +924,13 @@ set(hSP3,'Position',[XMin,YMax - YSize*3,XBox,YBox])
 
 for ithSubDir = 1:totalSubDirs
     
-    % ì˜ë™ ìœ ì—­ ìƒë¥˜
+    % ¿µµ¿ À¯¿ª »ó·ù
  
-    % ì§€í‘œê³ ë„: ê¸°ë°˜ì•” ê³ ë„ + í‡´ì ì¸µ ë‘ê»˜
+    % ÁöÇ¥°íµµ: ±â¹İ¾Ï °íµµ + ÅğÀûÃş µÎ²²
     plot(hSP1,axisXDistance ...
         ,bedrockElev(upperCrossProfileY,X_INI:X_MAX,ithSubDir) ...
         + sedimentThick(upperCrossProfileY,X_INI:X_MAX,ithSubDir) ...
-        ,'Color',cMap(round(endColor*(ithSubDir/totalSubDirs)),:),'LineWidth',1.5) % ppt ìš©
+        ,'Color',cMap(round(endColor*(ithSubDir/totalSubDirs)),:),'LineWidth',1.5) % ppt ¿ë
         
     set(hSP1,'Box','off' ...
         ,'YLim',[0 theBiggestY] ...
@@ -951,13 +951,13 @@ for ithSubDir = 1:totalSubDirs
     
     hold on
     
-    % ì˜ë™ ìœ ì—­ ì¤‘ë¥˜
+    % ¿µµ¿ À¯¿ª Áß·ù
 
-    % ì§€í‘œê³ ë„: ê¸°ë°˜ì•” ê³ ë„ + í‡´ì ì¸µ ë‘ê»˜
+    % ÁöÇ¥°íµµ: ±â¹İ¾Ï °íµµ + ÅğÀûÃş µÎ²²
     plot(hSP2,axisXDistance ...
         ,bedrockElev(middleCrossProfileY,X_INI:X_MAX,ithSubDir) ...
         + sedimentThick(middleCrossProfileY,X_INI:X_MAX,ithSubDir) ...
-        ,'Color',cMap(round(endColor*(ithSubDir/totalSubDirs)),:),'LineWidth',1.5) % ppt ìš©
+        ,'Color',cMap(round(endColor*(ithSubDir/totalSubDirs)),:),'LineWidth',1.5) % ppt ¿ë
     
     set(hSP2,'Box','off' ...
         ,'YLim',[0 theBiggestY] ...
@@ -973,14 +973,14 @@ for ithSubDir = 1:totalSubDirs
     
     hold on 
 
-    % ì˜ë™ ìœ ì—­ í•˜ë¥˜
+    % ¿µµ¿ À¯¿ª ÇÏ·ù
 
     
-    % ê¸°ë°˜ì•” ê³ ë„ + í‡´ì ì¸µ ë‘ê»˜
+    % ±â¹İ¾Ï °íµµ + ÅğÀûÃş µÎ²²
     plot(hSP3,axisXDistance ...
         ,bedrockElev(lowerCrossProfileY,X_INI:X_MAX,ithSubDir) ...
         + sedimentThick(lowerCrossProfileY,X_INI:X_MAX,ithSubDir) ...
-        ,'Color',cMap(round(endColor*(ithSubDir/totalSubDirs)),:),'LineWidth',1.5) % ppt ìš©
+        ,'Color',cMap(round(endColor*(ithSubDir/totalSubDirs)),:),'LineWidth',1.5) % ppt ¿ë
     
     set(hSP3,'Box','off' ...
         ,'YLim',[0 theBiggestY] ...

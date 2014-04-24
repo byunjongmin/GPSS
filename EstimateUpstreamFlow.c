@@ -1,38 +1,38 @@
 /* 
  * EstimateUpstreamFlow.c
  *
- * flooded regionì„ ì œì™¸í•œ ì…€ë“¤ì„ ëŒ€ìƒìœ¼ë¡œ ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€
- * ê°œìˆ˜ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜. AccumulateUpstreamFlow í•¨ìˆ˜ì˜ for ë°˜ë³µë¬¸ë§Œì„ Cë¡œ ë³€ê²½í•¨
- * * ì£¼ì˜: í˜„ì¬ ìƒë¶€ ìœ ì—­ ëˆ„ì  ì…€ ê°œìˆ˜ëŠ” í•„ìš”í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì£¼ì„ ì²˜ë¦¬í•¨
+ * flooded regionÀ» Á¦¿ÜÇÑ ¼¿µéÀ» ´ë»óÀ¸·Î »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿
+ * °³¼ö¸¦ ±¸ÇÏ´Â ÇÔ¼ö. AccumulateUpstreamFlow ÇÔ¼öÀÇ for ¹İº¹¹®¸¸À» C·Î º¯°æÇÔ
+ * * ÁÖÀÇ: ÇöÀç »óºÎ À¯¿ª ´©Àû ¼¿ °³¼ö´Â ÇÊ¿äÇÏÁö ¾ÊÀ¸¹Ç·Î ÁÖ¼® Ã³¸®ÇÔ
  *
- * [upstreamDischarge1 ...              0 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ [m^3]
- * ,inputDischarge ...                  1 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ [m^3]
- * ,dischargeInputInFloodedRegion ...   2 flooded regionìœ¼ë¡œì˜ ìœ ëŸ‰
- * ,isOverflowing ...                   3 flooded region ì €ì¥ëŸ‰ ì´ˆê³¼ íƒœê·¸
- * ,upstreamCellsNo ...                 4 ìƒë¶€ ìœ ì—­ì˜ ëˆ„ì  ì…€ ê°œìˆ˜
- * ,inputCellsNo ...                    5 ìƒë¶€ ìœ ì—­ì˜ ëˆ„ì  ì…€ ê°œìˆ˜ 
+ * [upstreamDischarge1 ...              0 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·® [m^3]
+ * ,inputDischarge ...                  1 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·® [m^3]
+ * ,dischargeInputInFloodedRegion ...   2 flooded regionÀ¸·ÎÀÇ À¯·®
+ * ,isOverflowing ...                   3 flooded region ÀúÀå·® ÃÊ°ú ÅÂ±×
+ * ,upstreamCellsNo ...                 4 »óºÎ À¯¿ªÀÇ ´©Àû ¼¿ °³¼ö
+ * ,inputCellsNo ...                    5 »óºÎ À¯¿ªÀÇ ´©Àû ¼¿ °³¼ö 
  * ] = EstimateUpstreamFlow ...
- * (CELL_AREA, ...                      0 ì…€ ë©´ì 
- * ,consideringCellsNo ...              1 ìƒë¶€ ìœ ì—­ ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ë¥¼ êµ¬í•˜ëŠ” ì…€ ìˆ˜
- * ,annualRunoff)                       2 ì—°ê°„ ìœ ì¶œëŸ‰
- * -------------------------------- mexGetVariabelPtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜ë“¤
- * upstreamDischarge1 ...               3 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ì¶œëŸ‰ ì´ˆê¸°ê°’
- * mexSortedIndicies ...                4 ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
- * e1LinearIndicies ...                 5 ë‹¤ìŒ ì…€ ìƒ‰ì¸
- * e2LinearIndicies ...                 6 ë‹¤ìŒ ì…€ ìƒ‰ì¸ 
- * outputFluxRatioToE1 ...              7 ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
- * outputFluxRatioToE2 ...              8 ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
- * mexSDSNbrLinearIndicies ...          9 ë‹¤ìŒ ì…€ ìƒ‰ì¸
+ * (CELL_AREA, ...                      0 ¼¿ ¸éÀû
+ * ,consideringCellsNo ...              1 »óºÎ À¯¿ª À¯·®°ú ¼¿ °³¼ö¸¦ ±¸ÇÏ´Â ¼¿ ¼ö
+ * ,annualRunoff)                       2 ¿¬°£ À¯Ãâ·®
+ * -------------------------------- mexGetVariabelPtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼öµé
+ * upstreamDischarge1 ...               3 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯Ãâ·® ÃÊ±â°ª
+ * mexSortedIndicies ...                4 °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
+ * e1LinearIndicies ...                 5 ´ÙÀ½ ¼¿ »öÀÎ
+ * e2LinearIndicies ...                 6 ´ÙÀ½ ¼¿ »öÀÎ 
+ * outputFluxRatioToE1 ...              7 ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
+ * outputFluxRatioToE2 ...              8 ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
+ * mexSDSNbrLinearIndicies ...          9 ´ÙÀ½ ¼¿ »öÀÎ
  * flood ...                            10 flooded region
- * floodedRegionStorageVolume ...       11 flooded region ì €ì¥ëŸ‰ [m^3]
- * floodedRegionCellsNo ...             12 flooded region êµ¬ì„± ì…€ ê°œìˆ˜
- * upstreamCellsNo ...                  13 ìƒë¶€ ìœ ì—­ì˜ ëˆ„ì  ì…€ ê°œìˆ˜ ì´ˆê¸°ê°’
+ * floodedRegionStorageVolume ...       11 flooded region ÀúÀå·® [m^3]
+ * floodedRegionCellsNo ...             12 flooded region ±¸¼º ¼¿ °³¼ö
+ * upstreamCellsNo ...                  13 »óºÎ À¯¿ªÀÇ ´©Àû ¼¿ °³¼ö ÃÊ±â°ª
  *
  */
 
 # include "mex.h"
 
-/* ê³„ì‚° í•¨ìˆ˜ ì„ ì–¸ */
+/* °è»ê ÇÔ¼ö ¼±¾ğ */
 void EstimateUpstreamFlow(
     double * upstreamDischarge1,
     double * inputDischarge,
@@ -57,10 +57,10 @@ void EstimateUpstreamFlow(
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
-    /* ì…ë ¥ ë³€ìˆ˜ ì„ ì–¸
-     * ì£¼ì˜: mxArray ìë£Œí˜• ë³€ìˆ˜ëŠ” mexGetVariablePtr í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬
-     * í˜¸ì¶œí•¨ìˆ˜ì˜ ì‘ì—…ê³µê°„ì— ìˆëŠ” ë³€ìˆ˜ë“¤ì˜ í¬ì¸í„°ë§Œ ë¶ˆëŸ¬ì˜´ */
-    /* í˜¸ì¶œí•¨ìˆ˜ ì‘ì—…ê³µê°„ì˜ ë³€ìˆ˜ */
+    /* ÀÔ·Â º¯¼ö ¼±¾ğ
+     * ÁÖÀÇ: mxArray ÀÚ·áÇü º¯¼ö´Â mexGetVariablePtr ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿©
+     * È£ÃâÇÔ¼öÀÇ ÀÛ¾÷°ø°£¿¡ ÀÖ´Â º¯¼öµéÀÇ Æ÷ÀÎÅÍ¸¸ ºÒ·¯¿È */
+    /* È£ÃâÇÔ¼ö ÀÛ¾÷°ø°£ÀÇ º¯¼ö */
     mxArray         * mxArray3; /* upstreamDischarge1 */
     const mxArray   * mxArray4; /* mexSortedIndicies */
     const mxArray   * mxArray5; /* e1LinearIndicies */
@@ -73,7 +73,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     const mxArray   * mxArray12; /* floodedRegionCellsNo */
     /* mxArray         * mxArray13; /* upstreamCellsNo */
     
-    /* ì…ë ¥ë³€ìˆ˜ ì‹¤ì œ ìë£Œ */
+    /* ÀÔ·Âº¯¼ö ½ÇÁ¦ ÀÚ·á */
     int CELL_AREA;
     mwSize consideringCellsNo;
     double annualRunoff;
@@ -88,7 +88,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     double * floodedRegionCellsNo;
     double * floodedRegionStorageVolume;
     
-    /* ì¶œë ¥ ë³€ìˆ˜ ì„ ì–¸ */
+    /* Ãâ·Â º¯¼ö ¼±¾ğ */
     double * upstreamDischarge1;
     double * inputDischarge;
     double * dischargeInputInFloodedRegion;
@@ -96,10 +96,10 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     /*double * upstreamCellsNo; */
     /*double * inputCellsNo; */
     
-    /* ì„ì‹œ ë³€ìˆ˜ ì„ ì–¸ */
+    /* ÀÓ½Ã º¯¼ö ¼±¾ğ */
     mwSize mRows,nCols;
     
-    /* ì…ë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */      
+    /* ÀÔ·Â º¯¼ö ÃÊ±âÈ­ */      
     CELL_AREA           = (int) mxGetScalar(prhs[0]);
     consideringCellsNo  = (mwSize) mxGetScalar(prhs[1]);
     annualRunoff        = mxGetScalar(prhs[2]);
@@ -127,7 +127,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     floodedRegionStorageVolume  = mxGetPr(mxArray11);
     floodedRegionCellsNo        = mxGetPr(mxArray12);    
     
-    /* ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */
+    /* Ãâ·Â º¯¼ö ÃÊ±âÈ­ */
 	plhs[0] = mxArray3;
 	    
     mRows = (mwSize) mxGetM(plhs[0]);
@@ -139,7 +139,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     /* plhs[4] = mxArray13; */
     /* plhs[5] = mxCreateDoubleMatrix(mRows,nCols,mxREAL); */
     
-    /* ì¶œë ¥ ë³€ìˆ˜ ìë£Œì— í¬ì¸í„°ë¥¼ ì§€ì • */
+    /* Ãâ·Â º¯¼ö ÀÚ·á¿¡ Æ÷ÀÎÅÍ¸¦ ÁöÁ¤ */
     upstreamDischarge1              = mxGetPr(plhs[0]);
     inputDischarge                  = mxGetPr(plhs[1]);
     dischargeInputInFloodedRegion   = mxGetPr(plhs[2]);
@@ -147,7 +147,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     /* upstreamCellsNo                 = mxGetPr(plhs[4]); */
     /* inputCellsNo                    = mxGetPr(plhs[5]); */
     
-    /* ì„œë¸Œ ë£¨í‹´ ìˆ˜í–‰ */
+    /* ¼­ºê ·çÆ¾ ¼öÇà */
     EstimateUpstreamFlow(
         upstreamDischarge1,
         inputDischarge,
@@ -189,7 +189,7 @@ void EstimateUpstreamFlow(
     double * floodedRegionCellsNo,
     double * floodedRegionStorageVolume)
 {    
-    /* ì„ì‹œ ë³€ìˆ˜ ì„ ì–¸ */
+    /* ÀÓ½Ã º¯¼ö ¼±¾ğ */
     mwIndex ithCell,ithCellIdx,outlet,next,e1,e2;
     double outputDischargeToE1,outputDischargeToE2;
     /* double outputCellsNoToE1,outputCellsNoToE2; */
@@ -197,34 +197,34 @@ void EstimateUpstreamFlow(
     const int FLOODED = 2; /* flooded region */
     const int TRUE = 1;
 
-    /* (ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ) ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ êµ¬í•¨ */
+    /* (³ôÀº °íµµ ¼øÀ¸·Î) »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ ±¸ÇÔ */
     for (ithCell=0;ithCell<consideringCellsNo;ithCell++)
     {
-        /* 1. ië²ˆì§¸ ì…€ ìƒ‰ì¸ */
-        /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+        /* 1. i¹øÂ° ¼¿ »öÀÎ */
+        /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
         ithCellIdx = (mwIndex) mexSortedIndicies[ithCell] - 1;
 
-        /* 2. ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì— ë¶„ë°°í•¨ */
-        /* 1) ië²ˆì§¸ ì…€ì´ flooded region ìœ ì¶œêµ¬ê°€ ì•„ë‹ˆë¼ë©´, ë¬´í•œ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ
-         *    ì…€ì— ë¶„ë°°í•¨
-         * 2) ië²ˆì§¸ ì…€ì´ flooded region ìœ ì¶œêµ¬ë¼ë©´, mexSDSNbrIndiciesë¥¼ ë”°ë¼ ë‹¤ìŒ
-         *    ì…€ì— ë¶„ë°°í•¨ */
+        /* 2. »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿¿¡ ºĞ¹èÇÔ */
+        /* 1) i¹øÂ° ¼¿ÀÌ flooded region À¯Ãâ±¸°¡ ¾Æ´Ï¶ó¸é, ¹«ÇÑ À¯ÇâÀ» µû¶ó ´ÙÀ½
+         *    ¼¿¿¡ ºĞ¹èÇÔ
+         * 2) i¹øÂ° ¼¿ÀÌ flooded region À¯Ãâ±¸¶ó¸é, mexSDSNbrIndicies¸¦ µû¶ó ´ÙÀ½
+         *    ¼¿¿¡ ºĞ¹èÇÔ */
 
-        /* 1) ië²ˆì§¸ ì…€ì´ flooded region ìœ ì¶œêµ¬ê°€ ì•„ë‹ˆë¼ë©´(ì¼ë°˜ì ì¸ ê²½ìš°) í˜„ì¬ ì…€ì˜
-         *    ì§€í‘œ ìœ ì¶œëŸ‰ê³¼ ì…€ ê°œìˆ˜ 1ì„ ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ì—
-         *    ê°ê° ë”í•˜ì—¬ ë¬´í•œ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì— ë¶„ë°°í•¨ */
+        /* 1) i¹øÂ° ¼¿ÀÌ flooded region À¯Ãâ±¸°¡ ¾Æ´Ï¶ó¸é(ÀÏ¹İÀûÀÎ °æ¿ì) ÇöÀç ¼¿ÀÇ
+         *    ÁöÇ¥ À¯Ãâ·®°ú ¼¿ °³¼ö 1À» »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¿¡
+         *    °¢°¢ ´õÇÏ¿© ¹«ÇÑ À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿¿¡ ºĞ¹èÇÔ */
         if ((int) floodedRegionCellsNo[ithCellIdx] == 0)
         {
-            /* (1) ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„° ìœ ì…ë˜ëŠ” ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ì— í˜„ì¬ ì…€ì˜ ì§€í‘œ
-             *     ìœ ì¶œëŸ‰ê³¼ ì…€ ê°œìˆ˜ 1ì„ ë”í•¨ */
+            /* (1) »óºÎ À¯¿ªÀ¸·ÎºÎÅÍ À¯ÀÔµÇ´Â À¯·®°ú ´©Àû ¼¿ °³¼ö¿¡ ÇöÀç ¼¿ÀÇ ÁöÇ¥
+             *     À¯Ãâ·®°ú ¼¿ °³¼ö 1À» ´õÇÔ */
             upstreamDischarge1[ithCellIdx]
                 = upstreamDischarge1[ithCellIdx] + inputDischarge[ithCellIdx];
             /*upstreamCellsNo[ithCellIdx]
             /*    = upstreamCellsNo[ithCellIdx] + inputCellsNo[ithCellIdx];
 
-            /* (2) ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ë“¤(e1,e2)ì— ë¶„ë°°í•¨ */
+            /* (2) À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿µé(e1,e2)¿¡ ºĞ¹èÇÔ */
 
-            /* A. e1,e2ì˜ ìœ ì…ëŸ‰ì— ê°ê° ì „í•´ì§ˆ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ êµ¬í•¨ */
+            /* A. e1,e2ÀÇ À¯ÀÔ·®¿¡ °¢°¢ ÀüÇØÁú À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ ±¸ÇÔ */
             outputDischargeToE1
                 = outputFluxRatioToE1[ithCellIdx] * upstreamDischarge1[ithCellIdx];
             outputDischargeToE2
@@ -235,155 +235,155 @@ void EstimateUpstreamFlow(
              *outputCellsNoToE2
              *    = outputFluxRatioToE2[ithCellIdx] * upstreamCellsNo[ithCellIdx]; */
 
-            /* B. ë‹¤ìŒ ì…€ì´ flooded regionì— í•´ë‹¹í•˜ëŠ”ì§€ í™•ì¸í•´ë³´ê³ ,
-             *    flooded regionì— í•´ë‹¹í•œë‹¤ë©´ ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼
-             *    ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ flooded regionì˜ ìœ ì…ëŸ‰ì— ë°˜ì˜í•˜ê³ ,
-             *    ì•„ë‹ˆë¼ë©´ ë‹¤ìŒ ì…€ì˜ ìœ ì…ëŸ‰ì— ë°˜ì˜í•¨ */
+            /* B. ´ÙÀ½ ¼¿ÀÌ flooded region¿¡ ÇØ´çÇÏ´ÂÁö È®ÀÎÇØº¸°í,
+             *    flooded region¿¡ ÇØ´çÇÑ´Ù¸é »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú
+             *    ´©Àû ¼¿ °³¼ö¸¦ flooded regionÀÇ À¯ÀÔ·®¿¡ ¹İ¿µÇÏ°í,
+             *    ¾Æ´Ï¶ó¸é ´ÙÀ½ ¼¿ÀÇ À¯ÀÔ·®¿¡ ¹İ¿µÇÔ */
 
-            /* ë‹¤ìŒ ì…€ ìƒ‰ì¸
-             * * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+            /* ´ÙÀ½ ¼¿ »öÀÎ
+             * * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
             e1 = (mwIndex) e1LinearIndicies[ithCellIdx] - 1;
             e2 = (mwIndex) e2LinearIndicies[ithCellIdx] - 1;        
 
-            /* A) e1ì´ flooded regionì— í•´ë‹¹í•˜ëŠ”ì§€ í™•ì¸í•¨ */
+            /* A) e1ÀÌ flooded region¿¡ ÇØ´çÇÏ´ÂÁö È®ÀÎÇÔ */
             if ( (int) flood[e1] == FLOODED )
             {
 
-                /* (A) e1ì´ flooded regionì— í•´ë‹¹í•œë‹¤ë©´ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼
-                 *     flooded regionì˜ ìœ ì…ëŸ‰ìœ¼ë¡œ ë°˜ì˜í•¨
-                 * * ì£¼ì˜: ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ì˜ ì²˜ë¦¬ ë°©ì‹ì´ ì„œë¡œ ë‹¤ë¦„
-                 *   ìœ ëŸ‰ì˜ ê²½ìš° flooded regionì˜ ì €ìˆ˜ëŸ‰ ì´ˆê³¼ë¶„ì´ ìœ ì¶œêµ¬ì—
-                 *   ì „í•´ì§€ê¸° ë•Œë¬¸ì— ìœ ì¶œêµ¬ì˜ ìœ ì…ëŸ‰ì— ë°”ë¡œ ë”í•˜ì§€ ì•ŠìŒ */
+                /* (A) e1ÀÌ flooded region¿¡ ÇØ´çÇÑ´Ù¸é À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦
+                 *     flooded regionÀÇ À¯ÀÔ·®À¸·Î ¹İ¿µÇÔ
+                 * * ÁÖÀÇ: À¯·®°ú ¼¿ °³¼öÀÇ Ã³¸® ¹æ½ÄÀÌ ¼­·Î ´Ù¸§
+                 *   À¯·®ÀÇ °æ¿ì flooded regionÀÇ Àú¼ö·® ÃÊ°úºĞÀÌ À¯Ãâ±¸¿¡
+                 *   ÀüÇØÁö±â ¶§¹®¿¡ À¯Ãâ±¸ÀÇ À¯ÀÔ·®¿¡ ¹Ù·Î ´õÇÏÁö ¾ÊÀ½ */
 
-                /* a. flooded regionì˜ ìœ ì¶œêµ¬ ìƒ‰ì¸ */
-                /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+                /* a. flooded regionÀÇ À¯Ãâ±¸ »öÀÎ */
+                /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
                 outlet = (mwIndex) mexSDSNbrIndicies[e1] - 1;
 
-                /* b. ìœ ëŸ‰ì„ ë”í•  ë•ŒëŠ” flooded regionì˜ ìœ ì…ëŸ‰ì— ê¸°ë¡í•¨ */
+                /* b. À¯·®À» ´õÇÒ ¶§´Â flooded regionÀÇ À¯ÀÔ·®¿¡ ±â·ÏÇÔ */
                 dischargeInputInFloodedRegion[outlet]
                   = dischargeInputInFloodedRegion[outlet] + outputDischargeToE1;
 
-                /* c. ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ë”í•  ë•ŒëŠ” ìœ ì¶œêµ¬ì˜ ìœ ì…ëŸ‰ì— ê¸°ë¡í•¨ */
+                /* c. ´©Àû ¼¿ °³¼ö¸¦ ´õÇÒ ¶§´Â À¯Ãâ±¸ÀÇ À¯ÀÔ·®¿¡ ±â·ÏÇÔ */
                 /* inputCellsNo[outlet] = inputCellsNo[outlet] + outputCellsNoToE1; */
             }
             else
             {
-                /* (B) e1ì´ flooded regionì´ ì•„ë‹ˆë¼ë©´, e1ì˜ ìœ ì…ëŸ‰ì— ìƒë¶€ 
-                 *     ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ë”í•¨ */
+                /* (B) e1ÀÌ flooded regionÀÌ ¾Æ´Ï¶ó¸é, e1ÀÇ À¯ÀÔ·®¿¡ »óºÎ 
+                 *     À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ ´õÇÔ */
                 inputDischarge[e1] = inputDischarge[e1] + outputDischargeToE1;
 
                 /* inputCellsNo[e1] = inputCellsNo[e1] + outputCellsNoToE1; */
             }
 
-            /* B) e2ê°€ flooded regionì— í•´ë‹¹í•˜ëŠ”ì§€ í™•ì¸í•¨ */
+            /* B) e2°¡ flooded region¿¡ ÇØ´çÇÏ´ÂÁö È®ÀÎÇÔ */
             if ( (int) flood[e2] == FLOODED )
             {
 
-                /* (A) e2ê°€ flooded regionì— í•´ë‹¹í•œë‹¤ë©´ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ 
-                 *     flooded regionì˜ ìœ ì…ëŸ‰ìœ¼ë¡œ ë°˜ì˜í•¨
-                 * * ì£¼ì˜: ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ì˜ ì²˜ë¦¬ ë°©ì‹ì´ ì„œë¡œ ë‹¤ë¦„
-                 *   ìœ ëŸ‰ì˜ ê²½ìš° flooded regionì˜ ì €ìˆ˜ëŸ‰ ì´ˆê³¼ë¶„ì´ ìœ ì¶œêµ¬ì— ì „í•´ì§€ê¸°
-                 *   ë•Œë¬¸ì— ìœ ì¶œêµ¬ì˜ ìœ ì…ëŸ‰ì— ë°”ë¡œ ë”í•˜ì§€ ì•ŠìŒ */
+                /* (A) e2°¡ flooded region¿¡ ÇØ´çÇÑ´Ù¸é À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ 
+                 *     flooded regionÀÇ À¯ÀÔ·®À¸·Î ¹İ¿µÇÔ
+                 * * ÁÖÀÇ: À¯·®°ú ¼¿ °³¼öÀÇ Ã³¸® ¹æ½ÄÀÌ ¼­·Î ´Ù¸§
+                 *   À¯·®ÀÇ °æ¿ì flooded regionÀÇ Àú¼ö·® ÃÊ°úºĞÀÌ À¯Ãâ±¸¿¡ ÀüÇØÁö±â
+                 *   ¶§¹®¿¡ À¯Ãâ±¸ÀÇ À¯ÀÔ·®¿¡ ¹Ù·Î ´õÇÏÁö ¾ÊÀ½ */
 
-                /* a. flooded regionì˜ ìœ ì¶œêµ¬ì˜ ì¢Œí‘œë¥¼ íŒŒì•…í•¨ */
-                /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+                /* a. flooded regionÀÇ À¯Ãâ±¸ÀÇ ÁÂÇ¥¸¦ ÆÄ¾ÇÇÔ */
+                /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
                 outlet = (mwIndex) mexSDSNbrIndicies[e2] - 1;
 
-                /* b. ìœ ëŸ‰ì„ ë”í•  ë•ŒëŠ” flooded regionì˜ ìœ ì…ëŸ‰ì— ê¸°ë¡í•¨ */
+                /* b. À¯·®À» ´õÇÒ ¶§´Â flooded regionÀÇ À¯ÀÔ·®¿¡ ±â·ÏÇÔ */
                 dischargeInputInFloodedRegion[outlet]
                     = dischargeInputInFloodedRegion[outlet] + outputDischargeToE2;
 
-                /* c. ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ë”í•  ë•ŒëŠ” ìœ ì¶œêµ¬ì˜ ìœ ì…ëŸ‰ì— ê¸°ë¡í•¨ */
+                /* c. ´©Àû ¼¿ °³¼ö¸¦ ´õÇÒ ¶§´Â À¯Ãâ±¸ÀÇ À¯ÀÔ·®¿¡ ±â·ÏÇÔ */
                 /* inputCellsNo[outlet] = inputCellsNo[outlet] + outputCellsNoToE2; */
             }
             else
             {
-                /* (B) e2ê°€ flooded regionì´ ì•„ë‹ˆë¼ë©´, e2ì˜ ìœ ì…ëŸ‰ì— ìƒë¶€
-                 *     ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ë”í•¨ */
+                /* (B) e2°¡ flooded regionÀÌ ¾Æ´Ï¶ó¸é, e2ÀÇ À¯ÀÔ·®¿¡ »óºÎ
+                 *     À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ ´õÇÔ */
                 inputDischarge[e2] = inputDischarge[e2] + outputDischargeToE2;
 
                 /* inputCellsNo[e2] = inputCellsNo[e2] + outputCellsNoToE2; */
 
             }
         }
-        /* (2) ië²ˆì§¸ ì…€ì´ flooded regionì˜ ìœ ì¶œêµ¬ë¼ë©´ ë¬´í•œ ìœ í–¥ì„ ì´ìš©í•˜ì§€ ì•Šê³ 
-         *     ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œë‹¤. ì¦‰, SDSNbrIndiciesê°€ 
-         *     ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ë¡œ ìƒë¶€ ìœ ì—­ì˜ ìœ ëŸ‰ê³¼ ì…€ì˜ ê°¯ìˆ˜ë¥¼ ë¶„ë°°í•¨
-         *     ì´ëŠ” ProcessSink í•¨ìˆ˜ì—ì„œ ìœ ì¶œêµ¬ì˜ ìœ í–¥ì´ flooded regionì„ ë‹¤ì‹œ
-         *     í–¥í•˜ì§€ ì•Šë„ë¡ SDSNbrY,SDSNbrXì— ìˆ˜ì •ì„ ê°€í–ˆê¸° ë•Œë¬¸ì„ */
+        /* (2) i¹øÂ° ¼¿ÀÌ flooded regionÀÇ À¯Ãâ±¸¶ó¸é ¹«ÇÑ À¯ÇâÀ» ÀÌ¿ëÇÏÁö ¾Ê°í
+         *     ÃÖ´ë ÇÏºÎ °æ»ç À¯Çâ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ´Ù. Áï, SDSNbrIndicies°¡ 
+         *     °¡¸®Å°´Â ´ÙÀ½ ¼¿·Î »óºÎ À¯¿ªÀÇ À¯·®°ú ¼¿ÀÇ °¹¼ö¸¦ ºĞ¹èÇÔ
+         *     ÀÌ´Â ProcessSink ÇÔ¼ö¿¡¼­ À¯Ãâ±¸ÀÇ À¯ÇâÀÌ flooded regionÀ» ´Ù½Ã
+         *     ÇâÇÏÁö ¾Êµµ·Ï SDSNbrY,SDSNbrX¿¡ ¼öÁ¤À» °¡Çß±â ¶§¹®ÀÓ */
         else
         {
-            /* A. ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ì…ëŸ‰ì— flooded regionì˜ ì €ìˆ˜ëŸ‰ì„ ì´ˆê³¼í•˜ëŠ”
-             *    ì–‘ì„ ë”í•¨ */
+            /* A. »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯ÀÔ·®¿¡ flooded regionÀÇ Àú¼ö·®À» ÃÊ°úÇÏ´Â
+             *    ¾çÀ» ´õÇÔ */
 
-            /* A) flooded regionìœ¼ë¡œì˜ ìœ ì…ëŸ‰ì´ ì €ìˆ˜ëŸ‰ì„ ì´ˆê³¼í•˜ëŠ”ì§€ í™•ì¸í•˜ê³ 
-             *    ì´ˆê³¼í•  ê²½ìš° ì´ˆê³¼ëŸ‰ì„ ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ì…ëŸ‰ìœ¼ë¡œ ì¸ì •í•¨
-             * * ì£¼ì˜: ì‹¤ì œ ì§€ë°°ìœ ëŸ‰ì€ ë¹ˆë„ê°€ 1ë…„ ë‚´ì—ë„ ì—¬ëŸ¬ ë²ˆ ë°œìƒí•  í™•ë¥ ì´ ìˆìŒ
-             *   í•˜ì§€ë§Œ ì—¬ê¸°ì„œëŠ” ì§€ë°°ìœ ëŸ‰ì´ 1ë…„ì— í•œ ì°¨ë¡€ìˆëŠ” ê²ƒìœ¼ë¡œ ê°€ì •í•¨ */
+            /* A) flooded regionÀ¸·ÎÀÇ À¯ÀÔ·®ÀÌ Àú¼ö·®À» ÃÊ°úÇÏ´ÂÁö È®ÀÎÇÏ°í
+             *    ÃÊ°úÇÒ °æ¿ì ÃÊ°ú·®À» »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯ÀÔ·®À¸·Î ÀÎÁ¤ÇÔ
+             * * ÁÖÀÇ: ½ÇÁ¦ Áö¹èÀ¯·®Àº ºóµµ°¡ 1³â ³»¿¡µµ ¿©·¯ ¹ø ¹ß»ıÇÒ È®·üÀÌ ÀÖÀ½
+             *   ÇÏÁö¸¸ ¿©±â¼­´Â Áö¹èÀ¯·®ÀÌ 1³â¿¡ ÇÑ Â÷·ÊÀÖ´Â °ÍÀ¸·Î °¡Á¤ÇÔ */
 
-            /* (A) flooded regionì˜ ìœ ì…ëŸ‰ì— ì§€í‘œìœ ì¶œëŸ‰ í•©ê³„ë¥¼ ë”í•¨ */
+            /* (A) flooded regionÀÇ À¯ÀÔ·®¿¡ ÁöÇ¥À¯Ãâ·® ÇÕ°è¸¦ ´õÇÔ */
             dischargeInputInFloodedRegion[ithCellIdx]
                 = dischargeInputInFloodedRegion[ithCellIdx]
                 + floodedRegionCellsNo[ithCellIdx] * annualRunoff * CELL_AREA;
 
-            /* (B) flooded regionì˜ ì €ìˆ˜ëŸ‰ê³¼ ìœ ì…ëŸ‰ì„ ë¹„êµí•¨ */
+            /* (B) flooded regionÀÇ Àú¼ö·®°ú À¯ÀÔ·®À» ºñ±³ÇÔ */
             if (dischargeInputInFloodedRegion[ithCellIdx]
                 > floodedRegionStorageVolume[ithCellIdx])
             {
-                /* a. flooded regionì˜ ì´ˆê³¼ ìœ ì…ëŸ‰ì„ ië²ˆì§¸ ì…€ì˜ ìœ ì…ëŸ‰ì— ë”í•¨ */
+                /* a. flooded regionÀÇ ÃÊ°ú À¯ÀÔ·®À» i¹øÂ° ¼¿ÀÇ À¯ÀÔ·®¿¡ ´õÇÔ */
                 inputDischarge[ithCellIdx] = inputDischarge[ithCellIdx]
                     + ( dischargeInputInFloodedRegion[ithCellIdx]
                     - floodedRegionStorageVolume[ithCellIdx] );
 
-                /* b. flooded regionì˜ ì €ìˆ˜ëŸ‰ì„ ì´ˆê³¼í•˜ì˜€ë‹¤ê³  í‘œì‹œí•¨ */
+                /* b. flooded regionÀÇ Àú¼ö·®À» ÃÊ°úÇÏ¿´´Ù°í Ç¥½ÃÇÔ */
                 isOverflowing[ithCellIdx] = TRUE;
             }
 
-            /* (C) flooded regionì˜ ì´ˆê³¼ ìœ ì…ëŸ‰ì„ ë”í•¨ */
+            /* (C) flooded regionÀÇ ÃÊ°ú À¯ÀÔ·®À» ´õÇÔ */
             upstreamDischarge1[ithCellIdx] 
                 = upstreamDischarge1[ithCellIdx] + inputDischarge[ithCellIdx];
 
-            /* B. ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„° ìœ ì…í•˜ëŠ” ì…€ì˜ ê°¯ìˆ˜ë¥¼ ë”í•¨
-             * * ì£¼ì˜: i ë²ˆì§¸ ì…€ì´ ìœ ì¶œêµ¬ì´ë¯€ë¡œ flooded regionì˜ ì…€ ìˆ˜ë„ í¬í•¨í•¨ */
+            /* B. »óºÎ À¯¿ªÀ¸·ÎºÎÅÍ À¯ÀÔÇÏ´Â ¼¿ÀÇ °¹¼ö¸¦ ´õÇÔ
+             * * ÁÖÀÇ: i ¹øÂ° ¼¿ÀÌ À¯Ãâ±¸ÀÌ¹Ç·Î flooded regionÀÇ ¼¿ ¼öµµ Æ÷ÇÔÇÔ */
             /* upstreamCellsNo[ithCellIdx] = upstreamCellsNo[ithCellIdx]
              *     + inputCellsNo[ithCellIdx] + floodedRegionCellsNo[ithCellIdx]; */
 
-            /* C. ìœ ëŸ‰ê³¼ ì…€ì˜ ê°œìˆ˜ë¥¼ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì— ë¶„ë°°í•¨
-             * A) ë‹¤ìŒ ì…€ ìƒ‰ì¸
-             * * ì£¼ì˜: ë¬´í•œ ìœ í–¥ì„ ì´ìš©í•˜ì§€ ì•Šê³ , SDSNbrIndiciesë¥¼ ë”°ë¼ ë‹¤ìŒ ì…€ì—
-             *   ë¶„ë°°í•¨ */
-            /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+            /* C. À¯·®°ú ¼¿ÀÇ °³¼ö¸¦ À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿¿¡ ºĞ¹èÇÔ
+             * A) ´ÙÀ½ ¼¿ »öÀÎ
+             * * ÁÖÀÇ: ¹«ÇÑ À¯ÇâÀ» ÀÌ¿ëÇÏÁö ¾Ê°í, SDSNbrIndicies¸¦ µû¶ó ´ÙÀ½ ¼¿¿¡
+             *   ºĞ¹èÇÔ */
+            /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
             next = (mwIndex) mexSDSNbrIndicies[ithCellIdx] - 1;
 
-            /* B) ë‹¤ìŒ ì…€ì´ flooded regionì— í•´ë‹¹í•˜ëŠ”ì§€ í™•ì¸í•´ë³´ê³ , flooded
-             *    regionì— í•´ë‹¹í•œë‹¤ë©´ ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼
-             *    flooded regionì˜ ìœ ì…ëŸ‰ì— ë°˜ì˜í•˜ê³ , ì•„ë‹ˆë¼ë©´ ë‹¤ìŒ ì…€ì˜ ìœ ì…ëŸ‰ì—
-             *    ë°˜ì˜í•¨ */
+            /* B) ´ÙÀ½ ¼¿ÀÌ flooded region¿¡ ÇØ´çÇÏ´ÂÁö È®ÀÎÇØº¸°í, flooded
+             *    region¿¡ ÇØ´çÇÑ´Ù¸é »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦
+             *    flooded regionÀÇ À¯ÀÔ·®¿¡ ¹İ¿µÇÏ°í, ¾Æ´Ï¶ó¸é ´ÙÀ½ ¼¿ÀÇ À¯ÀÔ·®¿¡
+             *    ¹İ¿µÇÔ */
 
-            /* (A) ë‹¤ìŒ ì…€ì´ flooded regionì— í•´ë‹¹í•˜ëŠ”ì§€ í™•ì¸í•¨ */
+            /* (A) ´ÙÀ½ ¼¿ÀÌ flooded region¿¡ ÇØ´çÇÏ´ÂÁö È®ÀÎÇÔ */
             if  ( (int) flood[next] == FLOODED )
             {
-                /* a. ë‹¤ìŒ ì…€ì´ flooded regionì´ë¼ë©´, ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼
-                 *    flooded regionì˜ ìœ ì…ëŸ‰ìœ¼ë¡œ ë°˜ì˜í•¨
-                 * * ì£¼ì˜ : ìœ ëŸ‰ê³¼ ì…€ì˜ ê°œìˆ˜ì˜ ì²˜ë¦¬ ë°©ì‹ì´ ë‹¤ë¦„ */
+                /* a. ´ÙÀ½ ¼¿ÀÌ flooded regionÀÌ¶ó¸é, À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦
+                 *    flooded regionÀÇ À¯ÀÔ·®À¸·Î ¹İ¿µÇÔ
+                 * * ÁÖÀÇ : À¯·®°ú ¼¿ÀÇ °³¼öÀÇ Ã³¸® ¹æ½ÄÀÌ ´Ù¸§ */
 
-                /* a) flooded regionì˜ ìœ ì¶œêµ¬ ìƒ‰ì¸ */
-                /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
+                /* a) flooded regionÀÇ À¯Ãâ±¸ »öÀÎ */
+                /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
                 outlet = (mwIndex) mexSDSNbrIndicies[next] - 1;
 
-                /* b) ìœ ëŸ‰ì„ ë”í•  ë•ŒëŠ” flooded regionì˜ ìœ ì…ëŸ‰ì— ê¸°ë¡í•¨ */
+                /* b) À¯·®À» ´õÇÒ ¶§´Â flooded regionÀÇ À¯ÀÔ·®¿¡ ±â·ÏÇÔ */
                 dischargeInputInFloodedRegion[outlet]
                     = dischargeInputInFloodedRegion[outlet]
                     + upstreamDischarge1[ithCellIdx];
 
-                /* c) ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ë”í•  ë•ŒëŠ” ìœ ì¶œêµ¬ì˜ ìœ ì…ëŸ‰ì— ê¸°ë¡í•¨ */
+                /* c) ´©Àû ¼¿ °³¼ö¸¦ ´õÇÒ ¶§´Â À¯Ãâ±¸ÀÇ À¯ÀÔ·®¿¡ ±â·ÏÇÔ */
                 /* inputCellsNo[outlet] 
                 /*     = inputCellsNo[outlet] + upstreamCellsNo[ithCellIdx]; */
             }
             else
             {
-                /* b. ë‹¤ìŒ ì…€ì´ flooded regionì´ ì•„ë‹ˆë¼ë©´, ë‹¤ìŒ ì…€ì˜ ìœ ì…ëŸ‰ì—
-                 *    ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ ë”í•¨ */
+                /* b. ´ÙÀ½ ¼¿ÀÌ flooded regionÀÌ ¾Æ´Ï¶ó¸é, ´ÙÀ½ ¼¿ÀÇ À¯ÀÔ·®¿¡
+                 *    »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ ´õÇÔ */
                 inputDischarge[next]
                     = inputDischarge[next] + upstreamDischarge1[ithCellIdx];
 

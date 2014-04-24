@@ -1,29 +1,29 @@
 % =========================================================================
 %> @section INTRO GPSS main
 %>
-%> - ì§€ì§ˆì‹œê°„ê·œëª¨ì˜ ì§€í˜•ë°œë‹¬ì„ ì»´í“¨í„° ìƒì—ì„œ ëª¨ì˜í•˜ëŠ” í”„ë¡œê·¸ëž¨.
-%>  - ìž…ë ¥ ë³€ìˆ˜ë¥¼ ì½ì–´ë“¤ì´ê³  ì´ë¥¼ í† ëŒ€ë¡œ ë‹¤ì–‘í•œ ì§€í˜•í˜•ì„±ìž‘ìš©ìœ¼ë¡œ ì¸í•œ ì§€í˜•ì†ì„±ì˜
-%>    ë³€í™”ë¥¼ ê¸°ë¡í•˜ëŠ” ì£¼í•¨ìˆ˜ë¡œì„œ ë‹¤ì–‘í•œ ë¶€í•¨ìˆ˜ë“¤ì„ í˜¸ì¶œí•¨.
-%> - í”„ë¡œê·¸ëž¨ëª… : GPSS(Geomorphological Process System Simulator)
-%> - ìž‘ì„±ìž : ë³€ ì¢… ë¯¼
-%> - ìµœì¢… ìž‘ì„±ì¼ : 2011-08-19
+%> - ÁöÁú½Ã°£±Ô¸ðÀÇ ÁöÇü¹ß´ÞÀ» ÄÄÇ»ÅÍ »ó¿¡¼­ ¸ðÀÇÇÏ´Â ÇÁ·Î±×·¥.
+%>  - ÀÔ·Â º¯¼ö¸¦ ÀÐ¾îµéÀÌ°í ÀÌ¸¦ Åä´ë·Î ´Ù¾çÇÑ ÁöÇüÇü¼ºÀÛ¿ëÀ¸·Î ÀÎÇÑ ÁöÇü¼Ó¼ºÀÇ
+%>    º¯È­¸¦ ±â·ÏÇÏ´Â ÁÖÇÔ¼ö·Î¼­ ´Ù¾çÇÑ ºÎÇÔ¼öµéÀ» È£ÃâÇÔ.
+%> - ÇÁ·Î±×·¥¸í : GPSS(Geomorphological Process System Simulator)
+%> - ÀÛ¼ºÀÚ : º¯ Á¾ ¹Î
+%> - ÃÖÁ¾ ÀÛ¼ºÀÏ : 2011-08-19
 %>
 %> - Histroy
 %>  - 2011-10-13
-%>   - í•˜ì²œ ìˆ˜ë¦¬ê¸°í•˜ ë²•ì¹™ìœ¼ë¡œë¶€í„° ìˆ˜ì‹¬ ì¶”ì •
+%>   - ÇÏÃµ ¼ö¸®±âÇÏ ¹ýÄ¢À¸·ÎºÎÅÍ ¼ö½É ÃßÁ¤
 %>  - 2011-08-19
-%>   - ì‚¬ë©´ ì…€ì—ì„œ ì§€í‘œìœ ì¶œë¡œ ì¸í•œ ë¬¼ì§ˆì´ë™ì„ í¬í•¨í•¨
+%>   - »ç¸é ¼¿¿¡¼­ ÁöÇ¥À¯Ãâ·Î ÀÎÇÑ ¹°ÁúÀÌµ¿À» Æ÷ÇÔÇÔ
 %>  - 2010-12-21
-%>   - RapidMassMovement í•¨ìˆ˜ì— í™œë™ ë°œìƒí™•ë¥  ê°œë…ì„ ë„ìž…í•¨.
+%>   - RapidMassMovement ÇÔ¼ö¿¡ È°µ¿ ¹ß»ýÈ®·ü °³³äÀ» µµÀÔÇÔ.
 %>  - 2010-12-21
-%>   - ê°‘ìžê¸° GPSS í•¨ìˆ˜ê°€ ì¤‘ë‹¨ë˜ë”ë¼ë„ ì´ì „ ê²°ê³¼ì¶œë ¥ íŒŒì¼ì— ì´ì–´ì„œ ì‹œìž‘í•  ìˆ˜
-%>     ìžˆë„ë¡ í•˜ê¸°ìœ„í•´ ì¤‘ì§€ë˜ê¸° ì§ì „ì˜ í‡´ì ì¸µ ë‘ê»˜ë¥¼ ì½ì–´ ë“¤ìž„. ì´ì™€ ë”ë¶ˆì–´ ì´ì „
-%>     ê²°ê³¼ì˜ ë‹¨ìœ„ ì‹œê°„ì„ íŒŒì•…í•˜ê³  ì´í›„ë¶€í„° ì‹¤í–‰í•  ìˆ˜ ìžˆë„ë¡ ìˆ˜ì •í•¨.
+%>   - °©ÀÚ±â GPSS ÇÔ¼ö°¡ Áß´ÜµÇ´õ¶óµµ ÀÌÀü °á°úÃâ·Â ÆÄÀÏ¿¡ ÀÌ¾î¼­ ½ÃÀÛÇÒ ¼ö
+%>     ÀÖµµ·Ï ÇÏ±âÀ§ÇØ ÁßÁöµÇ±â Á÷ÀüÀÇ ÅðÀûÃþ µÎ²²¸¦ ÀÐ¾î µéÀÓ. ÀÌ¿Í ´õºÒ¾î ÀÌÀü
+%>     °á°úÀÇ ´ÜÀ§ ½Ã°£À» ÆÄ¾ÇÇÏ°í ÀÌÈÄºÎÅÍ ½ÇÇàÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤ÇÔ.
 %>  - 2010-09-28
-%>   - RapidMassMovement í•¨ìˆ˜ì˜ ì‹¤í–‰ ì†ë„ë¥¼ í–¥ìƒí•˜ê¸° ìœ„í•´ CollapseMex.cë¥¼ ë„ìž…í•¨.
+%>   - RapidMassMovement ÇÔ¼öÀÇ ½ÇÇà ¼Óµµ¸¦ Çâ»óÇÏ±â À§ÇØ CollapseMex.c¸¦ µµÀÔÇÔ.
 %>
-%> - ì¶”ê°€ì •ë³´
-%>  - ì´ ì½”ë“œì˜ ë³€ìˆ˜ëª…ì€ Johnson (2002)ì˜ ë³€ìˆ˜ëª… í‘œê¸° ì¶”ì²œì„ ë”°ë¥´ë©°, ë‹¤ìŒê³¼ ê°™ìŒ.
+%> - Ãß°¡Á¤º¸
+%>  - ÀÌ ÄÚµåÀÇ º¯¼ö¸íÀº Johnson (2002)ÀÇ º¯¼ö¸í Ç¥±â ÃßÃµÀ» µû¸£¸ç, ´ÙÀ½°ú °°À½.
 %> "1. > 1) > (1) > A. > A) > (A) > a. > a) > (a)"
 %>
 %> @callgraph
@@ -35,147 +35,147 @@
 %>      EstimateSubDT(), HillslopeProcess(), LoadParameterValues(),
 %>      MakeInitialGeomorphology(), RockWeathering(), Uplift()
 %>
-%> @attention Copyright(c). 2011. ë³€ì¢…ë¯¼. All rights reserved.
-%> - ë¹„ìƒì—…ì ì¸ ëª©ì ìœ¼ë¡œ ì´ìš©í•  ê²½ìš°ì— í•œí•´ ì‚¬ìš©ì´ ê°€ëŠ¥í•¨.
-%> - ìžì„¸í•œ ì‚¬í•­ì€ ë³€ì¢…ë¯¼(email : cyberzen.byun At gmail.com)ì—ê²Œ ë¬¸ì˜ ë°”ëžŒ.
+%> @attention Copyright(c). 2011. º¯Á¾¹Î. All rights reserved.
+%> - ºñ»ó¾÷ÀûÀÎ ¸ñÀûÀ¸·Î ÀÌ¿ëÇÒ °æ¿ì¿¡ ÇÑÇØ »ç¿ëÀÌ °¡´ÉÇÔ.
+%> - ÀÚ¼¼ÇÑ »çÇ×Àº º¯Á¾¹Î(email : cyberzen.byun At gmail.com)¿¡°Ô ¹®ÀÇ ¹Ù¶÷.
 %> 
-%> @retval sedThick.txt                     : í‡´ì ì¸µ ë‘ê»˜ [m]
-%> @retval bedrockElev.txt                  : ê¸°ë°˜ì•” ê³ ë„ [m]
-%> @retval weatherProduct.txt               : í’í™”ìœ¨ [m/dT]
-%> @retval dSedThickByHillslope.txt         : ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
-%> @retval chanBedSedBudget.txt             : í•˜ë„ ë‚´ í‡´ì ì¸µ ìˆ˜ì§€ [m^3/dT]
-%> @retval dSedThickByFluvial.txt           : í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
-%> @retval dBedrockElevByFluvial.txt        : í•˜ì²œìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
-%> @retval dSedThickByRapidMassmove.txt     : í™œë™ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
-%> @retval dBedrockElevByRapidMassmove.txt  : í™œë™ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
-%> @retval log.txt                          : GPSS êµ¬ë™ ë™ì•ˆì˜ ìƒí™© ê¸°ë¡
+%> @retval sedThick.txt                     : ÅðÀûÃþ µÎ²² [m]
+%> @retval bedrockElev.txt                  : ±â¹Ý¾Ï °íµµ [m]
+%> @retval weatherProduct.txt               : Ç³È­À² [m/dT]
+%> @retval dSedThickByHillslope.txt         : »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+%> @retval chanBedSedBudget.txt             : ÇÏµµ ³» ÅðÀûÃþ ¼öÁö [m^3/dT]
+%> @retval dSedThickByFluvial.txt           : ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+%> @retval dBedrockElevByFluvial.txt        : ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
+%> @retval dSedThickByRapidMassmove.txt     : È°µ¿¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+%> @retval dBedrockElevByRapidMassmove.txt  : È°µ¿¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
+%> @retval log.txt                          : GPSS ±¸µ¿ µ¿¾ÈÀÇ »óÈ² ±â·Ï
 %>
-%> @param parameterValuesFile               : GPSS í•¨ìˆ˜ì˜ ìž…ë ¥ì¸ìžë¡œ ì´ˆê¸° ìž…ë ¥ìžë£Œë¥¼ ì €ìž¥í•˜ê³  ìžˆëŠ” íŒŒì¼ ì´ë¦„
+%> @param parameterValuesFile               : GPSS ÇÔ¼öÀÇ ÀÔ·ÂÀÎÀÚ·Î ÃÊ±â ÀÔ·ÂÀÚ·á¸¦ ÀúÀåÇÏ°í ÀÖ´Â ÆÄÀÏ ÀÌ¸§
 % =========================================================================
 function GPSSMain_Hy(parameterValuesFile)
 
 %--------------------------------------------------------------------------
-% GPSS 2D ì‹œìž‘
+% GPSS 2D ½ÃÀÛ
 clc;
 fprintf('\n*************** GPSS 2D Start ***************\n');
 fprintf('Made by Jongmin Byun (Post-doctoral researcher, Department of Geography Education, Korea Univ.)\n');
 fprintf('Source download at Blog (http://www.byunjongmin.net)\n');
-startedTime = clock; % ì‹œìž‘ ì‹œê°„ ê¸°ë¡
+startedTime = clock; % ½ÃÀÛ ½Ã°£ ±â·Ï
 
-% ìž…ì¶œë ¥ì„ ìœ„í•œ ë””ë ‰í„°ë¦¬ì™€ ì¶œë ¥ íŒŒì¼ì„ ì •ì˜í•˜ê³  ì¤‘ìš”í•œ ì´ˆê¸° ë³€ìˆ˜ê°’ì„ ìž…ë ¥
-% * ì£¼ì˜ : ìž…ë ¥ì„ ìœ„í•œ ë””ë ‰í„°ë¦¬ì™€ ì¶œë ¥ì„ ìœ„í•œ ë””ë ‰í„°ë¦¬ê°€ êµ¬ë¶„ë¨. ì¶œë ¥ì„ ìœ„í•œ
-%   ë””ë ‰í„°ë¦¬ì—ëŠ” ì„¸ë¶€ ë””ë ‰í„°ë¦¬ë¥¼ ì§€ì •í•  ìˆ˜ ìžˆìŒ.
+% ÀÔÃâ·ÂÀ» À§ÇÑ µð·ºÅÍ¸®¿Í Ãâ·Â ÆÄÀÏÀ» Á¤ÀÇÇÏ°í Áß¿äÇÑ ÃÊ±â º¯¼ö°ªÀ» ÀÔ·Â
+% * ÁÖÀÇ : ÀÔ·ÂÀ» À§ÇÑ µð·ºÅÍ¸®¿Í Ãâ·ÂÀ» À§ÇÑ µð·ºÅÍ¸®°¡ ±¸ºÐµÊ. Ãâ·ÂÀ» À§ÇÑ
+%   µð·ºÅÍ¸®¿¡´Â ¼¼ºÎ µð·ºÅÍ¸®¸¦ ÁöÁ¤ÇÒ ¼ö ÀÖÀ½.
 
-% ë””ë ‰í„°ë¦¬ ì´ë¦„ ìƒìˆ˜
-DATA_DIR = 'data';      % ìž…ì¶œë ¥ íŒŒì¼ì„ ì €ìž¥í•˜ëŠ” ìµœìƒìœ„ ë””ë ‰í„°ë¦¬
-INPUT_DIR = 'input';    % ìž…ë ¥ íŒŒì¼ì´ ì €ìž¥ë˜ëŠ” ë””ë ‰í„°ë¦¬
-OUTPUT_DIR = 'output';  % ì¶œë ¥ íŒŒì¼ì„ ì €ìž¥í•  ë””ë ‰í„°ë¦¬
+% µð·ºÅÍ¸® ÀÌ¸§ »ó¼ö
+DATA_DIR = 'data';      % ÀÔÃâ·Â ÆÄÀÏÀ» ÀúÀåÇÏ´Â ÃÖ»óÀ§ µð·ºÅÍ¸®
+INPUT_DIR = 'input';    % ÀÔ·Â ÆÄÀÏÀÌ ÀúÀåµÇ´Â µð·ºÅÍ¸®
+OUTPUT_DIR = 'output';  % Ãâ·Â ÆÄÀÏÀ» ÀúÀåÇÒ µð·ºÅÍ¸®
 
-% ë””ë ‰í„°ë¦¬ ê²½ë¡œ ìƒìˆ˜
+% µð·ºÅÍ¸® °æ·Î »ó¼ö
 INPUT_DIR_PATH = fullfile(DATA_DIR,INPUT_DIR);
 OUTPUT_DIR_PATH = fullfile(DATA_DIR,OUTPUT_DIR);
 
 %--------------------------------------------------------------------------
-% AnalyseResult í•¨ìˆ˜ì™€ ë™ì¼í•œ ë¶€ë¶„
+% AnalyseResult ÇÔ¼ö¿Í µ¿ÀÏÇÑ ºÎºÐ
 
-% ì¶œë ¥ íŒŒì¼ ìƒìˆ˜ : ëª¨ì˜ ê²°ê³¼ë¥¼ ê¸°ë¡í•˜ëŠ” íŒŒì¼
-OUTPUT_FILE_SEDTHICK ...                % ië²ˆì§¸ í‡´ì ì¸µ ë‘ê»˜ [m]
+% Ãâ·Â ÆÄÀÏ »ó¼ö : ¸ðÀÇ °á°ú¸¦ ±â·ÏÇÏ´Â ÆÄÀÏ
+OUTPUT_FILE_SEDTHICK ...                % i¹øÂ° ÅðÀûÃþ µÎ²² [m]
     = 'sedThick.txt';
-OUTPUT_FILE_BEDROCKELEV ...             % ië²ˆì§¸ ê¸°ë°˜ì•” ê³ ë„ [m]
+OUTPUT_FILE_BEDROCKELEV ...             % i¹øÂ° ±â¹Ý¾Ï °íµµ [m]
     = 'bedrockElev.txt';
-OUTPUT_FILE_WEATHER ...                 % í’í™”ìœ¨ [m/dT]
+OUTPUT_FILE_WEATHER ...                 % Ç³È­À² [m/dT]
     = 'weatherProduct.txt';
-OUTPUT_FILE_dSEDTHICK_BYHILLSLOPE ...   % ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
+OUTPUT_FILE_dSEDTHICK_BYHILLSLOPE ...   % »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
     = 'dSedThickByHillslope.txt';
-OUTPUT_FILE_CHANBEDSEDBUDGET ...        % í•˜ë„ ë‚´ í‡´ì ì¸µ ìˆ˜ì§€ [m^3/dT]
+OUTPUT_FILE_CHANBEDSEDBUDGET ...        % ÇÏµµ ³» ÅðÀûÃþ ¼öÁö [m^3/dT]
     = 'chanBedSedBudget.txt';
-OUTPUT_FILE_dSEDTHICK_BYFLUVIAL ...     % í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
+OUTPUT_FILE_dSEDTHICK_BYFLUVIAL ...     % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
     = 'dSedThickByFluvial.txt';
-OUTPUT_FILE_dBEDROCKELEV_BYFLUVIAL ...  % í•˜ì²œìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
+OUTPUT_FILE_dBEDROCKELEV_BYFLUVIAL ...  % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
     = 'dBedrockElevByFluvial.txt';
-OUTPUT_FILE_dSEDTHICK_BYRAPIDMASS ...   % ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
+OUTPUT_FILE_dSEDTHICK_BYRAPIDMASS ...   % ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
     = 'dSedThickByRapidMassmove.txt';
-OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS ... % ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
+OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS ... % ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
     = 'dBedrockElevByRapidMassmove.txt';
-OUTPUT_FILE_LOG ...                     % GPSS 2D êµ¬ë™ ë™ì•ˆì˜ ìƒí™© ê¸°ë¡
+OUTPUT_FILE_LOG ...                     % GPSS 2D ±¸µ¿ µ¿¾ÈÀÇ »óÈ² ±â·Ï
     = 'log.txt';
 
-% ì¤‘ìš”í•œ ì´ˆê¸° ë³€ìˆ˜ê°’ì„ ìž…ë ¥í•¨
-INPUT_FILE_PARAM_PATH ...   % ìž…ë ¥ íŒŒì¼ ê²½ë¡œ ìƒìˆ˜
+% Áß¿äÇÑ ÃÊ±â º¯¼ö°ªÀ» ÀÔ·ÂÇÔ
+INPUT_FILE_PARAM_PATH ...   % ÀÔ·Â ÆÄÀÏ °æ·Î »ó¼ö
     = fullfile(INPUT_DIR_PATH,parameterValuesFile);
-[OUTPUT_SUBDIR ...          % ì¶œë ¥ íŒŒì¼ì„ ì €ìž¥í•  ì„¸ë¶€ ë””ë ‰í„°ë¦¬
-,Y ...                      % (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
-,X ...                      % (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
-,dX ...                     % ì…€ í¬ê¸°
-,PLANE_ANGLE ...            % (ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°) í‰íƒ„ë©´ì˜ ê²½ì‚¬ [m/m]
-,INIT_BEDROCK_ELEV_FILE ... % (ì´ˆê¸° ì§€í˜•ì„ ë¶ˆëŸ¬ì˜¬ ê²½ìš°) ì´ˆê¸° ì§€í˜•ì„ ì €ìž¥í•œ íŒŒì¼
-,initSedThick ...           % ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ [m]
-,INIT_SED_THICK_FILE ...    % ì´ˆê¸° ì§€í˜•ì˜ í‡´ì ì¸µ ë‘ê»˜ë¥¼ ë¶ˆëŸ¬ì˜¬ ê²½ìš° ì´ë¥¼ ì €ìž¥í•œ íŒŒì¼
-,TIME_STEPS_NO ...          % ì´ ì‹¤í–‰ íšŸìˆ˜
-,INIT_TIME_STEP_NO ...      % ì´ì „ ëª¨í˜• ê²°ê³¼ì—ì„œ ì´ì–´ì„œ í•  ê²½ìš°ì˜ ì´ˆê¸° ì‹¤í–‰ íšŸìˆ˜
-,dT ...                     % TIME_STEPS_NOë¥¼ ì¤„ì´ê¸° ìœ„í•œ ë§Œì œìœ ëŸ‰ ìž¬í˜„ê¸°ê°„ [yr]
-,WRITE_INTERVAL ...         % ëª¨ì˜ ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ëŠ” ë¹ˆë„ ê²°ì •
-,BOUNDARY_OUTFLOW_COND ...  % ëª¨ë¸ ì˜ì—­ìœ¼ë¡œë¶€í„° ìœ ì¶œì´ ë°œìƒí•˜ëŠ” ìœ ì¶œêµ¬ ë˜ëŠ” ê²½ê³„ë¥¼ ì§€ì •
-,TOP_BOUNDARY_ELEV_COND ...     % ìœ„ ì™¸ê³½ ê²½ê³„ ê³ ë„ ì¡°ê±´
-,IS_LEFT_RIGHT_CONNECTED ...    % ì¢Œìš° ì™¸ê³½ ê²½ê³„ ì—°ê²°ì„ ê²°ì •
-,TOTAL_ACCUMULATED_UPLIFT ...   % ëª¨ì˜ ê¸°ê°„ ë™ì•ˆ ì´ ì§€ë°˜ ìœµê¸°ëŸ‰ [m]
-,IS_TILTED_UPWARPING ...        % ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ìš´ë™ì„ ê²°ì •
-,UPLIFT_AXIS_DISTANCE_FROM_COAST ...    % í•´ì•ˆì„ ìœ¼ë¡œë¶€í„° ìœµê¸°ì¶•ê¹Œì§€ì˜ ê±°ë¦¬ [m]
-,RAMP_ANGLE_TO_TOP ...          % (ëˆ„ì  ì§€ë°˜ ìœµê¸°ëŸ‰ì„ ê¸°ì¤€) ìœµê¸°ì¶•ì—ì„œ ìœ„ ê²½ê³„ë¡œì˜ ê°
-,Y_TOP_BND_FINAL_ELEV ...       % ìœ„ ê²½ê³„ì˜ ìµœì¢… ê³ ë„
-,UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND ... % ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬ ê²°ì •
-,acceleratedUpliftPhaseNo ...   % (ê°„í—ì  ìœµê¸°ì¡°ê±´) ëª¨ì˜ê¸°ê°„ ë™ì•ˆ ë†’ì€ ìœµê¸°ìœ¨ì´ ë°œìƒí•˜ëŠ” ë¹ˆë„
-,dUpliftRate ...            % (ê°„í—ì  ìœµê¸°ì¡°ê±´) í‰ê·  ì—°ê°„ ìœµê¸°ìœ¨ì„ ê¸°ì¤€ìœ¼ë¡œ ìµœëŒ€ ìµœì†Œ ìœµê¸°ìœ¨ì˜ ì°¨ì´ ë¹„ìœ¨
-,upliftRate0 ...            % (ìœµê¸°ìœ¨ ê°ì†Œì¡°ê±´) ìœµê¸°ìœ¨ ê°ì‡ ë¶„í¬ì˜ ì´ˆê¸° ìœµê¸°ìœ¨ [m/yr]
-,waveArrivalTime ...        % (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ì˜ì„œ ì™¸ê³½ ê²½ê³„ ê³ ë„ê°€ ë³¸ê²©ì ìœ¼ë¡œ í•˜ê°•í•˜ëŠ” ì‹œì  (ëª¨ì˜ ê¸°ê°„ì—ì„œ ë¹„ìœ¨)
-,initUpliftRate ...         % (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ë³¸ê²©ì  í•˜ê°• ì´ì „ ì¹¨ì‹ ê¸°ì¤€ë©´ í•˜ê°•ìœ¨ [m/yr]
-,kw0 ...                    % ì„ í˜• í’í™”í•¨ìˆ˜ì—ì„œ ì—°ìž¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/yr]
-,kwa ...                    % ì„ í˜• í’í™”í•¨ìˆ˜ì˜ ì¦ê°€ìœ¨
-,kw1 ...                    % ì§€ìˆ˜ ê°ì†Œ í’í™”í•¨ìˆ˜ì—ì„œ ì—°ìž¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/yr]
-,kwm ...                    % í’í™”ì¸µ ë‘ê»˜ ì¶•ì  [m]
-,kmd ...                    % ì‚¬ë©´ìž‘ìš©ì˜ í™•ì‚° ê³„ìˆ˜
-,soilCriticalSlopeForFailure ... % ì²œë¶€í™œë™ì˜ ì•ˆì • ì‚¬ë©´ê°
-,rockCriticalSlopeForFailure ... % ê¸°ë°˜ì•”í™œë™ì˜ ì•ˆì • ì‚¬ë©´ê°
-,annualPrecipitation ...    % ì—° ê°•ìš°ëŸ‰ [m/yr]
-,annualEvapotranspiration ... % ì—° ì¦ë°œì‚°ëŸ‰ [m/yr]
-,kqb ...                    % í‰ê· ìœ ëŸ‰ê³¼ ë§Œì œìœ ëŸ‰ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
-,mqb ...                    % í‰ê· ìœ ëŸ‰ê³¼ ë§Œì œìœ ëŸ‰ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
-,bankfullTime ...           % ë§Œì œìœ ëŸ‰ ì§€ì† ê¸°ê°„ [s]
-,timeWeight ...             % ë§Œì œìœ ëŸ‰ ì§€ì†ê¸°ê°„ì„ ì¤„ì´ê¸° ìœ„í•œ ì¹¨ì‹ìœ¨ ê°€ì¤‘ì¹˜
-,minSubDT ...               % ìµœì†Œí•œì˜ ì„¸ë¶€ë‹¨ìœ„ ì‹œê°„ [s]
-,khw ...                    % ë§Œì œìœ ëŸ‰ê³¼ í•˜í­ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
-,mhw ...                    % ë§Œì œìœ ëŸ‰ê³¼ í•˜í­ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
-,khd ...                    % ë§Œì œìœ ëŸ‰ê³¼ ìˆ˜ì‹¬ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ê³„ìˆ˜
-,mhd ...                    % ë§Œì œìœ ëŸ‰ê³¼ ìˆ˜ì‹¬ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ ì§€ìˆ˜
-,FLUVIALPROCESS_COND ...    % flooded regionì˜ ìˆœ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ ì¶”ì •í•˜ëŠ” ë°©ë²•
-,channelInitiation ...      % í•˜ì²œ ì‹œìž‘ ì§€ì  ìž„ê³„ê°’
-,criticalUpslopeCellsNo ... % í•˜ì²œ ì‹œìž‘ ìž„ê³„ ìƒë¶€ìœ ì—­ ì…€ ê°œìˆ˜
-,mfa ...                    % í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ìœ¨ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
-,nfa ...                    % í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ìœ¨ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
-,fSRho ...                  % ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ í‰ê·  ë°€ë„
-,fSD50 ...                  % ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ ì¤‘ê°„ ìž…ê²½
-,eta ...                    % ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ í‰ê·  ê³µê·¹ìœ¨
-,nA ...                     % ì¶©ì  í•˜ì²œ í•˜ë„ì—ì„œì˜ Manning ì €í•­ ê³„ìˆ˜
-,mfb ...                    % ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
-,nfb ...                    % ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
-,kfbre ...                  % ê¸°ë°˜ì•” í•˜ìƒ ì—°ì•½ë„
-,nB] ...                    % ê¸°ë°˜ì•” í•˜ìƒ í•˜ë„ì—ì„œì˜ Manning ì €í•­ ê³„ìˆ˜
+[OUTPUT_SUBDIR ...          % Ãâ·Â ÆÄÀÏÀ» ÀúÀåÇÒ ¼¼ºÎ µð·ºÅÍ¸®
+,Y ...                      % (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
+,X ...                      % (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
+,dX ...                     % ¼¿ Å©±â
+,PLANE_ANGLE ...            % (ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì) ÆòÅº¸éÀÇ °æ»ç [m/m]
+,INIT_BEDROCK_ELEV_FILE ... % (ÃÊ±â ÁöÇüÀ» ºÒ·¯¿Ã °æ¿ì) ÃÊ±â ÁöÇüÀ» ÀúÀåÇÑ ÆÄÀÏ
+,initSedThick ...           % ÃÊ±â ÅðÀûÃþ µÎ²² [m]
+,INIT_SED_THICK_FILE ...    % ÃÊ±â ÁöÇüÀÇ ÅðÀûÃþ µÎ²²¸¦ ºÒ·¯¿Ã °æ¿ì ÀÌ¸¦ ÀúÀåÇÑ ÆÄÀÏ
+,TIME_STEPS_NO ...          % ÃÑ ½ÇÇà È½¼ö
+,INIT_TIME_STEP_NO ...      % ÀÌÀü ¸ðÇü °á°ú¿¡¼­ ÀÌ¾î¼­ ÇÒ °æ¿ìÀÇ ÃÊ±â ½ÇÇà È½¼ö
+,dT ...                     % TIME_STEPS_NO¸¦ ÁÙÀÌ±â À§ÇÑ ¸¸Á¦À¯·® ÀçÇö±â°£ [yr]
+,WRITE_INTERVAL ...         % ¸ðÀÇ °á°ú¸¦ Ãâ·ÂÇÏ´Â ºóµµ °áÁ¤
+,BOUNDARY_OUTFLOW_COND ...  % ¸ðµ¨ ¿µ¿ªÀ¸·ÎºÎÅÍ À¯ÃâÀÌ ¹ß»ýÇÏ´Â À¯Ãâ±¸ ¶Ç´Â °æ°è¸¦ ÁöÁ¤
+,TOP_BOUNDARY_ELEV_COND ...     % À§ ¿Ü°û °æ°è °íµµ Á¶°Ç
+,IS_LEFT_RIGHT_CONNECTED ...    % ÁÂ¿ì ¿Ü°û °æ°è ¿¬°áÀ» °áÁ¤
+,TOTAL_ACCUMULATED_UPLIFT ...   % ¸ðÀÇ ±â°£ µ¿¾È ÃÑ Áö¹Ý À¶±â·® [m]
+,IS_TILTED_UPWARPING ...        % °æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â ¿îµ¿À» °áÁ¤
+,UPLIFT_AXIS_DISTANCE_FROM_COAST ...    % ÇØ¾È¼±À¸·ÎºÎÅÍ À¶±âÃà±îÁöÀÇ °Å¸® [m]
+,RAMP_ANGLE_TO_TOP ...          % (´©Àû Áö¹Ý À¶±â·®À» ±âÁØ) À¶±âÃà¿¡¼­ À§ °æ°è·ÎÀÇ °¢
+,Y_TOP_BND_FINAL_ELEV ...       % À§ °æ°èÀÇ ÃÖÁ¾ °íµµ
+,UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND ... % À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷ °áÁ¤
+,acceleratedUpliftPhaseNo ...   % (°£ÇæÀû À¶±âÁ¶°Ç) ¸ðÀÇ±â°£ µ¿¾È ³ôÀº À¶±âÀ²ÀÌ ¹ß»ýÇÏ´Â ºóµµ
+,dUpliftRate ...            % (°£ÇæÀû À¶±âÁ¶°Ç) Æò±Õ ¿¬°£ À¶±âÀ²À» ±âÁØÀ¸·Î ÃÖ´ë ÃÖ¼Ò À¶±âÀ²ÀÇ Â÷ÀÌ ºñÀ²
+,upliftRate0 ...            % (À¶±âÀ² °¨¼ÒÁ¶°Ç) À¶±âÀ² °¨¼èºÐÆ÷ÀÇ ÃÊ±â À¶±âÀ² [m/yr]
+,waveArrivalTime ...        % (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) ¿µ¼­ ¿Ü°û °æ°è °íµµ°¡ º»°ÝÀûÀ¸·Î ÇÏ°­ÇÏ´Â ½ÃÁ¡ (¸ðÀÇ ±â°£¿¡¼­ ºñÀ²)
+,initUpliftRate ...         % (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) º»°ÝÀû ÇÏ°­ ÀÌÀü Ä§½Ä ±âÁØ¸é ÇÏ°­À² [m/yr]
+,kw0 ...                    % ¼±Çü Ç³È­ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹Ý¾ÏÀÇ Ç³È­À² [m/yr]
+,kwa ...                    % ¼±Çü Ç³È­ÇÔ¼öÀÇ Áõ°¡À²
+,kw1 ...                    % Áö¼ö °¨¼Ò Ç³È­ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹Ý¾ÏÀÇ Ç³È­À² [m/yr]
+,kwm ...                    % Ç³È­Ãþ µÎ²² ÃàÀû [m]
+,kmd ...                    % »ç¸éÀÛ¿ëÀÇ È®»ê °è¼ö
+,soilCriticalSlopeForFailure ... % ÃµºÎÈ°µ¿ÀÇ ¾ÈÁ¤ »ç¸é°¢
+,rockCriticalSlopeForFailure ... % ±â¹Ý¾ÏÈ°µ¿ÀÇ ¾ÈÁ¤ »ç¸é°¢
+,annualPrecipitation ...    % ¿¬ °­¿ì·® [m/yr]
+,annualEvapotranspiration ... % ¿¬ Áõ¹ß»ê·® [m/yr]
+,kqb ...                    % Æò±ÕÀ¯·®°ú ¸¸Á¦À¯·®°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
+,mqb ...                    % Æò±ÕÀ¯·®°ú ¸¸Á¦À¯·®°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
+,bankfullTime ...           % ¸¸Á¦À¯·® Áö¼Ó ±â°£ [s]
+,timeWeight ...             % ¸¸Á¦À¯·® Áö¼Ó±â°£À» ÁÙÀÌ±â À§ÇÑ Ä§½ÄÀ² °¡ÁßÄ¡
+,minSubDT ...               % ÃÖ¼ÒÇÑÀÇ ¼¼ºÎ´ÜÀ§ ½Ã°£ [s]
+,khw ...                    % ¸¸Á¦À¯·®°ú ÇÏÆø°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
+,mhw ...                    % ¸¸Á¦À¯·®°ú ÇÏÆø°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
+,khd ...                    % ¸¸Á¦À¯·®°ú ¼ö½É°úÀÇ °ü°è½Ä¿¡¼­ °è¼ö
+,mhd ...                    % ¸¸Á¦À¯·®°ú ¼ö½É°úÀÇ °ü°è½Ä¿¡¼­ Áö¼ö
+,FLUVIALPROCESS_COND ...    % flooded regionÀÇ ¼ø ÅðÀû¹° µÎ²² º¯È­À²À» ÃßÁ¤ÇÏ´Â ¹æ¹ý
+,channelInitiation ...      % ÇÏÃµ ½ÃÀÛ ÁöÁ¡ ÀÓ°è°ª
+,criticalUpslopeCellsNo ... % ÇÏÃµ ½ÃÀÛ ÀÓ°è »óºÎÀ¯¿ª ¼¿ °³¼ö
+,mfa ...                    % ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹ÝÀ² ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
+,nfa ...                    % ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹ÝÀ² ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
+,fSRho ...                  % ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Æò±Õ ¹Ðµµ
+,fSD50 ...                  % ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Áß°£ ÀÔ°æ
+,eta ...                    % ¿î¹ÝµÇ´Â ÅðÀû¹°ÀÇ Æò±Õ °ø±ØÀ²
+,nA ...                     % ÃæÀû ÇÏÃµ ÇÏµµ¿¡¼­ÀÇ Manning ÀúÇ× °è¼ö
+,mfb ...                    % ±â¹Ý¾Ï ÇÏ»ó Ä§½ÄÀ² ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
+,nfb ...                    % ±â¹Ý¾Ï ÇÏ»ó Ä§½ÄÀ² ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
+,kfbre ...                  % ±â¹Ý¾Ï ÇÏ»ó ¿¬¾àµµ
+,nB] ...                    % ±â¹Ý¾Ï ÇÏ»ó ÇÏµµ¿¡¼­ÀÇ Manning ÀúÇ× °è¼ö
     = LoadParameterValues(INPUT_FILE_PARAM_PATH);
 
 % -------------------------------------------------------------------------
-% ì°¨í›„ LoadParameterValues í•¨ìˆ˜ì— í¬í•¨ë  ì´ˆê¸° ìž…ë ¥ê°’
+% Â÷ÈÄ LoadParameterValues ÇÔ¼ö¿¡ Æ÷ÇÔµÉ ÃÊ±â ÀÔ·Â°ª
 
-% 1. ë°˜ë³µë¬¸ ë‚´ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ì„¤ì •ê³¼ ê´€ë ¨ëœ ë³€ìˆ˜ì˜ ê³„ìˆ˜ì™€ ì§€ìˆ˜
-% (ìµœì í™”ëœ ê°’ì„ íŒŒì•…í•˜ê¸° ì–´ë ¤ì›Œ ì—¬ê¸°ì„œ ì¼ë‹¨ ê³ ì •í•¨)
+% 1. ¹Ýº¹¹® ³» ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ ¼³Á¤°ú °ü·ÃµÈ º¯¼öÀÇ °è¼ö¿Í Áö¼ö
+% (ÃÖÀûÈ­µÈ °ªÀ» ÆÄ¾ÇÇÏ±â ¾î·Á¿ö ¿©±â¼­ ÀÏ´Ü °íÁ¤ÇÔ)
 basicManipulationRatio = 0.5; nt = 4;
 
 %--------------------------------------------------------------------------
 
-% ëª¨ì˜ ê²°ê³¼ë¥¼ ì €ìž¥í•˜ëŠ” ì„¸ë¶€ ë””ë ‰í„°ë¦¬
+% ¸ðÀÇ °á°ú¸¦ ÀúÀåÇÏ´Â ¼¼ºÎ µð·ºÅÍ¸®
 mkdir(OUTPUT_DIR_PATH,OUTPUT_SUBDIR);
 OUTPUT_SUBDIR_PATH = fullfile(OUTPUT_DIR_PATH,OUTPUT_SUBDIR);
 
-% ì¶œë ¥ íŒŒì¼ ê²½ë¡œ ìƒìˆ˜
+% Ãâ·Â ÆÄÀÏ °æ·Î »ó¼ö
 OUTPUT_FILE_WEATHER_PATH ...
     = fullfile(OUTPUT_SUBDIR_PATH,OUTPUT_FILE_WEATHER);
 OUTPUT_FILE_SEDTHICK_PATH ...
@@ -197,7 +197,7 @@ OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS_PATH ...
 OUTPUT_FILE_LOG_PATH ...
     = fullfile(OUTPUT_SUBDIR_PATH,OUTPUT_FILE_LOG);
 
-% ê°œë³„ íŒŒì¼ì„ ì—´ì–´ë‘ 
+% °³º° ÆÄÀÏÀ» ¿­¾îµÒ
 FID_SEDTHICK = fopen(OUTPUT_FILE_SEDTHICK_PATH,'a');
 FID_BEDROCKELEV = fopen(OUTPUT_FILE_BEDROCKELEV_PATH,'a');
 FID_WEATHER = fopen(OUTPUT_FILE_WEATHER_PATH,'a');
@@ -210,36 +210,36 @@ FID_dBEDROCKELEV_BYRAPIDMASS = fopen(OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS_PATH,'
 FID_LOG = fopen(OUTPUT_FILE_LOG_PATH,'a');
 
 %--------------------------------------------------------------------------
-% ìƒìˆ˜ ë° ë³€ìˆ˜ ì´ˆê¸°í™”
+% »ó¼ö ¹× º¯¼ö ÃÊ±âÈ­
 
-[bedrockElev ...    % ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„
+[bedrockElev ...    % ÃÊ±â ±â¹Ý¾Ï °íµµ
 ,sedimentThick ...
-,Y ...              % (ì €ìž¥ëœ ì´ˆê¸° ì§€í˜•ì„ ë¶ˆëŸ¬ì˜¬ ê²½ìš°) Y ì¢Œí‘œ
-,X] ...             % (ì €ìž¥ëœ ì´ˆê¸° ì§€í˜•ì„ ë¶ˆëŸ¬ì˜¬ ê²½ìš°) X ì¢Œí‘œ
+,Y ...              % (ÀúÀåµÈ ÃÊ±â ÁöÇüÀ» ºÒ·¯¿Ã °æ¿ì) Y ÁÂÇ¥
+,X] ...             % (ÀúÀåµÈ ÃÊ±â ÁöÇüÀ» ºÒ·¯¿Ã °æ¿ì) X ÁÂÇ¥
     = MakeInitialGeomorphology(Y,X,dX,PLANE_ANGLE ...
     ,INPUT_DIR_PATH,OUTPUT_SUBDIR_PATH ...
     ,INIT_BEDROCK_ELEV_FILE,initSedThick,INIT_SED_THICK_FILE);
 
-[mRows ...          % ëª¨ë¸ (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
-,nCols] ...         % ëª¨ë¸ (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
+[mRows ...          % ¸ðµ¨ (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
+,nCols] ...         % ¸ðµ¨ (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
     = size(bedrockElev);
 
-Y_TOP_BND = 1;          % ëª¨ë¸ ì™¸ê³½ ìœ„ ê²½ê³„ Y ì¢Œí‘œê°’
-Y_BOTTOM_BND = mRows;   % ëª¨ë¸ ì™¸ê³½ ì•„ëž˜ ê²½ê³„ Y ì¢Œí‘œê°’
-Y_INI = 2;              % ëª¨ë¸ ì˜ì—­ Y ì‹œìž‘ ì¢Œí‘œê°’
-Y_MAX = Y+1;            % ëª¨ë¸ ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’
+Y_TOP_BND = 1;          % ¸ðµ¨ ¿Ü°û À§ °æ°è Y ÁÂÇ¥°ª
+Y_BOTTOM_BND = mRows;   % ¸ðµ¨ ¿Ü°û ¾Æ·¡ °æ°è Y ÁÂÇ¥°ª
+Y_INI = 2;              % ¸ðµ¨ ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª
+Y_MAX = Y+1;            % ¸ðµ¨ ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª
 
-X_LEFT_BND = 1;         % ëª¨ë¸ ì™¸ê³½ ì¢Œ ê²½ê³„ X ì¢Œí‘œê°’
-X_RIGHT_BND = nCols;    % ëª¨ë¸ ì™¸ê³½ ìš° ê²½ê³„ X ì¢Œí‘œê°’
-X_INI = 2;              % ëª¨ë¸ ì˜ì—­ X ì‹œìž‘ ì¢Œí‘œê°’
-X_MAX = X+1;            % ëª¨ë¸ ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’
+X_LEFT_BND = 1;         % ¸ðµ¨ ¿Ü°û ÁÂ °æ°è X ÁÂÇ¥°ª
+X_RIGHT_BND = nCols;    % ¸ðµ¨ ¿Ü°û ¿ì °æ°è X ÁÂÇ¥°ª
+X_INI = 2;              % ¸ðµ¨ ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª
+X_MAX = X+1;            % ¸ðµ¨ ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª
 
-OUTER_BOUNDARY = true(mRows,nCols); % ëª¨ë¸ ì˜ì—­ ì™¸ê³½ ê²½ê³„
+OUTER_BOUNDARY = true(mRows,nCols); % ¸ðµ¨ ¿µ¿ª ¿Ü°û °æ°è
 OUTER_BOUNDARY(Y_INI:Y_MAX,X_INI:X_MAX) = false;
 
-CELL_AREA = dX * dX; % ì…€ ë©´ì 
+CELL_AREA = dX * dX; % ¼¿ ¸éÀû
 
-bankfullTime = ceil(bankfullTime / timeWeight); % ì¤„ì–´ë“  ë§Œì œìœ ëŸ‰ ì§€ì†ê¸°
+bankfullTime = ceil(bankfullTime / timeWeight); % ÁÙ¾îµç ¸¸Á¦À¯·® Áö¼Ó±â
 
 QUARTER_PI = 0.785398163397448;     % pi * 0.25
 HALF_PI = 1.57079632679490;         % pi * 0.5
@@ -247,108 +247,108 @@ ROOT2 = 1.41421356237310;           % sqrt(2)
 
 DISTANCE_RATIO_TO_NBR = [1 ROOT2 1 ROOT2 1 ROOT2 1 ROOT2];
 
-[arrayX ...             % ëª¨ë¸ (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ X ì¢Œí‘œ í–‰ë ¬
-,arrayY] ...            % ëª¨ë¸ (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ Y ì¢Œí‘œ í–‰ë ¬
+[arrayX ...             % ¸ðµ¨ (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª X ÁÂÇ¥ Çà·Ä
+,arrayY] ...            % ¸ðµ¨ (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Y ÁÂÇ¥ Çà·Ä
     = meshgrid(X_LEFT_BND:X_RIGHT_BND,Y_TOP_BND:Y_BOTTOM_BND);
 
-% * ì£¼ì˜ : ì ‘ë‘ì‚¬ 's'ëŠ” (mRows*mCols) ë³´ë‹¤ ìž‘ì€ Y*X í¬ê¸°ë¥¼ ê°€ì§€ëŠ” í–‰ë ¬
-[sArrayX ...            % ëª¨ë¸ (ì™¸ê³½ ê²½ê³„ ì œì™¸) ì˜ì—­ X ì¢Œí‘œ í–‰ë ¬
-,sArrayY] ...            % ëª¨ë¸ (ì™¸ê³½ ê²½ê³„ ì œì™¸) ì˜ì—­ Y ì¢Œí‘œ í–‰ë ¬
+% * ÁÖÀÇ : Á¢µÎ»ç 's'´Â (mRows*mCols) º¸´Ù ÀÛÀº Y*X Å©±â¸¦ °¡Áö´Â Çà·Ä
+[sArrayX ...            % ¸ðµ¨ (¿Ü°û °æ°è Á¦¿Ü) ¿µ¿ª X ÁÂÇ¥ Çà·Ä
+,sArrayY] ...            % ¸ðµ¨ (¿Ü°û °æ°è Á¦¿Ü) ¿µ¿ª Y ÁÂÇ¥ Çà·Ä
     = meshgrid(X_INI:X_MAX,Y_INI:Y_MAX);
 
-% (ë¬´í•œ ìœ í–¥ì„ êµ¬í•˜ëŠ” ê³¼ì •ì—ì„œ) facetì„ êµ¬ì„±í•˜ëŠ” ì¤‘ì•™ ì…€(e0) ìƒ‰ì¸ í–‰ë ¬
+% (¹«ÇÑ À¯ÇâÀ» ±¸ÇÏ´Â °úÁ¤¿¡¼­) facetÀ» ±¸¼ºÇÏ´Â Áß¾Ó ¼¿(e0) »öÀÎ Çà·Ä
 e0LinearIndicies ...
     = (arrayX-1) * mRows + arrayY;
-% * ì£¼ì˜: ì¢Œìš° ì™¸ê³½ ê²½ê³„ê°€ ì—°ê²°ë˜ì—ˆë‹¤ë©´, ì¢Œìš° ì™¸ê³½ ê²½ê³„ ìƒ‰ì¸ì„ ìˆ˜ì •í•¨
+% * ÁÖÀÇ: ÁÂ¿ì ¿Ü°û °æ°è°¡ ¿¬°áµÇ¾ú´Ù¸é, ÁÂ¿ì ¿Ü°û °æ°è »öÀÎÀ» ¼öÁ¤ÇÔ
 if IS_LEFT_RIGHT_CONNECTED == true
     e0LinearIndicies(:,X_LEFT_BND) = e0LinearIndicies(:,X_MAX);
     e0LinearIndicies(:,X_RIGHT_BND) = e0LinearIndicies(:,X_INI);    
 end
 sE0LinearIndicies = (sArrayX-1) * mRows + sArrayY;
 
-% (ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì„ êµ¬í•˜ëŠ” ê³¼ì •ì—ì„œ) 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ëŠ” 3ì°¨ì› ìƒ‰ì¸ ë°°ì—´
+% (ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀ» ±¸ÇÏ´Â °úÁ¤¿¡¼­) 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°´Â 3Â÷¿ø »öÀÎ ¹è¿­
 s3IthNbrLinearIndicies = zeros(Y,X,8);
 
-% * ì£¼ì˜: ìˆœì„œëŠ” ë™ìª½ì—ì„œ  ë°˜ ì‹œê³„ ë°©í–¥.
-ithNbrYOffset ... % ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Yì¶• ì˜µì…‹
+% * ÁÖÀÇ: ¼ø¼­´Â µ¿ÂÊ¿¡¼­  ¹Ý ½Ã°è ¹æÇâ.
+ithNbrYOffset ... % Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ YÃà ¿É¼Â
     = [0 -1 -1 -1  0  1  1  1];
-ithNbrXOffset ... % ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Xì¶• ì˜µì…‹
+ithNbrXOffset ... % Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ XÃà ¿É¼Â
     = [1  1  0 -1 -1 -1  0  1];
 
-% facetì„ êµ¬ì„±í•˜ëŠ” e1ê³¼ e2ì˜ ìƒ‰ì¸ ë°°ì—´ ì„ ì–¸
+% facetÀ» ±¸¼ºÇÏ´Â e1°ú e2ÀÇ »öÀÎ ¹è¿­ ¼±¾ð
 s3E1LinearIndicies = zeros(Y,X,8);
 s3E2LinearIndicies = zeros(Y,X,8);
 
-% * ì£¼ì˜: ë°˜ ì‹œê³„ ë°©í–¥ì´ ì ˆëŒ€ ì•„ë‹˜. Tarboton(1997)ì˜ Figure 2ì™€ Table 1 ì°¸ê³ 
-ithFacetE1Offset ... % e0ë¡œë¶€í„° facetì„ êµ¬ì„±í•˜ëŠ” e1ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ ì˜µì…‹
+% * ÁÖÀÇ: ¹Ý ½Ã°è ¹æÇâÀÌ Àý´ë ¾Æ´Ô. Tarboton(1997)ÀÇ Figure 2¿Í Table 1 Âü°í
+ithFacetE1Offset ... % e0·ÎºÎÅÍ facetÀ» ±¸¼ºÇÏ´Â e1À» °¡¸®Å°±â À§ÇÑ ¿É¼Â
     = [ mRows   -1       -1       -mRows   ...
        -mRows    1        1        mRows  ];
-ithFacetE2Offset ... % e0ë¡œë¶€í„° facetì„ êµ¬ì„±í•˜ëŠ” e2ë¥¼ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ ì˜µì…‹
+ithFacetE2Offset ... % e0·ÎºÎÅÍ facetÀ» ±¸¼ºÇÏ´Â e2¸¦ °¡¸®Å°±â À§ÇÑ ¿É¼Â
     = [ mRows-1  mRows-1 -mRows-1 -mRows-1 ...
        -mRows+1 -mRows+1  mRows+1  mRows+1];
 
-% 8 ë°©í–¥ ì´ì›ƒ ì…€ì˜ ìƒ‰ì¸ ë° 8 ë°©í–¥ facetì˜ e1, e2 ìƒ‰ì¸
+% 8 ¹æÇâ ÀÌ¿ô ¼¿ÀÇ »öÀÎ ¹× 8 ¹æÇâ facetÀÇ e1, e2 »öÀÎ
 for ithDir = 1:8
     
-    % (ë™ìª½ì—ì„œ ë°˜ ì‹œê³„ ë°©í–¥ìœ¼ë¡œ)
-    s3IthNbrLinearIndicies(:,:,ithDir) ...  % ê° ë°©í–¥ì˜ ì´ì›ƒ ì…€ ìƒ‰ì¸
+    % (µ¿ÂÊ¿¡¼­ ¹Ý ½Ã°è ¹æÇâÀ¸·Î)
+    s3IthNbrLinearIndicies(:,:,ithDir) ...  % °¢ ¹æÇâÀÇ ÀÌ¿ô ¼¿ »öÀÎ
         = e0LinearIndicies(sE0LinearIndicies ...
         + (ithNbrXOffset(ithDir) * mRows + ithNbrYOffset(ithDir)));
 
-    % (ë™ìª½ì—ì„œ ë°˜ ì‹œê³„ ë°©í–¥ìœ¼ë¡œ )
-    s3E1LinearIndicies(:,:,ithDir) ...  % ê° facetì˜ e1 ìƒ‰ì¸
+    % (µ¿ÂÊ¿¡¼­ ¹Ý ½Ã°è ¹æÇâÀ¸·Î )
+    s3E1LinearIndicies(:,:,ithDir) ...  % °¢ facetÀÇ e1 »öÀÎ
         = e0LinearIndicies(sE0LinearIndicies + ithFacetE1Offset(ithDir));
-    s3E2LinearIndicies(:,:,ithDir) ...  % ê° facetì˜ e2 ìƒ‰ì¸
+    s3E2LinearIndicies(:,:,ithDir) ...  % °¢ facetÀÇ e2 »öÀÎ
         = e0LinearIndicies(sE0LinearIndicies + ithFacetE2Offset(ithDir));
 
 end
 
-vectorY = reshape(sArrayY,[],1); % Y ì¢Œí‘œ í–‰ë ¬ì˜ ë²¡í„°
-vectorX = reshape(sArrayX,[],1); % X ì¢Œí‘œ í–‰ë ¬ì˜ ë²¡í„°
+vectorY = reshape(sArrayY,[],1); % Y ÁÂÇ¥ Çà·ÄÀÇ º¤ÅÍ
+vectorX = reshape(sArrayX,[],1); % X ÁÂÇ¥ Çà·ÄÀÇ º¤ÅÍ
 
 SECPERYEAR = 31536000;          % = 365 * 24 * 60 * 60
-FLOODED = 2;                    % flooded region íƒœê·¸
+FLOODED = 2;                    % flooded region ÅÂ±×
 
-dTAfterLastShallowLandslide = zeros(mRows,nCols); % ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
-dTAfterLastBedrockLandslide = zeros(mRows,nCols); % ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
+dTAfterLastShallowLandslide = zeros(mRows,nCols); % ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
+dTAfterLastBedrockLandslide = zeros(mRows,nCols); % ¸¶Áö¸· ±â¹Ý¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
 
-% oldChanBedSed ...               % ì´ì „ í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ [m^3]
+% oldChanBedSed ...               % ÀÌÀü ÇÏµµ ³» ÇÏ»ó ÅðÀû¹° [m^3]
 %     = zeros(mRows,nCols);    
-% dChanBedSedPerDT ...            % ì´ì „ í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ê³¼ì˜ ì°¨ì´ [m^3/dT]
+% dChanBedSedPerDT ...            % ÀÌÀü ÇÏµµ ³» ÇÏ»ó ÅðÀû¹°°úÀÇ Â÷ÀÌ [m^3/dT]
 %     = zeros(mRows,nCols);
-chanBedSedBudgetPerDT ...       % ìž”ì¡´ í•˜ìƒ í‡´ì ë¬¼ê³¼ ìƒˆë¡œ êµ¬í•œ í‡´ì ë¬¼ê³¼ì˜ ì°¨ì´ [m^3/dT]
+chanBedSedBudgetPerDT ...       % ÀÜÁ¸ ÇÏ»ó ÅðÀû¹°°ú »õ·Î ±¸ÇÑ ÅðÀû¹°°úÀÇ Â÷ÀÌ [m^3/dT]
     = zeros(mRows,nCols);
-remnantChanBedSed ...           % ìž”ì¡´ í•˜ìƒ í‡´ì ë¬¼ [m^3]
+remnantChanBedSed ...           % ÀÜÁ¸ ÇÏ»ó ÅðÀû¹° [m^3]
     = zeros(mRows,nCols);
 
 %--------------------------------------------------------------------------
-% ì¶©ì  í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ìœ¨ ìˆ˜ì‹(Einstein-Brown)ì˜ ê³„ìˆ˜
+% ÃæÀû ÇÏÃµ¿¡ ÀÇÇÑ ÅðÀû¹° ¿î¹ÝÀ² ¼ö½Ä(Einstein-Brown)ÀÇ °è¼ö
 
-% * ì£¼ì˜: Hortonian Overlandflowë¥¼ ê°€ì •í•˜ì˜€ì§€ë§Œ, ë‹¤ë¥¸ ìˆ˜ë¬¸ í™˜ê²½ì„ ì²¨ê°€í•  ì˜ˆì •
-annualRunoff ...        % ì—°ê°„ ì§€í‘œ ìœ ì¶œëŸ‰[m/year]
+% * ÁÖÀÇ: Hortonian Overlandflow¸¦ °¡Á¤ÇÏ¿´Áö¸¸, ´Ù¸¥ ¼ö¹® È¯°æÀ» Ã·°¡ÇÒ ¿¹Á¤
+annualRunoff ...        % ¿¬°£ ÁöÇ¥ À¯Ãâ·®[m/year]
     = annualPrecipitation - annualEvapotranspiration;
 
-g = 9.8;                % ì¤‘ë ¥ ê°€ì†ë„ [m/s^2]
-nu = 1.47 * 10^(-6);    % ìˆ˜ë¶„ì˜ ë™ì  ì ì„±ë„ (kinematic viscosity) [m^2/s]
-wGamma = 1000;          % ë¬¼ ë¹„ì¤‘ [kgf/m^3]
-wRho = 1000;            % ë¬¼ ë°€ë„ [kg/m^3]
-fSGamma = fSRho;        % í‡´ì ë¬¼ ë¹„ì¤‘ [kgf/m^3]
-s = fSGamma / wGamma;   % í‡´ì ë¬¼ ìƒëŒ€ ë°€ë„ []
-F ...                   % ë¬´ì°¨ì› ì‚¬ë¦½ìž ì¹¨ê°• ì†ë„ (Brown(1950),Yang(2003))
+g = 9.8;                % Áß·Â °¡¼Óµµ [m/s^2]
+nu = 1.47 * 10^(-6);    % ¼öºÐÀÇ µ¿Àû Á¡¼ºµµ (kinematic viscosity) [m^2/s]
+wGamma = 1000;          % ¹° ºñÁß [kgf/m^3]
+wRho = 1000;            % ¹° ¹Ðµµ [kg/m^3]
+fSGamma = fSRho;        % ÅðÀû¹° ºñÁß [kgf/m^3]
+s = fSGamma / wGamma;   % ÅðÀû¹° »ó´ë ¹Ðµµ []
+F ...                   % ¹«Â÷¿ø »ç¸³ÀÚ Ä§°­ ¼Óµµ (Brown(1950),Yang(2003))
     = (2/3 + (36 * nu^2) / (g * fSD50^3 * (s-1)))^0.5 ...
      - ((36 * nu^2) / (g * fSD50^3 * (s-1)))^0.5;
-kfa ...                 % í‡´ì ë¬¼ ìš´ë°˜ìœ¨ ìˆ˜ì‹ ê³„ìˆ˜ 
+kfa ...                 % ÅðÀû¹° ¿î¹ÝÀ² ¼ö½Ä °è¼ö 
     = (1 / (fSGamma * (1 - eta))) ... % [kg/m s] -> [m^2/s]
     * 40 * fSGamma * F * (g * (s-1) * fSD50^3)^0.5 ...
     * (1 / ((s-1) * fSD50))^3 * nA ^ 1.8;
 
 %--------------------------------------------------------------------------
-% ëª¨ì˜ê¸°ê°„ ë™ì•ˆ ìœµê¸°ìœ¨ì˜ ê³µê°„ì , ì‹œê°„ì  ë¶„í¬ë¥¼ ì •ì˜í•¨
+% ¸ðÀÇ±â°£ µ¿¾È À¶±âÀ²ÀÇ °ø°£Àû, ½Ã°£Àû ºÐÆ÷¸¦ Á¤ÀÇÇÔ
 
-[meanUpliftRateSpatialDistribution ...  % (ëª¨ì˜ê¸°ê°„ í‰ê· ) ì—°ê°„ ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ë¶„í¬
-,upliftRateTemporalDistribution ...     % (ëª¨ì˜ê¸°ê°„) ì—°ê°„ ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬
-,meanUpliftRateAtUpliftAxis ...         % ìœµê¸°ì¶•ì˜ (ëª¨ì˜ê¸°ê°„ í‰ê· ) ì—°ê°„ ìœµê¸°ìœ¨
-,topBndElev] ...                        % ì™¸ê³½ ìœ„ ê²½ê³„ì—ì„œì˜ ê³ ë„
+[meanUpliftRateSpatialDistribution ...  % (¸ðÀÇ±â°£ Æò±Õ) ¿¬°£ À¶±âÀ²ÀÇ °ø°£Àû ºÐÆ÷
+,upliftRateTemporalDistribution ...     % (¸ðÀÇ±â°£) ¿¬°£ À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷
+,meanUpliftRateAtUpliftAxis ...         % À¶±âÃàÀÇ (¸ðÀÇ±â°£ Æò±Õ) ¿¬°£ À¶±âÀ²
+,topBndElev] ...                        % ¿Ü°û À§ °æ°è¿¡¼­ÀÇ °íµµ
     = DefineUpliftRateDistribution(Y,X,Y_INI,X_INI,Y_MAX,X_MAX,dX ...
     ,TIME_STEPS_NO,TOTAL_ACCUMULATED_UPLIFT,dT ...
     ,IS_TILTED_UPWARPING,UPLIFT_AXIS_DISTANCE_FROM_COAST ...
@@ -359,16 +359,16 @@ kfa ...                 % í‡´ì ë¬¼ ìš´ë°˜ìœ¨ ìˆ˜ì‹ ê³„ìˆ˜
     ,waveArrivalTime,initUpliftRate);
 
 %--------------------------------------------------------------------------
-% ë¡œê·¸ íŒŒì¼ì— ê¸°ë¡
+% ·Î±× ÆÄÀÏ¿¡ ±â·Ï
 
-fprintf(FID_LOG,'%i\n%i\n',mRows,nCols);    % (ì™¸ê³½ ê²½ê³„ í¬í•¨) í–‰, ì—´ ê¸°ë¡
-fprintf(FID_LOG, ...                        % GPSS 2D ì‹œìž‘ ì‹œê°„ ê¸°ë¡
+fprintf(FID_LOG,'%i\n%i\n',mRows,nCols);    % (¿Ü°û °æ°è Æ÷ÇÔ) Çà, ¿­ ±â·Ï
+fprintf(FID_LOG, ...                        % GPSS 2D ½ÃÀÛ ½Ã°£ ±â·Ï
     'GPSS 2D started time : %i[year] %i[month] %i[day] %i[hr] %i[min] %f[sec]\n' ...
     ,startedTime);
-fprintf(FID_BEDROCKELEV,'%f\n',bedrockElev);    % ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„ ê¸°ë¡
-fprintf(FID_SEDTHICK,'%f\n',sedimentThick);     % ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ ê¸°ë¡
+fprintf(FID_BEDROCKELEV,'%f\n',bedrockElev);    % ÃÊ±â ±â¹Ý¾Ï °íµµ ±â·Ï
+fprintf(FID_SEDTHICK,'%f\n',sedimentThick);     % ÃÊ±â ÅðÀûÃþ µÎ²² ±â·Ï
 
-% ìš´ë°˜ ìˆ˜ì‹ì˜ ê³„ìˆ˜ê°’ ì¶œë ¥
+% ¿î¹Ý ¼ö½ÄÀÇ °è¼ö°ª Ãâ·Â
 fprintf(FID_LOG,'(Hillslope Process)    Diffusion Coefficient (kmd):    %f\n',kmd);
 fprintf(FID_LOG,'(Fluvial Process)  Transport Capacity Eq. Coefficient (kfa):   %f\n',kfa);
 fprintf(FID_LOG,'(Fluvial Process)  Transport Capacity Eq. Exponent (mfa):  %f\n',mfa);
@@ -383,69 +383,69 @@ fprintf(FID_LOG,'(Fluvial Process)  Bedrock Incision Eq. Coefficient (K):   %f\n
 fprintf(FID_LOG,'(Fluvial Process)  Bedrock Incision Eq. Coefficient (m):   %f\n',mO);
 fprintf(FID_LOG,'(Fluvial Process)  Bedrock Incision Eq. Coefficient (n):   %f\n',nO);
 
-% parameterValuesFile ì„ OUTPUT_SUBDIR ì— ë³µì‚¬í•¨
+% parameterValuesFile À» OUTPUT_SUBDIR ¿¡ º¹»çÇÔ
 copyfile(INPUT_FILE_PARAM_PATH,OUTPUT_SUBDIR_PATH);
 
 %--------------------------------------------------------------------------
-% (GPSS 2D ì£¼ í•¨ìˆ˜) ë‹¨ìœ„ì‹œê°„ë§ˆë‹¤ ì•„ëž˜ë¥¼ ë°˜ë³µí•¨
+% (GPSS 2D ÁÖ ÇÔ¼ö) ´ÜÀ§½Ã°£¸¶´Ù ¾Æ·¡¸¦ ¹Ýº¹ÇÔ
 
 for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     
-    fprintf('%g\n', ithTimeStep);   % ì‹¤í–‰ íšŸìˆ˜ ì¶œë ¥
+    fprintf('%g\n', ithTimeStep);   % ½ÇÇà È½¼ö Ãâ·Â
     
-    % 1. ê²½ê³„ì¡°ê±´ì— ë”°ë¼ ì™¸ê³½ ê²½ê³„ì˜ ê¸°ë°˜ì•” ê³ ë„ì™€ í‡´ì ë¬¼ ë‘ê»˜ë¥¼ ì •ì˜í•¨
-    % * ì£¼ì˜: ì™¸ê³½ ê²½ê³„ì˜ ê³ ë„ëŠ” AdjustBoundary í•¨ìˆ˜ì—ì„œë§Œ ì •ì˜í•¨. ë”°ë¼ì„œ
-    %   ì•„ëž˜ì˜ ì§€í˜•í˜•ì„±ìž‘ìš©ì— ì˜í•´ ê²½ê³„ë¡œ ì „í•´ì§€ëŠ” ë¬¼ì§ˆì€ ë‹¤ìŒ ê³ ë„ì— ë°˜ì˜ë˜ì§€
-    %   ì•ŠìŒ. ì¦‰ ê²½ê³„ë¡œ ìœ ìž…ë˜ëŠ” ë¬¼ì§ˆì€ ëª¨ë‘ ì œê±°ëœë‹¤ê³  ê°€ì •í•¨
-    [bedrockElev ...            % ì™¸ê³½ ê²½ê³„ì¡°ê±´ì„ ì¤€ ê¸°ë°˜ì•” ê³ ë„ [m]
-    ,sedimentThick] ...         % ì™¸ê³½ ê²½ê³„ì¡°ê±´ì„ ì¤€ í‡´ì ì¸µ ë‘ê»˜ [m]
+    % 1. °æ°èÁ¶°Ç¿¡ µû¶ó ¿Ü°û °æ°èÀÇ ±â¹Ý¾Ï °íµµ¿Í ÅðÀû¹° µÎ²²¸¦ Á¤ÀÇÇÔ
+    % * ÁÖÀÇ: ¿Ü°û °æ°èÀÇ °íµµ´Â AdjustBoundary ÇÔ¼ö¿¡¼­¸¸ Á¤ÀÇÇÔ. µû¶ó¼­
+    %   ¾Æ·¡ÀÇ ÁöÇüÇü¼ºÀÛ¿ë¿¡ ÀÇÇØ °æ°è·Î ÀüÇØÁö´Â ¹°ÁúÀº ´ÙÀ½ °íµµ¿¡ ¹Ý¿µµÇÁö
+    %   ¾ÊÀ½. Áï °æ°è·Î À¯ÀÔµÇ´Â ¹°ÁúÀº ¸ðµÎ Á¦°ÅµÈ´Ù°í °¡Á¤ÇÔ
+    [bedrockElev ...            % ¿Ü°û °æ°èÁ¶°ÇÀ» ÁØ ±â¹Ý¾Ï °íµµ [m]
+    ,sedimentThick] ...         % ¿Ü°û °æ°èÁ¶°ÇÀ» ÁØ ÅðÀûÃþ µÎ²² [m]
         = AdjustBoundary(Y_INI,Y_MAX,X_INI,X_MAX ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND ...
         ,bedrockElev,sedimentThick,OUTER_BOUNDARY ...
         ,BOUNDARY_OUTFLOW_COND,TOP_BOUNDARY_ELEV_COND ...
         ,topBndElev,ithTimeStep,meanUpliftRateAtUpliftAxis);
     
-    % 2. ì§€ë°˜ìœµê¸° ë°œìƒ
-    bedrockElev ...            % ì§€ë°˜ìœµê¸°ìœ¨ì´ ë°˜ì˜ëœ ê¸°ë°˜ì•” ê³ ë„ [m]
+    % 2. Áö¹ÝÀ¶±â ¹ß»ý
+    bedrockElev ...            % Áö¹ÝÀ¶±âÀ²ÀÌ ¹Ý¿µµÈ ±â¹Ý¾Ï °íµµ [m]
         = Uplift(Y_INI,Y_MAX,X_INI,X_MAX ...
         ,bedrockElev ...
         ,upliftRateTemporalDistribution(ithTimeStep) ...
         ,meanUpliftRateSpatialDistribution ...
         ,meanUpliftRateAtUpliftAxis);
     
-    % * ì™¸ì  ìž‘ìš© ì´ì „ ê¸°ë°˜ì•” ê³ ë„ ë° í‡´ì ì¸µ ë‘ê»˜ë¥¼ ê¸°ë¡í•˜ì—¬ ê²°ê³¼ ì¶œë ¥ì— ì´ìš©í•¨
+    % * ¿ÜÀû ÀÛ¿ë ÀÌÀü ±â¹Ý¾Ï °íµµ ¹× ÅðÀûÃþ µÎ²²¸¦ ±â·ÏÇÏ¿© °á°ú Ãâ·Â¿¡ ÀÌ¿ëÇÔ
     preBedrockElev = bedrockElev;
     preSedThick = sedimentThick;
     
-    % 3. ê¸°ë°˜ì•” í’í™” ë° ì´ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„ ë°˜ì˜í•¨
+    % 3. ±â¹Ý¾Ï Ç³È­ ¹× ÀÌ·Î ÀÎÇÑ ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï °íµµ º¯È­À²À» ¹Ý¿µÇÔ
     
-    % 1) (í•˜ë„ ì–‘ì•ˆ í‡´ì ì¸µ ë‘ê»˜ë¥¼ êµ¬í•˜ê¸° ìœ„í•´) í˜„ ì§€í˜• ë° ê¸°í›„ ì¡°ê±´ì—ì„œì˜
-    %    ë§Œì œìœ ëŸ‰, ë§Œì œìœ ëŸ‰ì‹œ í•˜í­ ë° ìˆ˜ì‹¬ ê·¸ë¦¬ê³  í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ëŸ‰ì„ ì¶”ì •
-    % * ì›ë¦¬: í•˜ë„ ë‚´ì—ì„œëŠ” í’í™”ìž‘ìš©ì´ ì¼ì–´ë‚˜ì§€ ì•ŠëŠ”ë‹¤ê³  ê°€ì •í•¨. í•˜ì•ˆ ë˜ëŠ” ì‚¬ë©´
-    %   í‡´ì ì¸µì— í•œí•´ì„œ í’í™”ìž‘ìš©ì´ ë°œìƒí•˜ì—¬ ê¸°ë°˜ì•”ì´ í’í™”ë¨.
+    % 1) (ÇÏµµ ¾ç¾È ÅðÀûÃþ µÎ²²¸¦ ±¸ÇÏ±â À§ÇØ) Çö ÁöÇü ¹× ±âÈÄ Á¶°Ç¿¡¼­ÀÇ
+    %    ¸¸Á¦À¯·®, ¸¸Á¦À¯·®½Ã ÇÏÆø ¹× ¼ö½É ±×¸®°í ÇÏµµ ³» ÇÏ»ó ÅðÀû¹°·®À» ÃßÁ¤
+    % * ¿ø¸®: ÇÏµµ ³»¿¡¼­´Â Ç³È­ÀÛ¿ëÀÌ ÀÏ¾î³ªÁö ¾Ê´Â´Ù°í °¡Á¤ÇÔ. ÇÏ¾È ¶Ç´Â »ç¸é
+    %   ÅðÀûÃþ¿¡ ÇÑÇØ¼­ Ç³È­ÀÛ¿ëÀÌ ¹ß»ýÇÏ¿© ±â¹Ý¾ÏÀÌ Ç³È­µÊ.
     
-    % (1) ìœ í–¥ê³¼ ê²½ì‚¬
+    % (1) À¯Çâ°ú °æ»ç
     
-    % A. ê³ ë„ ê°±ì‹ 
+    % A. °íµµ °»½Å
     elev = bedrockElev + sedimentThick;
     
-    % B. (ë¬´í•œ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œ) ìœ í–¥ê³¼ ê²½ì‚¬
-    [facetFlowDirection ...     % ìœ í–¥
-    ,facetFlowSlope ...         % ê²½ì‚¬
-    ,e1LinearIndicies ...       % ë‹¤ìŒ ì…€(e1) ìƒ‰ì¸
-    ,e2LinearIndicies ...       % ë‹¤ìŒ ì…€(e2) ìƒ‰ì¸
-    ,outputFluxRatioToE1 ...    % ë‹¤ìŒ ì…€(e1)ë¡œì˜ ìœ ìž…ìœ¨
-    ,outputFluxRatioToE2] ...   % ë‹¤ìŒ ì…€(e2)ë¡œì˜ ìœ ìž…ìœ¨
+    % B. (¹«ÇÑ À¯Çâ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ) À¯Çâ°ú °æ»ç
+    [facetFlowDirection ...     % À¯Çâ
+    ,facetFlowSlope ...         % °æ»ç
+    ,e1LinearIndicies ...       % ´ÙÀ½ ¼¿(e1) »öÀÎ
+    ,e2LinearIndicies ...       % ´ÙÀ½ ¼¿(e2) »öÀÎ
+    ,outputFluxRatioToE1 ...    % ´ÙÀ½ ¼¿(e1)·ÎÀÇ À¯ÀÔÀ²
+    ,outputFluxRatioToE2] ...   % ´ÙÀ½ ¼¿(e2)·ÎÀÇ À¯ÀÔÀ²
         = CalcInfinitiveFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
         ,QUARTER_PI,HALF_PI,elev,dX ...
         ,sE0LinearIndicies,s3E1LinearIndicies,s3E2LinearIndicies);
     
-    % C. (ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œ) ìœ í–¥ê³¼ ê²½ì‚¬
-    [steepestDescentSlope ...   % ê²½ì‚¬
-    ,slopeAllNbr ...            % 8ê°œ ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬
-    ,SDSFlowDirection ...       % ìœ í–¥
-    ,SDSNbrY ...                % ë‹¤ìŒ ì…€ Y ì¢Œí‘œê°’
-    ,SDSNbrX] ...               % ë‹¤ìŒ ì…€ X ì¢Œí‘œê°’
+    % C. (ÃÖ´ëÇÏºÎ°æ»ç À¯Çâ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ) À¯Çâ°ú °æ»ç
+    [steepestDescentSlope ...   % °æ»ç
+    ,slopeAllNbr ...            % 8°³ ÀÌ¿ô ¼¿°úÀÇ °æ»ç
+    ,SDSFlowDirection ...       % À¯Çâ
+    ,SDSNbrY ...                % ´ÙÀ½ ¼¿ Y ÁÂÇ¥°ª
+    ,SDSNbrX] ...               % ´ÙÀ½ ¼¿ X ÁÂÇ¥°ª
         = CalcSDSFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND ...
         ,QUARTER_PI,DISTANCE_RATIO_TO_NBR,elev,dX ...
@@ -453,19 +453,19 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         ,ithNbrYOffset,ithNbrXOffset ...
         ,sE0LinearIndicies,s3IthNbrLinearIndicies);
     
-    % D. ìœ í–¥ì´ ì •ì˜ë˜ì§€ ì•Šì€ ì…€ì— ìœ í–¥ì„ ì •ì˜í•¨
-    % * sinkì— ìœ í–¥ì„ ë¶€ì—¬í•˜ê³ , flooded regionì— ìœ í–¥ì„ ìž¬ì„¤ì •í•¨
+    % D. À¯ÇâÀÌ Á¤ÀÇµÇÁö ¾ÊÀº ¼¿¿¡ À¯ÇâÀ» Á¤ÀÇÇÔ
+    % * sink¿¡ À¯ÇâÀ» ºÎ¿©ÇÏ°í, flooded region¿¡ À¯ÇâÀ» Àç¼³Á¤ÇÔ
     [flood ...                      % flooded region
-    ,SDSNbrY ...                    % ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
-    ,SDSNbrX ...                    % ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
-    ,SDSFlowDirection ...           % ìˆ˜ì •ëœ (ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì˜) ìœ í–¥
-    ,steepestDescentSlope ...       % ìˆ˜ì •ëœ (ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì˜) ê²½ì‚¬
-    ,integratedSlope ...            % ìˆ˜ì •ëœ (ë¬´í•œ ìœ í–¥ ì•Œê³ ë¦¬ë“¬) ê²½ì‚¬
-    ,floodedRegionIndex ...         % flooded region ìƒ‰ì¸
-    ,floodedRegionCellsNo ...       % ê° flooded region êµ¬ì„± ì…€ ê°œìˆ˜
-    ,floodedRegionLocalDepth ...    % flooded region ê³ ë„ì™€ ìœ ì¶œêµ¬ ê³ ë„ì™€ì˜ ì°¨ì´
-    ,floodedRegionTotalDepth ...    % local depth ì´ í•©
-    ,floodedRegionStorageVolume] ...% flooded region ì´ ì €ìž¥ëŸ‰
+    ,SDSNbrY ...                    % ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
+    ,SDSNbrX ...                    % ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
+    ,SDSFlowDirection ...           % ¼öÁ¤µÈ (ÃÖ´ëÇÏºÎ°æ»ç À¯Çâ ¾Ë°í¸®µëÀÇ) À¯Çâ
+    ,steepestDescentSlope ...       % ¼öÁ¤µÈ (ÃÖ´ëÇÏºÎ°æ»ç À¯Çâ ¾Ë°í¸®µëÀÇ) °æ»ç
+    ,integratedSlope ...            % ¼öÁ¤µÈ (¹«ÇÑ À¯Çâ ¾Ë°í¸®µë) °æ»ç
+    ,floodedRegionIndex ...         % flooded region »öÀÎ
+    ,floodedRegionCellsNo ...       % °¢ flooded region ±¸¼º ¼¿ °³¼ö
+    ,floodedRegionLocalDepth ...    % flooded region °íµµ¿Í À¯Ãâ±¸ °íµµ¿ÍÀÇ Â÷ÀÌ
+    ,floodedRegionTotalDepth ...    % local depth ÃÑ ÇÕ
+    ,floodedRegionStorageVolume] ...% flooded region ÃÑ ÀúÀå·®
         = ProcessSink(mRows,nCols,X_INI,X_MAX ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA ...
         ,elev,ithNbrYOffset,ithNbrXOffset ...
@@ -473,30 +473,30 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         ,slopeAllNbr,steepestDescentSlope ...
         ,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection);
     
-    % (2) ë§Œì œìœ ëŸ‰, ë§Œì œìœ ëŸ‰ì‹œ ìˆ˜ì‹¬ ë° í•˜í­ì„ êµ¬í•¨
+    % (2) ¸¸Á¦À¯·®, ¸¸Á¦À¯·®½Ã ¼ö½É ¹× ÇÏÆøÀ» ±¸ÇÔ
     
-    % A. ì—°ê°„ ìœ ëŸ‰[m^3/yr]
+    % A. ¿¬°£ À¯·®[m^3/yr]
 
-    % A) ì…€ë“¤ì„ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬
+    % A) ¼¿µéÀ» °íµµ ¼øÀ¸·Î Á¤·Ä
     elevForSorting = elev;
     
-    % B) flooded regionì„ ì œì™¸í•¨
-    % * ì›ë¦¬ : ì œì™¸í•˜ëŠ” ì…€ì˜ ê³ ë„ê°’ì—ëŠ” - infë¥¼ ìž…ë ¥í•¨
+    % B) flooded regionÀ» Á¦¿ÜÇÔ
+    % * ¿ø¸® : Á¦¿ÜÇÏ´Â ¼¿ÀÇ °íµµ°ª¿¡´Â - inf¸¦ ÀÔ·ÂÇÔ
     elevForSorting(flood == FLOODED) = - inf;
 
-    % C) ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•˜ê³  ì´ì˜ Y,X ì¢Œí‘œê°’ì„ êµ¬í•¨
+    % C) ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÏ°í ÀÌÀÇ Y,X ÁÂÇ¥°ªÀ» ±¸ÇÔ
     vectorElev = reshape(elevForSorting(Y_INI:Y_MAX,X_INI:X_MAX),[],1);
     sortedYXElevForUpstreamFlow = [vectorY,vectorX,vectorElev];
     sortedYXElevForUpstreamFlow = sortrows(sortedYXElevForUpstreamFlow,-3);
 
-    % D) AccumulateUpstreamFlow í•¨ìˆ˜ì˜ ëŒ€ìƒ ì…€ ìˆ˜
+    % D) AccumulateUpstreamFlow ÇÔ¼öÀÇ ´ë»ó ¼¿ ¼ö
     consideringCellsNoForUpstreamFlow = find(vectorElev > - inf);
     consideringCellsNoForUpstreamFlow ...
         = size(consideringCellsNoForUpstreamFlow,1);
 
-    % E) ì—°ê°„ìœ ëŸ‰ [m^3/yr]
-    [annualDischarge1 ...   % ì—°ê°„ìœ ëŸ‰ [m^3/yr]
-    ,isOverflowing] ...     % flooded region ì €ìˆ˜ëŸ‰ ì´ˆê³¼ ì—¬ë¶€ íƒœê·¸
+    % E) ¿¬°£À¯·® [m^3/yr]
+    [annualDischarge1 ...   % ¿¬°£À¯·® [m^3/yr]
+    ,isOverflowing] ...     % flooded region Àú¼ö·® ÃÊ°ú ¿©ºÎ ÅÂ±×
         = AccumulateUpstreamFlow(mRows,nCols ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
         ,sortedYXElevForUpstreamFlow ...
@@ -507,75 +507,75 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         ,facetFlowDirection,e1LinearIndicies,e2LinearIndicies ...
         ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX);    
 
-    % B. ë§Œì œìœ ëŸ‰, ë§Œì œìœ ëŸ‰ì‹œ ìˆ˜ì‹¬ê³¼ í•˜í­
+    % B. ¸¸Á¦À¯·®, ¸¸Á¦À¯·®½Ã ¼ö½É°ú ÇÏÆø
     
-    % A) ì—° í‰ê· ìœ ëŸ‰ [m^3/s]
+    % A) ¿¬ Æò±ÕÀ¯·® [m^3/s]
     meanDischarge = annualDischarge1 / SECPERYEAR;
 
-    % B) ë§Œì œìœ ëŸ‰ [m^3/s]
+    % B) ¸¸Á¦À¯·® [m^3/s]
     bankfullDischarge = kqb * meanDischarge .^ mqb;
 
-    % C) ë§Œì œìœ ëŸ‰ì‹œ í•˜í­ [m]
+    % C) ¸¸Á¦À¯·®½Ã ÇÏÆø [m]
     bankfullWidth = khw * bankfullDischarge .^ mhw;
 
-    % D) ë§Œì œìœ ëŸ‰ì‹œ ìˆ˜ì‹¬[m]
-    bankfullDepth = khd * bankfullDischarge .^ mhd; % í•˜ì²œ ìˆ˜ë¦¬ê¸°í•˜ ë²•ì¹™ìœ¼ë¡œë¶€í„° ì¶”ì •
-    % bankfullDepth = ( (bankfullDischarge ./ bankfullWidth) ... % Manning íë¦„ ì €í•­ì‹ìœ¼ë¡œ ë¶€í„° ì¶”ì •
+    % D) ¸¸Á¦À¯·®½Ã ¼ö½É[m]
+    bankfullDepth = khd * bankfullDischarge .^ mhd; % ÇÏÃµ ¼ö¸®±âÇÏ ¹ýÄ¢À¸·ÎºÎÅÍ ÃßÁ¤
+    % bankfullDepth = ( (bankfullDischarge ./ bankfullWidth) ... % Manning Èå¸§ ÀúÇ×½ÄÀ¸·Î ºÎÅÍ ÃßÁ¤
     %    * nA .* integratedSlope .^ -0.5 ) .^ 0.6;
     
-    % C. í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ [m^3]
-    % * ì°¸ê³ : í•˜ë„ ë‚´ í‰ê·  í•˜ìƒ í‡´ì ì¸µ. FluvialProcess í•¨ìˆ˜ì—ì„œ ë¶„ë¦¬ì œì–´
-    %   í™˜ê²½ê³¼ ìš´ë°˜ì œì–´ í™˜ê²½ì„ êµ¬ë¶„í•˜ëŠ” ê¸°ì¤€ì´ ë¨. í˜„ ì§€í˜• ë° ê¸°í›„ ì¡°ê±´í•˜ì—ì„œ
-    %   í•˜ì²œì˜ ìˆ˜ë¦¬ê¸°í•˜íŠ¹ì„±ì— ë”°ë¼ í•˜í­ê³¼ ìˆ˜ì‹¬ì„ ì •ì˜í•˜ê³ , í•˜í­ì„ ë”°ë¼
-    %   í•˜ìƒì—ì„œë¶€í„° ê¸°ë°˜ì•”ê¹Œì§€ë¥¼ í•˜ìƒ í‡´ì ì¸µìœ¼ë¡œ ì¶”ì •í•¨.
-    % * ì°¸ê³ : í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µì„ ëª…ì‹œì ìœ¼ë¡œ ê³ ë ¤í•˜ê¸° ì‹œìž‘í•œ ì´ìœ 
-    %   ì´ë¥¼ í†µí•´ 'ì‚¬ë©´ì—ì„œ í•˜ë„ë¡œì˜ ìœ ìž…ìœ¨'ì„ íŒŒì•…í•˜ê³ , 'í•˜ì²œìž‘ìš©ì— ì˜í•´
-    %   ì œê±°ë˜ëŠ” ì •ë„'ë¥¼ íŒŒì•…í•˜ì—¬ í•˜ìƒ í‡´ì ë¬¼ì˜ ê³µê°„ì  ì‹œê°„ì  ìˆ˜ì§€ë¥¼ ë¶„ì„í•˜ê¸°
-    %   ìœ„í•¨. í•˜ì§€ë§Œ í•˜ë„ ì–‘ì•ˆì—ì„œ í•˜ë„ë¡œì˜ ë¬¼ì§ˆ ì´ë™ ë§¤ì»¤ë‹ˆì¦˜(ëŠë¦° ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸?
-    %   ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸? í•˜ì²œ ì¸¡ë°© ì¹¨ì‹ìœ¼ë¡œ ì¸í•œ í•˜ì•ˆìœ¼ë¡œë¶€í„°ì˜ ê³µê¸‰?)ê³¼
-    %   ìœ ìž…ìœ¨ì´ ë¶ˆë¶„ëª…í•˜ê¸° ë•Œë¬¸ì— ê³¼ë„í•œ parameterizationì´ í•„ìš”í•˜ì—¬ ë” ì´ìƒ
-    %   ì§„í–‰í•˜ì§€ ì•ŠìŒ. í•˜ì§€ë§Œ ì—¬ê¸°ì„œ chanBedSedBudgetì„ í†µí•´ ìž”ì¡´ chanBedSedì˜
-    %   ì¦ê°ìœ¨ íŒŒì•…ì„ ìœ„í•œ ì‹œë„ë¥¼ í•¨.
+    % C. ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ [m^3]
+    % * Âü°í: ÇÏµµ ³» Æò±Õ ÇÏ»ó ÅðÀûÃþ. FluvialProcess ÇÔ¼ö¿¡¼­ ºÐ¸®Á¦¾î
+    %   È¯°æ°ú ¿î¹ÝÁ¦¾î È¯°æÀ» ±¸ºÐÇÏ´Â ±âÁØÀÌ µÊ. Çö ÁöÇü ¹× ±âÈÄ Á¶°ÇÇÏ¿¡¼­
+    %   ÇÏÃµÀÇ ¼ö¸®±âÇÏÆ¯¼º¿¡ µû¶ó ÇÏÆø°ú ¼ö½ÉÀ» Á¤ÀÇÇÏ°í, ÇÏÆøÀ» µû¶ó
+    %   ÇÏ»ó¿¡¼­ºÎÅÍ ±â¹Ý¾Ï±îÁö¸¦ ÇÏ»ó ÅðÀûÃþÀ¸·Î ÃßÁ¤ÇÔ.
+    % * Âü°í: ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþÀ» ¸í½ÃÀûÀ¸·Î °í·ÁÇÏ±â ½ÃÀÛÇÑ ÀÌÀ¯
+    %   ÀÌ¸¦ ÅëÇØ '»ç¸é¿¡¼­ ÇÏµµ·ÎÀÇ À¯ÀÔÀ²'À» ÆÄ¾ÇÇÏ°í, 'ÇÏÃµÀÛ¿ë¿¡ ÀÇÇØ
+    %   Á¦°ÅµÇ´Â Á¤µµ'¸¦ ÆÄ¾ÇÇÏ¿© ÇÏ»ó ÅðÀû¹°ÀÇ °ø°£Àû ½Ã°£Àû ¼öÁö¸¦ ºÐ¼®ÇÏ±â
+    %   À§ÇÔ. ÇÏÁö¸¸ ÇÏµµ ¾ç¾È¿¡¼­ ÇÏµµ·ÎÀÇ ¹°Áú ÀÌµ¿ ¸ÅÄ¿´ÏÁò(´À¸° ¸Å½º¹«ºê¸ÕÆ®?
+    %   ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®? ÇÏÃµ Ãø¹æ Ä§½ÄÀ¸·Î ÀÎÇÑ ÇÏ¾ÈÀ¸·ÎºÎÅÍÀÇ °ø±Þ?)°ú
+    %   À¯ÀÔÀ²ÀÌ ºÒºÐ¸íÇÏ±â ¶§¹®¿¡ °úµµÇÑ parameterizationÀÌ ÇÊ¿äÇÏ¿© ´õ ÀÌ»ó
+    %   ÁøÇàÇÏÁö ¾ÊÀ½. ÇÏÁö¸¸ ¿©±â¼­ chanBedSedBudgetÀ» ÅëÇØ ÀÜÁ¸ chanBedSedÀÇ
+    %   Áõ°¨À² ÆÄ¾ÇÀ» À§ÇÑ ½Ãµµ¸¦ ÇÔ.
     
-    % A) í˜„ í‡´ì ì¸µ ë‘ê»˜ì™€ í˜„ í•˜ì²œ ìˆ˜ë¦¬ê¸°í•˜íŠ¹ì„±ìœ¼ë¡œë¶€í„° êµ¬í•œ í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ
+    % A) Çö ÅðÀûÃþ µÎ²²¿Í Çö ÇÏÃµ ¼ö¸®±âÇÏÆ¯¼ºÀ¸·ÎºÎÅÍ ±¸ÇÑ ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ
     
-    % (A) í˜„ ì¡°ê±´ì—ì„œì˜ í•˜ì²œì„ í¬í•¨í•œ ì…€ ì •ì˜
-    upslopeArea = annualDischarge1 ./ annualRunoff; % ìƒë¶€ ìœ ì—­ë©´ì  [m^3/yr]/[m/yr]
+    % (A) Çö Á¶°Ç¿¡¼­ÀÇ ÇÏÃµÀ» Æ÷ÇÔÇÑ ¼¿ Á¤ÀÇ
+    upslopeArea = annualDischarge1 ./ annualRunoff; % »óºÎ À¯¿ª¸éÀû [m^3/yr]/[m/yr]
     
     channel ...
         = DefineChannel(upslopeArea,integratedSlope,channelInitiation ...
         ,CELL_AREA,criticalUpslopeCellsNo,flood,FLOODED);
         
-    % (B) í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë‘ê»˜ [m/bankfullWidth]
+    % (B) ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ µÎ²² [m/bankfullWidth]
     chanBedSedThick = zeros(mRows,nCols);
     chanBedSedThick(channel) ...
         = sedimentThick(channel) ...
         + bankfullWidth(channel) .* bankfullDepth(channel) ./ dX ...
         - bankfullDepth(channel);
     
-    % * ì£¼ì˜: ëª¨ë¸ ë‚´ì—ì„œ í•˜ìƒ í‡´ì ì¸µ ë‘ê»˜ê°€ ìŒì¼ ê²½ìš°, ëŒ€ë¶€ë¶„ì€ ìœ ëŸ‰ì´ ë§Žì•„
-    %   í•˜ë„ê°€ ë„“ì€ë° sedimentThickì€ ìž‘ì€ ê²ƒìœ¼ë¡œ ì¶”ì •ë¨
+    % * ÁÖÀÇ: ¸ðµ¨ ³»¿¡¼­ ÇÏ»ó ÅðÀûÃþ µÎ²²°¡ À½ÀÏ °æ¿ì, ´ëºÎºÐÀº À¯·®ÀÌ ¸¹¾Æ
+    %   ÇÏµµ°¡ ³ÐÀºµ¥ sedimentThickÀº ÀÛÀº °ÍÀ¸·Î ÃßÁ¤µÊ
     chanBedSedThick(chanBedSedThick < 0) = 0;
     
-    % D. ì‚¬ë©´ ë° í•˜ë„ ì–‘ì•ˆ í‡´ì ì¸µ ë‘ê»˜
+    % D. »ç¸é ¹× ÇÏµµ ¾ç¾È ÅðÀûÃþ µÎ²²
     
-    % A) ì‚¬ë©´ í‡´ì ì¸µ ë‘ê»˜ [m]
+    % A) »ç¸é ÅðÀûÃþ µÎ²² [m]
     sedThickOutsideChannel = sedimentThick;
     
-    % B) í•˜ë„ ì–‘ì•ˆ í‡´ì ì¸µ ë‘ê»˜ [m]
+    % B) ÇÏµµ ¾ç¾È ÅðÀûÃþ µÎ²² [m]
     sedThickOutsideChannel(channel) ...
         = chanBedSedThick(channel) + bankfullDepth(channel);
     
-    % 2) í’í™”ìœ¨ [m/dT]
-    % * ì£¼ì˜: flooded regionì„ í¬í•¨í•˜ì§€ ì•ŠìŒ. flooded regionì—ì„œëŠ” í’í™”ì¸µ
-    %   ìƒì‚°ì´ ì—†ë‹¤ê³  ê°€ì •í•¨
+    % 2) Ç³È­À² [m/dT]
+    % * ÁÖÀÇ: flooded regionÀ» Æ÷ÇÔÇÏÁö ¾ÊÀ½. flooded region¿¡¼­´Â Ç³È­Ãþ
+    %   »ý»êÀÌ ¾ø´Ù°í °¡Á¤ÇÔ
     weatheringProductPerDT ...
         = RockWeathering(kwa,kw0,kw1,kwm ...
         ,sedThickOutsideChannel,bankfullWidth,dX,dT);
     
     weatheringProductPerDT(flood == FLOODED) = 0;
     
-    % 3) í’í™”ìž‘ìš©ìœ¼ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ê°±ì‹ 
+    % 3) Ç³È­ÀÛ¿ëÀ¸·Î ÀÎÇÑ ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï °íµµ °»½Å
     sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
         = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
         + weatheringProductPerDT(Y_INI:Y_MAX,X_INI:X_MAX);
@@ -583,29 +583,29 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
         - weatheringProductPerDT(Y_INI:Y_MAX,X_INI:X_MAX);
 
-    % 4. ì‚¬ë©´ìž‘ìš©ê³¼ ì´ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”
+    % 4. »ç¸éÀÛ¿ë°ú ÀÌ·Î ÀÎÇÑ ÅðÀûÃþ µÎ²² º¯È­
     
-    % 1) ê³ ë„ë¥¼ ê°±ì‹ í•˜ì§€ ì•ŠìŒ (í’í™”ë¡œ ì¸í•œ ê³ ë„ ë³€í™”ëŠ” ì—†ìœ¼ë¯€ë¡œ ìƒëžµ)
+    % 1) °íµµ¸¦ °»½ÅÇÏÁö ¾ÊÀ½ (Ç³È­·Î ÀÎÇÑ °íµµ º¯È­´Â ¾øÀ¸¹Ç·Î »ý·«)
     % elev = bedrockElev + sedimentThick;
 
-    % 2) (ì…€ ì™¸ë¶€ë¡œ) ì‚¬ë©´ìž‘ìš© ë°œìƒ ì…€ë“¤ì„ ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•¨
+    % 2) (¼¿ ¿ÜºÎ·Î) »ç¸éÀÛ¿ë ¹ß»ý ¼¿µéÀ» ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÔ
     elevForSorting = elev;
     
-    % (1) í•˜ì²œì¸ ì…€ì„ ì œì™¸í•¨
-    % * ì£¼ì˜: í•˜ì²œì¸ ì…€ì„ ë”°ë¡œ ì •ì˜í•˜ì§€ ì•ŠìŒ
+    % (1) ÇÏÃµÀÎ ¼¿À» Á¦¿ÜÇÔ
+    % * ÁÖÀÇ: ÇÏÃµÀÎ ¼¿À» µû·Î Á¤ÀÇÇÏÁö ¾ÊÀ½
     elevForSorting(flood == FLOODED | channel) = - inf;
 
-    % (2) ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•˜ê³  ì´ì˜ Y,X ì¢Œí‘œê°’ì„ êµ¬í•¨
+    % (2) ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÏ°í ÀÌÀÇ Y,X ÁÂÇ¥°ªÀ» ±¸ÇÔ
     vectorElev = reshape(elevForSorting(Y_INI:Y_MAX,X_INI:X_MAX),[],1);
     sortedYXElev = [vectorY,vectorX,vectorElev];
     sortedYXElev = sortrows(sortedYXElev,-3);
 
-    % (3) ì‚¬ë©´ìž‘ìš©ì´ ì¼ì–´ë‚˜ëŠ” ì…€ë“¤ì˜ ìˆ˜ë¥¼ êµ¬í•¨
+    % (3) »ç¸éÀÛ¿ëÀÌ ÀÏ¾î³ª´Â ¼¿µéÀÇ ¼ö¸¦ ±¸ÇÔ
     consideringCellsNo = find(vectorElev > - inf);
     consideringCellsNo = size(consideringCellsNo,1);
 
-    % 3) ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ê³¼ í•˜ë„ë¡œì˜ ì‚¬ë©´ë¬¼ì§ˆ ê³µê¸‰ìœ¨
-    dSedThickByHillslopePerDT ... % ì‚¬ë©´ìž‘ìš©ìœ¼ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/dT]
+    % 3) »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À²°ú ÇÏµµ·ÎÀÇ »ç¸é¹°Áú °ø±ÞÀ²
+    dSedThickByHillslopePerDT ... % »ç¸éÀÛ¿ëÀ¸·Î ÀÎÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m/dT]
         = HillslopeProcess(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
         ,dX,dT,CELL_AREA ...
         ,sortedYXElev,consideringCellsNo ...
@@ -614,50 +614,50 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         ,flood,floodedRegionCellsNo,floodedRegionIndex ...
         ,SDSNbrY,SDSNbrX,slopeAllNbr);
     
-    % 4) í‡´ì ì¸µ ë‘ê»˜ë¥¼ ê°±ì‹ í•¨
+    % 4) ÅðÀûÃþ µÎ²²¸¦ °»½ÅÇÔ
     sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
         = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
         + dSedThickByHillslopePerDT(Y_INI:Y_MAX,X_INI:X_MAX);
     
-    % 4. í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
-    % * ì£¼ì˜ : ìƒë¥˜ì™€ í•˜ë¥˜ì˜ ê¸°ë³µ ì—­ì „ ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸° ìœ„í•´, ë§Œì œìœ ëŸ‰
-    %   ì§€ì†ê¸°ê°„ë³´ë‹¤ ìž‘ì€ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ì„¤ì •í•˜ê³  ë§Œì œìœ ëŸ‰ ì§€ì†ê¸°ê°„ì— ë„ë‹¬í• 
-    %   ë•Œê¹Œì§€ ë°˜ë³µí•¨
+    % 4. ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï °íµµ º¯È­À²
+    % * ÁÖÀÇ : »ó·ù¿Í ÇÏ·ùÀÇ ±âº¹ ¿ªÀü ¹®Á¦¸¦ ÇØ°áÇÏ±â À§ÇØ, ¸¸Á¦À¯·®
+    %   Áö¼Ó±â°£º¸´Ù ÀÛÀº ¼¼ºÎ ´ÜÀ§½Ã°£À» ¼³Á¤ÇÏ°í ¸¸Á¦À¯·® Áö¼Ó±â°£¿¡ µµ´ÞÇÒ
+    %   ¶§±îÁö ¹Ýº¹ÇÔ
     
-    % 1) ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ê´€ë ¨ ë³€ìˆ˜ ì´ˆê¸°í™”
-    ithSubTimeStep = 1;             % ì„¸ë¶€ ë‹¨ìœ„ ì‹¤í–‰ íšŸìˆ˜
-    sumSubDT = 0;                   % ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì˜ ëˆ„ì  í•©ê³„
-    dSedThickByFluvialPerDT ...     % í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨[m^3/m^2 dT]
+    % 1) ¼¼ºÎ ´ÜÀ§½Ã°£ °ü·Ã º¯¼ö ÃÊ±âÈ­
+    ithSubTimeStep = 1;             % ¼¼ºÎ ´ÜÀ§ ½ÇÇà È½¼ö
+    sumSubDT = 0;                   % ¼¼ºÎ ´ÜÀ§½Ã°£ÀÇ ´©Àû ÇÕ°è
+    dSedThickByFluvialPerDT ...     % ÅðÀû¹° µÎ²² º¯È­À²[m^3/m^2 dT]
         = zeros(mRows,nCols);
-    dBedrockElevByFluvialPerDT ...  % ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨[m^3/m^2 dT]
+    dBedrockElevByFluvialPerDT ...  % ±â¹Ý¾Ï °íµµ º¯È­À²[m^3/m^2 dT]
         = zeros(mRows,nCols);
     
-    % 2) ë§Œì œìœ ëŸ‰ ì§€ì†ê¸°ê°„ì— ë„ë‹¬í•  ë•Œê¹Œì§€ ë°˜ë³µí•¨
+    % 2) ¸¸Á¦À¯·® Áö¼Ó±â°£¿¡ µµ´ÞÇÒ ¶§±îÁö ¹Ýº¹ÇÔ
     while (sumSubDT < bankfullTime)
         
-        % (1) ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ë™ì•ˆì˜ ìœ í–¥ê³¼ ê²½ì‚¬ë¥¼ ì •ì˜í•¨
+        % (1) ¼¼ºÎ ´ÜÀ§½Ã°£ µ¿¾ÈÀÇ À¯Çâ°ú °æ»ç¸¦ Á¤ÀÇÇÔ
 
-        % A. (ìœ í–¥ê³¼ ê²½ì‚¬ë¥¼ êµ¬í•˜ê¸° ìœ„í•´) ê³ ë„ë¥¼ ê°±ì‹ í•¨
-        % * ì£¼ì˜ : EstimateSubDT í•¨ìˆ˜ì—ì„œ ìž…ë ¥ ë³€ìˆ˜ë¡œë„ ì‚¬ìš©ë¨
+        % A. (À¯Çâ°ú °æ»ç¸¦ ±¸ÇÏ±â À§ÇØ) °íµµ¸¦ °»½ÅÇÔ
+        % * ÁÖÀÇ : EstimateSubDT ÇÔ¼ö¿¡¼­ ÀÔ·Â º¯¼ö·Îµµ »ç¿ëµÊ
         elev = bedrockElev + sedimentThick;
         
-        % B. ë¬´í•œ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œ ìœ í–¥ê³¼ ê²½ì‚¬
-        [facetFlowDirection ...     % ìœ í–¥
-        ,facetFlowSlope ...         % ê²½ì‚¬
-        ,e1LinearIndicies ...       % ë‹¤ìŒ ì…€(e1) ìƒ‰ì¸
-        ,e2LinearIndicies ...       % ë‹¤ìŒ ì…€(e2) ìƒ‰ì¸
-        ,outputFluxRatioToE1 ...    % ë‹¤ìŒ ì…€(e1)ë¡œì˜ ë¶„ë°°ìœ¨
-        ,outputFluxRatioToE2] ...   % ë‹¤ìŒ ì…€(e2)ë¡œì˜ ë¶„ë°°ìœ¨
+        % B. ¹«ÇÑ À¯Çâ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ À¯Çâ°ú °æ»ç
+        [facetFlowDirection ...     % À¯Çâ
+        ,facetFlowSlope ...         % °æ»ç
+        ,e1LinearIndicies ...       % ´ÙÀ½ ¼¿(e1) »öÀÎ
+        ,e2LinearIndicies ...       % ´ÙÀ½ ¼¿(e2) »öÀÎ
+        ,outputFluxRatioToE1 ...    % ´ÙÀ½ ¼¿(e1)·ÎÀÇ ºÐ¹èÀ²
+        ,outputFluxRatioToE2] ...   % ´ÙÀ½ ¼¿(e2)·ÎÀÇ ºÐ¹èÀ²
             = CalcInfinitiveFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
             ,QUARTER_PI,HALF_PI,elev,dX ...
             ,sE0LinearIndicies,s3E1LinearIndicies,s3E2LinearIndicies);
 
-        % C. ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œ ìœ í–¥ê³¼ ê²½ì‚¬
-        [steepestDescentSlope ...   % ê²½ì‚¬
-        ,slopeAllNbr ...            % 8 ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬
-        ,SDSFlowDirection ...       % ìœ í–¥
-        ,SDSNbrY ...                % ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
-        ,SDSNbrX] ...               % ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
+        % C. ÃÖ´ëÇÏºÎ°æ»ç À¯Çâ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ À¯Çâ°ú °æ»ç
+        [steepestDescentSlope ...   % °æ»ç
+        ,slopeAllNbr ...            % 8 ÀÌ¿ô ¼¿°úÀÇ °æ»ç
+        ,SDSFlowDirection ...       % À¯Çâ
+        ,SDSNbrY ...                % ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
+        ,SDSNbrX] ...               % ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
             = CalcSDSFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND ...
             ,QUARTER_PI,DISTANCE_RATIO_TO_NBR,elev,dX ...
@@ -665,19 +665,19 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,ithNbrYOffset,ithNbrXOffset ...
             ,sE0LinearIndicies,s3IthNbrLinearIndicies);
 
-        % D. ìœ í–¥ì´ ì •ì˜ë˜ì§€ ì•Šì€ ì…€ì— ìœ í–¥ì„ ë¶€ì—¬í•¨
-        % * sinkì— ìœ í–¥ì„ ë¶€ì—¬í•˜ê³ , flooded regionì— ìœ í–¥ì„ ìž¬ì„¤ì •í•¨
+        % D. À¯ÇâÀÌ Á¤ÀÇµÇÁö ¾ÊÀº ¼¿¿¡ À¯ÇâÀ» ºÎ¿©ÇÔ
+        % * sink¿¡ À¯ÇâÀ» ºÎ¿©ÇÏ°í, flooded region¿¡ À¯ÇâÀ» Àç¼³Á¤ÇÔ
         [flood ...                      % flooded region
-        ,SDSNbrY ...                    % ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
-        ,SDSNbrX ...                    % ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
-        ,SDSFlowDirection ...           % ìˆ˜ì •ëœ ìœ í–¥
-        ,steepestDescentSlope ...       % ìˆ˜ì •ëœ ê²½ì‚¬
-        ,integratedSlope ...            % ìˆ˜ì •ëœ facet flow ê²½ì‚¬
-        ,floodedRegionIndex ...         % flooded region ìƒ‰ì¸
-        ,floodedRegionCellsNo ...       % ê° flooed region êµ¬ì„± ì…€ ê°œìˆ˜
-        ,floodedRegionLocalDepth ...    % flooded region ê³ ë„ì™€ ìœ ì¶œêµ¬ ê³ ë„ì™€ì˜ ì°¨ì´
-        ,floodedRegionTotalDepth ...    % ì´ local depth
-        ,floodedRegionStorageVolume] ...% flooded region ì´ ì €ìž¥ëŸ‰
+        ,SDSNbrY ...                    % ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
+        ,SDSNbrX ...                    % ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
+        ,SDSFlowDirection ...           % ¼öÁ¤µÈ À¯Çâ
+        ,steepestDescentSlope ...       % ¼öÁ¤µÈ °æ»ç
+        ,integratedSlope ...            % ¼öÁ¤µÈ facet flow °æ»ç
+        ,floodedRegionIndex ...         % flooded region »öÀÎ
+        ,floodedRegionCellsNo ...       % °¢ flooed region ±¸¼º ¼¿ °³¼ö
+        ,floodedRegionLocalDepth ...    % flooded region °íµµ¿Í À¯Ãâ±¸ °íµµ¿ÍÀÇ Â÷ÀÌ
+        ,floodedRegionTotalDepth ...    % ÃÑ local depth
+        ,floodedRegionStorageVolume] ...% flooded region ÃÑ ÀúÀå·®
             = ProcessSink(mRows,nCols,X_INI,X_MAX ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA ...
             ,elev,ithNbrYOffset,ithNbrXOffset ...
@@ -685,33 +685,33 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,slopeAllNbr,steepestDescentSlope ...
             ,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection);
 
-        % (2) ê°±ì‹ ëœ ìœ í–¥ì— ë”°ë¼ ë§Œì œìœ ëŸ‰ [m^3/s]ì„ êµ¬í•˜ê³ , í•˜ì²œì˜ ìˆ˜ë¦¬ê¸°í•˜
-        %     íŠ¹ì„±ì„ ì´ìš©í•´ ë§Œì œìœ ëŸ‰ì‹œ í•˜í­ê³¼ ìˆ˜ì‹¬ì„ êµ¬í•¨
-        % * ì›ë¦¬: ë§Œì œìœ ëŸ‰ì€ ì—° í‰ê· ìœ ëŸ‰[m^3/s]ê³¼ì˜ ê´€ê³„ì‹ì—ì„œ êµ¬í•¨
+        % (2) °»½ÅµÈ À¯Çâ¿¡ µû¶ó ¸¸Á¦À¯·® [m^3/s]À» ±¸ÇÏ°í, ÇÏÃµÀÇ ¼ö¸®±âÇÏ
+        %     Æ¯¼ºÀ» ÀÌ¿ëÇØ ¸¸Á¦À¯·®½Ã ÇÏÆø°ú ¼ö½ÉÀ» ±¸ÇÔ
+        % * ¿ø¸®: ¸¸Á¦À¯·®Àº ¿¬ Æò±ÕÀ¯·®[m^3/s]°úÀÇ °ü°è½Ä¿¡¼­ ±¸ÇÔ
 
-        % A. ì—°ê°„ìœ ëŸ‰ [m^3/dT]
+        % A. ¿¬°£À¯·® [m^3/dT]
 
-        % A) (ì—°ê°„ìœ ëŸ‰ì„ êµ¬í•˜ê¸° ìœ„í•´) ì…€ë“¤ì„ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬
+        % A) (¿¬°£À¯·®À» ±¸ÇÏ±â À§ÇØ) ¼¿µéÀ» °íµµ ¼øÀ¸·Î Á¤·Ä
         
-        % (A) flooded regionì„ ì œì™¸í•¨
-        % * ì›ë¦¬: ì œì™¸í•˜ëŠ” ì…€ì˜ ê³ ë„ê°’ì—ëŠ” - inf ë¥¼ ìž…ë ¥
+        % (A) flooded regionÀ» Á¦¿ÜÇÔ
+        % * ¿ø¸®: Á¦¿ÜÇÏ´Â ¼¿ÀÇ °íµµ°ª¿¡´Â - inf ¸¦ ÀÔ·Â
         elevForSorting = elev;
         elevForSorting(flood == FLOODED) = - inf;
         
-        % (B) ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•˜ê³  Y,X ì¢Œí‘œê°’ì„ êµ¬í•¨
+        % (B) ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÏ°í Y,X ÁÂÇ¥°ªÀ» ±¸ÇÔ
         vectorElev = reshape(elevForSorting(Y_INI:Y_MAX,X_INI:X_MAX),[],1);
         sortedYXElevForUpstreamFlow = [vectorY,vectorX,vectorElev];
         sortedYXElevForUpstreamFlow ...
             = sortrows(sortedYXElevForUpstreamFlow,-3);
         
-        % B) AccumulateUpstreamFlow í•¨ìˆ˜ ëŒ€ìƒ ì…€ë“¤ì˜ ìˆ˜
+        % B) AccumulateUpstreamFlow ÇÔ¼ö ´ë»ó ¼¿µéÀÇ ¼ö
         consideringCellsNoForUpstreamFlow = find(vectorElev > - inf);
         consideringCellsNoForUpstreamFlow ...
             = size(consideringCellsNoForUpstreamFlow,1);
 
-        % C) ì—°ê°„ìœ ëŸ‰
-        [annualDischarge1 ...   % ì—°ê°„ ìœ ëŸ‰ [m^3/dT]
-        ,isOverflowing] ...     % flooded region ì €ìˆ˜ëŸ‰ ì´ˆê³¼ ì—¬ë¶€ íƒœê·¸
+        % C) ¿¬°£À¯·®
+        [annualDischarge1 ...   % ¿¬°£ À¯·® [m^3/dT]
+        ,isOverflowing] ...     % flooded region Àú¼ö·® ÃÊ°ú ¿©ºÎ ÅÂ±×
             = AccumulateUpstreamFlow(mRows,nCols ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
             ,sortedYXElevForUpstreamFlow ...
@@ -722,41 +722,41 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,facetFlowDirection,e1LinearIndicies,e2LinearIndicies ...
             ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX);
 
-        % B. ë§Œì œìœ ëŸ‰, ë§Œì œìœ ëŸ‰ì‹œ í•˜í­ê³¼ ìˆ˜ì‹¬
+        % B. ¸¸Á¦À¯·®, ¸¸Á¦À¯·®½Ã ÇÏÆø°ú ¼ö½É
         
-        % A) ì—° í‰ê· ìœ ëŸ‰[m^3/s]
+        % A) ¿¬ Æò±ÕÀ¯·®[m^3/s]
         meanDischarge = annualDischarge1 / SECPERYEAR;
 
-        % B) ë§Œì œìœ ëŸ‰[m^3/s]
+        % B) ¸¸Á¦À¯·®[m^3/s]
         bankfullDischarge = kqb * meanDischarge .^ mqb;
 
-        % C) ë§Œì œìœ ëŸ‰ì‹œ í•˜í­[m]
+        % C) ¸¸Á¦À¯·®½Ã ÇÏÆø[m]
         bankfullWidth = khw * bankfullDischarge .^ mhw;
         
-        % D) ë§Œì œìœ ëŸ‰ì‹œ ìˆ˜ì‹¬[m]
-        bankfullDepth = khd * bankfullDischarge .^ mhd; % í•˜ì²œ ìˆ˜ë¦¬ê¸°í•˜ ë²•ì¹™ìœ¼ë¡œë¶€í„° ì¶”ì •
-        % bankfullDepth = ( (bankfullDischarge ./ bankfullWidth) ... % Manning íë¦„ ì €í•­ì‹ìœ¼ë¡œ ë¶€í„° ì¶”ì •
+        % D) ¸¸Á¦À¯·®½Ã ¼ö½É[m]
+        bankfullDepth = khd * bankfullDischarge .^ mhd; % ÇÏÃµ ¼ö¸®±âÇÏ ¹ýÄ¢À¸·ÎºÎÅÍ ÃßÁ¤
+        % bankfullDepth = ( (bankfullDischarge ./ bankfullWidth) ... % Manning Èå¸§ ÀúÇ×½ÄÀ¸·Î ºÎÅÍ ÃßÁ¤
         %    * nA .* integratedSlope .^ -0.5 ) .^ 0.6;        
         
-        % (3) ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ì •ì˜í•¨
-        % * ì›ë¦¬: ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ë™ì•ˆ í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë° ê¸°ë°˜ì•”
-        %   ê³ ë„ ë³€í™”ë¡œ ì¸í•´ ë‹¤ìŒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ” ìµœì†Œ ì‹œê°„(ê¸°ë³µì—­ì „ì´
-        %   ë°œìƒí•˜ì§€ ì•ŠëŠ” ìµœëŒ€ ì‹œê°„)ì„ êµ¬í•˜ê³  ì´ë¥¼ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ìœ¼ë¡œ ì„¤ì •í•¨
+        % (3) ¼¼ºÎ ´ÜÀ§½Ã°£À» Á¤ÀÇÇÔ
+        % * ¿ø¸®: ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ µ¿¾È ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀû¹° µÎ²² ¹× ±â¹Ý¾Ï
+        %   °íµµ º¯È­·Î ÀÎÇØ ´ÙÀ½ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Â ÃÖ¼Ò ½Ã°£(±âº¹¿ªÀüÀÌ
+        %   ¹ß»ýÇÏÁö ¾Ê´Â ÃÖ´ë ½Ã°£)À» ±¸ÇÏ°í ÀÌ¸¦ ¼¼ºÎ ´ÜÀ§½Ã°£À¸·Î ¼³Á¤ÇÔ
         
-        % A. ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ë™ì•ˆì˜ í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•”
-        %    ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•¨
+        % A. ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ µ¿¾ÈÀÇ ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï
+        %    °íµµ º¯È­À²À» ±¸ÇÔ
         
-        % A) ì…€ë“¤ì„ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•¨
+        % A) ¼¿µéÀ» °íµµ ¼øÀ¸·Î Á¤·ÄÇÔ
                 
-        % (A) í•˜ì²œì„ ì •ì˜í•˜ê³ , í•˜ì²œì´ ì•„ë‹Œ ì…€ë“¤ì€ ì œì™¸í•¨
-        % * ì£¼ì˜: flooded regionë„ í¬í•¨í•¨. ì´ì˜ ê³ ë„ ë³€í™”ìœ¨ë„ FluvialProcess
-        %   í•¨ìˆ˜ì—ì„œ êµ¬í•˜ê¸° ë•Œë¬¸ìž„
-        % * ì£¼ì˜: shalow overland flowë¡œ ì¸í•œ ë¬¼ì§ˆì´ë™ì„ ê³ ë ¤í•  ê²½ìš°, ì‚¬ë©´ì—ì„œ
-        %   ë¦´ ë˜ëŠ” í¬ìƒë¥ ì— ì˜í•œ ì¹¨ì‹ì´ ë°œìƒí•¨. ë”°ë¼ì„œ ì´ë¥¼ ê³ ë ¤í•˜ê¸° ìœ„í•´
-        %   hillslopeì„ ì •ì˜í•¨
+        % (A) ÇÏÃµÀ» Á¤ÀÇÇÏ°í, ÇÏÃµÀÌ ¾Æ´Ñ ¼¿µéÀº Á¦¿ÜÇÔ
+        % * ÁÖÀÇ: flooded regionµµ Æ÷ÇÔÇÔ. ÀÌÀÇ °íµµ º¯È­À²µµ FluvialProcess
+        %   ÇÔ¼ö¿¡¼­ ±¸ÇÏ±â ¶§¹®ÀÓ
+        % * ÁÖÀÇ: shalow overland flow·Î ÀÎÇÑ ¹°ÁúÀÌµ¿À» °í·ÁÇÒ °æ¿ì, »ç¸é¿¡¼­
+        %   ¸± ¶Ç´Â Æ÷»ó·ü¿¡ ÀÇÇÑ Ä§½ÄÀÌ ¹ß»ýÇÔ. µû¶ó¼­ ÀÌ¸¦ °í·ÁÇÏ±â À§ÇØ
+        %   hillslopeÀ» Á¤ÀÇÇÔ
         elevForSorting = elev;        
         
-        upslopeArea = annualDischarge1 ./ annualRunoff; % ìƒë¶€ ìœ ì—­ë©´ì  [m^3/yr]/[m/yr]
+        upslopeArea = annualDischarge1 ./ annualRunoff; % »óºÎ À¯¿ª¸éÀû [m^3/yr]/[m/yr]
 
         channel ...
             = DefineChannel(upslopeArea,integratedSlope,channelInitiation ...
@@ -764,65 +764,65 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         
         hillslope = ~ channel;
         
-        % í•˜ì²œì´ ì•„ë‹Œ ì…€ë“¤ì„ ì œì™¸í•  ê²½ìš°
+        % ÇÏÃµÀÌ ¾Æ´Ñ ¼¿µéÀ» Á¦¿ÜÇÒ °æ¿ì
         % elevForSorting(flood == FLOODED | ~ channel) = - inf;
-        % ì‚¬ë©´ì—ì„œì˜ í† ì–‘ ì¹¨ì‹ê¹Œì§€ ëª¨ë‘ êµ¬í•  ê²½ìš°
+        % »ç¸é¿¡¼­ÀÇ Åä¾ç Ä§½Ä±îÁö ¸ðµÎ ±¸ÇÒ °æ¿ì
         elevForSorting(flood == FLOODED) = - inf;
         
-        % (B) ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•˜ê³  ì´ì˜ Y,X ì¢Œí‘œê°’ì„ êµ¬í•¨
+        % (B) ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÏ°í ÀÌÀÇ Y,X ÁÂÇ¥°ªÀ» ±¸ÇÔ
         vectorElev = reshape(elevForSorting(Y_INI:Y_MAX,X_INI:X_MAX),[],1);
         sortedYXElevForFluvial = [vectorY,vectorX,vectorElev];
         sortedYXElevForFluvial = sortrows(sortedYXElevForFluvial,-3);
 
-        % B) í•˜ì²œìž‘ìš©ì´ ì¼ì–´ë‚˜ëŠ” ì…€ë“¤ì˜ ìˆ˜ë¥¼ êµ¬í•¨
+        % B) ÇÏÃµÀÛ¿ëÀÌ ÀÏ¾î³ª´Â ¼¿µéÀÇ ¼ö¸¦ ±¸ÇÔ
         consideringCellsNoForFluvial = find(vectorElev > - inf);
         consideringCellsNoForFluvial ...
             = size(consideringCellsNoForFluvial,1);
         
-        % C) ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ì„¤ì •í•¨
+        % C) ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£À» ¼³Á¤ÇÔ
         trialTime ...
             = bankfullTime * basicManipulationRatio ^ nt;
                 
-        % D) í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ [m^3]
+        % D) ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ [m^3]
         
-        % (A) í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë‘ê»˜ [m/bankfullWidth]
+        % (A) ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ µÎ²² [m/bankfullWidth]
         chanBedSedThick = zeros(mRows,nCols);
         chanBedSedThick(channel) ...
             = sedimentThick(channel) ...
             + bankfullWidth(channel) .* bankfullDepth(channel) ./ dX ...
             - bankfullDepth(channel);
         
-        % * ì£¼ì˜: ëª¨ë¸ ë‚´ì—ì„œ í•˜ìƒ í‡´ì ì¸µ ë‘ê»˜ê°€ ìŒì¼ ê²½ìš°, ëŒ€ë¶€ë¶„ì€ ìœ ëŸ‰ì´ ë§Žì•„
-        %   í•˜ë„ê°€ ë„“ì€ë° sedimentThickì€ ìž‘ì€ ê²ƒìœ¼ë¡œ ì¶”ì •ë¨
+        % * ÁÖÀÇ: ¸ðµ¨ ³»¿¡¼­ ÇÏ»ó ÅðÀûÃþ µÎ²²°¡ À½ÀÏ °æ¿ì, ´ëºÎºÐÀº À¯·®ÀÌ ¸¹¾Æ
+        %   ÇÏµµ°¡ ³ÐÀºµ¥ sedimentThickÀº ÀÛÀº °ÍÀ¸·Î ÃßÁ¤µÊ
         chanBedSedThick(chanBedSedThick < 0) = 0;
         
-        % (B) í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë¶€í”¼ [m^3]
+        % (B) ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ ºÎÇÇ [m^3]
         chanBedSed = chanBedSedThick * dX .* bankfullWidth;
         
-        % (C) ì´ì „ í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë¶€í”¼ì™€ ë¹„êµ
-        % * í™•ì¸í•  ì‚¬í•­: 1) ì¦ê°€í•˜ëŠ” ê²½ìš°ì™€ 2) ê°ì†Œí•˜ëŠ” ê²½ìš°ê°€ ì–´ë– í•œ ì¡°ê±´ì¼ ë•Œ
-        %   ë°œìƒí•˜ëŠ”ì§€ í™•ì¸í•´ë³¼ ê²ƒ. í˜„ìž¬ë¡œëŠ” í˜„ ì§€í˜• ë˜ëŠ” ê¸°í›„ ì¡°ê±´ ì•„ëž˜ì—ì„œ ìœ ëŸ‰ì˜
-        %   ì¦ê°ê³¼ ì´ì— ë”°ë¼ ìˆ˜ë¦¬ê¸°í•˜ì˜ ë³€í™”ë¡œ ì¸í•œ ì¦ê°ì´ ì˜ˆìƒë¨. íŠ¹ížˆ í•˜ì²œì˜
-        %   ìˆ˜ë¦¬ê¸°í•˜íŠ¹ì„±ìƒ ìˆ˜ì‹¬ë³´ë‹¤ëŠ” í•˜í­ì˜ ì¦ê°€ìœ¨ì´ í¬ë¯€ë¡œ, ìœ ëŸ‰ ì¦ê°€ëŠ” ì¼ì°¨ì ìœ¼ë¡œ
-        %   í•˜í­ì„ ë„“ížˆê³  ì´ë¡œ ì¸í•´ ì´ì „ í•˜ìƒ í‡´ì ì¸µë³´ë‹¤ ì¦ê°€í•  ê²ƒìœ¼ë¡œ ì˜ˆìƒë¨.
+        % (C) ÀÌÀü ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ ºÎÇÇ¿Í ºñ±³
+        % * È®ÀÎÇÒ »çÇ×: 1) Áõ°¡ÇÏ´Â °æ¿ì¿Í 2) °¨¼ÒÇÏ´Â °æ¿ì°¡ ¾î¶°ÇÑ Á¶°ÇÀÏ ¶§
+        %   ¹ß»ýÇÏ´ÂÁö È®ÀÎÇØº¼ °Í. ÇöÀç·Î´Â Çö ÁöÇü ¶Ç´Â ±âÈÄ Á¶°Ç ¾Æ·¡¿¡¼­ À¯·®ÀÇ
+        %   Áõ°¨°ú ÀÌ¿¡ µû¶ó ¼ö¸®±âÇÏÀÇ º¯È­·Î ÀÎÇÑ Áõ°¨ÀÌ ¿¹»óµÊ. Æ¯È÷ ÇÏÃµÀÇ
+        %   ¼ö¸®±âÇÏÆ¯¼º»ó ¼ö½Éº¸´Ù´Â ÇÏÆøÀÇ Áõ°¡À²ÀÌ Å©¹Ç·Î, À¯·® Áõ°¡´Â ÀÏÂ÷ÀûÀ¸·Î
+        %   ÇÏÆøÀ» ³ÐÈ÷°í ÀÌ·Î ÀÎÇØ ÀÌÀü ÇÏ»ó ÅðÀûÃþº¸´Ù Áõ°¡ÇÒ °ÍÀ¸·Î ¿¹»óµÊ.
         % dChanBedSedPerDT = chanBedSedPerDT + (chanBedSed - oldChanBedSed);
 
         % oldChanBedSed = chanBedSed;
 
-        % (D) ì´ì „ í•˜ì²œìž‘ìš© ì´í›„ í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë¶€í”¼ì˜ ë³€í™”
-        % * ì›ë¦¬: 1) ì¦ê°€í•˜ëŠ” ê²½ìš°: í•˜ë„ì˜ í™œë°œí•œ ì¹¨ì‹ìœ¼ë¡œ ì¸í•œ í•˜ë„ ì–‘ì•ˆ
-        %   í‡´ì ì¸µìœ¼ë¡œë¶€í„°ì˜ ê³µê¸‰(í•˜ì²œì˜ ì¸¡ë°©ì¹¨ì‹ ë˜ëŠ” í•˜ë„ ì–‘ì•ˆì˜ ì‚¬ë©´ìž‘ìš©)
-        %   * (C)ì˜ 1)ë¡œ ì¸í•œ íš¨ê³¼ë„ í¬í•¨í•  ê²ƒìž„
-        %   2) ê°ì†Œí•˜ëŠ” ê²½ìš°: ìƒë¥˜ë¡œë¶€í„°ì˜ í•˜ìƒ í‡´ì ë¬¼ ìœ ìž… ë˜ëŠ” ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ
-        %   ì‚¬ë©´ë¬¼ì§ˆ ìœ ìž…ìœ¨ì´ ë§Žì•˜ë˜ ê²½ìš°. ê°ì†Œëœ ì–‘ì€ í•˜ë„ ì–‘ì•ˆì— í‡´ì ë˜ì—ˆë‹¤ê³ 
-        %   ê°€ì •í•¨. * (C)ì˜ 2)ë¡œ ì¸í•œ íš¨ê³¼ë„ í¬í•¨í•  ê²ƒìž„
+        % (D) ÀÌÀü ÇÏÃµÀÛ¿ë ÀÌÈÄ ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ ºÎÇÇÀÇ º¯È­
+        % * ¿ø¸®: 1) Áõ°¡ÇÏ´Â °æ¿ì: ÇÏµµÀÇ È°¹ßÇÑ Ä§½ÄÀ¸·Î ÀÎÇÑ ÇÏµµ ¾ç¾È
+        %   ÅðÀûÃþÀ¸·ÎºÎÅÍÀÇ °ø±Þ(ÇÏÃµÀÇ Ãø¹æÄ§½Ä ¶Ç´Â ÇÏµµ ¾ç¾ÈÀÇ »ç¸éÀÛ¿ë)
+        %   * (C)ÀÇ 1)·Î ÀÎÇÑ È¿°úµµ Æ÷ÇÔÇÒ °ÍÀÓ
+        %   2) °¨¼ÒÇÏ´Â °æ¿ì: »ó·ù·ÎºÎÅÍÀÇ ÇÏ»ó ÅðÀû¹° À¯ÀÔ ¶Ç´Â »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ
+        %   »ç¸é¹°Áú À¯ÀÔÀ²ÀÌ ¸¹¾Ò´ø °æ¿ì. °¨¼ÒµÈ ¾çÀº ÇÏµµ ¾ç¾È¿¡ ÅðÀûµÇ¾ú´Ù°í
+        %   °¡Á¤ÇÔ. * (C)ÀÇ 2)·Î ÀÎÇÑ È¿°úµµ Æ÷ÇÔÇÒ °ÍÀÓ
         chanBedSedBudgetPerDT = chanBedSedBudgetPerDT ...
             + (chanBedSed - remnantChanBedSed); 
         
-        % E) ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ë™ì•ˆ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
-        [dSedThickByFluvialForSubDT ...     % í‡´ì ì¸µ ë‘ê²Œ ë³€í™”ìœ¨[m/trialTime]
-        ,dBedrockElevByFluvialForSubDT ...  % ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨[m/trialTime]
-        ,dChanBedSedForSubDT] ...            % í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë‘ê»˜ [m^3]   
+        % E) ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ µ¿¾È ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï °íµµ º¯È­À²
+        [dSedThickByFluvialForSubDT ...     % ÅðÀûÃþ µÎ°Ô º¯È­À²[m/trialTime]
+        ,dBedrockElevByFluvialForSubDT ...  % ±â¹Ý¾Ï °íµµ º¯È­À²[m/trialTime]
+        ,dChanBedSedForSubDT] ...            % ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ µÎ²² [m^3]   
             = FluvialProcess(mRows,nCols ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
             ,FLUVIALPROCESS_COND,timeWeight ...
@@ -836,10 +836,10 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
             ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,trialTime,dX);
         
-        % B. ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ì •ì˜í•¨
-        [subDT ...              % ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ [s]
-        ,sumSubDT ...           % ëˆ„ì  ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ [s]
-        ,nt] ...                % ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ì¶”ì •ì„ ìœ„í•œ ë³€ìˆ˜
+        % B. ¼¼ºÎ ´ÜÀ§½Ã°£À» Á¤ÀÇÇÔ
+        [subDT ...              % ¼¼ºÎ ´ÜÀ§½Ã°£ [s]
+        ,sumSubDT ...           % ´©Àû ¼¼ºÎ ´ÜÀ§½Ã°£ [s]
+        ,nt] ...                % ¼¼ºÎ ´ÜÀ§½Ã°£ ÃßÁ¤À» À§ÇÑ º¯¼ö
             = EstimateSubDT(mRows,nCols,elev ...
             ,dSedThickByFluvialForSubDT,dBedrockElevByFluvialForSubDT ...
             ,trialTime,sumSubDT,minSubDT ...
@@ -849,14 +849,14 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,e1LinearIndicies,outputFluxRatioToE1 ...
             ,e2LinearIndicies,outputFluxRatioToE2);
         
-        % (4) ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ë™ì•ˆ í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë° ê¸°ë°˜ì•” ë³€í™”ìœ¨
+        % (4) ¼¼ºÎ ´ÜÀ§½Ã°£ µ¿¾È ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀû¹° µÎ²² ¹× ±â¹Ý¾Ï º¯È­À²
         
-        % A. í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë° ê¸°ë°˜ì•” ë³€í™”ìœ¨
-        % * ì…€ë“¤ì„ ê³ ë„ ìˆœìœ¼ë¡œ ë‹¤ì‹œ ì •ë ¬í•˜ì§€ ì•Šê³ , EstimateMinTakenTime í•¨ìˆ˜
-        %   ì‹œì— ì •ë ¬í–ˆë˜ ê²ƒì„ ì´ìš©í•¨
-        [dSedThickByFluvialPerSubDT ...    % í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 subDT]
-        ,dBedrockElevByFluvialPerSubDT ...      % ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 subDT]
-        ,dChanBedSedPerSubDT] ...               % í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë‘ê»˜ [m^3]
+        % A. ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀû¹° µÎ²² ¹× ±â¹Ý¾Ï º¯È­À²
+        % * ¼¿µéÀ» °íµµ ¼øÀ¸·Î ´Ù½Ã Á¤·ÄÇÏÁö ¾Ê°í, EstimateMinTakenTime ÇÔ¼ö
+        %   ½Ã¿¡ Á¤·ÄÇß´ø °ÍÀ» ÀÌ¿ëÇÔ
+        [dSedThickByFluvialPerSubDT ...    % ÅðÀû¹° µÎ²² º¯È­À² [m^3/m^2 subDT]
+        ,dBedrockElevByFluvialPerSubDT ...      % ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 subDT]
+        ,dChanBedSedPerSubDT] ...               % ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ µÎ²² [m^3]
             = FluvialProcess(mRows,nCols ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
             ,FLUVIALPROCESS_COND,timeWeight ...
@@ -871,15 +871,15 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
             ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX);
         
-        % B. ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì˜ í‡´ì ë¬¼ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„ ëˆ„ì í•˜ê³ 
-        %    í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ì„ ê°±ì‹ í•¨
+        % B. ¼¼ºÎ ´ÜÀ§½Ã°£ÀÇ ÅðÀû¹° µÎ²² ¹× ±â¹Ý¾Ï °íµµ º¯È­À²À» ´©ÀûÇÏ°í
+        %    ÇÏµµ ³» ÇÏ»ó ÅðÀû¹°À» °»½ÅÇÔ
         dSedThickByFluvialPerDT ...
             = dSedThickByFluvialPerDT + dSedThickByFluvialPerSubDT;
         dBedrockElevByFluvialPerDT ...
             = dBedrockElevByFluvialPerDT + dBedrockElevByFluvialPerSubDT;
         remnantChanBedSed = chanBedSed + dChanBedSedPerSubDT;
         
-        % C. í‡´ì ë¬¼ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„ í˜„ ì§€í˜•ì— ë°˜ì˜í•¨
+        % C. ÅðÀû¹° µÎ²² ¹× ±â¹Ý¾Ï °íµµ º¯È­À²À» Çö ÁöÇü¿¡ ¹Ý¿µÇÔ
         sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
             = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
             + dSedThickByFluvialPerSubDT(Y_INI:Y_MAX,X_INI:X_MAX);
@@ -887,20 +887,20 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
             + dBedrockElevByFluvialPerSubDT(Y_INI:Y_MAX,X_INI:X_MAX);
         
-        % (5) ì„¸ë¶€ ì‹¤í–‰ íšŸìˆ˜ë¥¼ í•˜ë‚˜ ì¦ê°€í•¨
+        % (5) ¼¼ºÎ ½ÇÇà È½¼ö¸¦ ÇÏ³ª Áõ°¡ÇÔ
         ithSubTimeStep = ithSubTimeStep + 1;
         
     end % while (sumSubDT < bankfullTime)
     
-    % 5. ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
-    % * ì›ë¦¬: ë¶ˆì•ˆì •í•œ ì‚¬ë©´ì„ íŒŒì•…í•˜ê³ , ì´ë“¤ì— ëŒ€í•´ ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ë¥¼ ë°œìƒì‹œì¼œ
-    %   ì‚¬ë©´ë¬¼ì§ˆì„ í•˜ë¶€ë¡œ ì—°ì‡„ì´ë™ ì‹œí‚´
+    % 5. ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®·Î ÀÎÇÑ ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï °íµµ º¯È­À²
+    % * ¿ø¸®: ºÒ¾ÈÁ¤ÇÑ »ç¸éÀ» ÆÄ¾ÇÇÏ°í, ÀÌµé¿¡ ´ëÇØ ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®¸¦ ¹ß»ý½ÃÄÑ
+    %   »ç¸é¹°ÁúÀ» ÇÏºÎ·Î ¿¬¼âÀÌµ¿ ½ÃÅ´
     
-    % 1) ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
-    [dBedrockElevByRapidMass ...        % ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m/dT]
-    ,dSedThickByRapidMass ...          % í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/dT]
-    ,dTAfterLastShallowLandslide ...    % ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
-    ,dTAfterLastBedrockLandslide] ...   % ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
+    % 1) ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®·Î ÀÎÇÑ ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï °íµµ º¯È­À²
+    [dBedrockElevByRapidMass ...        % ±â¹Ý¾Ï °íµµ º¯È­À² [m/dT]
+    ,dSedThickByRapidMass ...          % ÅðÀûÃþ µÎ²² º¯È­À² [m/dT]
+    ,dTAfterLastShallowLandslide ...    % ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
+    ,dTAfterLastBedrockLandslide] ...   % ¸¶Áö¸· ±â¹Ý¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
         = RapidMassMovement(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,dT,ROOT2,QUARTER_PI ...
         ,CELL_AREA,DISTANCE_RATIO_TO_NBR,soilCriticalSlopeForFailure ...
@@ -910,7 +910,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         ,ithNbrYOffset,ithNbrXOffset ...
         ,sE0LinearIndicies,s3IthNbrLinearIndicies);
 
-    % 2) ê¸°ë°˜ì•” ê³ ë„ì™€ í‡´ì ì¸µ ë‘ê»˜ë¥¼ ê°±ì‹ í•¨
+    % 2) ±â¹Ý¾Ï °íµµ¿Í ÅðÀûÃþ µÎ²²¸¦ °»½ÅÇÔ
     bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
         = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
         + dBedrockElevByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
@@ -920,37 +920,37 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     % for debug
     if sum(sum(dSedThickByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX))) > 0
        
-        fprintf('%g\n', ithTimeStep);   % ì‹¤í–‰ íšŸìˆ˜ ì¶œë ¥
+        fprintf('%g\n', ithTimeStep);   % ½ÇÇà È½¼ö Ãâ·Â
         
     end
     
-    % ì¼ì • ì‹¤í–‰ íšŸìˆ˜ ê°„ê²©ìœ¼ë¡œ ëª¨ì˜ ê²°ê³¼ë¥¼ íŒŒì¼ì— ê¸°ë¡í•œë‹¤.
+    % ÀÏÁ¤ ½ÇÇà È½¼ö °£°ÝÀ¸·Î ¸ðÀÇ °á°ú¸¦ ÆÄÀÏ¿¡ ±â·ÏÇÑ´Ù.
     if mod(ithTimeStep,WRITE_INTERVAL) == 0
        
-        % í’í™”ì¸µ ë¶„í¬
+        % Ç³È­Ãþ ºÐÆ÷
         fprintf(FID_WEATHER,'%14.10f\n',weatheringProductPerDT);        
-        % (ì™¸ì  ìž‘ìš©ìœ¼ë¡œ ì¸í•œ ë³€í™” ì „) í‡´ì ì¸µ ë‘ê»˜
+        % (¿ÜÀû ÀÛ¿ëÀ¸·Î ÀÎÇÑ º¯È­ Àü) ÅðÀûÃþ µÎ²²
         fprintf(FID_SEDTHICK,'%14.10f\n',preSedThick);        
-        % (ì™¸ì  ìž‘ìš©ìœ¼ë¡œ ì¸í•œ ë³€í™” ì „) ê¸°ë°˜ì•” ê³ ë„
+        % (¿ÜÀû ÀÛ¿ëÀ¸·Î ÀÎÇÑ º¯È­ Àü) ±â¹Ý¾Ï °íµµ
         fprintf(FID_BEDROCKELEV,'%14.10f\n',preBedrockElev);        
-        % ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨
+        % »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À²
         fprintf(FID_dSEDTHICK_BYHILLSLOPE,'%14.10f\n',dSedThickByHillslopePerDT);
-        % í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ìˆ˜ì§€
+        % ÇÏµµ ³» ÇÏ»ó ÅðÀûÃþ ¼öÁö
         fprintf(FID_CHANBEDSEDBUDGET,'%14.10f\n',chanBedSedBudgetPerDT);
-        % í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨
+        % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀû¹° µÎ²² º¯È­À²
         fprintf(FID_dSEDTHICK_BYFLUVIAL,'%14.10f\n',dSedThickByFluvialPerDT);        
-        % í•˜ì²œìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
+        % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À²
         fprintf(FID_dBEDROCKELEV_BYFLUVIAL,'%14.10f\n',dBedrockElevByFluvialPerDT);
-        % ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨
+        % ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®¿¡ ÀÇÇÑ ÅðÀû¹° µÎ²² º¯È­À²
         fprintf(FID_dSEDTHICK_BYRAPIDMASS,'%14.10f\n',dSedThickByRapidMass);        
-        % ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
+        % ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À²
         fprintf(FID_dBEDROCKELEV_BYRAPIDMASS,'%14.10f\n',dBedrockElevByRapidMass);
         
     end % if mod(ithTimeStep,WRITE_INTERVAL) == 0
     
 end % for ithTimeStep = 1:TIME_STEPS_NO
 
-% GPSS 2D ì¢…ë£Œ ì‹œê°„ê³¼ ì „ì²´ ì†Œìš” ì‹œê°„ì„ ë¡œê·¸ íŒŒì¼ì— ê¸°ë¡í•œë‹¤.
+% GPSS 2D Á¾·á ½Ã°£°ú ÀüÃ¼ ¼Ò¿ä ½Ã°£À» ·Î±× ÆÄÀÏ¿¡ ±â·ÏÇÑ´Ù.
 finishedTime = clock;
 elapsedTime = datenum(finishedTime) - datenum(startedTime);
 elapsedTime = datevec(elapsedTime);
@@ -961,7 +961,7 @@ fprintf(FID_LOG,'GPSS 2D finished time : %i[year] %i[month] %i[day] %i[hr] %i[mi
 fprintf(FID_LOG,'GPSS 2D running time : %i[year] %i[month] %i[day] %i[hr] %i[min] %f[sec]\n' ...
     ,elapsedTime);
 
-% ëª¨ë“  ì¶œë ¥ íŒŒì¼ì„ ë‹«ëŠ”ë‹¤.
+% ¸ðµç Ãâ·Â ÆÄÀÏÀ» ´Ý´Â´Ù.
 fclose(FID_WEATHER);
 fclose(FID_SEDTHICK);
 fclose(FID_BEDROCKELEV);

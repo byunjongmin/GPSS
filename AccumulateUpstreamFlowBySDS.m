@@ -1,27 +1,27 @@
 % =========================================================================
 %> @section INTRO AccumulateUpstreamFlowBySDS
 %>
-%> - ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ê³¼ ëˆ„ì  ì…€ ê°œìˆ˜ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜
+%> - »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®°ú ´©Àû ¼¿ °³¼ö¸¦ ±¸ÇÏ´Â ÇÔ¼ö
 %>
-%>  - ì£¼ì˜: ìœ ëŸ‰ì˜ ê²½ìš° flooded regionì˜ ì €ìˆ˜ëŸ‰ì„ ì œì™¸í•œ ìœ ëŸ‰ê³¼ ì œì™¸í•˜ì§€ ì•Šì€
-%>    ìœ ëŸ‰ 2ê°€ì§€ë¥¼ ë§Œë“¤ ìˆ˜ ìˆìŒ
+%>  - ÁÖÀÇ: À¯·®ÀÇ °æ¿ì flooded regionÀÇ Àú¼ö·®À» Á¦¿ÜÇÑ À¯·®°ú Á¦¿ÜÇÏÁö ¾ÊÀº
+%>    À¯·® 2°¡Áö¸¦ ¸¸µé ¼ö ÀÖÀ½
 %>
-%>  - ì‹¤ì œ ê°œë°œ ë™ê¸°ëŠ” ë‹¤ìŒê³¼ ê°™ìŒ. ìš°ì„  flooded regionì˜ ì €ìˆ˜ëŸ‰ì„ ì œì™¸í•˜ì§€
-%>    ì•Šì€ ìœ ëŸ‰ì„ ì´ìš©í•  ê²½ìš°, ìœ ì¶œêµ¬ì˜ ìœ ëŸ‰ì´ flooded regionì˜ ë‹¤ë¥¸ ì…€ë“¤ê³¼ëŠ”
-%>    ë‘ë“œëŸ¬ì§€ê²Œ í¬ê³  ì´ë¡œ ì¸í•´ ìœ ì¶œêµ¬ì˜ ìš´ë°˜ëŸ‰ë§Œ ì•„ì£¼ í¬ê²Œ ë‚˜íƒ€ë‚˜ëŠ” í˜„ìƒì´
-%>    ë°œìƒí•¨. ì´ê²ƒì€ ëª¨ë¸ì˜ ì•ˆì •ì„±ì— ì‹¬ê°í•œ ë¬¸ì œë¥¼ ì•¼ê¸°í–ˆê³  ì´ë¥¼ ê°œì„ í•˜ê¸° ìœ„í•´
-%>    ì €ìˆ˜ëŸ‰ì„ ì œì™¸í•œ ìœ ëŸ‰ì„ êµ¬í•¨
+%>  - ½ÇÁ¦ °³¹ß µ¿±â´Â ´ÙÀ½°ú °°À½. ¿ì¼± flooded regionÀÇ Àú¼ö·®À» Á¦¿ÜÇÏÁö
+%>    ¾ÊÀº À¯·®À» ÀÌ¿ëÇÒ °æ¿ì, À¯Ãâ±¸ÀÇ À¯·®ÀÌ flooded regionÀÇ ´Ù¸¥ ¼¿µé°ú´Â
+%>    µÎµå·¯Áö°Ô Å©°í ÀÌ·Î ÀÎÇØ À¯Ãâ±¸ÀÇ ¿î¹İ·®¸¸ ¾ÆÁÖ Å©°Ô ³ªÅ¸³ª´Â Çö»óÀÌ
+%>    ¹ß»ıÇÔ. ÀÌ°ÍÀº ¸ğµ¨ÀÇ ¾ÈÁ¤¼º¿¡ ½É°¢ÇÑ ¹®Á¦¸¦ ¾ß±âÇß°í ÀÌ¸¦ °³¼±ÇÏ±â À§ÇØ
+%>    Àú¼ö·®À» Á¦¿ÜÇÑ À¯·®À» ±¸ÇÔ
 %>
-%>  - ì£¼ì˜: ëˆ„ì  ì…€ ê°œìˆ˜ëŠ” ëª¨í˜• ë‚´ì—ì„œ í•„ìš”í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì£¼ì„ ì²˜ë¦¬í•¨
+%>  - ÁÖÀÇ: ´©Àû ¼¿ °³¼ö´Â ¸ğÇü ³»¿¡¼­ ÇÊ¿äÇÏÁö ¾ÊÀ¸¹Ç·Î ÁÖ¼® Ã³¸®ÇÔ
 %>
-%>  - ì¶œë ¥ ë³€ìˆ˜ ì¤‘ ì œì™¸ ëŒ€ìƒ: upstreamDischarge2, upstreamCellsNo
+%>  - Ãâ·Â º¯¼ö Áß Á¦¿Ü ´ë»ó: upstreamDischarge2, upstreamCellsNo
 %>
 %> - History
 %>
 %>  - 2012-09-28
-%>   - SDS ì•Œê³ ë¦¬ë“¬ìœ¼ë¡œ êµ¬í•  ìˆ˜ ìˆë„ë¡ ìˆ˜ì •í•¨
+%>   - SDS ¾Ë°í¸®µëÀ¸·Î ±¸ÇÒ ¼ö ÀÖµµ·Ï ¼öÁ¤ÇÔ
 %>  - 2009-12-31
-%>   - flooded regionì— í•´ë‹¹í•˜ëŠ” ì…€ë“¤ì˜ ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ë¥¼ ë³´ë‹¤ í˜„ì‹¤í™”í•¨
+%>   - flooded region¿¡ ÇØ´çÇÏ´Â ¼¿µéÀÇ À¯·®°ú ¼¿ °³¼ö¸¦ º¸´Ù Çö½ÇÈ­ÇÔ
 %>
 %> @version 0.1
 %> @callgraph
@@ -29,140 +29,140 @@
 %>
 %> @see IsBoundary()
 %>
-%> @retval upstreamDischarge1           : ì—°ê°„ ìœ ëŸ‰ [m^3/year]
-%> @retval isOverflowing                : flooded region ì €ìˆ˜ëŸ‰ ì´ˆê³¼ ì—¬ë¶€ íƒœê·¸
+%> @retval upstreamDischarge1           : ¿¬°£ À¯·® [m^3/year]
+%> @retval isOverflowing                : flooded region Àú¼ö·® ÃÊ°ú ¿©ºÎ ÅÂ±×
 %>
-%> @param mRows                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
-%> @param nCols                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
-%> @param Y_TOP_BND                     : ëª¨í˜• ì™¸ê³½ ìœ„ ê²½ê³„ Y ì¢Œí‘œê°’
-%> @param Y_BOTTOM_BND                  : ëª¨í˜• ì™¸ê³½ ì•„ë˜ ê²½ê³„ Y ì¢Œí‘œê°’
-%> @param X_LEFT_BND                    : ëª¨í˜• ì™¸ê³½ ì¢Œ ê²½ê³„ X ì¢Œí‘œê°’
-%> @param X_RIGHT_BND                   : ëª¨í˜• ì™¸ê³½ ìš° ê²½ê³„ X ì¢Œí‘œê°’
-%> @param CELL_AREA                     : ì…€ ë©´ì  [m^2]
-%> @param sortedYXElev                  : ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•œ Y,X ì¢Œí‘œê°’
-%> @param consideringCellsNo            : í•¨ìˆ˜ì˜ ëŒ€ìƒì´ ë˜ëŠ” ì…€ë“¤ì˜ ìˆ˜
-%> @param OUTER_BOUNDARY                : ëª¨í˜• ì˜ì—­ ì™¸ê³½ ê²½ê³„ ë§ˆìŠ¤í¬
-%> @param annualRunoff                  : ì—°ê°„ ì§€í‘œ ìœ ì¶œëŸ‰ [m/year]
-%> @param flood                         : SINKë¡œ ì¸í•´ ë¬¼ì´ ê³ ì´ëŠ” ì§€ì—­(flooded region)
-%> @param floodedRegionCellsNo          : ê°œë³„ flooded region ì…€ ê°œìˆ˜
-%> @param floodedRegionStorageVolume    : ê°œë ´ flooded region ì €ìˆ˜ëŸ‰(ë¶€í”¼)
-%> @param floodedRegionIndex            : ê°œë³„ flooded region ìƒ‰ì¸
-%> @param facetFlowDirection            : ë¬´í•œ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ìœ¼ë¡œ êµ¬í•œ ìœ í–¥
-%> @param e1LinearIndicies              : ë¬´í•œ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ ìƒ‰ì¸
-%> @param e2LinearIndicies              : ë¬´í•œ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ ìƒ‰ì¸
-%> @param outputFluxRatioToE1           : ë¬´í•œ ìœ í–¥ì— ì˜í•´ ë‹¤ìŒ ì…€ë¡œ ë¶„ë°°ë˜ëŠ” ë¹„ìœ¨
-%> @param outputFluxRatioToE2           : ë¬´í•œ ìœ í–¥ì— ì˜í•´ ë‹¤ìŒ ì…€ë¡œ ë¶„ë°°ë˜ëŠ” ë¹„ìœ¨
-%> @param SDSNbrY                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
-%> @param SDSNbrX                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
+%> @param mRows                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
+%> @param nCols                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
+%> @param Y_TOP_BND                     : ¸ğÇü ¿Ü°û À§ °æ°è Y ÁÂÇ¥°ª
+%> @param Y_BOTTOM_BND                  : ¸ğÇü ¿Ü°û ¾Æ·¡ °æ°è Y ÁÂÇ¥°ª
+%> @param X_LEFT_BND                    : ¸ğÇü ¿Ü°û ÁÂ °æ°è X ÁÂÇ¥°ª
+%> @param X_RIGHT_BND                   : ¸ğÇü ¿Ü°û ¿ì °æ°è X ÁÂÇ¥°ª
+%> @param CELL_AREA                     : ¼¿ ¸éÀû [m^2]
+%> @param sortedYXElev                  : ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÑ Y,X ÁÂÇ¥°ª
+%> @param consideringCellsNo            : ÇÔ¼öÀÇ ´ë»óÀÌ µÇ´Â ¼¿µéÀÇ ¼ö
+%> @param OUTER_BOUNDARY                : ¸ğÇü ¿µ¿ª ¿Ü°û °æ°è ¸¶½ºÅ©
+%> @param annualRunoff                  : ¿¬°£ ÁöÇ¥ À¯Ãâ·® [m/year]
+%> @param flood                         : SINK·Î ÀÎÇØ ¹°ÀÌ °íÀÌ´Â Áö¿ª(flooded region)
+%> @param floodedRegionCellsNo          : °³º° flooded region ¼¿ °³¼ö
+%> @param floodedRegionStorageVolume    : °³·Å flooded region Àú¼ö·®(ºÎÇÇ)
+%> @param floodedRegionIndex            : °³º° flooded region »öÀÎ
+%> @param facetFlowDirection            : ¹«ÇÑ À¯Çâ ¾Ë°í¸®µëÀ¸·Î ±¸ÇÑ À¯Çâ
+%> @param e1LinearIndicies              : ¹«ÇÑ À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ »öÀÎ
+%> @param e2LinearIndicies              : ¹«ÇÑ À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ »öÀÎ
+%> @param outputFluxRatioToE1           : ¹«ÇÑ À¯Çâ¿¡ ÀÇÇØ ´ÙÀ½ ¼¿·Î ºĞ¹èµÇ´Â ºñÀ²
+%> @param outputFluxRatioToE2           : ¹«ÇÑ À¯Çâ¿¡ ÀÇÇØ ´ÙÀ½ ¼¿·Î ºĞ¹èµÇ´Â ºñÀ²
+%> @param SDSNbrY                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
+%> @param SDSNbrX                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
 % =========================================================================
 function [upstreamDischarge1,isOverflowing] = AccumulateUpstreamFlowBySDS(mRows,nCols,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA,sortedYXElev,consideringCellsNo,OUTER_BOUNDARY,annualRunoff,flood,floodedRegionCellsNo,floodedRegionStorageVolume,floodedRegionIndex,facetFlowDirection,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX)
 %
 % function AccumulateUpstreamFlow
 %
 
-% ë³€ìˆ˜ ì´ˆê¸°í™”
-% ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™”
-% ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰[m^3] (flooded regionì˜ ì €ìˆ˜ëŸ‰ì„ ê³ ë ¤í•¨)
-% * ì£¼ì˜: ë…„ê°„ ì§€í‘œ ìœ ì¶œëŸ‰ìœ¼ë¡œ ì´ˆê¸°í™”
+% º¯¼ö ÃÊ±âÈ­
+% Ãâ·Â º¯¼ö ÃÊ±âÈ­
+% »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®[m^3] (flooded regionÀÇ Àú¼ö·®À» °í·ÁÇÔ)
+% * ÁÖÀÇ: ³â°£ ÁöÇ¥ À¯Ãâ·®À¸·Î ÃÊ±âÈ­
 upstreamDischarge1 = ones(mRows,nCols) * annualRunoff * CELL_AREA;
 upstreamDischarge1(OUTER_BOUNDARY) = 0;
-% ìƒë¶€ ìœ ì—­ì˜ ëˆ„ì  ì…€ ê°œìˆ˜
-% * ì£¼ì˜: 1ë¡œ ì´ˆê¸°í™”
+% »óºÎ À¯¿ªÀÇ ´©Àû ¼¿ °³¼ö
+% * ÁÖÀÇ: 1·Î ÃÊ±âÈ­
 upstreamCellsNo = ones(mRows,nCols);
 upstreamCellsNo(OUTER_BOUNDARY) = 0;
 
 %--------------------------------------------------------------------------
-% mex íŒŒì¼ì„ ìœ„í•œ ìƒ‰ì¸
+% mex ÆÄÀÏÀ» À§ÇÑ »öÀÎ
 mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
 mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
 
-[upstreamDischarge1 ...              0 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ [m^3]
-,inputDischarge ...                  1 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ [m^3]
-,dischargeInputInFloodedRegion ...   2 flooded regionìœ¼ë¡œì˜ ìœ ëŸ‰
-,isOverflowing] ...                  3 flooded region ì €ì¥ëŸ‰ ì´ˆê³¼ íƒœê·¸
+[upstreamDischarge1 ...              0 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·® [m^3]
+,inputDischarge ...                  1 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·® [m^3]
+,dischargeInputInFloodedRegion ...   2 flooded regionÀ¸·ÎÀÇ À¯·®
+,isOverflowing] ...                  3 flooded region ÀúÀå·® ÃÊ°ú ÅÂ±×
 = EstimateUpstreamFlowBySDS ...
-(CELL_AREA ...                       0 ì…€ ë©´ì 
-,consideringCellsNo ...              1 ìƒë¶€ ìœ ì—­ ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ë¥¼ êµ¬í•˜ëŠ” ì…€ ìˆ˜
-,annualRunoff); ...                  2 ì—°ê°„ ìœ ì¶œëŸ‰
-%--------------------------------- ì…ë ¥ ë³€ìˆ˜ì—ì„œ ìƒëµí•œ ë¶€ë¶„
-%,upstreamCellsNo2 ...                 4 ìƒë¶€ ìœ ì—­ì˜ ëˆ„ì  ì…€ ê°œìˆ˜
-%,inputCellsNo2 ...                    5 ìƒë¶€ ìœ ì—­ì˜ ëˆ„ì  ì…€ ê°œìˆ˜
-% -------------------------------- mexGetVariabelPtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜ë“¤
-% upstreamDischarge1 ...             3 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ì¶œëŸ‰ ì´ˆê¸°ê°’
-% upstreamCellsNo); ...              4 ìƒë¶€ ìœ ì—­ì˜ ëˆ„ì  ì…€ ê°œìˆ˜ ì´ˆê¸°ê°’
-% mexSortedYXElev ...                5 ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
-% e1LinearIndicies ...               6 ë‹¤ìŒ ì…€ ìƒ‰ì¸
-% e2LinearIndicies ...               7 ë‹¤ìŒ ì…€ ìƒ‰ì¸ 
-% outputFluxRatio1 ...               8 ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
-% outputFluxRatio2 ...               9 ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
-% mexSDSNbrLinearIndicies ...        10 ë‹¤ìŒ ì…€ ìƒ‰ì¸
+(CELL_AREA ...                       0 ¼¿ ¸éÀû
+,consideringCellsNo ...              1 »óºÎ À¯¿ª À¯·®°ú ¼¿ °³¼ö¸¦ ±¸ÇÏ´Â ¼¿ ¼ö
+,annualRunoff); ...                  2 ¿¬°£ À¯Ãâ·®
+%--------------------------------- ÀÔ·Â º¯¼ö¿¡¼­ »ı·«ÇÑ ºÎºĞ
+%,upstreamCellsNo2 ...                 4 »óºÎ À¯¿ªÀÇ ´©Àû ¼¿ °³¼ö
+%,inputCellsNo2 ...                    5 »óºÎ À¯¿ªÀÇ ´©Àû ¼¿ °³¼ö
+% -------------------------------- mexGetVariabelPtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼öµé
+% upstreamDischarge1 ...             3 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯Ãâ·® ÃÊ±â°ª
+% upstreamCellsNo); ...              4 »óºÎ À¯¿ªÀÇ ´©Àû ¼¿ °³¼ö ÃÊ±â°ª
+% mexSortedYXElev ...                5 °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
+% e1LinearIndicies ...               6 ´ÙÀ½ ¼¿ »öÀÎ
+% e2LinearIndicies ...               7 ´ÙÀ½ ¼¿ »öÀÎ 
+% outputFluxRatio1 ...               8 ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
+% outputFluxRatio2 ...               9 ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
+% mexSDSNbrLinearIndicies ...        10 ´ÙÀ½ ¼¿ »öÀÎ
 % flood ...                          11 flooded region
-% floodedRegionCellsNo ...           12 flooded region êµ¬ì„± ì…€ ê°œìˆ˜
-% floodedRegionStorageVolume ...     13 flooded region ì €ì¥ëŸ‰ [m^3]
+% floodedRegionCellsNo ...           12 flooded region ±¸¼º ¼¿ °³¼ö
+% floodedRegionStorageVolume ...     13 flooded region ÀúÀå·® [m^3]
 
 %--------------------------------------------------------------------------
-% ì•ì„œ flooded regionì„ ì œì™¸í•œ ì…€ë“¤ì˜ ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ë¥¼ êµ¬í–ˆë‹¤. ì—¬ê¸°ì„œëŠ”
-% flooded regionì— í•´ë‹¹í•˜ëŠ” ì…€ë“¤ì˜ ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ë¥¼ ì„¤ì •í•œë‹¤.
+% ¾Õ¼­ flooded regionÀ» Á¦¿ÜÇÑ ¼¿µéÀÇ À¯·®°ú ¼¿ °³¼ö¸¦ ±¸Çß´Ù. ¿©±â¼­´Â
+% flooded region¿¡ ÇØ´çÇÏ´Â ¼¿µéÀÇ À¯·®°ú ¼¿ °³¼ö¸¦ ¼³Á¤ÇÑ´Ù.
 
-% 1. flooded regionë“¤ì˜ ìœ ì¶œêµ¬ ì¢Œí‘œì™€ ê°œìˆ˜ë¥¼ êµ¬í•œë‹¤.
+% 1. flooded regionµéÀÇ À¯Ãâ±¸ ÁÂÇ¥¿Í °³¼ö¸¦ ±¸ÇÑ´Ù.
 [tmpOutletY,tmpOutletX] = find(floodedRegionCellsNo > 0);
 
 floodedRegionsNo = size(tmpOutletY,1);
 
-% 2. ê°œë³„ flooded region êµ¬ì„± ì…€ë“¤ì˜ ìœ ëŸ‰ê³¼ ì…€ ê°œìˆ˜ë¥¼ êµ¬í•œë‹¤.
+% 2. °³º° flooded region ±¸¼º ¼¿µéÀÇ À¯·®°ú ¼¿ °³¼ö¸¦ ±¸ÇÑ´Ù.
 for ithFloodedRegion = 1:floodedRegionsNo
     
-    % 1) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ìœ ì¶œêµ¬ ì¢Œí‘œë¥¼ í™•ì¸í•œë‹¤.
+    % 1) ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ À¯Ãâ±¸ ÁÂÇ¥¸¦ È®ÀÎÇÑ´Ù.
     outletY = tmpOutletY(ithFloodedRegion,1);
     outletX = tmpOutletX(ithFloodedRegion,1);
     
-    % 2) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ìƒ‰ì¸ ë²ˆí˜¸ë¥¼ íŒŒì•…í•œë‹¤.
+    % 2) ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ »öÀÎ ¹øÈ£¸¦ ÆÄ¾ÇÇÑ´Ù.
     floodedRegionIndexNo = - floodedRegionIndex(outletY,outletX);
     
-    % 3) ë°˜ë³µë¬¸ ë³€ìˆ˜ë¥¼ ì •ì˜í•œë‹¤.
+    % 3) ¹İº¹¹® º¯¼ö¸¦ Á¤ÀÇÇÑ´Ù.
     currentFloodedRegion ...
         = (floodedRegionIndex == floodedRegionIndexNo);
     
-    % 4) ìœ ì¶œêµ¬ê°€ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì— ìœ„ì¹˜í•˜ëŠ”ì§€ í™•ì¸í•œë‹¤.
+    % 4) À¯Ãâ±¸°¡ ¸ğµ¨ ¿µ¿ª °æ°è¿¡ À§Ä¡ÇÏ´ÂÁö È®ÀÎÇÑ´Ù.
     if IsBoundary(outletY,outletX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND)
 
-        % (1) ìœ ì¶œêµ¬ê°€ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì— ìœ„ì¹˜í•œë‹¤ë©´, 1) flooded
-        %    region ì €ìˆ˜ëŸ‰ ì´ˆê³¼ ì—¬ë¶€, 2) ìœ ì¶œêµ¬ì˜ ìœ ì…ëŸ‰ê³¼ ìœ ì¶œëŸ‰ì„ êµ¬í•˜ì§€
-        %    ì•Šì•˜ë‹¤. ì—¬ê¸°ì„œëŠ” ì´ë“¤ì„ êµ¬í•œë‹¤.
+        % (1) À¯Ãâ±¸°¡ ¸ğµ¨ ¿µ¿ª °æ°è¿¡ À§Ä¡ÇÑ´Ù¸é, 1) flooded
+        %    region Àú¼ö·® ÃÊ°ú ¿©ºÎ, 2) À¯Ãâ±¸ÀÇ À¯ÀÔ·®°ú À¯Ãâ·®À» ±¸ÇÏÁö
+        %    ¾Ê¾Ò´Ù. ¿©±â¼­´Â ÀÌµéÀ» ±¸ÇÑ´Ù.
 
-        % A. flooded regionì˜ ìœ ì…ëŸ‰ì— ì§€í‘œ ìœ ì¶œëŸ‰ í•©ê³„ë¥¼ ë”í•œë‹¤.
+        % A. flooded regionÀÇ À¯ÀÔ·®¿¡ ÁöÇ¥ À¯Ãâ·® ÇÕ°è¸¦ ´õÇÑ´Ù.
         dischargeInputInFloodedRegion(outletY,outletX) ...
             = dischargeInputInFloodedRegion(outletY,outletX)...
             + floodedRegionCellsNo(outletY,outletX) ...
             * annualRunoff * CELL_AREA;
 
-        % B. flooded regionì˜ ì €ìˆ˜ëŸ‰ê³¼ ìœ ì…ëŸ‰ì„ ë¹„êµí•œë‹¤.
+        % B. flooded regionÀÇ Àú¼ö·®°ú À¯ÀÔ·®À» ºñ±³ÇÑ´Ù.
         if dischargeInputInFloodedRegion(outletY,outletX) ...
                 > floodedRegionStorageVolume(outletY,outletX)
 
-            % A) ìœ ì…ëŸ‰ì´ flooded regionì˜ ì €ìˆ˜ëŸ‰ì„ ì´ˆê³¼í•œë‹¤ë©´,
-            %    ìœ ì¶œêµ¬ì˜ ìœ ì…ëŸ‰ì— flooded regionì˜ ì´ˆê³¼ ìœ ì…ëŸ‰ì„
-            %    ë”í•œë‹¤.
+            % A) À¯ÀÔ·®ÀÌ flooded regionÀÇ Àú¼ö·®À» ÃÊ°úÇÑ´Ù¸é,
+            %    À¯Ãâ±¸ÀÇ À¯ÀÔ·®¿¡ flooded regionÀÇ ÃÊ°ú À¯ÀÔ·®À»
+            %    ´õÇÑ´Ù.
             inputDischarge(outletY,outletX) ...
                 = inputDischarge(outletY,outletX) ...
                 + ( dischargeInputInFloodedRegion(outletY,outletX) ...
                 - floodedRegionStorageVolume(outletY,outletX) );
 
-            % B) ìœ ì…ëŸ‰ì´ ì´ˆê³¼í–ˆìŒì„ í‘œì‹œí•œë‹¤.
+            % B) À¯ÀÔ·®ÀÌ ÃÊ°úÇßÀ½À» Ç¥½ÃÇÑ´Ù.
             isOverflowing(outletY,outletX) = true;
 
         end
 
-        % C. ìœ ì¶œêµ¬ì˜ ìœ ëŸ‰ì— ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„° ìœ ì…í•˜ëŠ” ìœ ëŸ‰ì„ ë”í•œë‹¤.
-        % * ì£¼ì˜ : flooded regionì˜ ì´ˆê³¼ ìœ ì…ëŸ‰ì„ í¬í•¨í•œ ê²ƒì´ë‹¤.
-        % * ì˜ì—­ ê²½ê³„ì— ìˆëŠ” ì…€ì´ê¸° ë•Œë¬¸ì—, ì—¬ê¸°ì„œ ê³„ì‚°ë˜ì–´ë„ ë¬¸ì œê°€ ì—†ë‹¤.
+        % C. À¯Ãâ±¸ÀÇ À¯·®¿¡ »óºÎ À¯¿ªÀ¸·ÎºÎÅÍ À¯ÀÔÇÏ´Â À¯·®À» ´õÇÑ´Ù.
+        % * ÁÖÀÇ : flooded regionÀÇ ÃÊ°ú À¯ÀÔ·®À» Æ÷ÇÔÇÑ °ÍÀÌ´Ù.
+        % * ¿µ¿ª °æ°è¿¡ ÀÖ´Â ¼¿ÀÌ±â ¶§¹®¿¡, ¿©±â¼­ °è»êµÇ¾îµµ ¹®Á¦°¡ ¾ø´Ù.
         upstreamDischarge1(outletY,outletX) ...
             = upstreamDischarge1(outletY,outletX) ...
             + inputDischarge(outletY,outletX);
 
-        % D. ìœ ì¶œêµ¬ì˜ ëˆ„ì  ì…€ ê°œìˆ˜ì— ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„° ìœ ì…í•˜ëŠ” ì…€ì˜
-        %    ê°¯ìˆ˜ë¥¼ ë”í•œë‹¤.
-        % * ì£¼ì˜ : flooded regionì˜ ì…€ ê°œìˆ˜ë¥¼ í¬í•¨í•œ ê²ƒì´ë‹¤.
+        % D. À¯Ãâ±¸ÀÇ ´©Àû ¼¿ °³¼ö¿¡ »óºÎ À¯¿ªÀ¸·ÎºÎÅÍ À¯ÀÔÇÏ´Â ¼¿ÀÇ
+        %    °¹¼ö¸¦ ´õÇÑ´Ù.
+        % * ÁÖÀÇ : flooded regionÀÇ ¼¿ °³¼ö¸¦ Æ÷ÇÔÇÑ °ÍÀÌ´Ù.
 %         upstreamCellsNo(outletY,outletX) ...
 %             = upstreamCellsNo(outletY,outletX) ...
 %             + inputUpstreamCellsNo(outletY,outletX) ...
@@ -170,32 +170,32 @@ for ithFloodedRegion = 1:floodedRegionsNo
 
     end % IsBoundary(outletY,outletX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND)
     
-    % 5) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ìœ ëŸ‰ì„ êµ¬í•œë‹¤.
-    % (1) flooded regionìœ¼ë¡œì˜ ìœ ì…ëŸ‰ì´ ì €ìˆ˜ëŸ‰ì„ ì´ˆê³¼í–ˆëŠ”ì§€ í™•ì¸í•œë‹¤.
+    % 5) ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ À¯·®À» ±¸ÇÑ´Ù.
+    % (1) flooded regionÀ¸·ÎÀÇ À¯ÀÔ·®ÀÌ Àú¼ö·®À» ÃÊ°úÇß´ÂÁö È®ÀÎÇÑ´Ù.
     if isOverflowing(outletY,outletX) == true
         
-        % A. ë§Œì•½ ì´ˆê³¼í–ˆë‹¤ë©´, ìœ ì¶œêµ¬ë³´ë‹¤ ì¡°ê¸ˆ ì‘ì€ ìœ ëŸ‰ì„ ëŒ€ì…í•œë‹¤.
+        % A. ¸¸¾à ÃÊ°úÇß´Ù¸é, À¯Ãâ±¸º¸´Ù Á¶±İ ÀÛÀº À¯·®À» ´ëÀÔÇÑ´Ù.
         upstreamDischarge1(currentFloodedRegion) ...
             = upstreamDischarge1(outletY,outletX) - annualRunoff * CELL_AREA;
     
     else
         
-        % B. ì´ˆê³¼í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, flooded regionìœ¼ë¡œì˜ ìœ ì…ëŸ‰ê³¼ ì´ì˜ ì§€í‘œ ìœ ì¶œëŸ‰
-        %    í•©ì„ ëŒ€ì…í•œë‹¤.
+        % B. ÃÊ°úÇÏÁö ¾Ê´Â´Ù¸é, flooded regionÀ¸·ÎÀÇ À¯ÀÔ·®°ú ÀÌÀÇ ÁöÇ¥ À¯Ãâ·®
+        %    ÇÕÀ» ´ëÀÔÇÑ´Ù.
         upstreamDischarge1(currentFloodedRegion) ...
             = dischargeInputInFloodedRegion(outletY,outletX);
         
     end
 
-    % 6) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ì…€ ê°œìˆ˜ë¥¼ êµ¬í•œë‹¤. ìœ ì¶œêµ¬ì˜ ì…€ ê°œìˆ˜ë³´ë‹¤
-    %    ì¡°ê¸ˆ ì‘ì€ ê°’ì„ ëŒ€ì…í•œë‹¤.
+    % 6) ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ ¼¿ °³¼ö¸¦ ±¸ÇÑ´Ù. À¯Ãâ±¸ÀÇ ¼¿ °³¼öº¸´Ù
+    %    Á¶±İ ÀÛÀº °ªÀ» ´ëÀÔÇÑ´Ù.
 %     upstreamCellsNo(currentFloodedRegion) ...
 %             = upstreamCellsNo(outletY,outletX) - 1;
         
 end % ithFloodedRegion = 1:
 
-% upstreamCellsNoì„ ì´ìš©í•˜ì—¬ ì €ìˆ˜ëŸ‰ì„ ê³ ë ¤í•˜ì§€ ì•Šì€ ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ëŸ‰ì„
-% êµ¬í•¨
+% upstreamCellsNoÀ» ÀÌ¿ëÇÏ¿© Àú¼ö·®À» °í·ÁÇÏÁö ¾ÊÀº »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯·®À»
+% ±¸ÇÔ
 % upstreamDischarge2 = upstreamCellsNo .* annualRunoff .* CELL_AREA;
 
 end % AccumulateUpstreamFlow end

@@ -1,53 +1,53 @@
 % =========================================================================
 %> @section INTRO ReadParameterValue
 %>
-%> - ë‹¤ì–‘í•œ í˜•íƒœì˜ ë³€ìˆ˜ê°’ì„ ì½ëŠ” í•¨ìˆ˜
+%> - ´Ù¾çÇÑ ÇüÅÂÀÇ º¯¼ö°ªÀ» ÀĞ´Â ÇÔ¼ö
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval value            : ë°˜í™˜ë˜ëŠ” ë³€ìˆ˜ê°’
+%> @retval value            : ¹İÈ¯µÇ´Â º¯¼ö°ª
 %>
-%> @param fid               : ì…ë ¥ íŒŒì¼ì˜ id
-%> @param parameterName     : ì½ì–´ë“¤ì¼ ë³€ìˆ˜ëª…
-%> @param dataType          : ë³€ìˆ˜ì˜ ìë£Œí˜•
+%> @param fid               : ÀÔ·Â ÆÄÀÏÀÇ id
+%> @param parameterName     : ÀĞ¾îµéÀÏ º¯¼ö¸í
+%> @param dataType          : º¯¼öÀÇ ÀÚ·áÇü
 % =========================================================================
 function value = ReadParameterValue(fid,parameterName,dataType)
 %
 %
 
-% ìƒìˆ˜ ì •ì˜
+% »ó¼ö Á¤ÀÇ
 NUMERIC = 1;
 % STRING = 2;
 
-% ì œëª© ì¤„ì„ ì €ì¥í•œë‹¤.
+% Á¦¸ñ ÁÙÀ» ÀúÀåÇÑ´Ù.
 headerLine = fgets(fid);
 
-% dataTypeì— ë”°ë¼ ë³€ìˆ˜ë¥¼ ì½ëŠ”ë‹¤.
+% dataType¿¡ µû¶ó º¯¼ö¸¦ ÀĞ´Â´Ù.
 if dataType == NUMERIC
     
     tmpValue = fgetl(fid);
     value = sscanf(tmpValue,'%f',1);
     
 else
-% elseif dataType == STRING : ë‹¤ë¥¸ ìë£Œí˜•ì´ ì—†ìœ¼ë¯€ë¡œ elseë¥¼ ì´ìš©í•¨
+% elseif dataType == STRING : ´Ù¸¥ ÀÚ·áÇüÀÌ ¾øÀ¸¹Ç·Î else¸¦ ÀÌ¿ëÇÔ
     
     tmpValue = fgetl(fid);
     value = sscanf(tmpValue,'%s',1);
     
 end
 
-% parameterNameê³¼ ì½ì–´ë“¤ì¸ ì œëª© ì¤„ì˜ ë³€ìˆ˜ëª…ì´ ë§ëŠ”ì§€ í™•ì¸í•œë‹¤.
+% parameterName°ú ÀĞ¾îµéÀÎ Á¦¸ñ ÁÙÀÇ º¯¼ö¸íÀÌ ¸Â´ÂÁö È®ÀÎÇÑ´Ù.
 title = sscanf(headerLine,'%s',1);
 
 if (strcmp(title,parameterName) == false)
     
-    fprintf('ë³€ìˆ˜ %së¥¼ íŒŒì¼ì—ì„œ ì½ì–´ì•¼ í•  ì°¨ë¡€ì¸ë°, ',parameterName);
-    fprintf('ì´ì™€ ë‹¤ë¥¸ ë³€ìˆ˜ë¥¼ ì½ì–´ë“¤ì´ë ¤ê³  í•œë‹¤.\n');
-    fprintf('í˜„ì¬ì˜ ì œëª© ì¤„ê³¼ ì½ì€ ì´ˆê¸° ë³€ìˆ˜ê°’ì€ ë‹¤ìŒê³¼ ê°™ë‹¤.\n');
+    fprintf('º¯¼ö %s¸¦ ÆÄÀÏ¿¡¼­ ÀĞ¾î¾ß ÇÒ Â÷·ÊÀÎµ¥, ',parameterName);
+    fprintf('ÀÌ¿Í ´Ù¸¥ º¯¼ö¸¦ ÀĞ¾îµéÀÌ·Á°í ÇÑ´Ù.\n');
+    fprintf('ÇöÀçÀÇ Á¦¸ñ ÁÙ°ú ÀĞÀº ÃÊ±â º¯¼ö°ªÀº ´ÙÀ½°ú °°´Ù.\n');
     fprintf('%s : %s\n',headerLine,value);
-    error('ReadParameterValue í•¨ìˆ˜ ì—ëŸ¬ ë°œìƒ\n');
+    error('ReadParameterValue ÇÔ¼ö ¿¡·¯ ¹ß»ı\n');
     
 end
 

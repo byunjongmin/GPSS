@@ -1,73 +1,73 @@
 % =========================================================================
 %> @section INTRO FindSDSDryNbr
 %>
-%> - ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ì„ íƒìƒ‰í•˜ì—¬ ì´ì›ƒ ì…€ ì¤‘ flooded regionì— ì†í•˜ì§€ ì•Šê³ 
-%>   ì†í•˜ì§€ ì•Šê³  ë™ì‹œì— ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ë¥¼ ê°€ì§€ëŠ” ì´ì›ƒ ì…€ì´ ìžˆë‹¤ë©´ ê°€ìž¥ ë‚®ì€ ì…€ì˜
-%>   ê²½ì‚¬ì™€ ìœ í–¥ì„ ë³€ê²½í•˜ê³  ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì´ì›ƒ ì…€ì´ ì—†ë‹¤ë©´ ìœ ì¶œêµ¬ê°€ ì—†ë‹¤ê³ 
-%>   ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
+%> - °¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿À» Å½»öÇÏ¿© ÀÌ¿ô ¼¿ Áß flooded region¿¡ ¼ÓÇÏÁö ¾Ê°í
+%>   ¼ÓÇÏÁö ¾Ê°í µ¿½Ã¿¡ ÃÖ´ë ÇÏºÎ °æ»ç¸¦ °¡Áö´Â ÀÌ¿ô ¼¿ÀÌ ÀÖ´Ù¸é °¡Àå ³·Àº ¼¿ÀÇ
+%>   °æ»ç¿Í À¯ÇâÀ» º¯°æÇÏ°í Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ÀÌ¿ô ¼¿ÀÌ ¾ø´Ù¸é À¯Ãâ±¸°¡ ¾ø´Ù°í
+%>   ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö
 %>
-%>  - ì£¼ìš” ì•Œê³ ë¦¬ë“¬
-%>   -  ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì£¼ë³€ ì´ì›ƒ ì…€ë“¤ì„ íƒìƒ‰í•˜ì—¬, í˜„ìž¬ ì²˜ë¦¬ ì¤‘ì¸ flooded
-%>      regionì— í•´ë‹¹í•˜ì§€ ì•Šìœ¼ë©´ì„œ, í•˜ë¶€ ê²½ì‚¬ê°€ ê°€ìž¥ í° ì…€ì„ ì°¾ìŒ
-%>   -  ì´ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì´ì›ƒ ì…€ì´ ì¡´ìž¬í•œë‹¤ë©´ ë‹¤ìŒì˜ ìž‘ì—…ì„ ìˆ˜í–‰í•¨
-%>    -  1) ì´ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì…€ê³¼ì˜ ê²½ì‚¬ë¥¼ ê°€ìž¥ ë‚®ì€ ì…€ì˜ ê²½ì‚¬ë¡œ ì •ì˜
-%>    -  2) ì´ ì´ì›ƒ ì…€ì˜ ì¢Œí‘œë¥¼ ê°€ìž¥ ë‚®ì€ ì…€ì˜ SDSNbrY,SDSNbrXì— ê¸°ë¡
-%>    -  3) ê°€ìž¥ ë‚®ì€ ì…€ì˜ ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ ìœ í–¥ë„ ì´ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ë„ë¡ ì •ì˜
-%>    -  4) ì‹¤ì§ˆì ì¸ ìœ ì¶œêµ¬ë¥¼ ì°¾ì•˜ë‹¤ê³  ë°˜í™˜
-%>     - ì¤‘ìš”í•œ ê²ƒì€ ê°€ìž¥ ë‚®ì€ ì…€(ìœ ì¶œêµ¬ê°€ ë  ì…€)ì˜ ê²½ì‚¬ì™€ ìœ í–¥ì„ ë³€ê²½í•¨ìœ¼ë¡œì¨,
-%>       ê¸°ì¡´ì— flooded regionì„ í–¥í–ˆì„ ì§€ë„ ëª¨ë¥´ëŠ” ìœ í–¥ì´ flooded region
-%>       ì™¸ë¶€ë¡œ í–¥í•˜ë„ë¡ ë³€ê²½ë  ìˆ˜ ìžˆë‹¤ëŠ” ì .
-%>   -  ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì…€ì´ ì¡´ìž¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, ìœ ì¶œêµ¬ë¥¼ ì°¾ì§€ ëª»í–ˆë‹¤ê³  ë°˜í™˜í•¨
-%>   - 	ê°€ìž¥ ë‚®ì€ ì…€ì˜ ì´ì›ƒ ì…€ì´ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì— í•´ë‹¹í•  ê²½ìš°, floodì˜ ì˜ì—­
-%>      ê²½ê³„ëŠ” UNFLOODED ìƒíƒœê°€ ê¸°ë³¸ê°’ì´ê¸° ë•Œë¬¸ì— IsDryëŠ” trueë¥¼ ë°˜í™˜í•¨.
-%>      í•˜ì§€ë§Œ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì˜ ê³ ë„ê°€ ëª¨ë¸ ì˜ì—­ ë‚´ë¶€ë³´ë‹¤ ë†’ê¸° ë•Œë¬¸ì—, ê°€ìž¥
-%>      ë‚®ì€ ì…€ê³¼ í•˜ë¶€ ê²½ì‚¬ë¥¼ ë§Œë“¤ì§€ ì•ŠìŒ. ê²°êµ­ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì— ìžˆëŠ” ì´ì›ƒ ì…€ì€
-%>      ìœ ì¶œêµ¬ì— í•´ë‹¹í•˜ì§€ ì•ŠìŒ. ë”°ë¼ì„œ ê°€ìž¥ ë‚®ì€ ì…€ì´ ëª¨ë¸ ì˜ì—­ ê²½ê³„ì— ì¸ì ‘í•œ
-%>      ì…€ì´ë¼ë©´, ì´ì˜ íë¦„ì€ ì ì–´ë„ ê²½ê³„ë¡œ í˜ëŸ¬ê°€ì§€ ì•ˆê³ , ëª¨ë¸ ì˜ì—­ ë‚´ë¶€ë¡œ
-%>      í–¥í•  ê²ƒìœ¼ë¡œ ì˜ˆì¸¡í•  ìˆ˜ ìžˆìŒ
+%>  - ÁÖ¿ä ¾Ë°í¸®µë
+%>   -  °¡Àå ³·Àº ¼¿ÀÇ ÁÖº¯ ÀÌ¿ô ¼¿µéÀ» Å½»öÇÏ¿©, ÇöÀç Ã³¸® ÁßÀÎ flooded
+%>      region¿¡ ÇØ´çÇÏÁö ¾ÊÀ¸¸é¼­, ÇÏºÎ °æ»ç°¡ °¡Àå Å« ¼¿À» Ã£À½
+%>   -  ÀÌ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ÀÌ¿ô ¼¿ÀÌ Á¸ÀçÇÑ´Ù¸é ´ÙÀ½ÀÇ ÀÛ¾÷À» ¼öÇàÇÔ
+%>    -  1) ÀÌ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¼¿°úÀÇ °æ»ç¸¦ °¡Àå ³·Àº ¼¿ÀÇ °æ»ç·Î Á¤ÀÇ
+%>    -  2) ÀÌ ÀÌ¿ô ¼¿ÀÇ ÁÂÇ¥¸¦ °¡Àå ³·Àº ¼¿ÀÇ SDSNbrY,SDSNbrX¿¡ ±â·Ï
+%>    -  3) °¡Àå ³·Àº ¼¿ÀÇ ÃÖ´ë ÇÏºÎ °æ»ç À¯Çâµµ ÀÌ ÀÌ¿ô ¼¿À» °¡¸®Å°µµ·Ï Á¤ÀÇ
+%>    -  4) ½ÇÁúÀûÀÎ À¯Ãâ±¸¸¦ Ã£¾Ò´Ù°í ¹ÝÈ¯
+%>     - Áß¿äÇÑ °ÍÀº °¡Àå ³·Àº ¼¿(À¯Ãâ±¸°¡ µÉ ¼¿)ÀÇ °æ»ç¿Í À¯ÇâÀ» º¯°æÇÔÀ¸·Î½á,
+%>       ±âÁ¸¿¡ flooded regionÀ» ÇâÇßÀ» Áöµµ ¸ð¸£´Â À¯ÇâÀÌ flooded region
+%>       ¿ÜºÎ·Î ÇâÇÏµµ·Ï º¯°æµÉ ¼ö ÀÖ´Ù´Â Á¡.
+%>   -  Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¼¿ÀÌ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é, À¯Ãâ±¸¸¦ Ã£Áö ¸øÇß´Ù°í ¹ÝÈ¯ÇÔ
+%>   - 	°¡Àå ³·Àº ¼¿ÀÇ ÀÌ¿ô ¼¿ÀÌ ¸ðµ¨ ¿µ¿ª °æ°è¿¡ ÇØ´çÇÒ °æ¿ì, floodÀÇ ¿µ¿ª
+%>      °æ°è´Â UNFLOODED »óÅÂ°¡ ±âº»°ªÀÌ±â ¶§¹®¿¡ IsDry´Â true¸¦ ¹ÝÈ¯ÇÔ.
+%>      ÇÏÁö¸¸ ¸ðµ¨ ¿µ¿ª °æ°èÀÇ °íµµ°¡ ¸ðµ¨ ¿µ¿ª ³»ºÎº¸´Ù ³ô±â ¶§¹®¿¡, °¡Àå
+%>      ³·Àº ¼¿°ú ÇÏºÎ °æ»ç¸¦ ¸¸µéÁö ¾ÊÀ½. °á±¹ ¸ðµ¨ ¿µ¿ª °æ°è¿¡ ÀÖ´Â ÀÌ¿ô ¼¿Àº
+%>      À¯Ãâ±¸¿¡ ÇØ´çÇÏÁö ¾ÊÀ½. µû¶ó¼­ °¡Àå ³·Àº ¼¿ÀÌ ¸ðµ¨ ¿µ¿ª °æ°è¿¡ ÀÎÁ¢ÇÑ
+%>      ¼¿ÀÌ¶ó¸é, ÀÌÀÇ Èå¸§Àº Àû¾îµµ °æ°è·Î Èê·¯°¡Áö ¾È°í, ¸ðµ¨ ¿µ¿ª ³»ºÎ·Î
+%>      ÇâÇÒ °ÍÀ¸·Î ¿¹ÃøÇÒ ¼ö ÀÖÀ½
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval SDSNbrY                  : ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
-%> @retval SDSNbrX                  : ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
-%> @retval SDSFlowDirection         : ìˆ˜ì •ëœ ìœ í–¥
-%> @retval steepestDescentSlope     : ìˆ˜ì •ëœ ê²½ì‚¬
-%> @retval integratedSlope          : ìˆ˜ì •ëœ facet flow ê²½ì‚¬
-%> @retval isTrue                   : ìœ ì¶œêµ¬ ìœ ë¬´
+%> @retval SDSNbrY                  : ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
+%> @retval SDSNbrX                  : ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
+%> @retval SDSFlowDirection         : ¼öÁ¤µÈ À¯Çâ
+%> @retval steepestDescentSlope     : ¼öÁ¤µÈ °æ»ç
+%> @retval integratedSlope          : ¼öÁ¤µÈ facet flow °æ»ç
+%> @retval isTrue                   : À¯Ãâ±¸ À¯¹«
 %>
-%> @param X_INI                     : ëª¨í˜• ì˜ì—­ X ì‹œìž‘ ì¢Œí‘œê°’(=2)
-%> @param X_MAX                     : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
-%> @param X_LEFT_BND                : ëª¨í˜• ì™¸ê³½ ì¢Œ ê²½ê³„ X ì¢Œí‘œê°’
-%> @param X_RIGHT_BND               : ëª¨í˜• ì™¸ê³½ ìš° ê²½ê³„ X ì¢Œí‘œê°’
+%> @param X_INI                     : ¸ðÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
+%> @param X_MAX                     : ¸ðÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
+%> @param X_LEFT_BND                : ¸ðÇü ¿Ü°û ÁÂ °æ°è X ÁÂÇ¥°ª
+%> @param X_RIGHT_BND               : ¸ðÇü ¿Ü°û ¿ì °æ°è X ÁÂÇ¥°ª
 %> @param QUARTER_PI                : pi * 0.25
-%> @param lowestY                   : flooded region ê²½ê³„ì—ì„œ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì…€ì˜ Y ì¢Œí‘œê°’
-%> @param lowestX                   : flooded region ê²½ê³„ì—ì„œ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì…€ì˜ Y ì¢Œí‘œê°’
-%> @param elev                      : ì§€í‘œ ê³ ë„ [m]
-%> @param slopeAllNbr               : 8 ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ [radian]
-%> @param SDSNbrY                   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
-%> @param SDSNbrX                   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
-%> @param SDSFlowDirection          : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥
-%> @param flood                     : SINKë¡œ ì¸í•´ ë¬¼ì´ ê³ ì´ëŠ” ì§€ì—­(flooded region)
-%> @param steepestDescentSlope      : ìµœëŒ€í•˜ë¶€ê²½ì‚¬
-%> @param integratedSlope           : facet flow ê²½ì‚¬
-%> @param ithNbrYOffset             : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Yì¶• ì˜µì…‹
-%> @param ithNbrXOffset             : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Xì¶• ì˜µì…‹
-%> @param IS_LEFT_RIGHT_CONNECTED   : ì¢Œìš° ì™¸ê³½ ê²½ê³„ ì—°ê²°ì„ ê²°ì •
+%> @param lowestY                   : flooded region °æ°è¿¡¼­ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¼¿ÀÇ Y ÁÂÇ¥°ª
+%> @param lowestX                   : flooded region °æ°è¿¡¼­ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¼¿ÀÇ Y ÁÂÇ¥°ª
+%> @param elev                      : ÁöÇ¥ °íµµ [m]
+%> @param slopeAllNbr               : 8 ÀÌ¿ô ¼¿°úÀÇ °æ»ç [radian]
+%> @param SDSNbrY                   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
+%> @param SDSNbrX                   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
+%> @param SDSFlowDirection          : ÃÖ´ëÇÏºÎ°æ»ç À¯Çâ
+%> @param flood                     : SINK·Î ÀÎÇØ ¹°ÀÌ °íÀÌ´Â Áö¿ª(flooded region)
+%> @param steepestDescentSlope      : ÃÖ´ëÇÏºÎ°æ»ç
+%> @param integratedSlope           : facet flow °æ»ç
+%> @param ithNbrYOffset             : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ YÃà ¿É¼Â
+%> @param ithNbrXOffset             : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ XÃà ¿É¼Â
+%> @param IS_LEFT_RIGHT_CONNECTED   : ÁÂ¿ì ¿Ü°û °æ°è ¿¬°áÀ» °áÁ¤
 % =========================================================================
 function [SDSNbrY,SDSNbrX,SDSFlowDirection,steepestDescentSlope,integratedSlope,isTrue] = FindSDSDryNbr(X_INI,X_MAX,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,lowestY,lowestX,elev,slopeAllNbr,SDSNbrY,SDSNbrX,SDSFlowDirection,flood,steepestDescentSlope,integratedSlope,ithNbrYOffset,ithNbrXOffset,IS_LEFT_RIGHT_CONNECTED)
 %
 % function FindSDSDryNbr
 %
 
-% ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ë¥¼ ê°€ì§€ëŠ” ì´ì›ƒ ì…€ì„ ì°¾ê¸° ìœ„í•œ ê¸°ì¤€ ê²½ì‚¬ ë³€ìˆ˜
+% ÃÖ´ë ÇÏºÎ °æ»ç¸¦ °¡Áö´Â ÀÌ¿ô ¼¿À» Ã£±â À§ÇÑ ±âÁØ °æ»ç º¯¼ö
 steeperSlope = -inf;
 
-% ê°€ìž¥ ë‚®ì€ ì…€ì˜ ë™ìª½ ì´ì›ƒ ì…€ë¶€í„° ë°˜ì‹œê³„ ë°©í–¥ìœ¼ë¡œ íƒìƒ‰í•˜ì—¬,
-% ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ ì´ì „ ê²½ì‚¬ë³´ë‹¤ í¬ê³  ë™ì‹œì—
-% í˜„ìž¬ ì²˜ë¦¬ ì¤‘ì¸ flooded regionì— í•´ë‹¹í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´
-% steeperSlopeì˜ ê²½ì‚¬ê°’ì„ ê°±ì‹ í•˜ê³ , SDSNbrY,SDSNbrXë¥¼ ë³€ê²½í•œë‹¤.
+% °¡Àå ³·Àº ¼¿ÀÇ µ¿ÂÊ ÀÌ¿ô ¼¿ºÎÅÍ ¹Ý½Ã°è ¹æÇâÀ¸·Î Å½»öÇÏ¿©,
+% ÀÌ¿ô ¼¿°úÀÇ °æ»ç°¡ ÀÌÀü °æ»çº¸´Ù Å©°í µ¿½Ã¿¡
+% ÇöÀç Ã³¸® ÁßÀÎ flooded region¿¡ ÇØ´çÇÏÁö ¾Ê´Â´Ù¸é
+% steeperSlopeÀÇ °æ»ç°ªÀ» °»½ÅÇÏ°í, SDSNbrY,SDSNbrX¸¦ º¯°æÇÑ´Ù.
 
 for ithNbr = 1:8
     
@@ -92,10 +92,10 @@ for ithNbr = 1:8
         IsDry(nbrY,nbrX,lowestY,lowestX,flood,SDSNbrY,SDSNbrX,elev) )
 
         steeperSlope = slopeAllNbr(lowestY,lowestX,ithNbr);
-        % * ì£¼ì˜: SDSNbrY,SDSNbrXë¥¼ ì•„ëž˜ì— ìˆ˜ì •í•˜ì§€ë§Œ, steeperSlope <= 0 ì¸
-        %   ê²½ìš°ì— falseê°€ ë°˜í™˜ë˜ì–´ (lowestY,lowest)ëŠ” flooded regionì˜
-        %   ìœ ì¶œêµ¬ê°€ ë˜ì§€ ëª»í•˜ê³  flooded regionì´ ëœë‹¤. ë”°ë¼ì„œ ì—¬ê¸°ì„œ ìˆ˜ì •ëœ
-        %   SDSNbrY,SDSNbrXëŠ” ìœ ì¶œêµ¬ë¥¼ ì°¾ê²Œ ë˜ë©´ ë‹¤ì‹œ ìˆ˜ì •ëœë‹¤.
+        % * ÁÖÀÇ: SDSNbrY,SDSNbrX¸¦ ¾Æ·¡¿¡ ¼öÁ¤ÇÏÁö¸¸, steeperSlope <= 0 ÀÎ
+        %   °æ¿ì¿¡ false°¡ ¹ÝÈ¯µÇ¾î (lowestY,lowest)´Â flooded regionÀÇ
+        %   À¯Ãâ±¸°¡ µÇÁö ¸øÇÏ°í flooded regionÀÌ µÈ´Ù. µû¶ó¼­ ¿©±â¼­ ¼öÁ¤µÈ
+        %   SDSNbrY,SDSNbrX´Â À¯Ãâ±¸¸¦ Ã£°Ô µÇ¸é ´Ù½Ã ¼öÁ¤µÈ´Ù.
         SDSNbrY(lowestY,lowestX) = nbrY;
         SDSNbrX(lowestY,lowestX) = nbrX;
         steepestDryNbr = ithNbr;
@@ -104,23 +104,23 @@ for ithNbr = 1:8
     
 end
 
-% ìœ„ì˜ ê³¼ì •ì—ì„œ steeperSlopeì´ ì–‘ì˜ ê°’ì„ ê°€ì§ˆ ê²½ìš°ì—ë§Œ
+% À§ÀÇ °úÁ¤¿¡¼­ steeperSlopeÀÌ ¾çÀÇ °ªÀ» °¡Áú °æ¿ì¿¡¸¸
 if (steeperSlope <= 0)
 
     isTrue = false;
 
 else
     
-    % ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ë¥¼ steeperSlopeìœ¼ë¡œ ì •ì˜í•˜ê³ 
+    % ÃÖ´ë ÇÏºÎ °æ»ç¸¦ steeperSlopeÀ¸·Î Á¤ÀÇÇÏ°í
     steepestDescentSlope(lowestY,lowestX) = steeperSlope;
     
-    % ì´ë¥¼ integratedSlopeì—ë„ ë°˜ì˜í•œë‹¤.
+    % ÀÌ¸¦ integratedSlope¿¡µµ ¹Ý¿µÇÑ´Ù.
     integratedSlope(lowestY,lowestX) = steeperSlope;
     
-    % ìœ í–¥ë„ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ë„ë¡ ìˆ˜ì •í•˜ê³ 
+    % À¯Çâµµ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ÀÌ¿ô ¼¿À» °¡¸®Å°µµ·Ï ¼öÁ¤ÇÏ°í
     SDSFlowDirection(lowestY,lowestX) = (steepestDryNbr - 1) * QUARTER_PI;
     
-    % trueë¥¼ ë°˜í™˜í•œë‹¤.
+    % true¸¦ ¹ÝÈ¯ÇÑ´Ù.
     isTrue = true;
 
 end

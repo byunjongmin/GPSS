@@ -1,39 +1,39 @@
 % =========================================================================
 %> @section INTRO MakeInitialGeomorphology
 %>
-%> - ì´ˆê¸° ì§€í˜•(ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„ì™€ í‡´ì ì¸µ ë‘ê»˜ë¥¼ í¬í•¨)ì„ ë§Œë“œëŠ” í•¨ìˆ˜
-%>  - ì›ë¦¬
-%>   - ê¸°ë°˜ì•” ê³ ë„:
-%>    - 1) ì´ì „ì— ë§Œë“  ê¸°ë°˜ì•” ê³ ë„ë¥¼ ì´ˆê¸°ê°’ìœ¼ë¡œ ë¶ˆëŸ¬ì˜¤ê±°ë‚˜ 2) ìž„ì˜ ê²½ì‚¬ë¥¼ ê°€ì§„
-%>      í‰íƒ„ë©´ì„ ì´ˆê¸°ê°’ìœ¼ë¡œ ë§Œë“œëŠ” í•¨ìˆ˜
-%>   - í‡´ì ì¸µ ë‘ê»˜:
-%>    - 1) ê³µê°„ì ìœ¼ë¡œ ë™ì¼í•œ ê°’ìœ¼ë¡œ ì„¤ì •í•˜ê±°ë‚˜ 2) ì´ì „ì— ë§Œë“  í‡´ì ì¸µ ë‘ê»˜ë¥¼ ë¶ˆëŸ¬ì˜®
+%> - ÃÊ±â ÁöÇü(ÃÊ±â ±â¹Ý¾Ï °íµµ¿Í ÅðÀûÃþ µÎ²²¸¦ Æ÷ÇÔ)À» ¸¸µå´Â ÇÔ¼ö
+%>  - ¿ø¸®
+%>   - ±â¹Ý¾Ï °íµµ:
+%>    - 1) ÀÌÀü¿¡ ¸¸µç ±â¹Ý¾Ï °íµµ¸¦ ÃÊ±â°ªÀ¸·Î ºÒ·¯¿À°Å³ª 2) ÀÓÀÇ °æ»ç¸¦ °¡Áø
+%>      ÆòÅº¸éÀ» ÃÊ±â°ªÀ¸·Î ¸¸µå´Â ÇÔ¼ö
+%>   - ÅðÀûÃþ µÎ²²:
+%>    - 1) °ø°£ÀûÀ¸·Î µ¿ÀÏÇÑ °ªÀ¸·Î ¼³Á¤ÇÏ°Å³ª 2) ÀÌÀü¿¡ ¸¸µç ÅðÀûÃþ µÎ²²¸¦ ºÒ·¯¿Å
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval bedrockElev      : ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„
-%> @retval sedimentThick    : ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜
-%> @retval Y                : í–‰
-%> @retval X                : ì—´
+%> @retval bedrockElev      : ÃÊ±â ±â¹Ý¾Ï °íµµ
+%> @retval sedimentThick    : ÃÊ±â ÅðÀûÃþ µÎ²²
+%> @retval Y                : Çà
+%> @retval X                : ¿­
 
-%> @param Y                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
-%> @param X                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
-%> @param dX                        : ì…€ í¬ê¸° [m]
-%> @param PLANE_ANGLE               : ìž„ì˜ ê²½ì‚¬ [radian]
-%> @param INPUT_DIR_PATH            : ìž…ë ¥ íŒŒì¼ì´ ì €ìž¥ëœ í´ë” ê²½ë¡œ
-%> @param OUTPUT_SUBDIR_PATH        : ì¶œë ¥ íŒŒì¼ì„ ìœ„í•œ í´ë”ì˜ ì„¸ë¶€ í´ë” ê²½ë¡œ
-%> @param INIT_BEDROCK_ELEV_FILE    : ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„ê°€ ê¸°ë¡ëœ íŒŒì¼ ì´ë¦„
-%> @param initSedThick              : ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ [m]
-%> @param INIT_SED_THICK_FILE       : ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ê°€ ê¸°ë¡ëœ íŒŒì¼ ì´ë¦„
+%> @param Y                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
+%> @param X                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
+%> @param dX                        : ¼¿ Å©±â [m]
+%> @param PLANE_ANGLE               : ÀÓÀÇ °æ»ç [radian]
+%> @param INPUT_DIR_PATH            : ÀÔ·Â ÆÄÀÏÀÌ ÀúÀåµÈ Æú´õ °æ·Î
+%> @param OUTPUT_SUBDIR_PATH        : Ãâ·Â ÆÄÀÏÀ» À§ÇÑ Æú´õÀÇ ¼¼ºÎ Æú´õ °æ·Î
+%> @param INIT_BEDROCK_ELEV_FILE    : ÃÊ±â ±â¹Ý¾Ï °íµµ°¡ ±â·ÏµÈ ÆÄÀÏ ÀÌ¸§
+%> @param initSedThick              : ÃÊ±â ÅðÀûÃþ µÎ²² [m]
+%> @param INIT_SED_THICK_FILE       : ÃÊ±â ÅðÀûÃþ µÎ²²°¡ ±â·ÏµÈ ÆÄÀÏ ÀÌ¸§
 % =========================================================================
 function [bedrockElev,sedimentThick,Y,X] = MakeInitialGeomorphology(Y,X,dX,PLANE_ANGLE,INPUT_DIR_PATH,OUTPUT_SUBDIR_PATH,INIT_BEDROCK_ELEV_FILE,initSedThick,INIT_SED_THICK_FILE)
 %
 % function MakeInitialGeomorphology
 %
 
-% ìƒìˆ˜ ì´ˆê¸°í™”
+% »ó¼ö ÃÊ±âÈ­
 mRows = Y + 2;
 nCols = X + 2;
 Y_INI = 2;
@@ -41,98 +41,98 @@ Y_MAX = Y + 1;
 X_INI = 2;
 X_MAX = X + 1;
 
-% 1. INIT_BEDROCK_ELEV_FILE ë³€ìˆ˜ë¥¼ í™•ì¸í•˜ì—¬, ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²ƒì¸ì§€ í™•ì¸í•œë‹¤.
+% 1. INIT_BEDROCK_ELEV_FILE º¯¼ö¸¦ È®ÀÎÇÏ¿©, ÃÊ±â ÁöÇüÀ» ¸¸µé °ÍÀÎÁö È®ÀÎÇÑ´Ù.
 if strcmp(INIT_BEDROCK_ELEV_FILE,'No')
 
-    % 1) ì´ˆê¸° ì§€í˜•ì„ ë§Œë“¤ ê²½ìš°, ìž„ì˜ ê²½ì‚¬ë¥¼ ê°€ì§„ í‰íƒ„ë©´ì„ ë§Œë“ ë‹¤.
-    % (1) ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™”
+    % 1) ÃÊ±â ÁöÇüÀ» ¸¸µé °æ¿ì, ÀÓÀÇ °æ»ç¸¦ °¡Áø ÆòÅº¸éÀ» ¸¸µç´Ù.
+    % (1) Ãâ·Â º¯¼ö ÃÊ±âÈ­
     bedrockElev = zeros(mRows,nCols);
 
-    % (2) ìž„ì˜ ê²½ì‚¬ë¥¼ ê°€ì§„ í‰íƒ„ë©´ì„ ë§Œë“œëŠ” í•¨ìˆ˜ë¥¼ ì‹¤í–‰í•œë‹¤.
+    % (2) ÀÓÀÇ °æ»ç¸¦ °¡Áø ÆòÅº¸éÀ» ¸¸µå´Â ÇÔ¼ö¸¦ ½ÇÇàÇÑ´Ù.
     bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
         = MakeFlatAreas(Y,X,dX,PLANE_ANGLE);
 
-    % (3) ì´ˆê¸° ì§€í˜•ì„ íŒŒì¼ë¡œ ì €ìž¥í•´ë‘”ë‹¤.
-    % A. ì¶œë ¥ íŒŒì¼ ì´ë¦„ì— í˜„ìž¬ ì‹œê°ì„ ë”í•œë‹¤.
+    % (3) ÃÊ±â ÁöÇüÀ» ÆÄÀÏ·Î ÀúÀåÇØµÐ´Ù.
+    % A. Ãâ·Â ÆÄÀÏ ÀÌ¸§¿¡ ÇöÀç ½Ã°¢À» ´õÇÑ´Ù.
     dateString = datestr(now,30);
     outputFileName = ['INIT_ELEV_',dateString,'.txt'];
     outputFileName = fullfile(OUTPUT_SUBDIR_PATH,outputFileName);
     
-    % C. ì¶œë ¥ì„ ìœ„í•œ íŒŒì¼ì„ ìƒì„±í•œë‹¤.
+    % C. Ãâ·ÂÀ» À§ÇÑ ÆÄÀÏÀ» »ý¼ºÇÑ´Ù.
     fid = fopen(outputFileName,'w');    
     if fid == -1
-        error('ìƒˆë¡œ ë§Œë“  ì´ˆê¸° ì§€í˜•ì„ ì €ìž¥í•  íŒŒì¼ì´ ìƒì„±ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\n');
+        error('»õ·Î ¸¸µç ÃÊ±â ÁöÇüÀ» ÀúÀåÇÒ ÆÄÀÏÀÌ »ý¼ºµÇÁö ¾Ê¾Ò½À´Ï´Ù.\n');
     end
     
-    % D. íŒŒì¼ ì²« í–‰ì—ëŠ” Y,Xë¥¼ ê¸°ë¡í•œë‹¤.
+    % D. ÆÄÀÏ Ã¹ Çà¿¡´Â Y,X¸¦ ±â·ÏÇÑ´Ù.
     fprintf(fid,'%i\n%i\n',mRows,nCols);
     
-    % E. ì´ˆê¸° ì§€í˜•ì„ íŒŒì¼ì— ê¸°ë¡í•œë‹¤.
+    % E. ÃÊ±â ÁöÇüÀ» ÆÄÀÏ¿¡ ±â·ÏÇÑ´Ù.
     fprintf(fid,'%f\n', bedrockElev);
     
     fclose(fid);
 
 else
-    % 2) ì €ìž¥ëœ ì§€í˜•ì„ ì´ˆê¸° ì§€í˜•ìœ¼ë¡œ ë¶ˆëŸ¬ì˜¬ ê²½ìš°,
-    % (1) íŒŒì¼ì˜ í™•ìž¥ìžë¥¼ í™•ì¸í•˜ì—¬ ì´ì— ë”°ë¼ ê³ ë„ ìžë£Œë¥¼ ë¶ˆëŸ¬ì˜´
+    % 2) ÀúÀåµÈ ÁöÇüÀ» ÃÊ±â ÁöÇüÀ¸·Î ºÒ·¯¿Ã °æ¿ì,
+    % (1) ÆÄÀÏÀÇ È®ÀåÀÚ¸¦ È®ÀÎÇÏ¿© ÀÌ¿¡ µû¶ó °íµµ ÀÚ·á¸¦ ºÒ·¯¿È
     relativeFilePath = fullfile(INPUT_DIR_PATH,INIT_BEDROCK_ELEV_FILE);
     fileExtentionType = INIT_BEDROCK_ELEV_FILE(end-2:end);
         
-    % A. íŒŒì¼ì˜ í™•ìž¥ìžê°€ matì¸ ê²½ìš°ì—ëŠ” load í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ë¶ˆëŸ¬ì˜¨ë‹¤.
-    % * ì£¼ì˜ : mat íŒŒì¼ì¸ ê²½ìš°, ì´ˆê¸° ì§€í˜• ê³ ë„ ë³€ìˆ˜ëª…ì€ elevationìœ¼ë¡œ
-    %   ì •ì˜ë˜ì–´ì•¼ í•œë‹¤.
+    % A. ÆÄÀÏÀÇ È®ÀåÀÚ°¡ matÀÎ °æ¿ì¿¡´Â load ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© ºÒ·¯¿Â´Ù.
+    % * ÁÖÀÇ : mat ÆÄÀÏÀÎ °æ¿ì, ÃÊ±â ÁöÇü °íµµ º¯¼ö¸íÀº elevationÀ¸·Î
+    %   Á¤ÀÇµÇ¾î¾ß ÇÑ´Ù.
     if strcmp(fileExtentionType,'mat')
             
         tmpBedrockElev = load(relativeFilePath,'elevation');
         bedrockElev = tmpBedrockElev.elevation;
                 
-    % B. txtì¸ ê²½ìš°ì—ëŠ” ReadElevation í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ë¶ˆëŸ¬ì˜¨ë‹¤.
+    % B. txtÀÎ °æ¿ì¿¡´Â ReadElevation ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© ºÒ·¯¿Â´Ù.
     elseif  strcmp(fileExtentionType,'txt')
 
         bedrockElev = ReadElevation(relativeFilePath);
     
     end
 
-    % (2) ì €ìž¥ëœ ì§€í˜•ì„ ì´ˆê¸° ì§€í˜•ìœ¼ë¡œ ë¶ˆëŸ¬ì˜¬ ê²½ìš°, Y,Xë¥¼ ìž¬ì •ì˜í•œë‹¤.
+    % (2) ÀúÀåµÈ ÁöÇüÀ» ÃÊ±â ÁöÇüÀ¸·Î ºÒ·¯¿Ã °æ¿ì, Y,X¸¦ ÀçÁ¤ÀÇÇÑ´Ù.
     [mRows, nCols] = size(bedrockElev);
     Y = mRows - 2; X = nCols - 2;
     
-    % (3) ì´ˆê¸° ì§€í˜•ì„ ì¶œë ¥ ë””ë ‰í„°ë¦¬ì— ë³µì‚¬í•œë‹¤.
+    % (3) ÃÊ±â ÁöÇüÀ» Ãâ·Â µð·ºÅÍ¸®¿¡ º¹»çÇÑ´Ù.
     copyfile(relativeFilePath,OUTPUT_SUBDIR_PATH);
 
 end
 
-% 1. INIT_SED_THICK_FILE ë³€ìˆ˜ë¥¼ í™•ì¸í•˜ì—¬, ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ë¥¼ ë™ì¼í•œ ê°’ìœ¼ë¡œ
-% ì„¤ì •í•  ê²ƒì¸ê°€ë¥¼ í™•ì¸í•¨
+% 1. INIT_SED_THICK_FILE º¯¼ö¸¦ È®ÀÎÇÏ¿©, ÃÊ±â ÅðÀûÃþ µÎ²²¸¦ µ¿ÀÏÇÑ °ªÀ¸·Î
+% ¼³Á¤ÇÒ °ÍÀÎ°¡¸¦ È®ÀÎÇÔ
 if strcmp(INIT_SED_THICK_FILE,'No')
     
-    % 1) ë™ì¼í•˜ê²Œ ì„¤ì •í•  ê²½ìš°
+    % 1) µ¿ÀÏÇÏ°Ô ¼³Á¤ÇÒ °æ¿ì
     sedimentThick = ones(mRows,nCols) * initSedThick;
     
-    % (1) ì¶œë ¥ì„ ìœ„í•œ íŒŒì¼ì„ ë§Œë“¦: ì´ê±¸ êµ³ì´ ë§Œë“¤ í•„ìš”ê°€ ìžˆì„ê¹Œ?
+    % (1) Ãâ·ÂÀ» À§ÇÑ ÆÄÀÏÀ» ¸¸µê: ÀÌ°É ±»ÀÌ ¸¸µé ÇÊ¿ä°¡ ÀÖÀ»±î?
     outputFileName = fullfile(OUTPUT_SUBDIR_PATH,'initSedThick.txt');
     
     fid = fopen(outputFileName,'w');
     if fid == -1
-        error('ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ë¥¼ ì €ìž¥í•  íŒŒì¼ì´ ìƒì„±ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.');
+        error('ÃÊ±â ÅðÀûÃþ µÎ²²¸¦ ÀúÀåÇÒ ÆÄÀÏÀÌ »ý¼ºµÇÁö ¾Ê¾Ò½À´Ï´Ù.');
     end
     
-    % (2) íŒŒì¼ ì²« í–‰ì—ëŠ” Y,Xë¥¼ ê¸°ë¡í•¨
+    % (2) ÆÄÀÏ Ã¹ Çà¿¡´Â Y,X¸¦ ±â·ÏÇÔ
     fprintf(fid,'%i\n%i\n',mRows,nCols);
     
-    % (3) ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ë¥¼ íŒŒì¼ì— ê¸°ë¡í•¨
+    % (3) ÃÊ±â ÅðÀûÃþ µÎ²²¸¦ ÆÄÀÏ¿¡ ±â·ÏÇÔ
     fprintf(fid,'%f\n',sedimentThick);
     
     fclose(fid);
             
 else
     
-    % 2) ì €ìž¥ëœ í‡´ì ì¸µ ë‘ê»˜ë¥¼ ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ë¡œ ë¶ˆëŸ¬ì˜¬ ê²½ìš°
+    % 2) ÀúÀåµÈ ÅðÀûÃþ µÎ²²¸¦ ÃÊ±â ÅðÀûÃþ µÎ²²·Î ºÒ·¯¿Ã °æ¿ì
     relativeFilePath = fullfile(INPUT_DIR_PATH,INIT_SED_THICK_FILE);
     
     sedimentThick = ReadElevation(relativeFilePath);
     
-    % ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ë¥¼ ì¶•ë ¥ ë””ë ‰í† ë¦¬ì— ë³µì‚¬í•¨
+    % ÃÊ±â ÅðÀûÃþ µÎ²²¸¦ Ãà·Â µð·ºÅä¸®¿¡ º¹»çÇÔ
     copyfile(relativeFilePath,OUTPUT_SUBDIR_PATH);
     
 end   

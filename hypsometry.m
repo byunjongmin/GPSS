@@ -110,7 +110,7 @@ if options(1)==1
 end
 
 endColor = 256;
-cMap = colormap(jet(endColor));   % plot ìƒ‰ ê·¸ë¼ë””ì–¸íŠ¸
+cMap = colormap(jet(endColor));   % plot »ö ±×¶óµğ¾ğÆ®
 
 if options(2)==1
     if ~exist('Sa','var')
@@ -124,7 +124,7 @@ if options(2)==1
     
     Sa=['''',Sa,''''];
     
-    ithColor = cMap(round(endColor*(ithDraw/totalDraws)),:); % plot ìƒ‰ ì„ ì •
+    ithColor = cMap(round(endColor*(ithDraw/totalDraws)),:); % plot »ö ¼±Á¤
     
     sColor = ['''Color''',',','[',num2str(ithColor),']'];
     
