@@ -1,35 +1,35 @@
 % =========================================================================
 %> @section INTRO RockWeathering
 %>
-%> - ´ÜÀ§½Ã°£ ´ç Ç³È­À²À» ÃßÁ¤ÇÏ´Â ÇÔ¼ö.
-%>  - ÀüÁ¦ : ÇÏµµ¿¡¼­´Â Ç³È­°¡ ¹ß»ıÇÏÁö ¾ÊÀ¸¸ç, Ç³È­·Î ÀÎÇÑ ºÎÇÇ º¯È­´Â ¾øÀ½
-%>  - Anderson(2002)ÀÇ ¼ö½ÄÀ» ±Ù°Å·Î ÇÔ
+%> - ë‹¨ìœ„ì‹œê°„ ë‹¹ í’í™”ìœ¨ì„ ì¶”ì •í•˜ëŠ” í•¨ìˆ˜.
+%>  - ì „ì œ : í•˜ë„ì—ì„œëŠ” í’í™”ê°€ ë°œìƒí•˜ì§€ ì•Šìœ¼ë©°, í’í™”ë¡œ ì¸í•œ ë¶€í”¼ ë³€í™”ëŠ” ì—†ìŒ
+%>  - Anderson(2002)ì˜ ìˆ˜ì‹ì„ ê·¼ê±°ë¡œ í•¨
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval weatheringProductPerDT   : ´ÜÀ§½Ã°£ ´ç Ç³È­À² [m/dT]
+%> @retval weatheringProductPerDT   : ë‹¨ìœ„ì‹œê°„ ë‹¹ í’í™”ìœ¨ [m/dT]
 %>
-%> @param kwa                       : ¼±Çü Ç³È­ ÇÔ¼öÀÇ Áõ°¡À²
-%> @param kw0                       : ¼±Çü Ç³È­ ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹İ¾ÏÀÇ Ç³È­À² [m/yr]
-%> @param kw1                       : Áö¼ö °¨¼Ò Ç³È­ ÇÔ¼ö¿¡¼­ ¿¬ÀåµÇ´Â ³ëÃâ ±â¹İ¾ÏÀÇ Ç³È­À² [m/yr]
-%> @param kwm                       : Ç³È­Ãş µÎ²² ÃàÀû [m]
-%> @param sedThickOutsideChannel    : ÇÏµµ ºÎÇÇ¸¦ °í·ÁÇÑ ÇÏ¾È ÅğÀûÃş µÎ²² [m]
-%> @param bankfullWidth             : ¸¸¼öÀ¯·®½Ã ÇÏÆø [m]
-%> @param dX                        : ¼¿ Å©±â [m]
-%> @param dT                        : ¸¸¼öÀ¯·® ÀçÇö±â°£
+%> @param kwa                       : ì„ í˜• í’í™” í•¨ìˆ˜ì˜ ì¦ê°€ìœ¨
+%> @param kw0                       : ì„ í˜• í’í™” í•¨ìˆ˜ì—ì„œ ì—°ì¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/yr]
+%> @param kw1                       : ì§€ìˆ˜ ê°ì†Œ í’í™” í•¨ìˆ˜ì—ì„œ ì—°ì¥ë˜ëŠ” ë…¸ì¶œ ê¸°ë°˜ì•”ì˜ í’í™”ìœ¨ [m/yr]
+%> @param kwm                       : í’í™”ì¸µ ë‘ê»˜ ì¶•ì  [m]
+%> @param sedThickOutsideChannel    : í•˜ë„ ë¶€í”¼ë¥¼ ê³ ë ¤í•œ í•˜ì•ˆ í‡´ì ì¸µ ë‘ê»˜ [m]
+%> @param bankfullWidth             : ë§Œìˆ˜ìœ ëŸ‰ì‹œ í•˜í­ [m]
+%> @param dX                        : ì…€ í¬ê¸° [m]
+%> @param dT                        : ë§Œìˆ˜ìœ ëŸ‰ ì¬í˜„ê¸°ê°„
 % =========================================================================
 function weatheringProductPerDT = RockWeathering(kwa,kw0,kw1,kwm,sedThickOutsideChannel,bankfullWidth,dX,dT)
 %
-% ´ÜÀ§½Ã°£ ´ç Ç³È­À²À» ÃßÁ¤ÇÏ´Â ÇÔ¼ö.
+% ë‹¨ìœ„ì‹œê°„ ë‹¹ í’í™”ìœ¨ì„ ì¶”ì •í•˜ëŠ” í•¨ìˆ˜.
 %
 
-% ´ÜÀ§½Ã°£ ´ç Ç³È­À² [m/dT]
+% ë‹¨ìœ„ì‹œê°„ ë‹¹ í’í™”ìœ¨ [m/dT]
 weatheringProductPerDT ...
     = min( kwa * sedThickOutsideChannel + kw0  ...
     , kw1 .* exp(- sedThickOutsideChannel ./ kwm) ) ...
-    .* (dX - bankfullWidth) ./ dX ...                      % ÇÏµµ¸¦ Á¦¿ÜÇÔ
-    .* dT;                                                 % ´ÜÀ§º¯È¯ [m/dT]
+    .* (dX - bankfullWidth) ./ dX ...                      % í•˜ë„ë¥¼ ì œì™¸í•¨
+    .* dT;                                                 % ë‹¨ìœ„ë³€í™˜ [m/dT]
 
 end % RockWeathering end

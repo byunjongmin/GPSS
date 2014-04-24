@@ -1,66 +1,66 @@
 % =========================================================================
 %> @section INTRO RapidMassMovement
 %>
-%> - ºÒ¾ÈÁ¤ÇÑ »ç¸éÀ» ÆÄ¾ÇÇÏ°í, ÀÌµé¿¡ È°µ¿À» ¹ß»ı½ÃÅ°´Â ÇÔ¼ö
-%>  - ÁÖÀÇ: È°µ¿¿¡ ÀÇÇÑ ¹°ÁúÀÌµ¿Àº º¸´Ù ¹°¸®±â¹İ ¹ıÄ¢¿¡ ±Ù°ÅÇØ¾ß ÇÔ.
-%>  - ¿ø¸®:
-%>   - 1. È°µ¿À» ÃµºÎÈ°µ¿(shallow landslide)¿Í ±â¹İ¾ÏÈ°µ¿(bedrock landslide)·Î
-%>     ±¸ºĞÇÔ. ÃµºÎÈ°µ¿¿¡´Â ¾Ï¼³·ù(debris flow), ¾Ï¼³¾Ö¹ú·±Ä¡(debris avalanch),
-%>     ¾Ï¼³È°µ¿(debris landslide) µî°ú °°ÀÌ Åä¾çÃşÀÌ ÀÌµ¿µÇ´Â °ÍÀ» Æ÷ÇÔÇÔ
-%>   - 2. ºÒ¾ÈÁ¤ÇÑ ¼¿¿¡¼­ ¾ÈÁ¤ »ç¸é°¢À» ÀÌ·ê Á¤µµ¸¸Å­ÀÇ »ç¸é¹°ÁúÀÌ ´ÙÀ½ ¼¿·Î
-%>     ÀÌµ¿ÇÏ¸ç, ÀÌÈÄ »ç¸é¹°ÁúÀº »ç¸é ÇÏºÎ·Î ¿¬¼âÀûÀ¸·Î ÀÌµ¿ÇÏ¸ç, ´ÙÀ½ ¼¿·Î ´õ
-%>     ÀÌ»óÀÇ ¹°ÁúÀÌµ¿ÀÌ ÀÏ¾î³ªÁö ¾Ê´Â ¾ÈÁ¤»ç¸é¿¡¼­ ¿¬¼â ÀÌµ¿À» Á¾·áÇÔ.
-%>  - ÁÖÀÇ: ´Ü¼øÇÔÀ» À§ÇØ ¹«ÇÑ À¯ÇâÀÌ ¾Æ´Ñ D8 ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ´Ù.
+%> - ë¶ˆì•ˆì •í•œ ì‚¬ë©´ì„ íŒŒì•…í•˜ê³ , ì´ë“¤ì— í™œë™ì„ ë°œìƒì‹œí‚¤ëŠ” í•¨ìˆ˜
+%>  - ì£¼ì˜: í™œë™ì— ì˜í•œ ë¬¼ì§ˆì´ë™ì€ ë³´ë‹¤ ë¬¼ë¦¬ê¸°ë°˜ ë²•ì¹™ì— ê·¼ê±°í•´ì•¼ í•¨.
+%>  - ì›ë¦¬:
+%>   - 1. í™œë™ì„ ì²œë¶€í™œë™(shallow landslide)ì™€ ê¸°ë°˜ì•”í™œë™(bedrock landslide)ë¡œ
+%>     êµ¬ë¶„í•¨. ì²œë¶€í™œë™ì—ëŠ” ì•”ì„¤ë¥˜(debris flow), ì•”ì„¤ì• ë²ŒëŸ°ì¹˜(debris avalanch),
+%>     ì•”ì„¤í™œë™(debris landslide) ë“±ê³¼ ê°™ì´ í† ì–‘ì¸µì´ ì´ë™ë˜ëŠ” ê²ƒì„ í¬í•¨í•¨
+%>   - 2. ë¶ˆì•ˆì •í•œ ì…€ì—ì„œ ì•ˆì • ì‚¬ë©´ê°ì„ ì´ë£° ì •ë„ë§Œí¼ì˜ ì‚¬ë©´ë¬¼ì§ˆì´ ë‹¤ìŒ ì…€ë¡œ
+%>     ì´ë™í•˜ë©°, ì´í›„ ì‚¬ë©´ë¬¼ì§ˆì€ ì‚¬ë©´ í•˜ë¶€ë¡œ ì—°ì‡„ì ìœ¼ë¡œ ì´ë™í•˜ë©°, ë‹¤ìŒ ì…€ë¡œ ë”
+%>     ì´ìƒì˜ ë¬¼ì§ˆì´ë™ì´ ì¼ì–´ë‚˜ì§€ ì•ŠëŠ” ì•ˆì •ì‚¬ë©´ì—ì„œ ì—°ì‡„ ì´ë™ì„ ì¢…ë£Œí•¨.
+%>  - ì£¼ì˜: ë‹¨ìˆœí•¨ì„ ìœ„í•´ ë¬´í•œ ìœ í–¥ì´ ì•„ë‹Œ D8 ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œë‹¤.
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %> @see Collapse(), CalcSDSFlow(), CheckOversteepSlopes()
 %>
-%> @retval dBedrockElev                 : È°µ¿¿¡ ÀÇÇÑ ±â¹İ¾Ï °íµµ º¯È­À² [m/dT]
-%> @retval dSedimentThick               : È°µ¿¿¡ ÀÇÇÑ ÅğÀûÃş µÎ²² º¯È­À² [m/dT]
-%> @retval dTAfterLastShallowLandslide  : °»½ÅµÈ ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
-%> @retval dTAfterLastBedrockLandslide  : °»½ÅµÈ ¸¶Áö¸· ±â¹İ¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
+%> @retval dBedrockElev                 : í™œë™ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m/dT]
+%> @retval dSedimentThick               : í™œë™ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/dT]
+%> @retval dTAfterLastShallowLandslide  : ê°±ì‹ ëœ ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
+%> @retval dTAfterLastBedrockLandslide  : ê°±ì‹ ëœ ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
 %>
-%> @param mRows                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
-%> @param nCols                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
-%> @param Y                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
-%> @param X                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
-%> @param Y_INI                         : ¸ğÇü ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param Y_MAX                         : ¸ğÇü ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª(=Y+1)
-%> @param X_INI                         : ¸ğÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param X_MAX                         : ¸ğÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
-%> @param Y_TOP_BND                     : ¸ğÇü ¿Ü°û À§ °æ°è Y ÁÂÇ¥°ª
-%> @param Y_BOTTOM_BND                  : ¸ğÇü ¿Ü°û ¾Æ·¡ °æ°è Y ÁÂÇ¥°ª
-%> @param X_LEFT_BND                    : ¸ğÇü ¿Ü°û ÁÂ °æ°è X ÁÂÇ¥°ª
-%> @param X_RIGHT_BND                   : ¸ğÇü ¿Ü°û ¿ì °æ°è X ÁÂÇ¥°ª
-%> @param dT                            : ¸¸¼öÀ¯·® ÀçÇö±â°£ [year]
+%> @param mRows                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
+%> @param nCols                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
+%> @param Y                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
+%> @param X                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
+%> @param Y_INI                         : ëª¨í˜• ì˜ì—­ Y ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param Y_MAX                         : ëª¨í˜• ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=Y+1)
+%> @param X_INI                         : ëª¨í˜• ì˜ì—­ X ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param X_MAX                         : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
+%> @param Y_TOP_BND                     : ëª¨í˜• ì™¸ê³½ ìœ„ ê²½ê³„ Y ì¢Œí‘œê°’
+%> @param Y_BOTTOM_BND                  : ëª¨í˜• ì™¸ê³½ ì•„ë˜ ê²½ê³„ Y ì¢Œí‘œê°’
+%> @param X_LEFT_BND                    : ëª¨í˜• ì™¸ê³½ ì¢Œ ê²½ê³„ X ì¢Œí‘œê°’
+%> @param X_RIGHT_BND                   : ëª¨í˜• ì™¸ê³½ ìš° ê²½ê³„ X ì¢Œí‘œê°’
+%> @param dT                            : ë§Œìˆ˜ìœ ëŸ‰ ì¬í˜„ê¸°ê°„ [year]
 %> @param ROOT2                         : sqrt(2)
 %> @param QUARTER_PI                    : pi * 0.25
-%> @param CELL_AREA                     : ¼¿ ¸éÀû [m^2]
-%> @param DISTANCE_RATIO_TO_NBR         : ¼¿ Å©±â¸¦ ±âÁØÀ¸·Î ÀÌ¿ô ¼¿°£ °Å¸®ºñ [m]
-%> @param soilCriticalSlopeForFailure   : ÃµºÎÈ°µ¿ÀÌ ¹ß»ıÇÏ´Â ÀÓ°è »ç¸é°¢ [radian]
-%> @param rockCriticalSlopeForFailure   : ±â¹İ¾ÏÈ°µ¿ÀÌ ¹ß»ıÇÏ´Â ÀÓ°è »ç¸é°¢ [radian]
-%> @param bedrockElev                   : ±â¹İ¾Ï °íµµ [m]
-%> @param sedimentThick                 : ÅğÀûÃş µÎ²² [m]
-%> @param dTAfterLastShallowLandslide   : ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
-%> @param dTAfterLastBedrockLandslide   : ¸¶Áö¸· ±â¹İ¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
-%> @param dX                            : ¼¿ Å©±â [m]
-%> @param OUTER_BOUNDARY                : ¸ğÇü ¿µ¿ª ¿Ü°û °æ°è ¸¶½ºÅ©
-%> @param IS_LEFT_RIGHT_CONNECTED       : ÁÂ¿ì ¿Ü°û °æ°è ¿¬°áÀ» °áÁ¤
-%> @param ithNbrYOffset                 : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ YÃà ¿É¼Â
-%> @param ithNbrXOffset                 : Áß¾Ó ¼¿·Î ºÎÅÍ 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°±â À§ÇÑ XÃà ¿É¼Â
-%> @param sE0LinearIndicies             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ Áß¾Ó ¼¿
-%> @param s3IthNbrLinearIndicies        : 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°´Â 3Â÷¿ø »öÀÎ ¹è¿­
+%> @param CELL_AREA                     : ì…€ ë©´ì  [m^2]
+%> @param DISTANCE_RATIO_TO_NBR         : ì…€ í¬ê¸°ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì´ì›ƒ ì…€ê°„ ê±°ë¦¬ë¹„ [m]
+%> @param soilCriticalSlopeForFailure   : ì²œë¶€í™œë™ì´ ë°œìƒí•˜ëŠ” ì„ê³„ ì‚¬ë©´ê° [radian]
+%> @param rockCriticalSlopeForFailure   : ê¸°ë°˜ì•”í™œë™ì´ ë°œìƒí•˜ëŠ” ì„ê³„ ì‚¬ë©´ê° [radian]
+%> @param bedrockElev                   : ê¸°ë°˜ì•” ê³ ë„ [m]
+%> @param sedimentThick                 : í‡´ì ì¸µ ë‘ê»˜ [m]
+%> @param dTAfterLastShallowLandslide   : ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
+%> @param dTAfterLastBedrockLandslide   : ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
+%> @param dX                            : ì…€ í¬ê¸° [m]
+%> @param OUTER_BOUNDARY                : ëª¨í˜• ì˜ì—­ ì™¸ê³½ ê²½ê³„ ë§ˆìŠ¤í¬
+%> @param IS_LEFT_RIGHT_CONNECTED       : ì¢Œìš° ì™¸ê³½ ê²½ê³„ ì—°ê²°ì„ ê²°ì •
+%> @param ithNbrYOffset                 : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Yì¶• ì˜µì…‹
+%> @param ithNbrXOffset                 : ì¤‘ì•™ ì…€ë¡œ ë¶€í„° 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ Xì¶• ì˜µì…‹
+%> @param sE0LinearIndicies             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ ì¤‘ì•™ ì…€
+%> @param s3IthNbrLinearIndicies        : 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ëŠ” 3ì°¨ì› ìƒ‰ì¸ ë°°ì—´
 % =========================================================================
 function [dBedrockElev,dSedimentThick,dTAfterLastShallowLandslide,dTAfterLastBedrockLandslide] = RapidMassMovement(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,dT,ROOT2,QUARTER_PI,CELL_AREA,DISTANCE_RATIO_TO_NBR,soilCriticalSlopeForFailure,rockCriticalSlopeForFailure,bedrockElev,sedimentThick,dTAfterLastShallowLandslide,dTAfterLastBedrockLandslide,dX,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED,ithNbrYOffset,ithNbrXOffset,sE0LinearIndicies,s3IthNbrLinearIndicies)
 %
 % function RapidMassMovement
 %
 
-% »ó¼ö ¹× º¯¼ö ÃÊ±âÈ­
-SOIL = 1; % ÃµºÎÈ°µ¿
-ROCK = 2; % ¾Ï¼®ºØ±«
+% ìƒìˆ˜ ë° ë³€ìˆ˜ ì´ˆê¸°í™”
+SOIL = 1; % ì²œë¶€í™œë™
+ROCK = 2; % ì•”ì„ë¶•ê´´
 
 oversteepSlopesNo = 1;
 
@@ -70,15 +70,15 @@ facetFlowSlope = nan(mRows,nCols);
 
 while (oversteepSlopesNo > 0)
     
-    % ÁöÇ¥ °íµµ¸¦ °»½ÅÇÔ
+    % ì§€í‘œ ê³ ë„ë¥¼ ê°±ì‹ í•¨
     elev = bedrockElev + sedimentThick;
     
-    % À¯ÇâÀ» °»½ÅÇÔ
-    [steepestDescentSlope ...       % °æ»ç
-    ,slopeAllNbr ...                % 8 ÀÌ¿ô ¼¿°úÀÇ °æ»ç
-    ,SDSFlowDirection ...           % À¯Çâ
-    ,SDSNbrY ...                    % ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
-    ,SDSNbrX] ...                   % ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
+    % ìœ í–¥ì„ ê°±ì‹ í•¨
+    [steepestDescentSlope ...       % ê²½ì‚¬
+    ,slopeAllNbr ...                % 8 ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬
+    ,SDSFlowDirection ...           % ìœ í–¥
+    ,SDSNbrY ...                    % ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
+    ,SDSNbrX] ...                   % ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
         = CalcSDSFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND ...
         ,QUARTER_PI,DISTANCE_RATIO_TO_NBR,elev,dX ...
@@ -86,18 +86,18 @@ while (oversteepSlopesNo > 0)
         ,ithNbrYOffset,ithNbrXOffset ...
         ,sE0LinearIndicies,s3IthNbrLinearIndicies);
         
-    % À¯ÇâÀÌ Á¤ÀÇµÇÁö ¾ÊÀº ¼¿¿¡ À¯ÇâÀ» ºÎ¿©ÇÔ
+    % ìœ í–¥ì´ ì •ì˜ë˜ì§€ ì•Šì€ ì…€ì— ìœ í–¥ì„ ë¶€ì—¬í•¨
     [flood ...                          % flooded region
-    ,SDSNbrY ...                        % ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
-    ,SDSNbrX ...                        % ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
-    ,SDSFlowDirection ...               % ¼öÁ¤µÈ À¯Çâ
-    ,steepestDescentSlope ...           % ¼öÁ¤µÈ °æ»ç
-    ,integratedSlope ...                % ¼öÁ¤µÈ ¹«ÇÑ À¯Çâ °æ»ç
-    ,floodedRegionIndex ...             % flooded region »öÀÎ
-    ,floodedRegionCellsNo ...           % flooded region ±¸¼º ¼¿ ¼ö
-    ,floodedRegionLocalDepth ...        % flooded region °íµµ¿Í À¯Ãâ±¸ °íµµ¿ÍÀÇ Â÷ÀÌ
-    ,floodedRegionTotalDepth ...        % ÃÑ local depth
-    ,floodedRegionStorageVolume] ...    % flooded region ÃÑ ÀúÀå·®
+    ,SDSNbrY ...                        % ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
+    ,SDSNbrX ...                        % ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
+    ,SDSFlowDirection ...               % ìˆ˜ì •ëœ ìœ í–¥
+    ,steepestDescentSlope ...           % ìˆ˜ì •ëœ ê²½ì‚¬
+    ,integratedSlope ...                % ìˆ˜ì •ëœ ë¬´í•œ ìœ í–¥ ê²½ì‚¬
+    ,floodedRegionIndex ...             % flooded region ìƒ‰ì¸
+    ,floodedRegionCellsNo ...           % flooded region êµ¬ì„± ì…€ ìˆ˜
+    ,floodedRegionLocalDepth ...        % flooded region ê³ ë„ì™€ ìœ ì¶œêµ¬ ê³ ë„ì™€ì˜ ì°¨ì´
+    ,floodedRegionTotalDepth ...        % ì´ local depth
+    ,floodedRegionStorageVolume] ...    % flooded region ì´ ì €ì¥ëŸ‰
         = ProcessSink(mRows,nCols,X_INI,X_MAX ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA ...
         ,elev,ithNbrYOffset,ithNbrXOffset ...
@@ -105,13 +105,13 @@ while (oversteepSlopesNo > 0)
         ,slopeAllNbr,steepestDescentSlope ...
         ,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection); 
 
-	% 1. ÃµºÎÈ°µ¿
+	% 1. ì²œë¶€í™œë™
     
-    % 1) ÃµºÎÈ°µ¿ÀÌ ¹ß»ıÇÒ °ÍÀ¸·Î ¿¹»óµÇ´Â ºÒ¾ÈÁ¤ÇÑ »ç¸éÀ» ÆÄ¾ÇÇÔ
-	[oversteepSlopes ...                % ºÒ¾ÈÁ¤ÇÑ »ç¸é
-    ,oversteepSlopesIndicies ...        % ºÒ¾ÈÁ¤ÇÑ ¼¿ »öÀÎ
-    ,dTAfterLastShallowLandslide ...    % ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
-    ,dTAfterLastBedrockLandslide] ...   % ¸¶Áö¸· ±â¹İ¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
+    % 1) ì²œë¶€í™œë™ì´ ë°œìƒí•  ê²ƒìœ¼ë¡œ ì˜ˆìƒë˜ëŠ” ë¶ˆì•ˆì •í•œ ì‚¬ë©´ì„ íŒŒì•…í•¨
+	[oversteepSlopes ...                % ë¶ˆì•ˆì •í•œ ì‚¬ë©´
+    ,oversteepSlopesIndicies ...        % ë¶ˆì•ˆì •í•œ ì…€ ìƒ‰ì¸
+    ,dTAfterLastShallowLandslide ...    % ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
+    ,dTAfterLastBedrockLandslide] ...   % ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
         = CheckOversteepSlopes(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
         ,dT,ROOT2 ...
         ,SOIL,soilCriticalSlopeForFailure ...
@@ -120,16 +120,16 @@ while (oversteepSlopesNo > 0)
         ,dX,OUTER_BOUNDARY,SDSNbrY,SDSNbrX,flood);	
 	
     
-    % 2) ÃµºÎÈ°µ¿À¸·Î ÀÎÇÑ °íµµ º¯È­À²À» ±¸ÇÔ
+    % 2) ì²œë¶€í™œë™ìœ¼ë¡œ ì¸í•œ ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•¨
 	oversteepSlopesNo = size(oversteepSlopesIndicies,1);
 	
 	if oversteepSlopesNo > 0
 	
-		[dBedrockElevByDebrisFlow ...       % ±â¹İ¾Ï °íµµ º¯È­À²
-        ,dSedimentThickByDebrisFlow ...     % ÅğÀûÃş µÎ²² º¯È­À²
-        ,SDSNbrY ...                    % ÃµºÎÈ°µ¿ÈÄ ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
-        ,SDSNbrX ...                    % ÃµºÎÈ°µ¿ÈÄ ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
-        ,flood] ...                     % ÃµºÎÈ°µ¿ÈÄ ¼öÁ¤µÈ flooded region
+		[dBedrockElevByDebrisFlow ...       % ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
+        ,dSedimentThickByDebrisFlow ...     % í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨
+        ,SDSNbrY ...                    % ì²œë¶€í™œë™í›„ ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
+        ,SDSNbrX ...                    % ì²œë¶€í™œë™í›„ ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
+        ,flood] ...                     % ì²œë¶€í™œë™í›„ ìˆ˜ì •ëœ flooded region
             = Collapse(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
             ,DISTANCE_RATIO_TO_NBR,ROOT2,QUARTER_PI ...
@@ -143,7 +143,7 @@ while (oversteepSlopesNo > 0)
             ,ithNbrYOffset,ithNbrXOffset ...
             ,sE0LinearIndicies,s3IthNbrLinearIndicies);
 		
-		% 3) ÅğÀûÃş µÎ²²¸¦ °»½ÅÇÏ°í, ´©Àû º¯È­À²À» ±¸ÇÔ
+		% 3) í‡´ì ì¸µ ë‘ê»˜ë¥¼ ê°±ì‹ í•˜ê³ , ëˆ„ì  ë³€í™”ìœ¨ì„ êµ¬í•¨
 		dSedimentThick = dSedimentThick + dSedimentThickByDebrisFlow;
 		sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
 		    = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
@@ -152,13 +152,13 @@ while (oversteepSlopesNo > 0)
 
 	end
 	
-    % 2. ±â¹İ¾ÏÈ°µ¿
+    % 2. ê¸°ë°˜ì•”í™œë™
     
-	% 1) ±â¹İ¾ÏÈ°µ¿ÀÌ ¹ß»ıÇÒ °ÍÀ¸·Î ¿¹»óµÇ´Â ºÒ¾ÈÁ¤ÇÑ »ç¸éÀ» ÆÄ¾ÇÇÔ
-	[oversteepSlopes ...                % ºÒ¾ÈÁ¤ÇÑ »ç¸é
-    ,oversteepSlopesIndicies ...        % ºÒ¾ÈÁ¤ÇÑ ¼¿ »öÀÎ
-    ,dTAfterLastShallowLandslide ...    % ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
-    ,dTAfterLastBedrockLandslide] ...   % ¸¶Áö¸· ±â¹İ¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£
+	% 1) ê¸°ë°˜ì•”í™œë™ì´ ë°œìƒí•  ê²ƒìœ¼ë¡œ ì˜ˆìƒë˜ëŠ” ë¶ˆì•ˆì •í•œ ì‚¬ë©´ì„ íŒŒì•…í•¨
+	[oversteepSlopes ...                % ë¶ˆì•ˆì •í•œ ì‚¬ë©´
+    ,oversteepSlopesIndicies ...        % ë¶ˆì•ˆì •í•œ ì…€ ìƒ‰ì¸
+    ,dTAfterLastShallowLandslide ...    % ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
+    ,dTAfterLastBedrockLandslide] ...   % ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„
         = CheckOversteepSlopes(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
         ,dT,ROOT2 ...
         ,ROCK,rockCriticalSlopeForFailure ...
@@ -166,16 +166,16 @@ while (oversteepSlopesNo > 0)
         ,dTAfterLastShallowLandslide,dTAfterLastBedrockLandslide ...   
         ,dX,OUTER_BOUNDARY,SDSNbrY,SDSNbrX,flood);
 	
-	% 2) ±â¹İ¾ÏÈ°µ¿À¸·Î ÀÎÇÑ °íµµ º¯È­À²À» ±¸ÇÔ
+	% 2) ê¸°ë°˜ì•”í™œë™ìœ¼ë¡œ ì¸í•œ ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•¨
 	oversteepSlopesNo = size(oversteepSlopesIndicies,1);
 	
 	if oversteepSlopesNo > 0
 	
-		[dBedrockElevByRockFailure ...      % ±â¹İ¾Ï °íµµ º¯È­À²
-        ,dSedimentThickByRockFailure ...    % ÅğÀûÃş µÎ²² º¯È­À²
-        ,SDSNbrY ...                    % ±â¹İ¾ÏÈ°µ¿ÈÄ ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥°ª
-        ,SDSNbrX ...                    % ±â¹İ¾ÏÈ°µ¿ÈÄ ¼öÁ¤µÈ ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥°ª
-        ,flood] ...                     % ±â¹İ¾ÏÈ°µ¿ÈÄ ¼öÁ¤µÈ flooded region
+		[dBedrockElevByRockFailure ...      % ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨
+        ,dSedimentThickByRockFailure ...    % í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨
+        ,SDSNbrY ...                    % ê¸°ë°˜ì•”í™œë™í›„ ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œê°’
+        ,SDSNbrX ...                    % ê¸°ë°˜ì•”í™œë™í›„ ìˆ˜ì •ëœ ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œê°’
+        ,flood] ...                     % ê¸°ë°˜ì•”í™œë™í›„ ìˆ˜ì •ëœ flooded region
             = Collapse(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
             ,DISTANCE_RATIO_TO_NBR,ROOT2,QUARTER_PI ...
@@ -189,7 +189,7 @@ while (oversteepSlopesNo > 0)
             ,ithNbrYOffset,ithNbrXOffset ...
             ,sE0LinearIndicies,s3IthNbrLinearIndicies);
 		
-		% 3) ÅğÀûÃş µÎ²²¿Í ±â¹İ¾Ï °íµµ¸¦ °»½ÅÇÏ°í, ´©Àû º¯È­À²À» ±¸ÇÔ
+		% 3) í‡´ì ì¸µ ë‘ê»˜ì™€ ê¸°ë°˜ì•” ê³ ë„ë¥¼ ê°±ì‹ í•˜ê³ , ëˆ„ì  ë³€í™”ìœ¨ì„ êµ¬í•¨
 		dSedimentThick = dSedimentThick + dSedimentThickByRockFailure;
 		dBedrockElev = dBedrockElev + dBedrockElevByRockFailure;
 		sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)...

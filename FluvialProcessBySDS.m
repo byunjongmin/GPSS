@@ -1,307 +1,307 @@
 % =========================================================================
 %> @section INTRO FluvialProcessBySDS
 %>
-%> - ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅğÀûÃş µÎ²² ¹× ±â¹İ¾Ï °íµµ º¯È­À²À» ±¸ÇÏ´Â ÇÔ¼ö
-%> - ¹«ÇÑÀ¯Çâ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÏÁö ¾Ê°í, SDSÀ» ÀÌ¿ëÇÔ
+%> - í•˜ì²œì‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜
+%> - ë¬´í•œìœ í–¥ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•˜ì§€ ì•Šê³ , SDSì„ ì´ìš©í•¨
 %>
 %> - History
 %>  - 120928
-%>   - SDS À¯Çâ ¾Ë°í¸®µë¸¸À» ÀÌ¿ëÇÏµµ·Ï ¼öÁ¤ÇÔ
+%>   - SDS ìœ í–¥ ì•Œê³ ë¦¬ë“¬ë§Œì„ ì´ìš©í•˜ë„ë¡ ìˆ˜ì •í•¨
 %>  - 110819
-%>   - »ç¸é ¼¿¿¡¼­ ÁöÇ¥À¯Ãâ·Î ÀÎÇÑ ¹°ÁúÀÌµ¿À» ¹İ¿µÇÔ
+%>   - ì‚¬ë©´ ì…€ì—ì„œ ì§€í‘œìœ ì¶œë¡œ ì¸í•œ ë¬¼ì§ˆì´ë™ì„ ë°˜ì˜í•¨
 %>  - 1007
-%>   - ÇÏµµ ³» ÇÏ»ó ÅğÀû¹°À» ¸í½ÃÀûÀ¸·Î Æ÷ÇÔ
+%>   - í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ì„ ëª…ì‹œì ìœ¼ë¡œ í¬í•¨
 %>  - 100321
-%>   - flooded region ÀÇ ¼ø ÅğÀû¹° µÎ²² º¯È­·® ±¸ÇÏ´Â ¾Ë°í¸®µëÀ» °£¼ÒÈ­ÇÔ
+%>   - flooded region ì˜ ìˆœ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ëŸ‰ êµ¬í•˜ëŠ” ì•Œê³ ë¦¬ë“¬ì„ ê°„ì†Œí™”í•¨
 %>  - 100313
-%>   - ±â¹İ¾Ï ÇÏ»ó Ä§½ÄÀ» Ãß°¡ÇÔ
+%>   - ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ì„ ì¶”ê°€í•¨
 %>  - 100224
-%>   - flooded region ¹× ÀÌÀÇ À¯Ãâ±¸ÀÇ ¼ø °íµµ º¯È­·®À» ±¸ÇÏ´Â ¾Ë°í¸®µëÀ»
-%>     ÀüÃ¼ÀûÀ¸·Î ¼öÁ¤ÇÔ. Àå±â°£ÀÇ ÁöÇü ¹ß´ŞÀ» ¸ğÀÇÇÒ °æ¿ì, ¸¹Àº ½Ã°£ÀÌ
-%>     ¼Ò¿äµÇÁö ¾Ê´Â °£´ÜÇÑ ¾Ë°í¸®µëÀ» µµÀÔÇÔ
+%>   - flooded region ë° ì´ì˜ ìœ ì¶œêµ¬ì˜ ìˆœ ê³ ë„ ë³€í™”ëŸ‰ì„ êµ¬í•˜ëŠ” ì•Œê³ ë¦¬ë“¬ì„
+%>     ì „ì²´ì ìœ¼ë¡œ ìˆ˜ì •í•¨. ì¥ê¸°ê°„ì˜ ì§€í˜• ë°œë‹¬ì„ ëª¨ì˜í•  ê²½ìš°, ë§ì€ ì‹œê°„ì´
+%>     ì†Œìš”ë˜ì§€ ì•ŠëŠ” ê°„ë‹¨í•œ ì•Œê³ ë¦¬ë“¬ì„ ë„ì…í•¨
 %>  - 100209
-%>   - EstimateMinTakenTime ÇÔ¼ö¿Í º°°³·Î ÇÏÃµ¿¡ ÀÇÇÑ ¼ø °íµµ º¯È­·®À» ±¸ÇÏ´Â
-%>     ÇÔ¼ö·Î Æ¯È­ ½ÃÅ´
+%>   - EstimateMinTakenTime í•¨ìˆ˜ì™€ ë³„ê°œë¡œ í•˜ì²œì— ì˜í•œ ìˆœ ê³ ë„ ë³€í™”ëŸ‰ì„ êµ¬í•˜ëŠ”
+%>     í•¨ìˆ˜ë¡œ íŠ¹í™” ì‹œí‚´
 %>  - 100104
-%>   - flooded region°ú ÀÌÀÇ À¯Ãâ±¸ÀÇ ¼ø °íµµ º¯È­·®À» ±¸ÇÏ´Â ¾Ë°í¸®µëÀ» »õ·Î
-%>     ¼³°èÇÔ. Æ¯È÷ À¯Ãâ±¸¿¡¼­ ºñÁ¤»óÀûÀ¸·Î ³ôÀº ÅğÀû¹° ¿î¹İ·®À» ÁÙÀÌ´Âµ¥
-%>     ÁÖ¾ÈÁ¡À» µÎ¾úÀ½
+%>   - flooded regionê³¼ ì´ì˜ ìœ ì¶œêµ¬ì˜ ìˆœ ê³ ë„ ë³€í™”ëŸ‰ì„ êµ¬í•˜ëŠ” ì•Œê³ ë¦¬ë“¬ì„ ìƒˆë¡œ
+%>     ì„¤ê³„í•¨. íŠ¹íˆ ìœ ì¶œêµ¬ì—ì„œ ë¹„ì •ìƒì ìœ¼ë¡œ ë†’ì€ í‡´ì ë¬¼ ìš´ë°˜ëŸ‰ì„ ì¤„ì´ëŠ”ë°
+%>     ì£¼ì•ˆì ì„ ë‘ì—ˆìŒ
 %>  - 091225
-%>   - flooded region ³» sink ÀÎ ¼¿¿¡¼­ FluvialProcess ÇÔ¼ö ¼öÇà ÈÄ À¯Ãâ±¸ÀÇ
-%>     °íµµº¸´Ù ´õ ³ô¾ÆÁö´Â Çö»óÀÌ ¹ß»ıÇÏ¿©, ÀÌ¸¦ ÇØ°áÇÏ±â À§ÇÑ ½Ãµµ¸¦ ÇÔ
+%>   - flooded region ë‚´ sink ì¸ ì…€ì—ì„œ FluvialProcess í•¨ìˆ˜ ìˆ˜í–‰ í›„ ìœ ì¶œêµ¬ì˜
+%>     ê³ ë„ë³´ë‹¤ ë” ë†’ì•„ì§€ëŠ” í˜„ìƒì´ ë°œìƒí•˜ì—¬, ì´ë¥¼ í•´ê²°í•˜ê¸° ìœ„í•œ ì‹œë„ë¥¼ í•¨
 %>  - 091221
-%>   - ÅğÀû¹°·Î Ã¤¿öÁø flooded regionÀÇ À¯Ãâ±¸ °íµµ°¡ ºñÁ¤»óÀûÀ¸·Î ³ô¾ÆÁö´Â
-%>     ¹®Á¦¸¦ ÇØ°áÇÏ°í, ÅğÀû¹°·Î Ã¤¿öÁöÁö ¾ÊÀº flooded region¿¡¼­´Â °¡Àå ³·Àº
-%>     ÁöÁ¡±îÁö ¹°Áú ÀÌµ¿ÀÌ ÀÏ¾î³ªµµ·Ï ÇÔ
+%>   - í‡´ì ë¬¼ë¡œ ì±„ì›Œì§„ flooded regionì˜ ìœ ì¶œêµ¬ ê³ ë„ê°€ ë¹„ì •ìƒì ìœ¼ë¡œ ë†’ì•„ì§€ëŠ”
+%>     ë¬¸ì œë¥¼ í•´ê²°í•˜ê³ , í‡´ì ë¬¼ë¡œ ì±„ì›Œì§€ì§€ ì•Šì€ flooded regionì—ì„œëŠ” ê°€ì¥ ë‚®ì€
+%>     ì§€ì ê¹Œì§€ ë¬¼ì§ˆ ì´ë™ì´ ì¼ì–´ë‚˜ë„ë¡ í•¨
 %>
 %> @version 0.91
 %> @callgraph
 %> @callergraph
 %> @see IsBoundary()
 %>
-%> @retval dSedimentThick               : ÅğÀûÃş µÎ²² º¯È­À² [m/subDT]
-%> @retval dBedrockElev                 : ±â¹İ¾Ï °íµµ º¯È­À² [m/subDT]
-%> @retval dChanBedSed                  : ÇÏµµ ³» ÇÏ»ó ÅğÀûÃş º¯È­À² [m^3/subDT]
+%> @retval dSedimentThick               : í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT]
+%> @retval dBedrockElev                 : ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m/subDT]
+%> @retval dChanBedSed                  : í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë³€í™”ìœ¨ [m^3/subDT]
 
-%> @param mRows                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
-%> @param nCols                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
-%> @param Y_TOP_BND                     : ¸ğÇü ¿Ü°û À§ °æ°è Y ÁÂÇ¥°ª
-%> @param Y_BOTTOM_BND                  : ¸ğÇü ¿Ü°û ¾Æ·¡ °æ°è Y ÁÂÇ¥°ª
-%> @param X_LEFT_BND                    : ¸ğÇü ¿Ü°û ÁÂ °æ°è X ÁÂÇ¥°ª
-%> @param X_RIGHT_BND                   : ¸ğÇü ¿Ü°û ¿ì °æ°è X ÁÂÇ¥°ª
-%> @param CELL_AREA                     : ¼¿ ¸éÀû [m^2]
-%> @param FLUVIALPROCESS_COND           : flooded regionÀÇ ¼ø ÅğÀû¹° µÎ²² º¯È­À²À» ÃßÁ¤ÇÏ´Â ¹æ¹ı
-%> @param timeWeight                    : ¸¸¼öÀ¯·® Áö¼Ó±â°£À» ÁÙÀÌ±â À§ÇÑ Ä§½ÄÀ² °¡ÁßÄ¡
-%> @param sortedYXElev                  : ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÑ Y,X ÁÂÇ¥°ª
-%> @param consideringCellsNo            : ÇÔ¼öÀÇ ´ë»óÀÌ µÇ´Â ¼¿µéÀÇ ¼ö
-%> @param channel                       : ÇÏÃµ ½ÃÀÛ ÀÓ°èÄ¡¸¦ ³ÑÀº ¼¿
-%> @param chanBedSed                    : ÇÏµµ ³» ÇÏ»ó ÅğÀûÃş ºÎÇÇ [m^3]
-%> @param hillslope                     : »ç¸é¼¿
-%> @param sedimentThick                 : ÅğÀûÃş µÎ²²
-%> @param OUTER_BOUNDARY                : ¸ğÇü ¿µ¿ª ¿Ü°û °æ°è ¸¶½ºÅ©
-%> @param bankfullDischarge             : ¸¸¼öÀ¯·® [m^3/s]
-%> @param bankfullWidth                 : ¸¸¼öÀ¯·®½Ã ÇÏÆø [m]
-%> @param flood                         : SINK·Î ÀÎÇØ ¹°ÀÌ °íÀÌ´Â Áö¿ª(flooded region)
-%> @param floodedRegionIndex            : °³º° flooded region »öÀÎ
-%> @param floodedRegionCellsNo          : °³º° flooded region ¼¿ °³¼ö
-%> @param floodedRegionLocalDepth       : flooded region °³º° ¼¿ÀÇ ±íÀÌ [m]
-%> @param floodedRegionTotalDepth       : flooded region °³º° ¼¿ ±íÀÌÀÇ ÃÑÇÕ [m]
-%> @param floodedRegionStorageVolume    : °³º° flooded region ºÎÇÇ [m^3]
-%> @param e1LinearIndicies              : ¹«ÇÑ À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ »öÀÎ
-%> @param e2LinearIndicies              : ¹«ÇÑ À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ »öÀÎ
-%> @param outputFluxRatioToE1           : ¹«ÇÑ À¯Çâ¿¡ ÀÇÇØ ´ÙÀ½ ¼¿·Î ºĞ¹èµÇ´Â ºñÀ²
-%> @param outputFluxRatioToE2           : ¹«ÇÑ À¯Çâ¿¡ ÀÇÇØ ´ÙÀ½ ¼¿·Î ºĞ¹èµÇ´Â ºñÀ²
-%> @param SDSNbrY                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
-%> @param SDSNbrX                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
-%> @param integratedSlope               : ¼öÁ¤µÈ facet flow °æ»ç [radian]
+%> @param mRows                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
+%> @param nCols                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
+%> @param Y_TOP_BND                     : ëª¨í˜• ì™¸ê³½ ìœ„ ê²½ê³„ Y ì¢Œí‘œê°’
+%> @param Y_BOTTOM_BND                  : ëª¨í˜• ì™¸ê³½ ì•„ë˜ ê²½ê³„ Y ì¢Œí‘œê°’
+%> @param X_LEFT_BND                    : ëª¨í˜• ì™¸ê³½ ì¢Œ ê²½ê³„ X ì¢Œí‘œê°’
+%> @param X_RIGHT_BND                   : ëª¨í˜• ì™¸ê³½ ìš° ê²½ê³„ X ì¢Œí‘œê°’
+%> @param CELL_AREA                     : ì…€ ë©´ì  [m^2]
+%> @param FLUVIALPROCESS_COND           : flooded regionì˜ ìˆœ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ ì¶”ì •í•˜ëŠ” ë°©ë²•
+%> @param timeWeight                    : ë§Œìˆ˜ìœ ëŸ‰ ì§€ì†ê¸°ê°„ì„ ì¤„ì´ê¸° ìœ„í•œ ì¹¨ì‹ìœ¨ ê°€ì¤‘ì¹˜
+%> @param sortedYXElev                  : ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•œ Y,X ì¢Œí‘œê°’
+%> @param consideringCellsNo            : í•¨ìˆ˜ì˜ ëŒ€ìƒì´ ë˜ëŠ” ì…€ë“¤ì˜ ìˆ˜
+%> @param channel                       : í•˜ì²œ ì‹œì‘ ì„ê³„ì¹˜ë¥¼ ë„˜ì€ ì…€
+%> @param chanBedSed                    : í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë¶€í”¼ [m^3]
+%> @param hillslope                     : ì‚¬ë©´ì…€
+%> @param sedimentThick                 : í‡´ì ì¸µ ë‘ê»˜
+%> @param OUTER_BOUNDARY                : ëª¨í˜• ì˜ì—­ ì™¸ê³½ ê²½ê³„ ë§ˆìŠ¤í¬
+%> @param bankfullDischarge             : ë§Œìˆ˜ìœ ëŸ‰ [m^3/s]
+%> @param bankfullWidth                 : ë§Œìˆ˜ìœ ëŸ‰ì‹œ í•˜í­ [m]
+%> @param flood                         : SINKë¡œ ì¸í•´ ë¬¼ì´ ê³ ì´ëŠ” ì§€ì—­(flooded region)
+%> @param floodedRegionIndex            : ê°œë³„ flooded region ìƒ‰ì¸
+%> @param floodedRegionCellsNo          : ê°œë³„ flooded region ì…€ ê°œìˆ˜
+%> @param floodedRegionLocalDepth       : flooded region ê°œë³„ ì…€ì˜ ê¹Šì´ [m]
+%> @param floodedRegionTotalDepth       : flooded region ê°œë³„ ì…€ ê¹Šì´ì˜ ì´í•© [m]
+%> @param floodedRegionStorageVolume    : ê°œë³„ flooded region ë¶€í”¼ [m^3]
+%> @param e1LinearIndicies              : ë¬´í•œ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ ìƒ‰ì¸
+%> @param e2LinearIndicies              : ë¬´í•œ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ ìƒ‰ì¸
+%> @param outputFluxRatioToE1           : ë¬´í•œ ìœ í–¥ì— ì˜í•´ ë‹¤ìŒ ì…€ë¡œ ë¶„ë°°ë˜ëŠ” ë¹„ìœ¨
+%> @param outputFluxRatioToE2           : ë¬´í•œ ìœ í–¥ì— ì˜í•´ ë‹¤ìŒ ì…€ë¡œ ë¶„ë°°ë˜ëŠ” ë¹„ìœ¨
+%> @param SDSNbrY                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
+%> @param SDSNbrX                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
+%> @param integratedSlope               : ìˆ˜ì •ëœ facet flow ê²½ì‚¬ [radian]
 %> @param kfa                           : 
-%> @param mfa                           : ÇÏÃµ¿¡ ÀÇÇÑ ÅğÀû¹° ¿î¹İ ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
-%> @param nfa                           : ÇÏÃµ¿¡ ÀÇÇÑ ÅğÀû¹° ¿î¹İ ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
-%> @param kfbre                         : ±â¹İ¾Ï ÇÏ»ó ¿¬¾àµµ
-%> @param fSRho                         : ¿î¹İµÇ´Â ÅğÀû¹°ÀÇ Æò±Õ ¹Ğµµ
-%> @param g                             : Áß·Â°¡¼Óµµ
-%> @param nB                            : ±â¹İ¾Ï ÇÏ»ó ÇÏµµ¿¡¼­ÀÇ Manning ÀúÇ× °è¼ö
-%> @param mfb                           : ±â¹İ¾Ï ÇÏ»ó Ä§½Ä ¼ö½Ä¿¡¼­ À¯·®ÀÇ Áö¼ö
-%> @param nfb                           : ±â¹İ¾Ï ÇÏ»ó Ä§½Ä ¼ö½Ä¿¡¼­ °æ»çÀÇ Áö¼ö
-%> @param subDT                         : ¼¼ºÎ ´ÜÀ§ ½Ã°£ [s]
-%> @param dX                            : ¼¿ Å©±â [s]
+%> @param mfa                           : í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
+%> @param nfa                           : í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
+%> @param kfbre                         : ê¸°ë°˜ì•” í•˜ìƒ ì—°ì•½ë„
+%> @param fSRho                         : ìš´ë°˜ë˜ëŠ” í‡´ì ë¬¼ì˜ í‰ê·  ë°€ë„
+%> @param g                             : ì¤‘ë ¥ê°€ì†ë„
+%> @param nB                            : ê¸°ë°˜ì•” í•˜ìƒ í•˜ë„ì—ì„œì˜ Manning ì €í•­ ê³„ìˆ˜
+%> @param mfb                           : ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ ìˆ˜ì‹ì—ì„œ ìœ ëŸ‰ì˜ ì§€ìˆ˜
+%> @param nfb                           : ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ ìˆ˜ì‹ì—ì„œ ê²½ì‚¬ì˜ ì§€ìˆ˜
+%> @param subDT                         : ì„¸ë¶€ ë‹¨ìœ„ ì‹œê°„ [s]
+%> @param dX                            : ì…€ í¬ê¸° [s]
 % =========================================================================
 function [dSedimentThick,dBedrockElev,dChanBedSed] = FluvialProcessBySDS(mRows,nCols,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA,FLUVIALPROCESS_COND,timeWeight,sortedYXElev,consideringCellsNo,channel,chanBedSed,hillslope,sedimentThick,OUTER_BOUNDARY,bankfullDischarge,bankfullWidth,flood,floodedRegionIndex,floodedRegionCellsNo,floodedRegionLocalDepth,floodedRegionTotalDepth,floodedRegionStorageVolume,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX)
 %
 % function FluvialProcess
 %
 
-% »ó¼ö ÃÊ±âÈ­
-% FLUVIALPROCESS_COND ÅÂ±×
+% ìƒìˆ˜ ì´ˆê¸°í™”
+% FLUVIALPROCESS_COND íƒœê·¸
 SIMPLE = 1;
 % DETAIL = 2;
 
-% º¯¼ö ÃÊ±âÈ­
+% ë³€ìˆ˜ ì´ˆê¸°í™”
 
-transportCapacityForShallow ...     % ÁöÇ¥À¯Ãâ·Î ÀÎÇÑ ¹°ÁúÀÌµ¿
+transportCapacityForShallow ...     % ì§€í‘œìœ ì¶œë¡œ ì¸í•œ ë¬¼ì§ˆì´ë™
     = ( bankfullWidth ...
     .* ( kfa .* ( bankfullDischarge ./ bankfullWidth ) .^ mfa ...
     .* integratedSlope .^ nfa ) ) .* subDT ...
-    .* timeWeight;                  % ¸¸Á¦À¯·® Áö¼Ó±â°£ Ãà¼Ò¸¦ À§ÇÑ °¡ÁßÄ¡
-% º¸¿ÏÁ¡: ÇöÀç·Î´Â ÇÏÃµ¿¡ ÀÇÇÑ ÅğÀû¹° ¿î¹İ´É·Â°ú µ¿ÀÏÇÏ°Ô ¼³Á¤ÇÔ. ÃßÈÄ ¸Å°³º¯¼ö
-% º¸Á¤ÀÌ ÇÊ¿äÇÔ
+    .* timeWeight;                  % ë§Œì œìœ ëŸ‰ ì§€ì†ê¸°ê°„ ì¶•ì†Œë¥¼ ìœ„í•œ ê°€ì¤‘ì¹˜
+% ë³´ì™„ì : í˜„ì¬ë¡œëŠ” í•˜ì²œì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ê³¼ ë™ì¼í•˜ê²Œ ì„¤ì •í•¨. ì¶”í›„ ë§¤ê°œë³€ìˆ˜
+% ë³´ì •ì´ í•„ìš”í•¨
 
-transportCapacity ...               % ÅğÀû¹° ¿î¹İ ´É·Â[m^3/subDT]
+transportCapacity ...               % í‡´ì ë¬¼ ìš´ë°˜ ëŠ¥ë ¥[m^3/subDT]
     = ( bankfullWidth ...
     .* ( kfa .* ( bankfullDischarge ./ bankfullWidth ) .^ mfa ...
     .* integratedSlope .^ nfa ) ) .* subDT ...
-    .* timeWeight;                  % ¸¸Á¦À¯·® Áö¼Ó±â°£ Ãà¼Ò¸¦ À§ÇÑ °¡ÁßÄ¡
+    .* timeWeight;                  % ë§Œì œìœ ëŸ‰ ì§€ì†ê¸°ê°„ ì¶•ì†Œë¥¼ ìœ„í•œ ê°€ì¤‘ì¹˜
 
-% ±â¹İ¾Ï ÇÏ»ó Ä§½ÄÀ²[m^3/subDT]
-% * °¡Á¤: ¼¿ ÀüÃ¼°¡ ¾Æ´Ñ ÇÏµµ¸¦ µû¶ó Ä§½ÄµÇ´Â ºÎÇÇ¸¦ ±¸ÇÔ (Tucker et al.,1994)
+% ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨[m^3/subDT]
+% * ê°€ì •: ì…€ ì „ì²´ê°€ ì•„ë‹Œ í•˜ë„ë¥¼ ë”°ë¼ ì¹¨ì‹ë˜ëŠ” ë¶€í”¼ë¥¼ êµ¬í•¨ (Tucker et al.,1994)
 bedrockIncision ...
     = ( dX .* bankfullWidth ...
     .* (kfbre * fSRho * g * nB^mfb ...
     .* (bankfullDischarge ./ bankfullWidth).^ mfb ...
     .* integratedSlope .^ nfb ) ) .* subDT ...
-    .* timeWeight;                  % ¸¸Á¦À¯·® Áö¼Ó±â°£ Ãà¼Ò¸¦ À§ÇÑ °¡ÁßÄ¡
+    .* timeWeight;                  % ë§Œì œìœ ëŸ‰ ì§€ì†ê¸°ê°„ ì¶•ì†Œë¥¼ ìœ„í•œ ê°€ì¤‘ì¹˜
 
 %--------------------------------------------------------------------------
-% EstimateDElevByFluvialBySDS.c ºÎºĞ
+% EstimateDElevByFluvialBySDS.c ë¶€ë¶„
 
-% flooded regionÀ» Á¦¿ÜÇÑ ¼¿µéÀÇ ÅğÀûÃş µÎ²² ¹× ±â¹İ¾Ï °íµµ º¯È­À² ÃßÁ¤
+% flooded regionì„ ì œì™¸í•œ ì…€ë“¤ì˜ í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ ì¶”ì •
 
-% ¼±Çü »öÀÎ ÁØºñ
+% ì„ í˜• ìƒ‰ì¸ ì¤€ë¹„
 mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
 mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
 
-[dSedimentThick ...      % ÅğÀûÃş µÎ²² º¯È­À² [m^3/m^2 subDT]
-,dBedrockElev ...        % ±â¹İ¾Ï °íµµ º¯È­À² [m^3/m^2 subDT]
-,dChanBedSed ...         % ÇÏµµ ³» ÇÏ»ó ÅğÀû¹° º¯È­À² [m^3/subDT]
-,inputFlux ...           % »óºÎ À¯¿ªÀ¸·Î ºÎÅÍÀÇ À¯ÀÔÀ² [m^3/subDT]
-,outputFlux...           % ÇÏ·ù·ÎÀÇ À¯ÃâÀ² [m^3/subDT]
-,inputFloodedRegion ...  % flooded regionÀ¸·ÎÀÇ À¯ÀÔÀ² [m^3/subDT]
-,isFilled] ...           % »óºÎ À¯ÀÔÀ¸·Î ÀÎÇÑ flooded regionÀÇ ¸ÅÀû À¯¹«
+[dSedimentThick ...      % í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 subDT]
+,dBedrockElev ...        % ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 subDT]
+,dChanBedSed ...         % í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ ë³€í™”ìœ¨ [m^3/subDT]
+,inputFlux ...           % ìƒë¶€ ìœ ì—­ìœ¼ë¡œ ë¶€í„°ì˜ ìœ ì…ìœ¨ [m^3/subDT]
+,outputFlux...           % í•˜ë¥˜ë¡œì˜ ìœ ì¶œìœ¨ [m^3/subDT]
+,inputFloodedRegion ...  % flooded regionìœ¼ë¡œì˜ ìœ ì…ìœ¨ [m^3/subDT]
+,isFilled] ...           % ìƒë¶€ ìœ ì…ìœ¼ë¡œ ì¸í•œ flooded regionì˜ ë§¤ì  ìœ ë¬´
 = EstimateDElevByFluvialProcessBySDS ...
-(dX ...                              % 0 . ¼¿ Å©±â
-,mRows ...                           % 1 . Çà °³¼ö
-,nCols ...                           % 2 . ¿­ °³¼ö
-,consideringCellsNo);                % 3 . ÇÏÃµÀÛ¿ëÀÌ ¹ß»ıÇÏ´Â ¼¿ ¼ö
-% ------------------------------------% ÀÌÇÏ´Â mexGetVariablePtr·Î ºÎ¸§
-% mexSortedIndicies ...              % 4 . °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
-% mexSDSNbrIndicies ...              % 9 . ´ÙÀ½ ¼¿ »öÀÎ
+(dX ...                              % 0 . ì…€ í¬ê¸°
+,mRows ...                           % 1 . í–‰ ê°œìˆ˜
+,nCols ...                           % 2 . ì—´ ê°œìˆ˜
+,consideringCellsNo);                % 3 . í•˜ì²œì‘ìš©ì´ ë°œìƒí•˜ëŠ” ì…€ ìˆ˜
+% ------------------------------------% ì´í•˜ëŠ” mexGetVariablePtrë¡œ ë¶€ë¦„
+% mexSortedIndicies ...              % 4 . ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
+% mexSDSNbrIndicies ...              % 9 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
 % flood ...                          % 10 . flooded region
-% floodedRegionCellsNo ...           % 11 . flooded region ±¸¼º ¼¿ ¼ö
-% floodedRegionStorageVolume ...     % 12 . flooded region ÀúÀå·®
-% bankfullWidth ...                  % 13 . ¸¸Á¦À¯·®½Ã ÇÏÆø
-% transportCapacity ...              % 14 . ÃÖ´ë ÅğÀû¹° ¿î¹İ´É·Â
-% bedrockIncision ...                % 15 . ±â¹İ¾Ï ÇÏ»ó Ä§½ÄÀ²
-% chanBedSed ...                     % 16 . ÇÏµµ³» ÇÏ»ó ÅğÀûÃş ºÎÇÇ
-% sedimentThick ...                  % 17 . ÅğÀûÃş µÎ²²
-% hillslope ...                      % 18 . »ç¸é¼¿
-% transportCapacityForShallow ...    % 19 . ÁöÇ¥À¯Ãâ·Î ÀÎÇÑ ¹°ÁúÀÌµ¿
+% floodedRegionCellsNo ...           % 11 . flooded region êµ¬ì„± ì…€ ìˆ˜
+% floodedRegionStorageVolume ...     % 12 . flooded region ì €ì¥ëŸ‰
+% bankfullWidth ...                  % 13 . ë§Œì œìœ ëŸ‰ì‹œ í•˜í­
+% transportCapacity ...              % 14 . ìµœëŒ€ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥
+% bedrockIncision ...                % 15 . ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨
+% chanBedSed ...                     % 16 . í•˜ë„ë‚´ í•˜ìƒ í‡´ì ì¸µ ë¶€í”¼
+% sedimentThick ...                  % 17 . í‡´ì ì¸µ ë‘ê»˜
+% hillslope ...                      % 18 . ì‚¬ë©´ì…€
+% transportCapacityForShallow ...    % 19 . ì§€í‘œìœ ì¶œë¡œ ì¸í•œ ë¬¼ì§ˆì´ë™
 %--------------------------------------------------------------------------
 
-% (flooded region °íµµ º¯È­À²À» ±¸ÇÏ±â À§ÇÑ) Â÷¿ø º¯È­ [m^3 -> m]
+% (flooded region ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•˜ê¸° ìœ„í•œ) ì°¨ì› ë³€í™” [m^3 -> m]
 inputFlux = inputFlux ./ CELL_AREA;
 outputFlux = outputFlux ./ CELL_AREA;
 inputFloodedRegion ...
     = inputFloodedRegion ./ (floodedRegionCellsNo * CELL_AREA);
 
-% ÇÏÃµÀ» Æ÷ÇÔÇÏÁö ¾ÊÀº ¼¿·ÎÀÇ À¯ÀÔÀ²À» ÅğÀû¹° µÎ²² º¯È­À²¿¡ ¹İ¿µÇÔ
+% í•˜ì²œì„ í¬í•¨í•˜ì§€ ì•Šì€ ì…€ë¡œì˜ ìœ ì…ìœ¨ì„ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì— ë°˜ì˜í•¨
 dSedimentThick(~channel) = dSedimentThick(~channel) + inputFlux(~channel);
 
 %--------------------------------------------------------------------------
-% ¾Õ¼­ flooded regionÀ» Á¦¿ÜÇÑ ¼¿µé¿¡¼­ ÅğÀû¹° µÎ²² ¹× ±â¹İ¾Ï °íµµ º¯È­À²À»
-% ±¸ÇÔ. ¿©±â¼­´Â flooded region ¼¿µéÀÇ ÅğÀû¹° µÎ²² º¯È­À²À» ±¸ÇÏ°í, flooded
-% region À¯Ãâ±¸ÀÇ ÅğÀû¹° µÎ²² º¯È­À²À» Àç°è»êÇÔ.
+% ì•ì„œ flooded regionì„ ì œì™¸í•œ ì…€ë“¤ì—ì„œ í‡´ì ë¬¼ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„
+% êµ¬í•¨. ì—¬ê¸°ì„œëŠ” flooded region ì…€ë“¤ì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ êµ¬í•˜ê³ , flooded
+% region ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ ì¬ê³„ì‚°í•¨.
 
-% »ó¼ö
+% ìƒìˆ˜
 X_INI = 1;
 X_MAX = nCols - 1;
 Y_INI = 2;
 Y_MAX = mRows - 1;
 
-% º¯¼ö ÃÊ±âÈ­
-% flooded region À¯Ãâ±¸ÀÇ °íµµ º¯È­À²[m/subDT]ÀÌ ¾çÀÇ °ªÀ» °¡Áú ¶§, ÀÌ¸¦
-% flooded region ¼¿ °³¼ö·Î ³ª´« °ª
+% ë³€ìˆ˜ ì´ˆê¸°í™”
+% flooded region ìœ ì¶œêµ¬ì˜ ê³ ë„ ë³€í™”ìœ¨[m/subDT]ì´ ì–‘ì˜ ê°’ì„ ê°€ì§ˆ ë•Œ, ì´ë¥¼
+% flooded region ì…€ ê°œìˆ˜ë¡œ ë‚˜ëˆˆ ê°’
 sedimentDepthToBeAdded = zeros(mRows,nCols);
-% flooded regionÀÇ °íµµ°¡ »ó½ÂÇÒ °æ¿ì, flooded region¿¡ ºñÇØ À¯Ãâ±¸ÀÇ °íµµ°¡
-% »ó´ëÀûÀ¸·Î »ó½ÂÇÏ´Â ºñÀ²(ÀÏ¹İÀûÀ¸·Î < 1)
+% flooded regionì˜ ê³ ë„ê°€ ìƒìŠ¹í•  ê²½ìš°, flooded regionì— ë¹„í•´ ìœ ì¶œêµ¬ì˜ ê³ ë„ê°€
+% ìƒëŒ€ì ìœ¼ë¡œ ìƒìŠ¹í•˜ëŠ” ë¹„ìœ¨(ì¼ë°˜ì ìœ¼ë¡œ < 1)
 outletWeightToBeAdded = 0.5;
-% flooded regionÀÇ °íµµ°¡ µ¿ÀÏÇÏ°Ô ¼³Á¤µÇ´Â °ÍÀ» ¹æÁöÇÏ±â À§ÇÑ ³­¼ö Á¤ÀÇ
+% flooded regionì˜ ê³ ë„ê°€ ë™ì¼í•˜ê²Œ ì„¤ì •ë˜ëŠ” ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•œ ë‚œìˆ˜ ì •ì˜
 verySmallRandomValues = rand(mRows,nCols) * 0.001;
 
-% 1. ÅğÀû¹° µÎ²²¿Í ±â¹İ¾Ï °íµµ º¯È­À²À» ÇÕÇÏ¿© °íµµ º¯È­À²À» ±¸ÇÔ
-% * flooded regionÀÇ ÅğÀû¹° µÎ²² º¯È­À²¿¡ °áÁ¤Àû ¿µÇâÀ» ÁÖ´Â °ÍÀº À¯Ãâ±¸ÀÇ
-%   °íµµ º¯È­À²ÀÓ
+% 1. í‡´ì ë¬¼ ë‘ê»˜ì™€ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„ í•©í•˜ì—¬ ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•¨
+% * flooded regionì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì— ê²°ì •ì  ì˜í–¥ì„ ì£¼ëŠ” ê²ƒì€ ìœ ì¶œêµ¬ì˜
+%   ê³ ë„ ë³€í™”ìœ¨ì„
 dElev = zeros(mRows,nCols);
 dElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
     = dSedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)...
     + dBedrockElev(Y_INI:Y_MAX,X_INI:X_MAX);
 
-% 2. flooded region À¯Ãâ±¸ÀÇ ÁÂÇ¥¿Í ¼¿ °³¼ö
+% 2. flooded region ìœ ì¶œêµ¬ì˜ ì¢Œí‘œì™€ ì…€ ê°œìˆ˜
 [tmpOutletY,tmpOutletX] = find(floodedRegionCellsNo > 0);
 
 floodedRegionsNo = size(tmpOutletY,1);
 
-% 3. °³º° flooded region°ú À¯Ãâ±¸ÀÇ ÅğÀû¹° µÎ²² º¯È­À²À» ±¸ÇÔ
+% 3. ê°œë³„ flooded regionê³¼ ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ êµ¬í•¨
 for ithFloodedRegion = 1:floodedRegionsNo
     
-    % 1) ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ À¯Ãâ±¸ ÁÂÇ¥
+    % 1) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ìœ ì¶œêµ¬ ì¢Œí‘œ
     outletY = tmpOutletY(ithFloodedRegion,1);
     outletX = tmpOutletX(ithFloodedRegion,1);
     
-    % 2) ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ »öÀÎ ¹øÈ£
+    % 2) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ìƒ‰ì¸ ë²ˆí˜¸
     floodedRegionIndexNo = - floodedRegionIndex(outletY,outletX);
     
-    % 3) ÇöÀç Ã³¸®ÇÒ flooded regionÀ» Á¤ÀÇ
+    % 3) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì„ ì •ì˜
     currentFloodedRegion = ...
         (floodedRegionIndex == floodedRegionIndexNo);
     
-    % 3) À¯Ãâ±¸°¡ ¿Ü°û °æ°è¿¡ À§Ä¡ÇÏ´ÂÁö È®ÀÎÇÔ
+    % 3) ìœ ì¶œêµ¬ê°€ ì™¸ê³½ ê²½ê³„ì— ìœ„ì¹˜í•˜ëŠ”ì§€ í™•ì¸í•¨
     if IsBoundary(outletY,outletX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND)
 
-        % (1) À¯Ãâ±¸°¡ ¿Ü°û °æ°è¿¡ À§Ä¡ÇÑ´Ù¸é, 1) À¯ÀÔ ÅğÀû¹°ÀÇ ÀúÀå·® ÃÊ°ú ¿©ºÎ,
-        %     2) À¯Ãâ±¸ÀÇ ÅğÀû¹° À¯ÀÔÀ²°ú À¯ÃâÀ², 3) À¯Ãâ±¸ÀÇ ÅğÀû¹° µÎ²²
-        %     º¯È­À²À» ¾Õ¿¡¼­ ±¸ÇÏÁö ¾Ê¾ÒÀ¸¹Ç·Î ¿©±â¼­ ÀÌ¸¦ ±¸ÇÔ
-        % * ÁÖÀÇ: ½ÇÁ¦ ÀÇ¹ÌÀÖ´Â °ÍÀº 1)°ú 2)ÀÇ À¯ÀÔÀ²ÀÓ. ÀÌ´Â ¿Ü°û °æ°èÀÇ
-        %   ÅğÀû¹° µÎ²² ¹× °íµµ º¯È­À²Àº ÀÇ¹Ì°¡ ¾ø±â ¶§¹®ÀÓ
+        % (1) ìœ ì¶œêµ¬ê°€ ì™¸ê³½ ê²½ê³„ì— ìœ„ì¹˜í•œë‹¤ë©´, 1) ìœ ì… í‡´ì ë¬¼ì˜ ì €ì¥ëŸ‰ ì´ˆê³¼ ì—¬ë¶€,
+        %     2) ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ìœ ì…ìœ¨ê³¼ ìœ ì¶œìœ¨, 3) ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ë‘ê»˜
+        %     ë³€í™”ìœ¨ì„ ì•ì—ì„œ êµ¬í•˜ì§€ ì•Šì•˜ìœ¼ë¯€ë¡œ ì—¬ê¸°ì„œ ì´ë¥¼ êµ¬í•¨
+        % * ì£¼ì˜: ì‹¤ì œ ì˜ë¯¸ìˆëŠ” ê²ƒì€ 1)ê³¼ 2)ì˜ ìœ ì…ìœ¨ì„. ì´ëŠ” ì™¸ê³½ ê²½ê³„ì˜
+        %   í‡´ì ë¬¼ ë‘ê»˜ ë° ê³ ë„ ë³€í™”ìœ¨ì€ ì˜ë¯¸ê°€ ì—†ê¸° ë•Œë¬¸ì„
 
-        % a. flooded regionÀ¸·ÎÀÇ À¯ÀÔÀ²[m/subDT]ÀÌ ÀúÀå·®[m^3/m^2]À»
-        %    ÃÊ°úÇß´ÂÁö È®ÀÎÇÔ
+        % a. flooded regionìœ¼ë¡œì˜ ìœ ì…ìœ¨[m/subDT]ì´ ì €ì¥ëŸ‰[m^3/m^2]ì„
+        %    ì´ˆê³¼í–ˆëŠ”ì§€ í™•ì¸í•¨
         if inputFloodedRegion(outletY,outletX) > ...
             floodedRegionTotalDepth(outletY,outletX)
 
-            % a) À¯ÀÔÀ²ÀÌ ÀúÀå·®À» ÃÊ°úÇÑ´Ù¸é,
-            % (a) À¯Ãâ±¸ÀÇ À¯ÀÔÀ²¿¡ flooded region ÃÊ°ú Æò±Õ À¯ÀÔÀ²À» ´õÇÔ
+            % a) ìœ ì…ìœ¨ì´ ì €ì¥ëŸ‰ì„ ì´ˆê³¼í•œë‹¤ë©´,
+            % (a) ìœ ì¶œêµ¬ì˜ ìœ ì…ìœ¨ì— flooded region ì´ˆê³¼ í‰ê·  ìœ ì…ìœ¨ì„ ë”í•¨
             inputFlux(outletY,outletX) ...
                 = inputFlux(outletY,outletX) ...
                 + (inputFloodedRegion(outletY,outletX) ...      % [m/subDT]
                 - floodedRegionTotalDepth(outletY,outletX)) ... % [m/subDT]
                 / floodedRegionCellsNo(outletY,outletX);
 
-            % * À¯ÀÔ ÅğÀû¹°ÀÌ ÀúÀåÀ²À» ÃÊ°úÇß´Ù°í Ç¥½ÃÇÔ
+            % * ìœ ì… í‡´ì ë¬¼ì´ ì €ì¥ìœ¨ì„ ì´ˆê³¼í–ˆë‹¤ê³  í‘œì‹œí•¨
             isFilled(outletY,outletX) = true;
 
         % else
 
-            % b) À¯ÀÔÀ²ÀÌ ÀúÀå·®À» ÃÊ°úÇÏÁö ¾Ê´Â´Ù¸é, À¯Ãâ±¸ÀÇ À¯ÀÔÀ²¿¡ 0À» ÀÔ·Â            
+            % b) ìœ ì…ìœ¨ì´ ì €ì¥ëŸ‰ì„ ì´ˆê³¼í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´, ìœ ì¶œêµ¬ì˜ ìœ ì…ìœ¨ì— 0ì„ ì…ë ¥            
 
         end
 
-        % b. (¿Ü°û °æ°è¿¡ À§Ä¡ÇÑ) À¯Ãâ±¸ÀÇ ÅğÀû¹° À¯ÃâÀ²
-        % * À¯Ãâ±¸°¡ ¿µ¿ª °æ°è¿¡ À§Ä¡ÇÏ±â ¶§¹®¿¡, ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅğÀû¹° ¿î¹İ
-        %   ¼ö½ÄÀ» »ç¿ëÇÒ ¼ö ¾øÀ½. ¿Ü°û °æ°è·Î À¯ÀÔµÈ ¹°ÁúÀº Áï½Ã Á¦°ÅµÇ±â
-        %   ¶§¹®¿¡ ¿Ü°û °æ°è¿¡¼­ÀÇ À¯ÃâÀ²Àº °ğ À¯ÀÔÀ²ÀÓ
-        % * ÁÖÀÇ: ÇÏÁö¸¸ outputFlux´Â ÀÌÈÄ »ç¿ëÇÏÁö ¾ÊÀ¸¹Ç·Î ÁÖ¼® Ã³¸®
+        % b. (ì™¸ê³½ ê²½ê³„ì— ìœ„ì¹˜í•œ) ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ìœ ì¶œìœ¨
+        % * ìœ ì¶œêµ¬ê°€ ì˜ì—­ ê²½ê³„ì— ìœ„ì¹˜í•˜ê¸° ë•Œë¬¸ì—, í•˜ì²œì‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ìš´ë°˜
+        %   ìˆ˜ì‹ì„ ì‚¬ìš©í•  ìˆ˜ ì—†ìŒ. ì™¸ê³½ ê²½ê³„ë¡œ ìœ ì…ëœ ë¬¼ì§ˆì€ ì¦‰ì‹œ ì œê±°ë˜ê¸°
+        %   ë•Œë¬¸ì— ì™¸ê³½ ê²½ê³„ì—ì„œì˜ ìœ ì¶œìœ¨ì€ ê³§ ìœ ì…ìœ¨ì„
+        % * ì£¼ì˜: í•˜ì§€ë§Œ outputFluxëŠ” ì´í›„ ì‚¬ìš©í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ ì£¼ì„ ì²˜ë¦¬
         % outputFlux(outletY,outletX) = inputFlux(outletY,outletX);
 
-        % c. À¯Ãâ±¸ÀÇ ÅğÀû¹° µÎ²² º¯È­À² [m/subDT]
-        % * ÁÖÀÇ: 0À¸·Î ¹«ÀÇ¹ÌÇÏ¹Ç·Î ÁÖ¼® Ã³¸®
+        % c. ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT]
+        % * ì£¼ì˜: 0ìœ¼ë¡œ ë¬´ì˜ë¯¸í•˜ë¯€ë¡œ ì£¼ì„ ì²˜ë¦¬
         % dSedimentThick(outletY,outletX) ...
         %     = inputFlux(outletY,outletX) - outputFlux(outletY,outletX);
         %     => 0
         
-        % d. À¯Ãâ±¸ÀÇ °íµµ º¯È­À²[m/subDT]À» °»½Å
-        % * ÁÖÀÇ: 0À¸·Î ¹«ÀÇ¹ÌÇÏ¹Ç·Î ÁÖ¼® Ã³¸®
+        % d. ìœ ì¶œêµ¬ì˜ ê³ ë„ ë³€í™”ìœ¨[m/subDT]ì„ ê°±ì‹ 
+        % * ì£¼ì˜: 0ìœ¼ë¡œ ë¬´ì˜ë¯¸í•˜ë¯€ë¡œ ì£¼ì„ ì²˜ë¦¬
         % dElev(outletY,outletX) = dSedimentThick(outletY,outletX);
         %     => 0
 
     end % if IsBoundary(outletY,outletX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND)
     
     
-    % 6) flooded regionÀ¸·Î À¯ÀÔÇÑ ÅğÀû¹°ÀÌ ÀúÀå·®À» ÃÊ°úÇß´ÂÁö È®ÀÎÇÔ
+    % 6) flooded regionìœ¼ë¡œ ìœ ì…í•œ í‡´ì ë¬¼ì´ ì €ì¥ëŸ‰ì„ ì´ˆê³¼í–ˆëŠ”ì§€ í™•ì¸í•¨
     if isFilled(outletY,outletX) == true
 
-        % (1) À¯ÀÔÇÑ ÅğÀû¹°ÀÌ ÀúÀå·®À» ÃÊ°úÇß´Ù¸é, flooded region À¯Ãâ±¸ÀÇ
-        %     °íµµ°¡ »ó½ÂÇß´ÂÁö È®ÀÎÇÔ         
+        % (1) ìœ ì…í•œ í‡´ì ë¬¼ì´ ì €ì¥ëŸ‰ì„ ì´ˆê³¼í–ˆë‹¤ë©´, flooded region ìœ ì¶œêµ¬ì˜
+        %     ê³ ë„ê°€ ìƒìŠ¹í–ˆëŠ”ì§€ í™•ì¸í•¨         
         if dElev(outletY,outletX) > 0
 
-            % A. À¯Ãâ±¸ÀÇ °íµµ°¡ »ó½ÂÇß´Ù¸é(Á¶°Ç 1,6) À¯Ãâ±¸ÀÇ À¯ÃâÀ²ÀÌ À¯ÀÔµÈ
-            %    ÅğÀû¹°º¸´Ù Àû´Ù´Â ÀÇ¹Ì. µû¶ó¼­ flooded regionÀÇ °íµµ´Â À¯Ãâ±¸
-            %    °íµµ ÀÌ»óÀ¸·Î »ó½ÂÇÔ.
+            % A. ìœ ì¶œêµ¬ì˜ ê³ ë„ê°€ ìƒìŠ¹í–ˆë‹¤ë©´(ì¡°ê±´ 1,6) ìœ ì¶œêµ¬ì˜ ìœ ì¶œìœ¨ì´ ìœ ì…ëœ
+            %    í‡´ì ë¬¼ë³´ë‹¤ ì ë‹¤ëŠ” ì˜ë¯¸. ë”°ë¼ì„œ flooded regionì˜ ê³ ë„ëŠ” ìœ ì¶œêµ¬
+            %    ê³ ë„ ì´ìƒìœ¼ë¡œ ìƒìŠ¹í•¨.
 
-            % A) flooded regionÀÌ À¯Ãâ±¸ °íµµ ÀÌ»óÀ¸·Î »ó½ÂÇÏ´Â ³ôÀÌ [m/subDT]
+            % A) flooded regionì´ ìœ ì¶œêµ¬ ê³ ë„ ì´ìƒìœ¼ë¡œ ìƒìŠ¹í•˜ëŠ” ë†’ì´ [m/subDT]
             sedimentDepthToBeAdded(outletY,outletX) ...
                 = dElev(outletY,outletX) ...
                 / ( floodedRegionCellsNo(outletY,outletX) ...
                 + outletWeightToBeAdded );
 
-            % B) flooded regionÀÇ ÅğÀû¹° µÎ²² º¯È­À²À» »ó½ÂÇÏ´Â ³ôÀÌ·Î Áõ°¡½ÃÅ´
+            % B) flooded regionì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ ìƒìŠ¹í•˜ëŠ” ë†’ì´ë¡œ ì¦ê°€ì‹œí‚´
             dSedimentThick(currentFloodedRegion) ...
                 = floodedRegionLocalDepth(currentFloodedRegion) ...
                 + sedimentDepthToBeAdded(outletY,outletX) ...
                 + verySmallRandomValues(currentFloodedRegion);
 
-            % C) À¯Ãâ±¸ÀÇ ÅğÀû¹° µÎ²² º¯È­À² Á¶Á¤
+            % C) ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ ì¡°ì •
             dSedimentThick(outletY,outletX) ...
                 = sedimentDepthToBeAdded(outletY,outletX) ...
                 * outletWeightToBeAdded;
 
         else % dElev(outletY,outletX) <= 0
 
-            % B. À¯Ãâ±¸ÀÇ °íµµ°¡ °¨¼ÒÇÏ°Å³ª(Á¶°Ç 2,7) °°´Ù¸é(Á¶°Ç 11,13)
-            %    flooded region °íµµ´Â ¿¹Àü À¯Ãâ±¸ÀÇ °íµµ¸¸Å­ »ó½ÂÇÔ
-            % * À¯Ãâ±¸ÀÇ ÅğÀû¹° µÎ²² º¯È­À²Àº Àç°è»êÇÏÁö ¾ÊÀ½
+            % B. ìœ ì¶œêµ¬ì˜ ê³ ë„ê°€ ê°ì†Œí•˜ê±°ë‚˜(ì¡°ê±´ 2,7) ê°™ë‹¤ë©´(ì¡°ê±´ 11,13)
+            %    flooded region ê³ ë„ëŠ” ì˜ˆì „ ìœ ì¶œêµ¬ì˜ ê³ ë„ë§Œí¼ ìƒìŠ¹í•¨
+            % * ìœ ì¶œêµ¬ì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì€ ì¬ê³„ì‚°í•˜ì§€ ì•ŠìŒ
 
-            % A) flooded regionÀÇ ¼ø ÅğÀû¹° µÎ²² º¯È­À²À» ¿¹Àü À¯Ãâ±¸ °íµµ¸¸Å­
-            %    »ó½Â½ÃÅ´
+            % A) flooded regionì˜ ìˆœ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ ì˜ˆì „ ìœ ì¶œêµ¬ ê³ ë„ë§Œí¼
+            %    ìƒìŠ¹ì‹œí‚´
             dSedimentThick(currentFloodedRegion) ...
                 = floodedRegionLocalDepth(currentFloodedRegion) ...
                 + verySmallRandomValues(currentFloodedRegion);
@@ -310,94 +310,94 @@ for ithFloodedRegion = 1:floodedRegionsNo
 
     else % isFilled(outletY,outletX) == false
 
-        % (2) À¯ÀÔÇÑ ÅğÀû¹°ÀÌ ÀúÀå·®º¸´Ù ÀÛÀº °æ¿ì
-        % * ÁÖÀÇ: flooded regionÀ¸·Î À¯ÀÔÇÑ ÅğÀû¹°ÀÌ °¡Àå ±íÀº °÷ºÎÅÍ ÅğÀûµÇ´Â
-        %   ¾Ë°í¸®µëÀº flooded regionÀÌ ³Ğ°Ô ³ªÅ¸³ª´Â ÁöÇü(Æ¯È÷ rand ÇÔ¼ö¸¦
-        %   ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© ¸¸µç ÃÊ±â ÁöÇü)¿¡¼­´Â »ó´çÈ÷ ¸¹Àº ½Ã°£ÀÌ ¼Ò¿äµÇ±â
-        %   ¶§¹®¿¡, Àå±â°£ÀÇ ÁöÇü ¹ß´ŞÀ» ¸ğÀÇÇÒ ¶§´Â °£´ÜÇÑ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÔ
+        % (2) ìœ ì…í•œ í‡´ì ë¬¼ì´ ì €ì¥ëŸ‰ë³´ë‹¤ ì‘ì€ ê²½ìš°
+        % * ì£¼ì˜: flooded regionìœ¼ë¡œ ìœ ì…í•œ í‡´ì ë¬¼ì´ ê°€ì¥ ê¹Šì€ ê³³ë¶€í„° í‡´ì ë˜ëŠ”
+        %   ì•Œê³ ë¦¬ë“¬ì€ flooded regionì´ ë„“ê²Œ ë‚˜íƒ€ë‚˜ëŠ” ì§€í˜•(íŠ¹íˆ rand í•¨ìˆ˜ë¥¼
+        %   í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ë§Œë“  ì´ˆê¸° ì§€í˜•)ì—ì„œëŠ” ìƒë‹¹íˆ ë§ì€ ì‹œê°„ì´ ì†Œìš”ë˜ê¸°
+        %   ë•Œë¬¸ì—, ì¥ê¸°ê°„ì˜ ì§€í˜• ë°œë‹¬ì„ ëª¨ì˜í•  ë•ŒëŠ” ê°„ë‹¨í•œ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•¨
 
-        % A. °£´ÜÇÑ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÒ °ÍÀÎÁö¸¦ È®ÀÎÇÔ
+        % A. ê°„ë‹¨í•œ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•  ê²ƒì¸ì§€ë¥¼ í™•ì¸í•¨
         if FLUVIALPROCESS_COND == SIMPLE
 
-            % A) °£´ÜÇÑ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ´Ù¸é,
-            % (A) flooded regionÀ¸·ÎÀÇ ÅğÀû¹° À¯ÀÔÀ¸·Î »ó½ÂÇÏ´Â Æò±Õ
-            %     ³ôÀÌ[m^3/m^2]¸¦ ±¸ÇÔ
+            % A) ê°„ë‹¨í•œ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œë‹¤ë©´,
+            % (A) flooded regionìœ¼ë¡œì˜ í‡´ì ë¬¼ ìœ ì…ìœ¼ë¡œ ìƒìŠ¹í•˜ëŠ” í‰ê· 
+            %     ë†’ì´[m^3/m^2]ë¥¼ êµ¬í•¨
             increasingHeightByInput = inputFloodedRegion(outletY,outletX);
-            % * ÁÖÀÇ: floodedRegionCellsNo(outletY,outletX) ³ª´­ ÇÊ¿ä ¾øÀ½
+            % * ì£¼ì˜: floodedRegionCellsNo(outletY,outletX) ë‚˜ëˆŒ í•„ìš” ì—†ìŒ
 
-            % (B) flooded regionÀÇ ÅğÀû¹° µÎ²² º¯È­À²À» Æò±Õ ³ôÀÌ¸¸Å­ Áõ°¡½ÃÅ´
+            % (B) flooded regionì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ í‰ê·  ë†’ì´ë§Œí¼ ì¦ê°€ì‹œí‚´
             dSedimentThick(currentFloodedRegion) ...
               = increasingHeightByInput ...
               + verySmallRandomValues(currentFloodedRegion);            
 
         else % FLUVIALPROCESS_COND == DETAIL
 
-            % B) ÀÚ¼¼ÇÑ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÑ´Ù¸é,
-            % (A) À¯ÀÔÇÑ ÅğÀû¹°Àº flooded regionÀÇ °¡Àå ³·Àº ÁöÁ¡À» Ã¤¿ì¸é¼­
-            %     »ó½ÂÇÏ¸ç, ÀÌ·Î ÀÎÇØ À¯ÀÔÀ²ÀÌ ´ÙÇÒ ¶§±îÁö flooded regionÀÇ
-            %     ÃÖ´ë ±íÀÌ´Â Á¡Á¡ ÀÛ¾ÆÁü
+            % B) ìì„¸í•œ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•œë‹¤ë©´,
+            % (A) ìœ ì…í•œ í‡´ì ë¬¼ì€ flooded regionì˜ ê°€ì¥ ë‚®ì€ ì§€ì ì„ ì±„ìš°ë©´ì„œ
+            %     ìƒìŠ¹í•˜ë©°, ì´ë¡œ ì¸í•´ ìœ ì…ìœ¨ì´ ë‹¤í•  ë•Œê¹Œì§€ flooded regionì˜
+            %     ìµœëŒ€ ê¹Šì´ëŠ” ì ì  ì‘ì•„ì§
 
-            % a. ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ local depth¸¦ ÃßÃâÇÔ
+            % a. í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ local depthë¥¼ ì¶”ì¶œí•¨
             currentLocalDepth = floodedRegionLocalDepth(currentFloodedRegion);
 
-            % b. flooded regionÀ¸·ÎÀÇ ÅğÀû¹° À¯ÀÔÀ¸·Î »ó½ÂÇÏ´Â ³ôÀÌ[m^3/m^2]
+            % b. flooded regionìœ¼ë¡œì˜ í‡´ì ë¬¼ ìœ ì…ìœ¼ë¡œ ìƒìŠ¹í•˜ëŠ” ë†’ì´[m^3/m^2]
             increasingHeightByInput = inputFloodedRegion(outletY,outletX);
-            % * ÁÖÀÇ: floodedRegionCellsNo(outletY,outletX) ³ª´­ ÇÊ¿ä ¾øÀ½
+            % * ì£¼ì˜: floodedRegionCellsNo(outletY,outletX) ë‚˜ëˆŒ í•„ìš” ì—†ìŒ
 
-            % c. ÇöÀç Ã³¸®ÇÒ flooded regionÀÌ 2°³ ÀÌ»óÀÇ ¼¿·Î ±¸¼ºµÇ¾ú´ÂÁö È®ÀÎ
+            % c. í˜„ì¬ ì²˜ë¦¬í•  flooded regionì´ 2ê°œ ì´ìƒì˜ ì…€ë¡œ êµ¬ì„±ë˜ì—ˆëŠ”ì§€ í™•ì¸
             if floodedRegionCellsNo(outletY,outletX) > 1
 
-                % a) ÇöÀç Ã³¸®ÇÒ flooded regionÀÌ 2°³ ÀÌ»óÀÇ ¼¿·Î ±¸¼ºµÇ¾î
-                %    ÀÖ´Ù¸é, À¯ÀÔÇÑ ÅğÀû¹°Àº °¡Àå ±íÀº ¹Ù´ÚÀ» ¸ÕÀú Ã¤¿ò
+                % a) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì´ 2ê°œ ì´ìƒì˜ ì…€ë¡œ êµ¬ì„±ë˜ì–´
+                %    ìˆë‹¤ë©´, ìœ ì…í•œ í‡´ì ë¬¼ì€ ê°€ì¥ ê¹Šì€ ë°”ë‹¥ì„ ë¨¼ì € ì±„ì›€
 
-                % (a) local depth¸¦ ³»¸²Â÷¼øÀ¸·Î Á¤·ÄÇÔ
+                % (a) local depthë¥¼ ë‚´ë¦¼ì°¨ìˆœìœ¼ë¡œ ì •ë ¬í•¨
                 sortedCurrentLocalDepth = sort(currentLocalDepth,'descend');
 
-                % (b) À¯ÀÔÇÑ ÅğÀû¹°ÀÌ flooded regionÀÇ °¡Àå ±íÀº ¹Ù´ÚÀ» Ã¤¿ì°í
-                %     ³²´Â ¾ç[m^3/m^2]À» ÅğÀû¹° À¯ÀÔÀ¸·Î »ó½ÂÇÏ´Â ³ôÀÌ·Î Á¤ÀÇ
+                % (b) ìœ ì…í•œ í‡´ì ë¬¼ì´ flooded regionì˜ ê°€ì¥ ê¹Šì€ ë°”ë‹¥ì„ ì±„ìš°ê³ 
+                %     ë‚¨ëŠ” ì–‘[m^3/m^2]ì„ í‡´ì ë¬¼ ìœ ì…ìœ¼ë¡œ ìƒìŠ¹í•˜ëŠ” ë†’ì´ë¡œ ì •ì˜
                 remainedInput = increasingHeightByInput;
 
-                % (c) À¯ÀÔ ÅğÀû¹°ÀÇ ¾çÀÌ ´ÙÇÒ ¶§±îÁö flooded regionÀÇ ¹Ù´ÚÀ» Ã¤¿ò
+                % (c) ìœ ì… í‡´ì ë¬¼ì˜ ì–‘ì´ ë‹¤í•  ë•Œê¹Œì§€ flooded regionì˜ ë°”ë‹¥ì„ ì±„ì›€
                 isDone = false;
 
                 while (isDone == false)
 
-                    % 1. ÇöÀç °¡Àå ±íÀº ¼¿(local depth°¡ °¡Àå Å« ¼¿)ÀÇ ±íÀÌ¸¦ ÆÄ¾ÇÇÔ
+                    % 1. í˜„ì¬ ê°€ì¥ ê¹Šì€ ì…€(local depthê°€ ê°€ì¥ í° ì…€)ì˜ ê¹Šì´ë¥¼ íŒŒì•…í•¨
                     maxLocalDepth = max(sortedCurrentLocalDepth(:));
 
-                    % 2. ÇöÀç °¡Àå ±íÀº ¼¿(µé)ÀÌ ¸î °³ÀÎÁö¸¦ ÆÄ¾ÇÇÔ
+                    % 2. í˜„ì¬ ê°€ì¥ ê¹Šì€ ì…€(ë“¤)ì´ ëª‡ ê°œì¸ì§€ë¥¼ íŒŒì•…í•¨
                     maxLocalDepthCellsNo ...
                       = find(sortedCurrentLocalDepth == maxLocalDepth);
                     maxLocalDepthCellsNo = size(maxLocalDepthCellsNo,1);
 
-                    % 3. ÇöÀç °¡Àå ±íÀº ¼¿(µé)ÀÇ ¼ö°¡ flooded regionÀÇ ¼¿
-                    %    ¼ö¿Í µ¿ÀÏÇÑÁö¸¦ È®ÀÎÇÔ
+                    % 3. í˜„ì¬ ê°€ì¥ ê¹Šì€ ì…€(ë“¤)ì˜ ìˆ˜ê°€ flooded regionì˜ ì…€
+                    %    ìˆ˜ì™€ ë™ì¼í•œì§€ë¥¼ í™•ì¸í•¨
                     if maxLocalDepthCellsNo ...
                             ~= floodedRegionCellsNo(outletY,outletX)
 
-                        % 1) µ¿ÀÏÇÏÁö ¾Ê´Ù¸é, ÇöÀç flooded regionÀÇ ±íÀÌ°¡
-                        %    ¼­·Î ´Ù¸£´Ù´Â ÀÇ¹Ì. µû¶ó¼­ flooded regionÀÇ
-                        %    °¡Àå ±íÀº ¹Ù´ÚºÎÅÍ Ã¤¿ò
+                        % 1) ë™ì¼í•˜ì§€ ì•Šë‹¤ë©´, í˜„ì¬ flooded regionì˜ ê¹Šì´ê°€
+                        %    ì„œë¡œ ë‹¤ë¥´ë‹¤ëŠ” ì˜ë¯¸. ë”°ë¼ì„œ flooded regionì˜
+                        %    ê°€ì¥ ê¹Šì€ ë°”ë‹¥ë¶€í„° ì±„ì›€
 
-                        % (1) ´ÙÀ½À¸·Î ±íÀº ¼¿ÀÇ ±íÀÌ¸¦ ÆÄ¾Ç
+                        % (1) ë‹¤ìŒìœ¼ë¡œ ê¹Šì€ ì…€ì˜ ê¹Šì´ë¥¼ íŒŒì•…
                         secondMaxLocalDepth = sortedCurrentLocalDepth ...
                             (maxLocalDepthCellsNo+1,1);
 
-                        % (2) ÇöÀç °¡Àå ±íÀº ¼¿°ú ´ÙÀ½À¸·Î ±íÀº ¼¿°úÀÇ Â÷ÀÌ
+                        % (2) í˜„ì¬ ê°€ì¥ ê¹Šì€ ì…€ê³¼ ë‹¤ìŒìœ¼ë¡œ ê¹Šì€ ì…€ê³¼ì˜ ì°¨ì´
                         depthDifference ...
                             = maxLocalDepth - secondMaxLocalDepth;
 
-                        % (3) °¡Àå ±íÀº ¼¿(µé)¿¡ ÅğÀûµÉ ¾ç[m^3/m^2]
+                        % (3) ê°€ì¥ ê¹Šì€ ì…€(ë“¤)ì— í‡´ì ë  ì–‘[m^3/m^2]
                         depthToBeDeposited ...
                             = depthDifference * maxLocalDepthCellsNo;
 
-                        % (4) ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°ÀÇ ¾çÀ» ÇöÀç ÅğÀûµÉ ¾ç°ú ºñ±³
+                        % (4) ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ì˜ ì–‘ì„ í˜„ì¬ í‡´ì ë  ì–‘ê³¼ ë¹„êµ
                         if remainedInput > depthToBeDeposited
 
-                            % A. ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°ÀÇ ¾çÀÌ ÅğÀûµÉ ¾çº¸´Ù
-                            %    Å©´Ù¸é, ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°·Î ÇöÀç °¡Àå
-                            %    ±íÀº ¼¿(µé)À» Ã¤¿ì°í °¡Àå ±íÀº ¼¿(µé)ÀÇ
-                            %    ±íÀÌ¸¦ ´ÙÀ½À¸·Î ±íÀº ¼¿ÀÇ ±íÀÌ·Î º¯°æÇÔ
+                            % A. ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ì˜ ì–‘ì´ í‡´ì ë  ì–‘ë³´ë‹¤
+                            %    í¬ë‹¤ë©´, ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ë¡œ í˜„ì¬ ê°€ì¥
+                            %    ê¹Šì€ ì…€(ë“¤)ì„ ì±„ìš°ê³  ê°€ì¥ ê¹Šì€ ì…€(ë“¤)ì˜
+                            %    ê¹Šì´ë¥¼ ë‹¤ìŒìœ¼ë¡œ ê¹Šì€ ì…€ì˜ ê¹Šì´ë¡œ ë³€ê²½í•¨
                             sortedCurrentLocalDepth ...
                                 (1:maxLocalDepthCellsNo,1) ...
                                     = secondMaxLocalDepth;
@@ -407,25 +407,25 @@ for ithFloodedRegion = 1:floodedRegionsNo
 
                         else % remainedInput <= depthToBeDeposited
 
-                            % B. ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°ÀÇ ¾çÀÌ ÅğÀûµÉ ¾çº¸´Ù
-                            %    ÀÛ´Ù¸é, ¸¶Áö¸·À¸·Î ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°ÀÌ
-                            %    °¡Àå ±íÀº ¼¿(µé)À» Ã¤¿ì¸é¼­ »ó½ÂÇÒ ³ôÀÌ¸¦
-                            %    ±¸ÇÔ
+                            % B. ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ì˜ ì–‘ì´ í‡´ì ë  ì–‘ë³´ë‹¤
+                            %    ì‘ë‹¤ë©´, ë§ˆì§€ë§‰ìœ¼ë¡œ ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ì´
+                            %    ê°€ì¥ ê¹Šì€ ì…€(ë“¤)ì„ ì±„ìš°ë©´ì„œ ìƒìŠ¹í•  ë†’ì´ë¥¼
+                            %    êµ¬í•¨
 
-                            % A) ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°ÀÇ ¾çÀ» °¡Àå ±íÀº
-                            %    ¼¿(µé)ÀÇ ¼ö¸¸Å­ ³ª´®
+                            % A) ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ì˜ ì–‘ì„ ê°€ì¥ ê¹Šì€
+                            %    ì…€(ë“¤)ì˜ ìˆ˜ë§Œí¼ ë‚˜ëˆ”
                             finalDepthToBeDeposited ...
                                 = remainedInput / maxLocalDepthCellsNo;
 
-                            % B) ÃÖÁ¾ flooded regionÀÇ ÃÖ´ë ±íÀÌ¸¦ ±¸ÇÔ
+                            % B) ìµœì¢… flooded regionì˜ ìµœëŒ€ ê¹Šì´ë¥¼ êµ¬í•¨
                             maxDepth ...
                             = maxLocalDepth - finalDepthToBeDeposited;
 
-                            % C) °¡Àå ±íÀº ¼¿ÀÇ ±íÀÌ¸¦ ¼öÁ¤
+                            % C) ê°€ì¥ ê¹Šì€ ì…€ì˜ ê¹Šì´ë¥¼ ìˆ˜ì •
                             sortedCurrentLocalDepth ...
                                 (1:maxLocalDepthCellsNo,1) = maxDepth;
 
-                            % D) ÃÖ´ë ±íÀÌ¸¦ ±¸ÇßÀ¸¹Ç·Î ¹İº¹À» ¸¶Ä§
+                            % D) ìµœëŒ€ ê¹Šì´ë¥¼ êµ¬í–ˆìœ¼ë¯€ë¡œ ë°˜ë³µì„ ë§ˆì¹¨
                             isDone = true;
 
                         end % remainedInput > depthToBeDeposited
@@ -433,21 +433,21 @@ for ithFloodedRegion = 1:floodedRegionsNo
                     else  % maxLocalDepthCellsNo ...
                           %   ~= floodedRegionCellsNo(outletY,outletX)
 
-                        % 2) µ¿ÀÏÇÏ´Ù¸é, flooded region ÀüÃ¼ ±íÀÌ°¡
-                        %    µ¿ÀÏÇÏ´Ù´Â ÀÇ¹Ì. µû¶ó¼­ ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°ÀÇ
-                        %    ¾çÀ» flooded region ¼¿ ¼ö·Î ³ª´©°í ÀÌ¸¦ ÃÖ´ë
-                        %    ±íÀÌ¿¡¼­ »­
+                        % 2) ë™ì¼í•˜ë‹¤ë©´, flooded region ì „ì²´ ê¹Šì´ê°€
+                        %    ë™ì¼í•˜ë‹¤ëŠ” ì˜ë¯¸. ë”°ë¼ì„œ ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ì˜
+                        %    ì–‘ì„ flooded region ì…€ ìˆ˜ë¡œ ë‚˜ëˆ„ê³  ì´ë¥¼ ìµœëŒ€
+                        %    ê¹Šì´ì—ì„œ ëºŒ
 
-                        % (1) ³²¾ÆÀÖ´Â À¯ÀÔ ÅğÀû¹°ÀÇ ¾çÀ» °¡Àå ±íÀº ¼¿(µé)ÀÇ
-                        %     ¼ö¸¸Å­ ³ª´®
+                        % (1) ë‚¨ì•„ìˆëŠ” ìœ ì… í‡´ì ë¬¼ì˜ ì–‘ì„ ê°€ì¥ ê¹Šì€ ì…€(ë“¤)ì˜
+                        %     ìˆ˜ë§Œí¼ ë‚˜ëˆ”
                         finalDepthToBeDeposited ...
                             = remainedInput / maxLocalDepthCellsNo;
 
-                        % (2) ÃÖÁ¾ flooded regionÀÇ ÃÖ´ë ±íÀÌ¸¦ ±¸ÇÔ
+                        % (2) ìµœì¢… flooded regionì˜ ìµœëŒ€ ê¹Šì´ë¥¼ êµ¬í•¨
                         maxDepth ...
                             = maxLocalDepth - finalDepthToBeDeposited;
 
-                        % (3) ÃÖ´ë ±íÀÌ¸¦ ±¸ÇßÀ¸¹Ç·Î ¹İº¹À» ¸ØÃã
+                        % (3) ìµœëŒ€ ê¹Šì´ë¥¼ êµ¬í–ˆìœ¼ë¯€ë¡œ ë°˜ë³µì„ ë©ˆì¶¤
                         isDone = true;                            
 
                     end % if maxLocalDepthCellsNo ...
@@ -456,22 +456,22 @@ for ithFloodedRegion = 1:floodedRegionsNo
 
             else % floodedRegionCellsNo(outletY,outletX) <= 1
 
-                % b) ÇöÀç Ã³¸®ÇÒ flooded regionÀÌ ÇÏ³ªÀÇ ¼¿ÀÌ¶ó¸é, À¯ÀÔÇÑ
-                %    ÅğÀû¹° ¾ç ÀÚÃ¼°¡ flooded regionÀÇ Áõ°¡ÇÏ´Â ³ôÀÌ°¡ µÊ
+                % b) í˜„ì¬ ì²˜ë¦¬í•  flooded regionì´ í•˜ë‚˜ì˜ ì…€ì´ë¼ë©´, ìœ ì…í•œ
+                %    í‡´ì ë¬¼ ì–‘ ìì²´ê°€ flooded regionì˜ ì¦ê°€í•˜ëŠ” ë†’ì´ê°€ ë¨
 
-                % (a) flooded regionÀÇ ÃÖ´ë ±íÀÌ´Â local depth - flooded
-                %     regionÀ¸·ÎÀÇ ÅğÀû¹° À¯ÀÔÀ¸·Î Áõ°¡ÇÏ´Â ³ôÀÌ)ÀÓ
-                % * ÁÖÀÇ: flooded region ¼¿ÀÌ ÇÏ³ªÀÏ °æ¿ì, ÀÌÀÇ local depth´Â
-                %   total depth¿Í µ¿ÀÏÇÔ
+                % (a) flooded regionì˜ ìµœëŒ€ ê¹Šì´ëŠ” local depth - flooded
+                %     regionìœ¼ë¡œì˜ í‡´ì ë¬¼ ìœ ì…ìœ¼ë¡œ ì¦ê°€í•˜ëŠ” ë†’ì´)ì„
+                % * ì£¼ì˜: flooded region ì…€ì´ í•˜ë‚˜ì¼ ê²½ìš°, ì´ì˜ local depthëŠ”
+                %   total depthì™€ ë™ì¼í•¨
                 maxDepth ...
                     = ( floodedRegionTotalDepth(outletY,outletX) ...
                         - increasingHeightByInput );
 
             end % floodedRegionCellsNo(outletY,outletX) > 1
 
-            % * À¯Ãâ±¸ÀÇ °íµµ Áõ°¡ ¿©ºÎ¸¦ È®ÀÎÇÒ ÇÊ¿ä¾øÀÌ flooded region ÃÖ´ë
-            %   ±íÀÌ±îÁö ¼ø ÅğÀû¹° µÎ²² º¯È­·®À» Áõ°¡ÇÏ¸é µÊ
-            % * Á¶°Ç(4,5,9,10/3,8/12,13)
+            % * ìœ ì¶œêµ¬ì˜ ê³ ë„ ì¦ê°€ ì—¬ë¶€ë¥¼ í™•ì¸í•  í•„ìš”ì—†ì´ flooded region ìµœëŒ€
+            %   ê¹Šì´ê¹Œì§€ ìˆœ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ëŸ‰ì„ ì¦ê°€í•˜ë©´ ë¨
+            % * ì¡°ê±´(4,5,9,10/3,8/12,13)
             
             satisfyingCells = ...
                 currentFloodedRegion & (floodedRegionLocalDepth > maxDepth);
@@ -487,9 +487,9 @@ for ithFloodedRegion = 1:floodedRegionsNo
 end % for ithFloodedRegion = 1:floodedRegionsNo
 
 %--------------------------------------------------------------------------
-% ¿Ü°û °æ°è·ÎÀÇ À¯ÀÔÀ²À» ÅğÀû¹° µÎ²² º¯È­À²¿¡ ¹İ¿µÇÔ [m/subDT]
-% * ÁÖÀÇ: inputFluxÀÇ ¿Ü°û °æ°è°ªÀ» ÀÌ¿ëÇÏ¿© ¸ğµ¨ ¿µ¿ªÀÇ Æò±Õ Ä§½ÄÀ²À» ±¸ÇÒ
-%   °æ¿ì ¿µ¿ª ¼¿ °³¼ö·Î ³ª´©¾î¾ß ÇÔ
+% ì™¸ê³½ ê²½ê³„ë¡œì˜ ìœ ì…ìœ¨ì„ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì— ë°˜ì˜í•¨ [m/subDT]
+% * ì£¼ì˜: inputFluxì˜ ì™¸ê³½ ê²½ê³„ê°’ì„ ì´ìš©í•˜ì—¬ ëª¨ë¸ ì˜ì—­ì˜ í‰ê·  ì¹¨ì‹ìœ¨ì„ êµ¬í• 
+%   ê²½ìš° ì˜ì—­ ì…€ ê°œìˆ˜ë¡œ ë‚˜ëˆ„ì–´ì•¼ í•¨
 
 dSedimentThick(OUTER_BOUNDARY) = inputFlux(OUTER_BOUNDARY);
 

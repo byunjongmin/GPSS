@@ -1,37 +1,37 @@
 /*
  * HillslopeProcessMex.c
  *
- * ³ôÀº °íµµ ¼øÀ¸·Î »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅğÀû¹° µÎ²² º¯È­À²À» ±¸ÇÏ´Â ÇÔ¼ö
- * (³ôÀº °íµµ ¼øÀ¸·Î) ¿î¹İ´É·Â¿¡ µû¶ó »ç¸é¹°ÁúÀ» °¢ ÀÌ¿ô ¼¿¿¡ ºĞ¹èÇÔ
- * * ÁÖÀÇ: ´ÙÀ½ÀÇ ÀÌÀ¯·Î flooded regionÀÇ À¯Ãâ±¸ÀÎÁö¸¦ È®ÀÎÇÏÁö ¾ÊÀ½ 1) ´ÜÀ§
- *   ½Ã°£ÀÌ 1³âÀÎ °æ¿ì¿¡ flooded regionÀ¸·ÎÀÇ À¯ÀÔÀ²ÀÌ ÀúÀå·®À» ³Ñ´Â ÀÏÀÌ °ÅÀÇ
- *   ¾øÀ½ 2) »ç¸é ¹°Áú¿¡ ÀÇÇÑ ÀÌµ¿ÀÌ¹Ç·Î flooded regionÀÇ À¯ÀÔÀ²ÀÌ ÀúÀå·®À»
- *   ÃÊ°úÇÏ´õ¶óµµ ÃÊ°ú·®ÀÌ À¯Ãâ±¸¸¦ ÅëÇØ ÀÌµ¿µÇÁö ¾Ê´Â´Ù°í °¡Á¤ÇÔ 3) À¯Ãâ±¸
- *   ¿©ºÎ¿¡ µû¶ó ÀÌ¿ô ¼¿¿¡ ºĞ¹èÇÏ´Â ¹æ½ÄÀÌ ´Ş¶óÁöÁö´Â ¾ÊÀ½
- * * Âü°í: HillslopeProcess ÇÔ¼ö(ver 0.7)ÀÇ for ¹İº¹¹®¸¸À» MEX ÆÄÀÏ·Î º¯°æÇÔ
+ * ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì‚¬ë©´ì‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜
+ * (ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ) ìš´ë°˜ëŠ¥ë ¥ì— ë”°ë¼ ì‚¬ë©´ë¬¼ì§ˆì„ ê° ì´ì›ƒ ì…€ì— ë¶„ë°°í•¨
+ * * ì£¼ì˜: ë‹¤ìŒì˜ ì´ìœ ë¡œ flooded regionì˜ ìœ ì¶œêµ¬ì¸ì§€ë¥¼ í™•ì¸í•˜ì§€ ì•ŠìŒ 1) ë‹¨ìœ„
+ *   ì‹œê°„ì´ 1ë…„ì¸ ê²½ìš°ì— flooded regionìœ¼ë¡œì˜ ìœ ì…ìœ¨ì´ ì €ì¥ëŸ‰ì„ ë„˜ëŠ” ì¼ì´ ê±°ì˜
+ *   ì—†ìŒ 2) ì‚¬ë©´ ë¬¼ì§ˆì— ì˜í•œ ì´ë™ì´ë¯€ë¡œ flooded regionì˜ ìœ ì…ìœ¨ì´ ì €ì¥ëŸ‰ì„
+ *   ì´ˆê³¼í•˜ë”ë¼ë„ ì´ˆê³¼ëŸ‰ì´ ìœ ì¶œêµ¬ë¥¼ í†µí•´ ì´ë™ë˜ì§€ ì•ŠëŠ”ë‹¤ê³  ê°€ì •í•¨ 3) ìœ ì¶œêµ¬
+ *   ì—¬ë¶€ì— ë”°ë¼ ì´ì›ƒ ì…€ì— ë¶„ë°°í•˜ëŠ” ë°©ì‹ì´ ë‹¬ë¼ì§€ì§€ëŠ” ì•ŠìŒ
+ * * ì°¸ê³ : HillslopeProcess í•¨ìˆ˜(ver 0.7)ì˜ for ë°˜ë³µë¬¸ë§Œì„ MEX íŒŒì¼ë¡œ ë³€ê²½í•¨
  * 
- * [inputFlux ...                   0 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯ÀÔÀ² [m/dT]
- * ,outputFlux...                   1 ÀÌ¿ô ¼¿·ÎÀÇ ÃÑ À¯ÃâÀ² [m/dT]
- * ,inputFloodedRegion ...          2 flooded regionÀ¸·ÎÀÇ À¯ÀÔÀ² [m/dT]
+ * [inputFlux ...                   0 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ì…ìœ¨ [m/dT]
+ * ,outputFlux...                   1 ì´ì›ƒ ì…€ë¡œì˜ ì´ ìœ ì¶œìœ¨ [m/dT]
+ * ,inputFloodedRegion ...          2 flooded regionìœ¼ë¡œì˜ ìœ ì…ìœ¨ [m/dT]
  * ] = HillslopeProcessMex ...
- * (mRows ...                       0 . Çà °³¼ö
- * ,nCols ...                       1 . ¿­ °³¼ö
- * ,consideringCellsNo) ...         2 . »ç¸éÀÛ¿ëÀÌ ¹ß»ıÇÏ´Â ¼¿ ¼ö
- *----------------------------- mexGetVariablePtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼ö
- * mexSortedIndicies ...            0 . °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
- * mexSDSNbrIndicies ...            1 . ´ÙÀ½ ¼¿ »öÀÎ
- * n3IthNbrLinearIndicies ...       2 . 3Â÷¿ø 8¹æÇâ ÀÌ¿ô ¼¿ »öÀÎ
+ * (mRows ...                       0 . í–‰ ê°œìˆ˜
+ * ,nCols ...                       1 . ì—´ ê°œìˆ˜
+ * ,consideringCellsNo) ...         2 . ì‚¬ë©´ì‘ìš©ì´ ë°œìƒí•˜ëŠ” ì…€ ìˆ˜
+ *----------------------------- mexGetVariablePtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
+ * mexSortedIndicies ...            0 . ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
+ * mexSDSNbrIndicies ...            1 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
+ * n3IthNbrLinearIndicies ...       2 . 3ì°¨ì› 8ë°©í–¥ ì´ì›ƒ ì…€ ìƒ‰ì¸
  * flood ...                        3 . flooded region
- * sedimentThick ...                4 . ÅğÀû¹° µÎ²²
- * transportCapacityToNbrs ...      5 . °¢ ÀÌ¿ô ¼¿·ÎÀÇ »ç¸éÀÛ¿ë ¿î¹İ´É·Â
- * sumTransportCapacityToNbrs ...   6 . ÃÑ »ç¸éÀÛ¿ë ¿î¹İ´É·Â
+ * sedimentThick ...                4 . í‡´ì ë¬¼ ë‘ê»˜
+ * transportCapacityToNbrs ...      5 . ê° ì´ì›ƒ ì…€ë¡œì˜ ì‚¬ë©´ì‘ìš© ìš´ë°˜ëŠ¥ë ¥
+ * sumTransportCapacityToNbrs ...   6 . ì´ ì‚¬ë©´ì‘ìš© ìš´ë°˜ëŠ¥ë ¥
  
  *
  */
 
 # include "mex.h"
 
-/* °è»ê ÇÔ¼ö ¼±¾ğ */
+/* ê³„ì‚° í•¨ìˆ˜ ì„ ì–¸ */
 void HillslopeProcessMex(
     double * inputFlux,
     double * outputFlux,
@@ -51,10 +51,10 @@ void HillslopeProcessMex(
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
-    /* ÀÔ·Â º¯¼ö ¼±¾ğ
-     * ÁÖÀÇ: mxArray ÀÚ·áÇü º¯¼ö´Â mexGetVariablePtr ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿©
-     * È£ÃâÇÔ¼öÀÇ ÀÛ¾÷°ø°£¿¡ ÀÖ´Â º¯¼öµéÀÇ Æ÷ÀÎÅÍ¸¸ ºÒ·¯¿È */
-    /* È£ÃâÇÔ¼ö ÀÛ¾÷°ø°£ÀÇ º¯¼ö */
+    /* ì…ë ¥ ë³€ìˆ˜ ì„ ì–¸
+     * ì£¼ì˜: mxArray ìë£Œí˜• ë³€ìˆ˜ëŠ” mexGetVariablePtr í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬
+     * í˜¸ì¶œí•¨ìˆ˜ì˜ ì‘ì—…ê³µê°„ì— ìˆëŠ” ë³€ìˆ˜ë“¤ì˜ í¬ì¸í„°ë§Œ ë¶ˆëŸ¬ì˜´ */
+    /* í˜¸ì¶œí•¨ìˆ˜ ì‘ì—…ê³µê°„ì˜ ë³€ìˆ˜ */
     const mxArray * mxArray0; /* mexSortedIndicies */
     const mxArray * mxArray1; /* mexSDSNbrIndicies*/
     const mxArray * mxArray2; /* n3IthNbrLinearIndicies */
@@ -63,7 +63,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     const mxArray * mxArray5; /* transportCapacityToNbrs */
     const mxArray * mxArray6; /* sumTransportCapacityToNbrs */
     
-    /* ÀÔ·Âº¯¼ö ½ÇÁ¦ ÀÚ·á  */
+    /* ì…ë ¥ë³€ìˆ˜ ì‹¤ì œ ìë£Œ  */
     mwIndex mRows;
     mwIndex nCols;
     mwSize consideringCellsNo;
@@ -75,13 +75,13 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     double * transportCapacityToNbrs;
     double * sumTransportCapacityToNbrs;
     
-    /* Ãâ·Â º¯¼ö ¼±¾ğ */
+    /* ì¶œë ¥ ë³€ìˆ˜ ì„ ì–¸ */
     double * dSedimentThick;
     double * inputFlux;
     double * outputFlux;
     double * inputFloodedRegion;
     
-    /* ÀÔ·Â º¯¼ö ÃÊ±âÈ­ */
+    /* ì…ë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */
     mRows               = (mwIndex) mxGetScalar(prhs[0]);
     nCols               = (mwIndex) mxGetScalar(prhs[1]);
     consideringCellsNo  = (mwSize) mxGetScalar(prhs[2]);
@@ -102,17 +102,17 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     transportCapacityToNbrs     = mxGetPr(mxArray5);    
     sumTransportCapacityToNbrs  = mxGetPr(mxArray6);
     
-    /* Ãâ·Â º¯¼ö ÃÊ±âÈ­ */
+    /* ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */
     plhs[0] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[1] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[2] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     
-    /* Ãâ·Â º¯¼ö ÀÚ·á¿¡ Æ÷ÀÎÅÍ¸¦ ÁöÁ¤ */
+    /* ì¶œë ¥ ë³€ìˆ˜ ìë£Œì— í¬ì¸í„°ë¥¼ ì§€ì • */
     inputFlux           = mxGetPr(plhs[0]);
     outputFlux          = mxGetPr(plhs[1]);
     inputFloodedRegion  = mxGetPr(plhs[2]);
     
-    /* ¼­ºê ·çÆ¾ ¼öÇà */
+    /* ì„œë¸Œ ë£¨í‹´ ìˆ˜í–‰ */
     HillslopeProcessMex(
         inputFlux,
         outputFlux,
@@ -144,7 +144,7 @@ void HillslopeProcessMex(
     double * transportCapacityToNbrs,
     double * sumTransportCapacityToNbrs)
 {
-    /* ÀÓ½Ã º¯¼ö ¼±¾ğ */
+    /* ì„ì‹œ ë³€ìˆ˜ ì„ ì–¸ */
     const int FLOODED = 2; /* flooded region */
     mwSize ithNbr,ithCell;
     mwIndex ithCellIdx,toIthNbr,ithNbrIdx,outletIdx;
@@ -152,68 +152,68 @@ void HillslopeProcessMex(
             
     for (ithCell=0;ithCell<consideringCellsNo;ithCell++)
     {
-        /* 1. i¹øÂ° ¼¿ »öÀÎ */
-        /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+        /* 1. ië²ˆì§¸ ì…€ ìƒ‰ì¸ */
+        /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
         ithCellIdx = (mwIndex) mexSortedIndicies[ithCell] - 1;
 
-        /* 2. i¹øÂ° ¼¿ÀÇ ÅğÀû¹° µÎ²²¸¦ °í·ÁÇÑ ÀÌ¿ô ¼¿·ÎÀÇ ½ÇÁ¦ ÀÌµ¿ ºñÀ²°ú ¾ç */
+        /* 2. ië²ˆì§¸ ì…€ì˜ í‡´ì ë¬¼ ë‘ê»˜ë¥¼ ê³ ë ¤í•œ ì´ì›ƒ ì…€ë¡œì˜ ì‹¤ì œ ì´ë™ ë¹„ìœ¨ê³¼ ì–‘ */
 
-        /* 1) ½ÇÁ¦ ÀÌµ¿µÇ´Â ºñÀ² ÃÊ±âÈ­ */
-        /* * Âü°í: »óºÎ »ç¸é¿¡¼­ÀÇ À¯ÀÔ·®µµ °í·ÁÇÏ¿© ½ÇÁ¦ ÀÌµ¿ ºñÀ²À» ±¸ÇÔ.
-         *   ÇÏÁö¸¸ ÀÏ¹İÀûÀ¸·Î È®»êÇö»ó¿¡¼­´Â °íµµ ¼ø¼­´ë·Î »óºÎ·ÎºÎÅÍÀÇ À¯ÀÔÀ»
-         *   °í·ÁÇÏ¿© ´ÙÀ½ ¼¿¿¡ ÀüÇÏÁö ¾ÊÀ½ */
+        /* 1) ì‹¤ì œ ì´ë™ë˜ëŠ” ë¹„ìœ¨ ì´ˆê¸°í™” */
+        /* * ì°¸ê³ : ìƒë¶€ ì‚¬ë©´ì—ì„œì˜ ìœ ì…ëŸ‰ë„ ê³ ë ¤í•˜ì—¬ ì‹¤ì œ ì´ë™ ë¹„ìœ¨ì„ êµ¬í•¨.
+         *   í•˜ì§€ë§Œ ì¼ë°˜ì ìœ¼ë¡œ í™•ì‚°í˜„ìƒì—ì„œëŠ” ê³ ë„ ìˆœì„œëŒ€ë¡œ ìƒë¶€ë¡œë¶€í„°ì˜ ìœ ì…ì„
+         *   ê³ ë ¤í•˜ì—¬ ë‹¤ìŒ ì…€ì— ì „í•˜ì§€ ì•ŠìŒ */
         scale = 1;
 
-        /* 2) »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÃÑ ÅğÀû¹° ¿î¹İ´É·ÂÀÌ (»óºÎ »ç¸é¿¡¼­ÀÇ À¯ÀÔÀ²À»
-         *    °í·ÁÇÑ) Çö ÅğÀû¹° µÎ²²º¸´Ù Å« Áö¸¦ È®ÀÎÇÔ */
+        /* 2) ì‚¬ë©´ì‘ìš©ì— ì˜í•œ ì´ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ì´ (ìƒë¶€ ì‚¬ë©´ì—ì„œì˜ ìœ ì…ìœ¨ì„
+         *    ê³ ë ¤í•œ) í˜„ í‡´ì ë¬¼ ë‘ê»˜ë³´ë‹¤ í° ì§€ë¥¼ í™•ì¸í•¨ */
         if (sumTransportCapacityToNbrs[ithCellIdx]
                 > (sedimentThick[ithCellIdx] + inputFlux[ithCellIdx]))
         {
-            /* (1) Å©´Ù¸é, ÀÌµ¿ ºñÀ²À» ¼öÁ¤ÇÔ */
+            /* (1) í¬ë‹¤ë©´, ì´ë™ ë¹„ìœ¨ì„ ìˆ˜ì •í•¨ */
             scale = (sedimentThick[ithCellIdx] + inputFlux[ithCellIdx])
                 / sumTransportCapacityToNbrs[ithCellIdx];
         }
         
-        /* 3) ½ÇÁ¦ ÃÑ ¿î¹İÀ² */
+        /* 3) ì‹¤ì œ ì´ ìš´ë°˜ìœ¨ */
         outputFlux[ithCellIdx] = sumTransportCapacityToNbrs[ithCellIdx] * scale;
 
-        /* 3. °¢ ÀÌ¿ô ¼¿ÀÇ À¯ÀÔÀ²¿¡ À¯ÃâÀ²À» ´õÇÔ */
+        /* 3. ê° ì´ì›ƒ ì…€ì˜ ìœ ì…ìœ¨ì— ìœ ì¶œìœ¨ì„ ë”í•¨ */
         for (ithNbr=0;ithNbr<8;ithNbr++)
         {
-            /* 1) °¢ ÀÌ¿ô ¼¿·ÎÀÇ ¿î¹İ´É·ÂÀ» °¡¸®Å°±â À§ÇÑ »öÀÎ */
-            /* * ÁÖÀÇ: ithCellIdx¿¡¼­ '-1'À» ¼öÇàÇßÀ¸¹Ç·Î ¶Ç ÇÒ ÇÊ¿ä°¡ ¾øÀ½ */
+            /* 1) ê° ì´ì›ƒ ì…€ë¡œì˜ ìš´ë°˜ëŠ¥ë ¥ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ ìƒ‰ì¸ */
+            /* * ì£¼ì˜: ithCellIdxì—ì„œ '-1'ì„ ìˆ˜í–‰í–ˆìœ¼ë¯€ë¡œ ë˜ í•  í•„ìš”ê°€ ì—†ìŒ */
             toIthNbr = ithNbr * (mRows*nCols) + ithCellIdx;
             
-            /* 2) i¹øÂ° ÀÌ¿ô ¼¿·ÎÀÇ À¯Ãâ·®ÀÌ ÀÖ´ÂÁö¸¦ È®ÀÎÇÔ */
+            /* 2) ië²ˆì§¸ ì´ì›ƒ ì…€ë¡œì˜ ìœ ì¶œëŸ‰ì´ ìˆëŠ”ì§€ë¥¼ í™•ì¸í•¨ */
             if (transportCapacityToNbrs[toIthNbr] > 0)
             {
-                /* (1) i¹øÂ° ÀÌ¿ô ¼¿·ÎÀÇ À¯ÃâÀÌ ÀÖ´Â °æ¿ì */
+                /* (1) ië²ˆì§¸ ì´ì›ƒ ì…€ë¡œì˜ ìœ ì¶œì´ ìˆëŠ” ê²½ìš° */
 
-                /* A. 3Â÷¿ø ÀÌ¿ô ¼¿ »öÀÎ */
-                /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+                /* A. 3ì°¨ì› ì´ì›ƒ ì…€ ìƒ‰ì¸ */
+                /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
                 ithNbrIdx = (mwIndex) n3IthNbrLinearIndicies[toIthNbr] - 1;
                 
-                /* B. i¹øÂ° ÀÌ¿ô ¼¿ÀÌ flooded region ÀÎÁö¸¦ È®ÀÎÇÔ */
+                /* B. ië²ˆì§¸ ì´ì›ƒ ì…€ì´ flooded region ì¸ì§€ë¥¼ í™•ì¸í•¨ */
                 if (flood[ithNbrIdx] == FLOODED)
                 {
 
-                    /* A) flooded regionÀÎ °æ¿ì, inputFloodedRegionÀÇ À¯ÀÔÀ²¿¡
-                     *    À¯ÃâÀ²À» ´õÇÔ */
+                    /* A) flooded regionì¸ ê²½ìš°, inputFloodedRegionì˜ ìœ ì…ìœ¨ì—
+                     *    ìœ ì¶œìœ¨ì„ ë”í•¨ */
 
-                    /* (A) flooded region À¯Ãâ±¸ »öÀÎ */
-                    /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+                    /* (A) flooded region ìœ ì¶œêµ¬ ìƒ‰ì¸ */
+                    /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
                     outletIdx = (mwIndex) mexSDSNbrIndicies[ithNbrIdx] - 1;
                 
 
-                    /* (B) inputFloodedRegion À¯ÀÔÀ²¿¡ À¯ÃâÀ²À» ´õÇÔ */
+                    /* (B) inputFloodedRegion ìœ ì…ìœ¨ì— ìœ ì¶œìœ¨ì„ ë”í•¨ */
                     inputFloodedRegion[outletIdx] 
                         = inputFloodedRegion[outletIdx]
                         + scale * transportCapacityToNbrs[toIthNbr];
                 }
                 else
                 {
-                    /* B) flooded regionÀÌ ¾Æ´Ñ °æ¿ì, i¹øÂ° ÀÌ¿ô ¼¿ÀÇ À¯ÀÔÀ²¿¡
-                     *    À¯ÃâÀ²À» ´õÇÔ */
+                    /* B) flooded regionì´ ì•„ë‹Œ ê²½ìš°, ië²ˆì§¸ ì´ì›ƒ ì…€ì˜ ìœ ì…ìœ¨ì—
+                     *    ìœ ì¶œìœ¨ì„ ë”í•¨ */
                     inputFlux[ithNbrIdx] = (inputFlux[ithNbrIdx]
                         + scale * transportCapacityToNbrs[toIthNbr]);
                 } /* if (flood[ithNbrIdx] == FLOODED) */

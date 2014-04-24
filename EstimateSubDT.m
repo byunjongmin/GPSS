@@ -1,151 +1,151 @@
 % =========================================================================
 %> @section INTRO EstimateSubDT
 %>
-%> - ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ µ¿¾È ÇÏÃµ¿¡ ÀÇÇÑ °íµµ º¯È­À²À» ÀÌ¿ëÇØ ÇÏ·ù ¹æÇâÀ¸·Î
-%>   ´ÙÀ½ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Âµ¥ °É¸®´Â ½Ã°£[trialTime]À» ±¸ÇÏ¿© ÀÌ¸¦ ¼¼ºÎ
-%>   ´ÜÀ§½Ã°£À¸·Î Á¤ÀÇÇÏ´Â ÇÔ¼ö
+%> - ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ë™ì•ˆ í•˜ì²œì— ì˜í•œ ê³ ë„ ë³€í™”ìœ¨ì„ ì´ìš©í•´ í•˜ë¥˜ ë°©í–¥ìœ¼ë¡œ
+%>   ë‹¤ìŒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„[trialTime]ì„ êµ¬í•˜ì—¬ ì´ë¥¼ ì„¸ë¶€
+%>   ë‹¨ìœ„ì‹œê°„ìœ¼ë¡œ ì •ì˜í•˜ëŠ” í•¨ìˆ˜
 %>
-%>  - ¿ø¸®: ´ÙÀ½ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÈ´Ù´Â ÀÇ¹Ì´Â ÇÏ·ù ¹æÇâÀÇ ¼¿ °íµµ¿Í
-%>    µ¿ÀÏÇØÁ³´Ù´Â ÀÇ¹ÌÀÓ. µû¶ó¼­ ´ÜÀ§½Ã°£ÀÌ ±æ¾î¼­ »ó·ù¿Í ÇÏ·ùÀÇ ±âº¹ÀÌ
-%>    ¿ªÀüµÇ´Â ¹®Á¦¸¦ ÇØ°áÇÏ±â À§ÇÑ ¾Ë°í¸®µë
-%>  - Âü°í : TuckerÀÇ GOLEM¿¡¼­ ÀÌ ¾Ë°í¸®µëÀ» µµÀÔÇÏ¿© °³¼±ÇÔ
+%>  - ì›ë¦¬: ë‹¤ìŒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ëœë‹¤ëŠ” ì˜ë¯¸ëŠ” í•˜ë¥˜ ë°©í–¥ì˜ ì…€ ê³ ë„ì™€
+%>    ë™ì¼í•´ì¡Œë‹¤ëŠ” ì˜ë¯¸ìž„. ë”°ë¼ì„œ ë‹¨ìœ„ì‹œê°„ì´ ê¸¸ì–´ì„œ ìƒë¥˜ì™€ í•˜ë¥˜ì˜ ê¸°ë³µì´
+%>    ì—­ì „ë˜ëŠ” ë¬¸ì œë¥¼ í•´ê²°í•˜ê¸° ìœ„í•œ ì•Œê³ ë¦¬ë“¬
+%>  - ì°¸ê³  : Tuckerì˜ GOLEMì—ì„œ ì´ ì•Œê³ ë¦¬ë“¬ì„ ë„ìž…í•˜ì—¬ ê°œì„ í•¨
 %>
 %>  - History
 %>   - 100227 GPSS2D08.m
-%>    - FluvialProcess 0.6À» µµÀÔÇÏ¿´°í, minTakenTimeÀ» ÁÙÀÌ´Â ¹æ¹ýÀº
-%>      »ý·«ÇÏ¿´À½
+%>    - FluvialProcess 0.6ì„ ë„ìž…í•˜ì˜€ê³ , minTakenTimeì„ ì¤„ì´ëŠ” ë°©ë²•ì€
+%>      ìƒëžµí•˜ì˜€ìŒ
 %>   - 100208 GPSS2d07.m
-%>    - ¼¼ºÎ ´ÜÀ§ ½Ã°£¸¸À» ±¸ÇÏ´Â ¿ëµµ·Î »ç¿ëÇÏ±â À§ÇØ ´Ü¼øÇÏ°Ô ¸¸µê
+%>    - ì„¸ë¶€ ë‹¨ìœ„ ì‹œê°„ë§Œì„ êµ¬í•˜ëŠ” ìš©ë„ë¡œ ì‚¬ìš©í•˜ê¸° ìœ„í•´ ë‹¨ìˆœí•˜ê²Œ ë§Œë“¦
 %>   - 100124
-%>    - ´ÙÀ½ ¼¿°úÀÇ °æ»ç°¡ 0°¡ µÇ´Â ½Ã°£À» ÆÄ¾ÇÇÏ´Â ÇÔ¼ö·Î ¸¸µé¸é¼­ ÇÔ¼ö ÀÌ¸§µµ
-%>      EstimateMinTakenTimeÀ¸·Î º¯°æÇÔ
+%>    - ë‹¤ìŒ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ê°€ ë˜ëŠ” ì‹œê°„ì„ íŒŒì•…í•˜ëŠ” í•¨ìˆ˜ë¡œ ë§Œë“¤ë©´ì„œ í•¨ìˆ˜ ì´ë¦„ë„
+%>      EstimateMinTakenTimeìœ¼ë¡œ ë³€ê²½í•¨
 %>   - 100104
-%>    - flooded region°ú ÀÌÀÇ À¯Ãâ±¸ÀÇ ¼ø °íµµ º¯È­·®À» ±¸ÇÏ´Â ¾Ë°í¸®µëÀ» »õ·Î
-%>      ¼³°èÇÔ. Æ¯È÷ À¯Ãâ±¸¿¡¼­ ºñÁ¤»óÀûÀ¸·Î ³ôÀº ÅðÀû¹° ¿î¹Ý·®À» ÁÙÀÌ´Âµ¥
-%>      ÁÖ¾ÈÁ¡À» µÎ¾úÀ½
+%>    - flooded regionê³¼ ì´ì˜ ìœ ì¶œêµ¬ì˜ ìˆœ ê³ ë„ ë³€í™”ëŸ‰ì„ êµ¬í•˜ëŠ” ì•Œê³ ë¦¬ë“¬ì„ ìƒˆë¡œ
+%>      ì„¤ê³„í•¨. íŠ¹ížˆ ìœ ì¶œêµ¬ì—ì„œ ë¹„ì •ìƒì ìœ¼ë¡œ ë†’ì€ í‡´ì ë¬¼ ìš´ë°˜ëŸ‰ì„ ì¤„ì´ëŠ”ë°
+%>      ì£¼ì•ˆì ì„ ë‘ì—ˆìŒ
 %>   - 091225
-%>    - flooded region ³» sink ÀÎ ¼¿¿¡¼­ FluvialProcess ÇÔ¼ö ¼öÇà ÈÄ À¯Ãâ±¸ÀÇ
-%>      °íµµº¸´Ù ´õ ³ô¾ÆÁö´Â Çö»óÀÌ ¹ß»ýÇÏ¿©, ÀÌ¸¦ ÇØ°áÇÏ±â À§ÇÑ ½Ãµµ¸¦ ÇÔ
+%>    - flooded region ë‚´ sink ì¸ ì…€ì—ì„œ FluvialProcess í•¨ìˆ˜ ìˆ˜í–‰ í›„ ìœ ì¶œêµ¬ì˜
+%>      ê³ ë„ë³´ë‹¤ ë” ë†’ì•„ì§€ëŠ” í˜„ìƒì´ ë°œìƒí•˜ì—¬, ì´ë¥¼ í•´ê²°í•˜ê¸° ìœ„í•œ ì‹œë„ë¥¼ í•¨
 %>   - 091221
-%>    - ÅðÀû¹°·Î Ã¤¿öÁø flooded regionÀÇ À¯Ãâ±¸ °íµµ°¡ ºñÁ¤»óÀûÀ¸·Î ³ô¾ÆÁö´Â
-%>      ¹®Á¦¸¦ ÇØ°áÇÏ°í, ÅðÀû¹°·Î Ã¤¿öÁöÁö ¾ÊÀº flooded region¿¡¼­´Â °¡Àå ³·Àº
-%>      ÁöÁ¡±îÁö ¹°Áú ÀÌµ¿ÀÌ ÀÏ¾î³ªµµ·Ï ÇÔ
+%>    - í‡´ì ë¬¼ë¡œ ì±„ì›Œì§„ flooded regionì˜ ìœ ì¶œêµ¬ ê³ ë„ê°€ ë¹„ì •ìƒì ìœ¼ë¡œ ë†’ì•„ì§€ëŠ”
+%>      ë¬¸ì œë¥¼ í•´ê²°í•˜ê³ , í‡´ì ë¬¼ë¡œ ì±„ì›Œì§€ì§€ ì•Šì€ flooded regionì—ì„œëŠ” ê°€ìž¥ ë‚®ì€
+%>      ì§€ì ê¹Œì§€ ë¬¼ì§ˆ ì´ë™ì´ ì¼ì–´ë‚˜ë„ë¡ í•¨
 %>
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval subDT                    : ¼¼ºÎ ´ÜÀ§½Ã°£ [s]
-%> @retval sumSubDT                 : ´©Àû ¼¼ºÎ ´ÜÀ§½Ã°£ [s]
-%> @retval nt                       : ¼¼ºÎ ´ÜÀ§½Ã°£ ÃßÁ¤À» À§ÇÑ º¯¼ö
+%> @retval subDT                    : ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ [s]
+%> @retval sumSubDT                 : ëˆ„ì  ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ [s]
+%> @retval nt                       : ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ì¶”ì •ì„ ìœ„í•œ ë³€ìˆ˜
 %>
-%> @param mRows                     : ¸ðÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
-%> @param nCols                     : ¸ðÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
-%> @param elev                      : ÁöÇ¥ °íµµ [m]
-%> @param dSedimentThick            : ÀÓ½Ã ¼¼ºÎ ´ÜÀ§ ½Ã°£ µ¿¾ÈÀÇ ÅðÀû¹° µÎ²² º¯È­À² [m/subDT]
-%> @param dBedrockElev              : ÀÓ½Ã ¼¼ºÎ ´ÜÀ§ ½Ã°£ µ¿¾ÈÀÇ ±â¹Ý¾Ï °íµµ º¯È­À² [m/subDT]
-%> @param trialTime                 : ÀÓ½Ã ¼¼ºÎ ´ÜÀ§ ½Ã°£ [s]
-%> @param sumSubDT                  : ´©Àû ¼¼ºÎ ´ÜÀ§ ½Ã°£ [s]
-%> @param minSubDT                  : ÃÖ¼ÒÇÑÀÇ ¼¼ºÎ ´ÜÀ§ ½Ã°£ [s]
-%> @param basicManipulationRatio    : ¹Ýº¹¹® ³» ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ ¼³Á¤°ú °ü·ÃµÈ º¯¼öÀÇ °è¼ö
-%> @param nt                        : ¹Ýº¹¹® ³» ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ ¼³Á¤°ú °ü·ÃµÈ º¯¼öÀÇ Áö¼ö
-%> @param bankfullTime              : ¸¸¼öÀ¯·® [s]
-%> @param consideringCellsNo        : ÇÏÃµÀÛ¿ëÀÌ ÀÏ¾î³ª´Â ¼¿µéÀÇ ¼ö
-%> @param sortedYXElev              : ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÑ Y,X ÁÂÇ¥°ª
-%> @param SDSNbrY                   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
-%> @param SDSNbrX                   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
-%> @param floodedRegionCellsNo      : °³º° flooded region ¼¿ °³¼ö
-%> @param e1LinearIndicies          : ¹«ÇÑ À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ »öÀÎ
-%> @param outputFluxRatioToE1       : ¹«ÇÑ À¯Çâ¿¡ ÀÇÇØ ´ÙÀ½ ¼¿·Î ºÐ¹èµÇ´Â ºñÀ²
-%> @param e2LinearIndicies          : ¹«ÇÑ À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ »öÀÎ
-%> @param outputFluxRatioToE2       : ¹«ÇÑ À¯Çâ¿¡ ÀÇÇØ ´ÙÀ½ ¼¿·Î ºÐ¹èµÇ´Â ºñÀ²
+%> @param mRows                     : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
+%> @param nCols                     : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
+%> @param elev                      : ì§€í‘œ ê³ ë„ [m]
+%> @param dSedimentThick            : ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ ì‹œê°„ ë™ì•ˆì˜ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT]
+%> @param dBedrockElev              : ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ ì‹œê°„ ë™ì•ˆì˜ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m/subDT]
+%> @param trialTime                 : ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ ì‹œê°„ [s]
+%> @param sumSubDT                  : ëˆ„ì  ì„¸ë¶€ ë‹¨ìœ„ ì‹œê°„ [s]
+%> @param minSubDT                  : ìµœì†Œí•œì˜ ì„¸ë¶€ ë‹¨ìœ„ ì‹œê°„ [s]
+%> @param basicManipulationRatio    : ë°˜ë³µë¬¸ ë‚´ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ì„¤ì •ê³¼ ê´€ë ¨ëœ ë³€ìˆ˜ì˜ ê³„ìˆ˜
+%> @param nt                        : ë°˜ë³µë¬¸ ë‚´ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ì„¤ì •ê³¼ ê´€ë ¨ëœ ë³€ìˆ˜ì˜ ì§€ìˆ˜
+%> @param bankfullTime              : ë§Œìˆ˜ìœ ëŸ‰ [s]
+%> @param consideringCellsNo        : í•˜ì²œìž‘ìš©ì´ ì¼ì–´ë‚˜ëŠ” ì…€ë“¤ì˜ ìˆ˜
+%> @param sortedYXElev              : ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•œ Y,X ì¢Œí‘œê°’
+%> @param SDSNbrY                   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
+%> @param SDSNbrX                   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
+%> @param floodedRegionCellsNo      : ê°œë³„ flooded region ì…€ ê°œìˆ˜
+%> @param e1LinearIndicies          : ë¬´í•œ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ ìƒ‰ì¸
+%> @param outputFluxRatioToE1       : ë¬´í•œ ìœ í–¥ì— ì˜í•´ ë‹¤ìŒ ì…€ë¡œ ë¶„ë°°ë˜ëŠ” ë¹„ìœ¨
+%> @param e2LinearIndicies          : ë¬´í•œ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ ìƒ‰ì¸
+%> @param outputFluxRatioToE2       : ë¬´í•œ ìœ í–¥ì— ì˜í•´ ë‹¤ìŒ ì…€ë¡œ ë¶„ë°°ë˜ëŠ” ë¹„ìœ¨
 % =========================================================================
 function [subDT,sumSubDT,nt]= EstimateSubDT(mRows,nCols,elev,dSedimentThick,dBedrockElev,trialTime,sumSubDT,minSubDT,basicManipulationRatio,nt,bankfullTime,consideringCellsNo,sortedYXElev,SDSNbrY,SDSNbrX,floodedRegionCellsNo,e1LinearIndicies,outputFluxRatioToE1,e2LinearIndicies,outputFluxRatioToE2)
 %
 % function EstimateSubDT
 %
 
-% 1. ¹Ýº¹¹® ³» º¯¼ö ÃÊ±âÈ­
-takenTime = inf(mRows,nCols);   % ÃÖÁ¾ ¼Ò¿ä ½Ã°£
+% 1. ë°˜ë³µë¬¸ ë‚´ ë³€ìˆ˜ ì´ˆê¸°í™”
+takenTime = inf(mRows,nCols);   % ìµœì¢… ì†Œìš” ì‹œê°„
 
-% 2. ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ µ¿¾ÈÀÇ °íµµ º¯È­À² °»½Å
+% 2. ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ ë™ì•ˆì˜ ê³ ë„ ë³€í™”ìœ¨ ê°±ì‹ 
 dElev = dSedimentThick + dBedrockElev;
 
 %--------------------------------------------------------------------------
-% ¼±Çü »öÀÎ ÁØºñ
-mexSortedIndicies ...       % sortedYXElev¸¦ À§ÇÑ ¼±Çü »öÀÎ
+% ì„ í˜• ìƒ‰ì¸ ì¤€ë¹„
+mexSortedIndicies ...       % sortedYXElevë¥¼ ìœ„í•œ ì„ í˜• ìƒ‰ì¸
     = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
-mexSDSNbrIndicies ...       % SDSNbrY,SDSNbrX¸¦ À§ÇÑ ¼±Çü ÇÙÀÎ
+mexSDSNbrIndicies ...       % SDSNbrY,SDSNbrXë¥¼ ìœ„í•œ ì„ í˜• í•µì¸
     = (SDSNbrX-1)*mRows + SDSNbrY;
 
-takenTime ...                    0 ÇÏ·ù¹æÇâ ¼¿°úÀÇ °æ»ç°¡ 0ÀÌ µÇ´Â ½Ã°£ [s]
+takenTime ...                    0 í•˜ë¥˜ë°©í–¥ ì…€ê³¼ì˜ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ” ì‹œê°„ [s]
     = EstimateSubDTMex ...
- 	(mRows ...                   0 . Çà °³¼ö
- 	,nCols ...                   1 . ¿­ °³¼ö
- 	,consideringCellsNo); ...    2 . ÇÏÃµÀÛ¿ëÀÌ ¹ß»ýÇÏ´Â ¼¿ ¼ö
-%----------------------------- mexGetVariablePtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼ö
-% mexSortedIndicies ...        3 . °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
-% e1LinearIndicies ...         4 . ´ÙÀ½ ¼¿ »öÀÎ
-% e2LinearIndicies ...         5 . ´ÙÀ½ ¼¿ »öÀÎ
-% outputFluxRatioToE1 ...      6 . ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
-% outputFluxRatioToE2 ...      7 . ´ÙÀ½ ¼¿·ÎÀÇ À¯Ãâ ºñÀ²
-% mexSDSNbrIndicies ...        8 . ´ÙÀ½ ¼¿ »öÀÎ
-% floodedRegionCellsNo ...     9 . flooded region ±¸¼º ¼¿ ¼ö
-% dElev ...                    10 . °íµµ º¯È­À² [m/trialTime]
-% elev ...                     11 . °íµµ [m]
-%----------------------------- mexGetVariable ÇÔ¼ö·Î º¹»çÇØ¿À´Â º¯¼ö
-% takenTime ...                0 . inf·Î ÃÊ±âÈ­µÈ Ãâ·Â º¯¼ö
+ 	(mRows ...                   0 . í–‰ ê°œìˆ˜
+ 	,nCols ...                   1 . ì—´ ê°œìˆ˜
+ 	,consideringCellsNo); ...    2 . í•˜ì²œìž‘ìš©ì´ ë°œìƒí•˜ëŠ” ì…€ ìˆ˜
+%----------------------------- mexGetVariablePtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
+% mexSortedIndicies ...        3 . ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
+% e1LinearIndicies ...         4 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
+% e2LinearIndicies ...         5 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
+% outputFluxRatioToE1 ...      6 . ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
+% outputFluxRatioToE2 ...      7 . ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œ ë¹„ìœ¨
+% mexSDSNbrIndicies ...        8 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
+% floodedRegionCellsNo ...     9 . flooded region êµ¬ì„± ì…€ ìˆ˜
+% dElev ...                    10 . ê³ ë„ ë³€í™”ìœ¨ [m/trialTime]
+% elev ...                     11 . ê³ ë„ [m]
+%----------------------------- mexGetVariable í•¨ìˆ˜ë¡œ ë³µì‚¬í•´ì˜¤ëŠ” ë³€ìˆ˜
+% takenTime ...                0 . infë¡œ ì´ˆê¸°í™”ëœ ì¶œë ¥ ë³€ìˆ˜
 
 
 %--------------------------------------------------------------------------
 
-% 4. ´ÙÀ½ ¼¿°ú °æ»ç°¡ 0ÀÌ µÇ´Âµ¥ °É¸®´Â ½Ã°£[trialTime]ÀÌ ÃÖ¼ÒÀÎ ½Ã°£°ú ÁöÁ¡
-% * ÁÖÀÇ: ¸¸¾à °°Àº °÷ÀÌ 2°÷ ÀÌ»óÀÌ¶ó¸é, °æ»ç°¡ Å« °÷À» ÅÃÇÔ. ÇÏÁö¸¸ ÀÌ°Í±îÁö
-%         °í·ÁÇÏÁö´Â ¾ÊÀ½.
+% 4. ë‹¤ìŒ ì…€ê³¼ ê²½ì‚¬ê°€ 0ì´ ë˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„[trialTime]ì´ ìµœì†Œì¸ ì‹œê°„ê³¼ ì§€ì 
+% * ì£¼ì˜: ë§Œì•½ ê°™ì€ ê³³ì´ 2ê³³ ì´ìƒì´ë¼ë©´, ê²½ì‚¬ê°€ í° ê³³ì„ íƒí•¨. í•˜ì§€ë§Œ ì´ê²ƒê¹Œì§€
+%         ê³ ë ¤í•˜ì§€ëŠ” ì•ŠìŒ.
 [minTakenTimeToBeFlat,minLocation] = min(takenTime(:));
 
 %--------------------------------------------------------------------------
-% minTakenTimeÀ» º¸´Ù ´Ã¸®´Â ¹æ¹ý : GPSS2D07.m Âü°í
+% minTakenTimeì„ ë³´ë‹¤ ëŠ˜ë¦¬ëŠ” ë°©ë²• : GPSS2D07.m ì°¸ê³ 
 %-------------------------------------------------------------------------
 
-% 5. ¼¼ºÎ ´ÜÀ§½Ã°£[s]
-subDT = (minTakenTimeToBeFlat * trialTime) ... % ´ÜÀ§ º¯È­: [trialTime] -> [s]
-    * 0.95;                                         % * ÁÖÀÇ: ÃÖ¼Ò½Ã°£º¸´Ù ÀÛ°ÔÇÔ
+% 5. ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„[s]
+subDT = (minTakenTimeToBeFlat * trialTime) ... % ë‹¨ìœ„ ë³€í™”: [trialTime] -> [s]
+    * 0.95;                                         % * ì£¼ì˜: ìµœì†Œì‹œê°„ë³´ë‹¤ ìž‘ê²Œí•¨
 
-% 6. ´ÙÀ½ ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£À» ±¸ÇÔ
-% * ¿ø¸®: ¸ðµ¨ ±¸µ¿ °á°ú, ±¸µ¿ ÃÊ±â¿¡´Â ÃÖ¼Ò ½Ã°£ÀÌ ÂªÁö¸¸ ÈÄ¹ÝºÎ·Î °¥¼ö·Ï Á¡Á¡
-%         ±æ¾îÁü. µû¶ó¼­ ÃÖ¼Ò ½Ã°£ÀÌ ±æ¾îÁö¸é ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£µµ Áõ°¡½ÃÄÑ¼­
-%         ÀüÃ¼ÀûÀÎ ¸ðµ¨ ±¸µ¿ ½Ã°£À» ÁÙÀÓ. ÇÏÁö¸¸ ¾ö¹ÐÇÑ Å×½ºÆ®´Â ½ÃÇàÇÏÁö ¾Ê¾ÒÀ½
+% 6. ë‹¤ìŒ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ êµ¬í•¨
+% * ì›ë¦¬: ëª¨ë¸ êµ¬ë™ ê²°ê³¼, êµ¬ë™ ì´ˆê¸°ì—ëŠ” ìµœì†Œ ì‹œê°„ì´ ì§§ì§€ë§Œ í›„ë°˜ë¶€ë¡œ ê°ˆìˆ˜ë¡ ì ì 
+%         ê¸¸ì–´ì§. ë”°ë¼ì„œ ìµœì†Œ ì‹œê°„ì´ ê¸¸ì–´ì§€ë©´ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ë„ ì¦ê°€ì‹œì¼œì„œ
+%         ì „ì²´ì ì¸ ëª¨ë¸ êµ¬ë™ ì‹œê°„ì„ ì¤„ìž„. í•˜ì§€ë§Œ ì—„ë°€í•œ í…ŒìŠ¤íŠ¸ëŠ” ì‹œí–‰í•˜ì§€ ì•Šì•˜ìŒ
 
-% 1) ÃÖ¼Ò ½Ã°£°ú ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£À» ºñ±³
+% 1) ìµœì†Œ ì‹œê°„ê³¼ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ë¹„êµ
 if minTakenTimeToBeFlat > trialTime
 
-    % (1) ÃÖ¼Ò ½Ã°£ÀÌ ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£º¸´Ù Å©´Ù¸é,
-    %     ´ÙÀ½ ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£À» ´Ã¸®±â À§ÇØ, Áö¼ö¸¦ 3 °¨¼Ò½ÃÅ´
+    % (1) ìµœì†Œ ì‹œê°„ì´ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ë³´ë‹¤ í¬ë‹¤ë©´,
+    %     ë‹¤ìŒ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ëŠ˜ë¦¬ê¸° ìœ„í•´, ì§€ìˆ˜ë¥¼ 3 ê°ì†Œì‹œí‚´
     nt = nt - 3;
     
-    % * ÁÖÀÇ: ¼¼ºÎ ´ÜÀ§½Ã°£À» ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£À¸·Î Á¤ÀÇÇÔ
+    % * ì£¼ì˜: ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ìœ¼ë¡œ ì •ì˜í•¨
     subDT = trialTime;
 
 elseif minTakenTimeToBeFlat < trialTime * basicManipulationRatio
 
-    % (2) ¸¸¾à ÃÖ¼Ò ½Ã°£ÀÌ ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£ÀÇ Àý¹Ýº¸´Ù ÀÛ´Ù¸é,
-    %     ´ÙÀ½ ÀÓ½Ã ¼¼ºÎ ´ÜÀ§½Ã°£À» ÁÙÀÌ±â À§ÇØ Áö¼ö¸¦ 1 Áõ°¡½ÃÅ´
+    % (2) ë§Œì•½ ìµœì†Œ ì‹œê°„ì´ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì˜ ì ˆë°˜ë³´ë‹¤ ìž‘ë‹¤ë©´,
+    %     ë‹¤ìŒ ìž„ì‹œ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì„ ì¤„ì´ê¸° ìœ„í•´ ì§€ìˆ˜ë¥¼ 1 ì¦ê°€ì‹œí‚´
     nt = nt + 1;
 
 end
 
-% 7. ¸¸¾à ¼¼ºÎ ´ÜÀ§½Ã°£ÀÌ ÅðÀû¹° ¿î¹Ý·® ¼ö½ÄÀÇ ÃÖ¼Ò ´ÜÀ§º¸´Ù ÀÛ´Ù¸é,
-%    ÃÖ¼Ò ´ÜÀ§¸¦ ´ëÀÔÇÔ
+% 7. ë§Œì•½ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì´ í‡´ì ë¬¼ ìš´ë°˜ëŸ‰ ìˆ˜ì‹ì˜ ìµœì†Œ ë‹¨ìœ„ë³´ë‹¤ ìž‘ë‹¤ë©´,
+%    ìµœì†Œ ë‹¨ìœ„ë¥¼ ëŒ€ìž…í•¨
 if subDT < minSubDT
 
     subDT = minSubDT;
 
 end
 
-% 8. ¸¸¾à ¼¼ºÎ ´ÜÀ§½Ã°£ÀÇ ´©Àû ÇÕÀÌ ¸¸Á¦À¯·® Áö¼Ó ±â°£À» ÃÊ°úÇÏ¸é
-%    ÃÊ°úÇÏÁö ¾ÊÀº ¾ç¸¸Å­À» ¼¼ºÎ ´ÜÀ§½Ã°£À¸·Î Á¤ÀÇÇÔ
+% 8. ë§Œì•½ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ì˜ ëˆ„ì  í•©ì´ ë§Œì œìœ ëŸ‰ ì§€ì† ê¸°ê°„ì„ ì´ˆê³¼í•˜ë©´
+%    ì´ˆê³¼í•˜ì§€ ì•Šì€ ì–‘ë§Œí¼ì„ ì„¸ë¶€ ë‹¨ìœ„ì‹œê°„ìœ¼ë¡œ ì •ì˜í•¨
 sumSubDT = sumSubDT + subDT;
 
 if sumSubDT > bankfullTime

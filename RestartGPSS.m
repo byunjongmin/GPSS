@@ -1,29 +1,29 @@
 % =========================================================================
 %> @section INTRO RestartGPSS
 %>
-%> - GPSS ±¸µ¿ÀÌ °©ÀÚ±â Á¤ÁöµÈ °æ¿ì¿¡µµ ¿¬¼ÓÇÏ¿© ¸ðÀÇ½ÇÇèÀ» ÁøÇàÇÒ ¼ö ÀÖµµ·Ï
-%>   µµ¿ÍÁÖ´Â ÇÔ¼ö
-%>  - Áö±Ý±îÁö ±â·ÏµÈ ¸ðÀÇ°á°ú ÆÄÀÏ·Î ºÎÅÍ ´ÙÀ½ ½ÇÇà½Ã ½ÃÀÛÈ½¼ö¸¦ ÆÄ¾ÇÇÏ°í
-%>    ´ÙÀ½ ½ÇÇà¿¡ ÃÊ±â ÁöÇü Á¶°ÇÀ¸·Î µé¾î°¡´Â ±â¹Ý¾Ï °íµµ¿Í ÅðÀûÃþ µÎ²²¸¦
-%>    ÃßÃâÇÏ¿© ÆÄÀÏ¿¡ ±â·ÏÇÔ
-%>  - ´ÙÀ½ ½ÇÇà¿¡ »ç¿ëµÉ ±â¹Ý¾Ï °íµµ¿Í ÅðÀûÃþ µÎ²² ÆÄÀÏÀ» input µð·ºÅä¸®¿¡
-%>    ¿Å±â°í, paraterValues.txt¿¡¼­´Â ¾Æ·¡ÀÇ Ç×¸ñÀ» ¼öÁ¤ÇÏ°í GPSSMain()À»
-%>    Àç½ÇÇàÇÏ¸é µÊ
-%>    - INIT_BEDROCK_ELEV_FILE : (ÃÊ±âÁöÇüÀ» ºÒ·¯¿Ã °æ¿ì) ÃÊ±âÁöÇüÀ» ÀúÀåÇÑ ÆÄÀÏ. ¾ø´Ù¸é No ¶ó°í Ç¥±âÇÔ
+%> - GPSS êµ¬ë™ì´ ê°‘ìžê¸° ì •ì§€ëœ ê²½ìš°ì—ë„ ì—°ì†í•˜ì—¬ ëª¨ì˜ì‹¤í—˜ì„ ì§„í–‰í•  ìˆ˜ ìžˆë„ë¡
+%>   ë„ì™€ì£¼ëŠ” í•¨ìˆ˜
+%>  - ì§€ê¸ˆê¹Œì§€ ê¸°ë¡ëœ ëª¨ì˜ê²°ê³¼ íŒŒì¼ë¡œ ë¶€í„° ë‹¤ìŒ ì‹¤í–‰ì‹œ ì‹œìž‘íšŸìˆ˜ë¥¼ íŒŒì•…í•˜ê³ 
+%>    ë‹¤ìŒ ì‹¤í–‰ì— ì´ˆê¸° ì§€í˜• ì¡°ê±´ìœ¼ë¡œ ë“¤ì–´ê°€ëŠ” ê¸°ë°˜ì•” ê³ ë„ì™€ í‡´ì ì¸µ ë‘ê»˜ë¥¼
+%>    ì¶”ì¶œí•˜ì—¬ íŒŒì¼ì— ê¸°ë¡í•¨
+%>  - ë‹¤ìŒ ì‹¤í–‰ì— ì‚¬ìš©ë  ê¸°ë°˜ì•” ê³ ë„ì™€ í‡´ì ì¸µ ë‘ê»˜ íŒŒì¼ì„ input ë””ë ‰í† ë¦¬ì—
+%>    ì˜®ê¸°ê³ , paraterValues.txtì—ì„œëŠ” ì•„ëž˜ì˜ í•­ëª©ì„ ìˆ˜ì •í•˜ê³  GPSSMain()ì„
+%>    ìž¬ì‹¤í–‰í•˜ë©´ ë¨
+%>    - INIT_BEDROCK_ELEV_FILE : (ì´ˆê¸°ì§€í˜•ì„ ë¶ˆëŸ¬ì˜¬ ê²½ìš°) ì´ˆê¸°ì§€í˜•ì„ ì €ìž¥í•œ íŒŒì¼. ì—†ë‹¤ë©´ No ë¼ê³  í‘œê¸°í•¨
 %>    - newInitBedrockElev.txt
 %>    - ...
-%>    - INIT_SED_THICK_FILE : ÃÊ±â ÁöÇüÀÇ ÅðÀûÃþ µÎ²²¸¦ ºÒ·¯¿Ã °æ¿ì ÀÌ¸¦ ÀúÀåÇÑ ÆÄÀÏ. ¾ø´Ù¸é No ¶ó°í Ç¥±âÇÔ
+%>    - INIT_SED_THICK_FILE : ì´ˆê¸° ì§€í˜•ì˜ í‡´ì ì¸µ ë‘ê»˜ë¥¼ ë¶ˆëŸ¬ì˜¬ ê²½ìš° ì´ë¥¼ ì €ìž¥í•œ íŒŒì¼. ì—†ë‹¤ë©´ No ë¼ê³  í‘œê¸°í•¨
 %>    - newInitSedThick.txt
 %>    - ...
-%>    - INIT_TIME_STEP_NO : ÀÌÀü ¸ðÇü °á°ú¿¡¼­ ÀÌ¾î¼­ ÇÒ °æ¿ìÀÇ ÃÊ±â ½ÇÇà È½¼ö. ÀÌ¾î¼­ ÇÏÁö ¾Ê´Â´Ù¸é 1
+%>    - INIT_TIME_STEP_NO : ì´ì „ ëª¨í˜• ê²°ê³¼ì—ì„œ ì´ì–´ì„œ í•  ê²½ìš°ì˜ ì´ˆê¸° ì‹¤í–‰ íšŸìˆ˜. ì´ì–´ì„œ í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ 1
 %>    - newInitTimeStepNo
 %>
-%> - ÃÖÁ¾ ÀÛ¼ºÀÏ : 2011-10-08
+%> - ìµœì¢… ìž‘ì„±ì¼ : 2011-10-08
 %>
 %> - Histroy
 %>
-%> - Ãß°¡Á¤º¸
-%>  - ÀÌ ÄÚµåÀÇ º¯¼ö¸íÀº Johnson (2002)ÀÇ º¯¼ö¸í Ç¥±â ÃßÃµÀ» µû¸£¸ç, ´ÙÀ½°ú °°À½.
+%> - ì¶”ê°€ì •ë³´
+%>  - ì´ ì½”ë“œì˜ ë³€ìˆ˜ëª…ì€ Johnson (2002)ì˜ ë³€ìˆ˜ëª… í‘œê¸° ì¶”ì²œì„ ë”°ë¥´ë©°, ë‹¤ìŒê³¼ ê°™ìŒ.
 %> "1. > 1) > (1) > A. > A) > (A) > a. > a) > (a)"
 %>
 %> @callgraph
@@ -31,13 +31,13 @@
 %> @version 0.1
 %>
 %> 
-%> @retval newInitTimeStepNo            : ´ÙÀ½ ½ÇÇà½Ã ÃÊ±â ½ÇÇà È½¼ö
+%> @retval newInitTimeStepNo            : ë‹¤ìŒ ì‹¤í–‰ì‹œ ì´ˆê¸° ì‹¤í–‰ íšŸìˆ˜
 %>
-%> @param OUTPUT_SUBDIR                 : GPSS ±¸µ¿ÀÌ ÁßÁöµÈ ¸ðÀÇ½ÇÇè °á°ú°¡ ÀúÀåµÈ µð·ºÅÍ¸®¸í
-%> @param Y                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÈ¯ YÃà Å©±â
-%> @param X                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
-%> @param dT                            : ¸¸Á¦À¯·® ÀçÇö±â°£
-%> @param WRITE_INTERVAL                : ¸ðÀÇ°á°ú¸¦ Ãâ·ÂÇÏ´Â ºóµµ
+%> @param OUTPUT_SUBDIR                 : GPSS êµ¬ë™ì´ ì¤‘ì§€ëœ ëª¨ì˜ì‹¤í—˜ ê²°ê³¼ê°€ ì €ìž¥ëœ ë””ë ‰í„°ë¦¬ëª…
+%> @param Y                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í™˜ Yì¶• í¬ê¸°
+%> @param X                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
+%> @param dT                            : ë§Œì œìœ ëŸ‰ ìž¬í˜„ê¸°ê°„
+%> @param WRITE_INTERVAL                : ëª¨ì˜ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ëŠ” ë¹ˆë„
 %>
 % =========================================================================
 function newInitTimeStepNo = RestartGPSS(OUTPUT_SUBDIR,Y,X,WRITE_INTERVAL)
@@ -45,41 +45,41 @@ function newInitTimeStepNo = RestartGPSS(OUTPUT_SUBDIR,Y,X,WRITE_INTERVAL)
 % RestartGPSS
 %
 
-% »ó¼ö Á¤ÀÇ
+% ìƒìˆ˜ ì •ì˜
 mRows = Y + 2;
 nCols = X + 2;
 
-% 1. ¸ðÀÇ°á°ú Ãâ·Â ÆÄÀÏµéÀ» ¿®
+% 1. ëª¨ì˜ê²°ê³¼ ì¶œë ¥ íŒŒì¼ë“¤ì„ ì—¶
 
-% ¸ðÀÇ°á°ú ÆÄÀÏÀ» Æ÷ÇÔÇÏ´Â µð·ºÅÍ¸® ¼³Á¤
-DATA_DIR = 'data';      % ÀÔÃâ·Â ÆÄÀÏÀ» ÀúÀåÇÏ´Â ÃÖ»óÀ§ µð·ºÅÍ¸®
-OUTPUT_DIR = 'output';  % Ãâ·Â ÆÄÀÏÀ» ÀúÀåÇÒ µð·ºÅÍ¸®
+% ëª¨ì˜ê²°ê³¼ íŒŒì¼ì„ í¬í•¨í•˜ëŠ” ë””ë ‰í„°ë¦¬ ì„¤ì •
+DATA_DIR = 'data';      % ìž…ì¶œë ¥ íŒŒì¼ì„ ì €ìž¥í•˜ëŠ” ìµœìƒìœ„ ë””ë ‰í„°ë¦¬
+OUTPUT_DIR = 'output';  % ì¶œë ¥ íŒŒì¼ì„ ì €ìž¥í•  ë””ë ‰í„°ë¦¬
 OUTPUT_DIR_PATH = fullfile(DATA_DIR,OUTPUT_DIR);
 OUTPUT_SUBDIR_PATH = fullfile(OUTPUT_DIR_PATH,OUTPUT_SUBDIR);
 
-% ¸ðÀÇ°á°ú ÆÄÀÏ ¼³Á¤
-OUTPUT_FILE_SEDTHICK ...                % i¹øÂ° ÅðÀûÃþ µÎ²² [m]
+% ëª¨ì˜ê²°ê³¼ íŒŒì¼ ì„¤ì •
+OUTPUT_FILE_SEDTHICK ...                % ië²ˆì§¸ í‡´ì ì¸µ ë‘ê»˜ [m]
     = 'sedThick.txt';
-OUTPUT_FILE_BEDROCKELEV ...             % i¹øÂ° ±â¹Ý¾Ï °íµµ [m]
+OUTPUT_FILE_BEDROCKELEV ...             % ië²ˆì§¸ ê¸°ë°˜ì•” ê³ ë„ [m]
     = 'bedrockElev.txt';
-OUTPUT_FILE_WEATHER ...                 % Ç³È­À² [m/dT]
+OUTPUT_FILE_WEATHER ...                 % í’í™”ìœ¨ [m/dT]
     = 'weatherProduct.txt';
-OUTPUT_FILE_dSEDTHICK_BYHILLSLOPE ...   % »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+OUTPUT_FILE_dSEDTHICK_BYHILLSLOPE ...   % ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = 'dSedThickByHillslope.txt';
-OUTPUT_FILE_CHANBEDSEDBUDGET ...        % »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÇÏµµ ¾ç¾ÈÀ¸·ÎºÎÅÍ ÇÏµµ·ÎÀÇ °ø±ÞÀ² [m^3/m^2 dT]
+OUTPUT_FILE_CHANBEDSEDBUDGET ...        % ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í•˜ë„ ì–‘ì•ˆìœ¼ë¡œë¶€í„° í•˜ë„ë¡œì˜ ê³µê¸‰ìœ¨ [m^3/m^2 dT]
     = 'chanBedSedBudget.txt';
-OUTPUT_FILE_dSEDTHICK_BYFLUVIAL ...     % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+OUTPUT_FILE_dSEDTHICK_BYFLUVIAL ...     % í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = 'dSedThickByFluvial.txt';
-OUTPUT_FILE_dBEDROCKELEV_BYFLUVIAL ...  % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
+OUTPUT_FILE_dBEDROCKELEV_BYFLUVIAL ...  % í•˜ì²œìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = 'dBedrockElevByFluvial.txt';
-OUTPUT_FILE_dSEDTHICK_BYRAPIDMASS ...   % ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+OUTPUT_FILE_dSEDTHICK_BYRAPIDMASS ...   % ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = 'dSedThickByRapidMassmove.txt';
-OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS ... % ºü¸¥ ¸Å½º¹«ºê¸ÕÆ®¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
+OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS ... % ë¹ ë¥¸ ë§¤ìŠ¤ë¬´ë¸Œë¨¼íŠ¸ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = 'dBedrockElevByRapidMassmove.txt';
-OUTPUT_FILE_LOG ...                     % GPSSMain() ±¸µ¿ µ¿¾ÈÀÇ »óÈ² ±â·Ï
+OUTPUT_FILE_LOG ...                     % GPSSMain() êµ¬ë™ ë™ì•ˆì˜ ìƒí™© ê¸°ë¡
     = 'log.txt';
 
-% ¸ðÀÇ°á°ú ÆÄÀÏÀÇ °æ·Î ¼³Á¤
+% ëª¨ì˜ê²°ê³¼ íŒŒì¼ì˜ ê²½ë¡œ ì„¤ì •
 OUTPUT_FILE_WEATHER_PATH ...
     = fullfile(OUTPUT_SUBDIR_PATH,OUTPUT_FILE_WEATHER);
 OUTPUT_FILE_SEDTHICK_PATH ...`
@@ -101,7 +101,7 @@ OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS_PATH ...
 OUTPUT_FILE_LOG_PATH ...
     = fullfile(OUTPUT_SUBDIR_PATH,OUTPUT_FILE_LOG);
 
-% °³º° ÆÄÀÏÀ» ¿­¾îµÒ: read ¸ðµå·Î ÆÄÀÏÀ» ¿®
+% ê°œë³„ íŒŒì¼ì„ ì—´ì–´ë‘ : read ëª¨ë“œë¡œ íŒŒì¼ì„ ì—¶
 FID_SEDTHICK = fopen(OUTPUT_FILE_SEDTHICK_PATH,'r');
 FID_BEDROCKELEV = fopen(OUTPUT_FILE_BEDROCKELEV_PATH,'r');
 FID_WEATHER = fopen(OUTPUT_FILE_WEATHER_PATH,'r');
@@ -113,93 +113,93 @@ FID_dSEDTHICK_BYRAPIDMASS = fopen(OUTPUT_FILE_dSEDTHICK_BYRAPIDMASS_PATH,'r');
 FID_dBEDROCKELEV_BYRAPIDMASS = fopen(OUTPUT_FILE_dBEDROCKELEV_BYRAPIDMASS_PATH,'r');
 FID_LOG = fopen(OUTPUT_FILE_LOG_PATH,'r');
 
-% 2. ´ÙÀ½ ½ÃÀÛ È½¼ö¸¦ ÆÄ¾ÇÇÔ
+% 2. ë‹¤ìŒ ì‹œìž‘ íšŸìˆ˜ë¥¼ íŒŒì•…í•¨
 
-% 1) sedThick.txtÀÇ ¸¶Áö¸· ÁÙ ¹øÈ£¸¦ ÆÄ¾ÇÇÔ
+% 1) sedThick.txtì˜ ë§ˆì§€ë§‰ ì¤„ ë²ˆí˜¸ë¥¼ íŒŒì•…í•¨
 nLines = 0;
-while (fgets(FID_SEDTHICK) ~= -1) % ÅØ½ºÆ® ¹®ÀÚ¿­(string)ÀÌ 'eof' Áö½ÃÀÚ¸¦ °¡ÁöÁö ¾ÊÀ» °æ¿ì
+while (fgets(FID_SEDTHICK) ~= -1) % í…ìŠ¤íŠ¸ ë¬¸ìžì—´(string)ì´ 'eof' ì§€ì‹œìžë¥¼ ê°€ì§€ì§€ ì•Šì„ ê²½ìš°
     nLines = nLines + 1;
 end
-fseek(FID_SEDTHICK, 0, 'bof'); % ´ÙÀ½À» À§ÇØ ÆÄÀÏÀÇ Ã³À½À¸·Î µ¹¾Æ°¨
+fseek(FID_SEDTHICK, 0, 'bof'); % ë‹¤ìŒì„ ìœ„í•´ íŒŒì¼ì˜ ì²˜ìŒìœ¼ë¡œ ëŒì•„ê°
 
-% 2) ´ÙÀ½ ½ÇÇàÀÇ ÃÊ±â ½ÇÇà È½¼ö
-lastWritingCount = nLines / (mRows * nCols) - 1; % ¸¶Áö¸·À¸·Î ±â·ÏµÈ È½¼ö
+% 2) ë‹¤ìŒ ì‹¤í–‰ì˜ ì´ˆê¸° ì‹¤í–‰ íšŸìˆ˜
+lastWritingCount = nLines / (mRows * nCols) - 1; % ë§ˆì§€ë§‰ìœ¼ë¡œ ê¸°ë¡ëœ íšŸìˆ˜
 
-% * ÁÖÀÇ: dt¸¦ °öÇÏÁö ¾ÊÀ½ 
+% * ì£¼ì˜: dtë¥¼ ê³±í•˜ì§€ ì•ŠìŒ 
 newInitTimeStepNo = lastWritingCount * WRITE_INTERVAL + 1;
 
-% 3. ´ÙÀ½ ½ÇÇàÀÇ ÃÊ±â ±â¹Ý¾Ï °íµµ¿Í ÅðÀûÃþ µÎ²²¸¦ ±¸ÇÔ
+% 3. ë‹¤ìŒ ì‹¤í–‰ì˜ ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„ì™€ í‡´ì ì¸µ ë‘ê»˜ë¥¼ êµ¬í•¨
 
 
-% 1) ÃÊ±â ÅðÀûÃþ µÎ²²¿Í ±â¹Ý¾Ï °íµµ ÀÐÀ½
+% 1) ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ì™€ ê¸°ë°˜ì•” ê³ ë„ ì½ìŒ
 
-% * ÁÖÀÇ: ÀÌ´Â ÃÊ±â ÁöÇü ¹× ÃÊ±â ÅðÀûÃþ µÎ²²¸¦ °á°ú ÆÄÀÏ¿¡ Ãâ·ÂÇÏ±â ¶§¹®ÀÓ
+% * ì£¼ì˜: ì´ëŠ” ì´ˆê¸° ì§€í˜• ë° ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ë¥¼ ê²°ê³¼ íŒŒì¼ì— ì¶œë ¥í•˜ê¸° ë•Œë¬¸ìž„
 initSedThick = fscanf(FID_SEDTHICK,'%f',[mRows,nCols]);
 initBedrockElev = fscanf(FID_BEDROCKELEV,'%f',[mRows,nCols]);
 
-% 2) ¸¶Áö¸·À¸·Î ±â·ÏµÈ È½¼ö Àü±îÁö ÀÐ¾îµéÀÓ
+% 2) ë§ˆì§€ë§‰ìœ¼ë¡œ ê¸°ë¡ëœ íšŸìˆ˜ ì „ê¹Œì§€ ì½ì–´ë“¤ìž„
 for ithWritingStep = 1:(lastWritingCount - 1)
     
-    % * ÁÖÀÇ: ºÒ·¯¿À´Â ÅðÀûÃþ µÎ²² ¹× ±â¹Ý¾Ï °íµµ´Â GPSSMain()¿¡¼­ AdjustBoundary,
-    %   Uplift ÇÔ¼ö°¡ ¹Ý¿µµÇ¾úÁö¸¸ ¿ÜÀû ÀÛ¿ëÀº ¹Ý¿µµÇÁö ¾ÊÀº ½ÃÁ¡ÀÇ °ÍÀÓ
-    sedimentThick ...                   % (¿ÜÀû ÀÛ¿ë ÀÌÀü) ÅðÀûÃþ µÎ²²
+    % * ì£¼ì˜: ë¶ˆëŸ¬ì˜¤ëŠ” í‡´ì ì¸µ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ëŠ” GPSSMain()ì—ì„œ AdjustBoundary,
+    %   Uplift í•¨ìˆ˜ê°€ ë°˜ì˜ë˜ì—ˆì§€ë§Œ ì™¸ì  ìž‘ìš©ì€ ë°˜ì˜ë˜ì§€ ì•Šì€ ì‹œì ì˜ ê²ƒìž„
+    sedimentThick ...                   % (ì™¸ì  ìž‘ìš© ì´ì „) í‡´ì ì¸µ ë‘ê»˜
         = fscanf(FID_SEDTHICK,'%f',[mRows,nCols]);
     
-    bedrockElev ...                     % (¿ÜÀû ÀÛ¿ë ÀÌÀü) ±â¹Ý¾Ï °íµµ
+    bedrockElev ...                     % (ì™¸ì  ìž‘ìš© ì´ì „) ê¸°ë°˜ì•” ê³ ë„
         = fscanf(FID_BEDROCKELEV,'%f',[mRows,nCols]);
     
-    weatheringProduct ...               % Ç³È­À² [m/dT]
+    weatheringProduct ...               % í’í™”ìœ¨ [m/dT]
         = fscanf(FID_WEATHER,'%f',[mRows,nCols]);
     
-    dSedThickByHillslopePerDT ...       % »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+    dSedThickByHillslopePerDT ...       % ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
         = fscanf(FID_dSEDTHICK_BYHILLSLOPE,'%f',[mRows,nCols]);
     
-    dSedThickByRapidMassPerDT ... % ºü¸¥ »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+    dSedThickByRapidMassPerDT ... % ë¹ ë¥¸ ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
         = fscanf(FID_dSEDTHICK_BYRAPIDMASS,'%f',[mRows,nCols]);
     
-    dBedrockElevByRapidMassPerDT ... % ºü¸¥ »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
+    dBedrockElevByRapidMassPerDT ... % ë¹ ë¥¸ ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
         = fscanf(FID_dBEDROCKELEV_BYRAPIDMASS,'%f',[mRows,nCols]);
     
-    dSedThickByFluvialPerDT ...         % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀû¹° µÎ²² º¯È­À² [m^3/m^2 dT]
+    dSedThickByFluvialPerDT ...         % í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
         = fscanf(FID_dSEDTHICK_BYFLUVIAL,'%f',[mRows,nCols]);
     
-    dBedrockElevByFluvialPerDT ...      % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À²[m^3/m^2 dT]
+    dBedrockElevByFluvialPerDT ...      % í•˜ì²œìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨[m^3/m^2 dT]
         = fscanf(FID_dBEDROCKELEV_BYFLUVIAL,'%f',[mRows,nCols]);
     
-    chanBedSedBudget ...                % ÇÏµµ ³» ÇÏ»ó ÅðÀû¹° ¹°Áú ¼öÁö [m^3/dT]
+    chanBedSedBudget ...                % í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ ë¬¼ì§ˆ ìˆ˜ì§€ [m^3/dT]
         = fscanf(FID_CHANBEDSEDBUDGET,'%f',[mRows,nCols]);
     
 end
 
-% 3) ¸¶Áö¸·À¸·Î ±â·ÏµÈ È½¼öÀÇ º¯¼ö¸¦ ÀúÀåÇÔ
-sedimentThick ...                   % (¿ÜÀû ÀÛ¿ë ÀÌÀü) ÅðÀûÃþ µÎ²²
+% 3) ë§ˆì§€ë§‰ìœ¼ë¡œ ê¸°ë¡ëœ íšŸìˆ˜ì˜ ë³€ìˆ˜ë¥¼ ì €ìž¥í•¨
+sedimentThick ...                   % (ì™¸ì  ìž‘ìš© ì´ì „) í‡´ì ì¸µ ë‘ê»˜
     = fscanf(FID_SEDTHICK,'%f',[mRows,nCols]);
 
-bedrockElev ...                     % (¿ÜÀû ÀÛ¿ë ÀÌÀü) ±â¹Ý¾Ï °íµµ
+bedrockElev ...                     % (ì™¸ì  ìž‘ìš© ì´ì „) ê¸°ë°˜ì•” ê³ ë„
     = fscanf(FID_BEDROCKELEV,'%f',[mRows,nCols]);
 
-weatheringProduct ...               % Ç³È­À² [m/dT]
+weatheringProduct ...               % í’í™”ìœ¨ [m/dT]
     = fscanf(FID_WEATHER,'%f',[mRows,nCols]);
 
-dSedThickByHillslopePerDT ...       % »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+dSedThickByHillslopePerDT ...       % ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = fscanf(FID_dSEDTHICK_BYHILLSLOPE,'%f',[mRows,nCols]);
 
-dSedThickByRapidMassPerDT ... % ºü¸¥ »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀûÃþ µÎ²² º¯È­À² [m^3/m^2 dT]
+dSedThickByRapidMassPerDT ... % ë¹ ë¥¸ ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = fscanf(FID_dSEDTHICK_BYRAPIDMASS,'%f',[mRows,nCols]);
 
-dBedrockElevByRapidMassPerDT ... % ºü¸¥ »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À² [m^3/m^2 dT]
+dBedrockElevByRapidMassPerDT ... % ë¹ ë¥¸ ì‚¬ë©´ìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = fscanf(FID_dBEDROCKELEV_BYRAPIDMASS,'%f',[mRows,nCols]);
 
-dSedThickByFluvialPerDT ...         % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅðÀû¹° µÎ²² º¯È­À² [m^3/m^2 dT]
+dSedThickByFluvialPerDT ...         % í•˜ì²œìž‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m^3/m^2 dT]
     = fscanf(FID_dSEDTHICK_BYFLUVIAL,'%f',[mRows,nCols]);
 
-dBedrockElevByFluvialPerDT ...      % ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ±â¹Ý¾Ï °íµµ º¯È­À²[m^3/m^2 dT]
+dBedrockElevByFluvialPerDT ...      % í•˜ì²œìž‘ìš©ì— ì˜í•œ ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨[m^3/m^2 dT]
     = fscanf(FID_dBEDROCKELEV_BYFLUVIAL,'%f',[mRows,nCols]);
 
-% chanBedSedBudget ...                % ÇÏµµ ³» ÇÏ»ó ÅðÀû¹° ¹°Áú ¼öÁö [m^3/dT]
+% chanBedSedBudget ...                % í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ ë¬¼ì§ˆ ìˆ˜ì§€ [m^3/dT]
 %     = fscanf(FID_CHANBEDSEDBUDGET,'%f',[mRows,nCols]);
 
-% 4) ¸¶Áö¸· È½¼ö¿¡¼­ ¿ÜÀû ÀÛ¿ëÀ¸·Î ÀÎÇÑ º¯È­À²À» ±â¹Ý¾Ï °íµµ¿Í ÅðÀûÃþ µÎ²²¿¡ ¹Ý¿µÇÔ
+% 4) ë§ˆì§€ë§‰ íšŸìˆ˜ì—ì„œ ì™¸ì  ìž‘ìš©ìœ¼ë¡œ ì¸í•œ ë³€í™”ìœ¨ì„ ê¸°ë°˜ì•” ê³ ë„ì™€ í‡´ì ì¸µ ë‘ê»˜ì— ë°˜ì˜í•¨
 bedrockElev = bedrockElev - weatheringProduct ...
             + dBedrockElevByFluvialPerDT + dBedrockElevByRapidMassPerDT;
 
@@ -207,10 +207,10 @@ sedimentThick = sedimentThick + weatheringProduct ...
                 + dSedThickByHillslopePerDT + dSedThickByFluvialPerDT ...
                 + dSedThickByRapidMassPerDT;
             
-% 3. ÆÄÀÏ·Î Ãâ·ÂÇÏ±â
-OUTPUT_FILE_NEWINIT_SEDTHICK ...                % ´ÙÀ½ ½ÇÇàÀÇ ÃÊ±â ÅðÀûÃþ µÎ²² [m]
+% 3. íŒŒì¼ë¡œ ì¶œë ¥í•˜ê¸°
+OUTPUT_FILE_NEWINIT_SEDTHICK ...                % ë‹¤ìŒ ì‹¤í–‰ì˜ ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜ [m]
     = 'newInitSedThick.txt';
-OUTPUT_FILE_NEWINIT_BEDROCKELEV ...             % ´ÙÀ½ ½ÇÇàÀÇ ÃÊ±â ±â¹Ý¾Ï °íµµ [m]
+OUTPUT_FILE_NEWINIT_BEDROCKELEV ...             % ë‹¤ìŒ ì‹¤í–‰ì˜ ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„ [m]
     = 'newInitBedrockElev.txt';
 
 OUTPUT_FILE_NEWINIT_SEDTHICK_PATH ...`
@@ -221,18 +221,18 @@ OUTPUT_FILE_NEWINIT_BEDROCKELEV_PATH ...
 FID_NEWINIT_SEDTHICK = fopen(OUTPUT_FILE_NEWINIT_SEDTHICK_PATH,'w');
 FID_NEWINIT_BEDROCKELEV = fopen(OUTPUT_FILE_NEWINIT_BEDROCKELEV_PATH,'w');
 
-% ´ÙÀ½ ½ÇÇàÀÇ ÃÊ±â ÅðÀûÃþ µÎ²²
+% ë‹¤ìŒ ì‹¤í–‰ì˜ ì´ˆê¸° í‡´ì ì¸µ ë‘ê»˜
 fprintf(FID_NEWINIT_SEDTHICK,'%i\n',mRows);
 fprintf(FID_NEWINIT_SEDTHICK,'%i\n',nCols);
 fprintf(FID_NEWINIT_SEDTHICK,'%14.10f\n',sedimentThick);        
-% ´ÙÀ½ ½ÇÇàÀÇ ÃÊ±â ±â¹Ý¾Ï °íµµ
-% * ÁÖÀÇ: ÃÊ±â ±â¹Ý¾Ï °íµµ¸¦ °¡Áø ÆÄÀÏ¿¡´Â ÆÄÀÏ Ã¹ÁÙ°ú µÑÂ°ÁÙ¿¡ Çà°ú ¿­ Á¤º¸°¡
-%   ±â·ÏµÇ¾î¾ß ÇÔ.
+% ë‹¤ìŒ ì‹¤í–‰ì˜ ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„
+% * ì£¼ì˜: ì´ˆê¸° ê¸°ë°˜ì•” ê³ ë„ë¥¼ ê°€ì§„ íŒŒì¼ì—ëŠ” íŒŒì¼ ì²«ì¤„ê³¼ ë‘˜ì§¸ì¤„ì— í–‰ê³¼ ì—´ ì •ë³´ê°€
+%   ê¸°ë¡ë˜ì–´ì•¼ í•¨.
 fprintf(FID_NEWINIT_BEDROCKELEV,'%i\n',mRows);
 fprintf(FID_NEWINIT_BEDROCKELEV,'%i\n',nCols);
 fprintf(FID_NEWINIT_BEDROCKELEV,'%14.10f\n',bedrockElev);
 
-% 4. ÆÄÀÏ ´Ý±â
+% 4. íŒŒì¼ ë‹«ê¸°
 fclose(FID_WEATHER);
 fclose(FID_SEDTHICK);
 fclose(FID_BEDROCKELEV);
@@ -248,7 +248,7 @@ fclose(FID_NEWINIT_SEDTHICK);
 fclose(FID_NEWINIT_BEDROCKELEV);
 
 
-% 5. È®ÀÎÇÏ±â
+% 5. í™•ì¸í•˜ê¸°
 elev = bedrockElev + sedimentThick;
 Y_INI = 2;
 Y_MAX = Y + 1;

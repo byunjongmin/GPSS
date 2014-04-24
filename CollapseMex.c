@@ -1,37 +1,37 @@
 /*
  * CollapseMex.c
  *
- * ³ôÀº °íµµ ¼øÀ¸·Î È°µ¿¿¡ ÀÇÇØ ºÒ¾ÈÁ¤ÇÑ ¼¿¿¡¼­ ´ÙÀ½ ¼¿·ÎÀÇ ¿¬¼ÓÀûÀÎ
- * ±â¹Ý¾Ï °íµµ ¹× ÅðÀûÃþ µÎ²² º¯È­À²À» ±¸ÇÏ´Â ÇÔ¼ö 
- * * Âü°í: Collapse ÇÔ¼öÀÇ while ¹Ýº¹¹®¸¸À» MEX ÆÄÀÏ·Î º¯°æÇÔ
+ * ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ í™œë™ì— ì˜í•´ ë¶ˆì•ˆì •í•œ ì…€ì—ì„œ ë‹¤ìŒ ì…€ë¡œì˜ ì—°ì†ì ì¸
+ * ê¸°ë°˜ì•” ê³ ë„ ë° í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜ 
+ * * ì°¸ê³ : Collapse í•¨ìˆ˜ì˜ while ë°˜ë³µë¬¸ë§Œì„ MEX íŒŒì¼ë¡œ ë³€ê²½í•¨
  * 
- * dSedimentThickByIthCell ...      0 . i¹øÂ° ºÒ¾ÈÁ¤ ¼¿·Î ÀÎÇÑ ÅðÀû¹° µÎ²² º¯È­À² [m/dT]
+ * dSedimentThickByIthCell ...      0 . ië²ˆì§¸ ë¶ˆì•ˆì • ì…€ë¡œ ì¸í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m/dT]
  * = CollapseMex ...
- * (mRows ...                       0 . Çà °³¼ö
- * ,nCols ...                       1 . ¿­ °³¼ö
- * ,isStable ...                    2 . ´ÙÀ½ ¼¿·ÎÀÇ ¹°ÁúÀÌµ¿ÀÌ ¾Ê´Â ¾ÈÁ¤È­ ¿©ºÎ
- * ,isBoundary ...                  3 . ¿¬¼âÀû ÀÌµ¿ÀÇ ¿Ü°û °æ°è µµ´Þ ¿©ºÎ
- * ,nextY ...                       4 . ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
- * ,nextX ...                       5 . ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
- * ,rapidMassMovementType ...       6 . È°µ¿ À¯Çü
- * ,dElev1)                         7 . i¹øÂ° ¼¿ÀÇ Ä§½ÄÀ² [m/dT]
+ * (mRows ...                       0 . í–‰ ê°œìˆ˜
+ * ,nCols ...                       1 . ì—´ ê°œìˆ˜
+ * ,isStable ...                    2 . ë‹¤ìŒ ì…€ë¡œì˜ ë¬¼ì§ˆì´ë™ì´ ì•ŠëŠ” ì•ˆì •í™” ì—¬ë¶€
+ * ,isBoundary ...                  3 . ì—°ì‡„ì  ì´ë™ì˜ ì™¸ê³½ ê²½ê³„ ë„ë‹¬ ì—¬ë¶€
+ * ,nextY ...                       4 . ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
+ * ,nextX ...                       5 . ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
+ * ,rapidMassMovementType ...       6 . í™œë™ ìœ í˜•
+ * ,dElev1)                         7 . ië²ˆì§¸ ì…€ì˜ ì¹¨ì‹ìœ¨ [m/dT]
  *
- *----------------------------- mexGetVariablePtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼ö
+ *----------------------------- mexGetVariablePtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
  *
- * dSedimentThickByIthCell          8 . i¹øÂ° ºÒ¾ÈÁ¤ ¼¿·Î ÀÎÇÑ ÅðÀû¹° µÎ²² º¯È­À² [m/dT]
- * SDSNbrY ...                      9 . ´ÙÀ½ ¼¿ Y ÁÂÇ¥
- * SDSNbrX ...                      10. ´ÙÀ½ ¼¿ X ÁÂÇ¥
- * elev ...                         11. °»½ÅµÈ ÁöÇ¥ °íµµ [m]
- * soilCriticalHeight ...           12. ÃµºÎÈ°µ¿ÀÇ ¾ÈÁ¤ °íµµÂ÷ [m]
- * sedimentThick ...                13. ÅðÀûÃþ µÎ²²
- * oversteepSlopes ...              14. ¾ÈÁ¤ »ç¸é°¢ ÃÊ°ú ¼¿
+ * dSedimentThickByIthCell          8 . ië²ˆì§¸ ë¶ˆì•ˆì • ì…€ë¡œ ì¸í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m/dT]
+ * SDSNbrY ...                      9 . ë‹¤ìŒ ì…€ Y ì¢Œí‘œ
+ * SDSNbrX ...                      10. ë‹¤ìŒ ì…€ X ì¢Œí‘œ
+ * elev ...                         11. ê°±ì‹ ëœ ì§€í‘œ ê³ ë„ [m]
+ * soilCriticalHeight ...           12. ì²œë¶€í™œë™ì˜ ì•ˆì • ê³ ë„ì°¨ [m]
+ * sedimentThick ...                13. í‡´ì ì¸µ ë‘ê»˜
+ * oversteepSlopes ...              14. ì•ˆì • ì‚¬ë©´ê° ì´ˆê³¼ ì…€
  * flood ...                        15. flooded region
  
  *
  */
 # include "mex.h"
 
-/* °è»ê ÇÔ¼ö ¼±¾ð */
+/* ê³„ì‚° í•¨ìˆ˜ ì„ ì–¸ */
 void CollapseMex(
     mwSize mRows,
     mwSize nCols,
@@ -54,10 +54,10 @@ void CollapseMex(
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
-    /* ÀÔ·Â º¯¼ö ¼±¾ð
-     * ÁÖÀÇ: mxArray ÀÚ·áÇü º¯¼ö´Â mexGetVariablePtr ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿©
-     * È£ÃâÇÔ¼öÀÇ ÀÛ¾÷°ø°£¿¡ ÀÖ´Â º¯¼öµéÀÇ Æ÷ÀÎÅÍ¸¸ ºÒ·¯¿È */
-    /* È£ÃâÇÔ¼ö ÀÛ¾÷°ø°£ÀÇ º¯¼ö */
+    /* ìž…ë ¥ ë³€ìˆ˜ ì„ ì–¸
+     * ì£¼ì˜: mxArray ìžë£Œí˜• ë³€ìˆ˜ëŠ” mexGetVariablePtr í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬
+     * í˜¸ì¶œí•¨ìˆ˜ì˜ ìž‘ì—…ê³µê°„ì— ìžˆëŠ” ë³€ìˆ˜ë“¤ì˜ í¬ì¸í„°ë§Œ ë¶ˆëŸ¬ì˜´ */
+    /* í˜¸ì¶œí•¨ìˆ˜ ìž‘ì—…ê³µê°„ì˜ ë³€ìˆ˜ */
     const mxArray * mxArray9;   /* for SDSNbrY */
     const mxArray * mxArray10;  /* for SDSNbrX */
     const mxArray * mxArray11;  /* for elev */
@@ -66,10 +66,10 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     const mxArray * mxArray14;  /* for oversteepSlopes */
     const mxArray * mxArray15;  /* for flood */
 
-    /* Ãâ·Â º¯¼ö ¼±¾ð */
+    /* ì¶œë ¥ ë³€ìˆ˜ ì„ ì–¸ */
     mxArray * mxArray8;         /* for dSedimentThickByIthCell */
     
-    /* ÀÔ·Âº¯¼ö ½ÇÁ¦ ÀÚ·á  */
+    /* ìž…ë ¥ë³€ìˆ˜ ì‹¤ì œ ìžë£Œ  */
     mwSize mRows;
     mwSize nCols;
     bool isStable;
@@ -87,10 +87,10 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     double * oversteepSlopes;
     double * flood;
         
-    /* Ãâ·Â º¯¼ö ¼±¾ð */
+    /* ì¶œë ¥ ë³€ìˆ˜ ì„ ì–¸ */
     double * dSedimentThickByIthCell;
     
-    /* ÀÔ·Âº¯¼ö ÃÊ±âÈ­ */
+    /* ìž…ë ¥ë³€ìˆ˜ ì´ˆê¸°í™” */
     mRows = (mwSize) mxGetScalar(prhs[0]);
     nCols = (mwSize) mxGetScalar(prhs[1]);
     isStable = (bool) mxGetScalar(prhs[2]);
@@ -116,15 +116,15 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     oversteepSlopes         = mxGetPr(mxArray14);
     flood                   = mxGetPr(mxArray15);
     
-    /* Ãâ·Â º¯¼ö ÃÊ±âÈ­ */
-    /* È£Ãâ ÇÔ¼öÀÇ ÀÛ¾÷ °ø°£¿¡ ÀÖ´Â º¯¼ö¸¦ º¹»çÇØ¼­ ºÒ·¯¿È */
+    /* ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */
+    /* í˜¸ì¶œ í•¨ìˆ˜ì˜ ìž‘ì—… ê³µê°„ì— ìžˆëŠ” ë³€ìˆ˜ë¥¼ ë³µì‚¬í•´ì„œ ë¶ˆëŸ¬ì˜´ */
     mxArray8 = mexGetVariable("caller","dSedimentThickByIthCell"); 
     plhs[0] = mxArray8;
     
-    /* Ãâ·Â º¯¼öÀÇ ÀÚ·á¿¡ Æ÷ÀÎÅÍ¸¦ ÁöÁ¤ */
+    /* ì¶œë ¥ ë³€ìˆ˜ì˜ ìžë£Œì— í¬ì¸í„°ë¥¼ ì§€ì • */
     dSedimentThickByIthCell = mxGetPr(plhs[0]);    
     
-    /* ¼­ºê ·çÆ¾ ¼öÇà */
+    /* ì„œë¸Œ ë£¨í‹´ ìˆ˜í–‰ */
     CollapseMex(
         mRows,
         nCols,
@@ -162,13 +162,13 @@ void CollapseMex(
     double * flood,
     double * dSedimentThickByIthCell)
 {
-   /* »ó¼ö ¼±¾ð */ 
+   /* ìƒìˆ˜ ì„ ì–¸ */ 
    const mwIndex FLOODED = 2;
    const mwIndex SOIL = 1;
    
    mwIndex Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND;
    
-   /* ÀÓ½Ã º¯¼ö ¼±¾ð */
+   /* ìž„ì‹œ ë³€ìˆ˜ ì„ ì–¸ */
    mwIndex currentIdx,nextIdx,y,x;
    double dElev2;
    
@@ -177,41 +177,41 @@ void CollapseMex(
    X_LEFT_BND = 1;
    X_RIGHT_BND = nCols; 
    
-   /* Çö ¼¿ÀÌ ¾ÈÁ¤ »ç¸éÀÌ µÇ±âÀü ¶Ç´Â ¿Ü°û °æ°è¿¡ µµ´ÞÇÏ±â Àü±îÁö ´ÙÀ½ ¼¿·Î
-    * »ç¸éÀÛ¿ëÀÌ ¹Ýº¹µÊ */
+   /* í˜„ ì…€ì´ ì•ˆì • ì‚¬ë©´ì´ ë˜ê¸°ì „ ë˜ëŠ” ì™¸ê³½ ê²½ê³„ì— ë„ë‹¬í•˜ê¸° ì „ê¹Œì§€ ë‹¤ìŒ ì…€ë¡œ
+    * ì‚¬ë©´ìž‘ìš©ì´ ë°˜ë³µë¨ */
    while ((isStable == false) && (isBoundary == false))
    {
-       /* 1. ´ÙÀ½ ¼¿À» Çö ¼¿·Î Áö½ÃÇÔ */
+       /* 1. ë‹¤ìŒ ì…€ì„ í˜„ ì…€ë¡œ ì§€ì‹œí•¨ */
        y = nextY;
        x = nextX;
        
-       /* Çö ¼¿ÀÇ »öÀÎ */
-       /* * ÁÖÀÇ: MATLAB ¹è¿­ ¼±Çü »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+       /* í˜„ ì…€ì˜ ìƒ‰ì¸ */
+       /* * ì£¼ì˜: MATLAB ë°°ì—´ ì„ í˜• ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
        currentIdx = (mwIndex) (x-1) * mRows + y - 1;
                
        nextY = (mwIndex) SDSNbrY[currentIdx];
        nextX = (mwIndex) SDSNbrX[currentIdx];
        
-       /* ´ÙÀ½ ¼¿ÀÇ »öÀÎ */
-       /* * ÁÖÀÇ: MATLAB ¹è¿­ ¼±Çü »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+       /* ë‹¤ìŒ ì…€ì˜ ìƒ‰ì¸ */
+       /* * ì£¼ì˜: MATLAB ë°°ì—´ ì„ í˜• ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
        nextIdx = (mwIndex) (nextX-1) * mRows + nextY - 1;
 
-        /* 2. È°µ¿À¸·Î ÀÎÇÑ Çö ¼¿¿¡¼­ÀÇ Ä§½ÄÀ² ÃßÁ¤
-         * ÁÖÀÇ: ¿©±â¼­´Â (ÀÌµ¿À²À» ÃßÁ¤ÇÏ±â À§ÇÑ) ±âÁØ °íµµ°¡ ÁöÇ¥°íµµ·Î
-         * ÅëÀÏµÊ. Á÷Àü¿¡¼­ ±â¹Ý¾ÏÈ°µ¿ÀÌ ¹ß»ýÇÏ¿´´õ¶óµµ »ç¸éÇÏºÎ¿¡¼­ÀÇ ¿¬¼âÀû
-         * ¹°Áú ÀÌµ¿Àº ±â¹Ý¾ÏÈ°µ¿°ú´Â °úÁ¤ÀÌ ´Ù¸£¸ç µû¶ó¼­ ±â¹Ý¾ÏÈ°µ¿¿¡¼­¿Í
-         * µ¿ÀÏÇÑ ±âÁØ °íµµ ¹× ÀÓ°è °íµµÂ÷¸¦ »ç¿ëÇÏÁö ¾ÊÀ½. */
+        /* 2. í™œë™ìœ¼ë¡œ ì¸í•œ í˜„ ì…€ì—ì„œì˜ ì¹¨ì‹ìœ¨ ì¶”ì •
+         * ì£¼ì˜: ì—¬ê¸°ì„œëŠ” (ì´ë™ìœ¨ì„ ì¶”ì •í•˜ê¸° ìœ„í•œ) ê¸°ì¤€ ê³ ë„ê°€ ì§€í‘œê³ ë„ë¡œ
+         * í†µì¼ë¨. ì§ì „ì—ì„œ ê¸°ë°˜ì•”í™œë™ì´ ë°œìƒí•˜ì˜€ë”ë¼ë„ ì‚¬ë©´í•˜ë¶€ì—ì„œì˜ ì—°ì‡„ì 
+         * ë¬¼ì§ˆ ì´ë™ì€ ê¸°ë°˜ì•”í™œë™ê³¼ëŠ” ê³¼ì •ì´ ë‹¤ë¥´ë©° ë”°ë¼ì„œ ê¸°ë°˜ì•”í™œë™ì—ì„œì™€
+         * ë™ì¼í•œ ê¸°ì¤€ ê³ ë„ ë° ìž„ê³„ ê³ ë„ì°¨ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ. */
         dElev2 = -(((elev[currentIdx] - dElev1) - elev[nextIdx])
             - soilCriticalHeight[currentIdx]);
 
-        /* 3. Á¶°Ç¿¡ µû¶ó Ä§½ÄÀ²À» Á¶Á¤ÇÔ
-         * ¿ø¸®: ´ÙÀ½ ¼¿ÀÇ °íµµ´Â Çö ¼¿¿¡¼­ÀÇ »ç¸é¹°Áú ÀÌµ¿À¸·Î ÀÎÇØ »ó½ÂÇÔ.
-         * µû¶ó¼­ ÇöÀçÀÇ À¯È¿ °íµµÂ÷ »óÇÑº¸´Ù ´õ ÀÛÀº ¾çÀÌ ÀÌµ¿µÇ¾î¾ß ÇÔ.
-         * * ÁÖÀÇ: ´ÙÀ½ ¼¿ÀÌ ¿Ü°û °æ°è¶ó¸é ÁÙÀÌÁö ¾ÊÀ¸¸ç, ¿¬¼â ÀÌµ¿À» Á¾·áÇÔ.
-         * * ÁÖÀÇ: ´ÙÀ½ ¼¿ÀÌ ºÒ¾ÈÁ¤ÇÑ ¼¿ÀÏ °æ¿ì¿¡´Â ´ÙÀ½ ¼¿¿¡¼­ÀÇ ¹°Áú ÀÌµ¿ÀÌ
-         *   ¸¹À» °ÍÀ¸·Î ¿¹»óµÇ¹Ç·Î ÁÙÀÌÁö ¾ÊÀ½ */                                          
+        /* 3. ì¡°ê±´ì— ë”°ë¼ ì¹¨ì‹ìœ¨ì„ ì¡°ì •í•¨
+         * ì›ë¦¬: ë‹¤ìŒ ì…€ì˜ ê³ ë„ëŠ” í˜„ ì…€ì—ì„œì˜ ì‚¬ë©´ë¬¼ì§ˆ ì´ë™ìœ¼ë¡œ ì¸í•´ ìƒìŠ¹í•¨.
+         * ë”°ë¼ì„œ í˜„ìž¬ì˜ ìœ íš¨ ê³ ë„ì°¨ ìƒí•œë³´ë‹¤ ë” ìž‘ì€ ì–‘ì´ ì´ë™ë˜ì–´ì•¼ í•¨.
+         * * ì£¼ì˜: ë‹¤ìŒ ì…€ì´ ì™¸ê³½ ê²½ê³„ë¼ë©´ ì¤„ì´ì§€ ì•Šìœ¼ë©°, ì—°ì‡„ ì´ë™ì„ ì¢…ë£Œí•¨.
+         * * ì£¼ì˜: ë‹¤ìŒ ì…€ì´ ë¶ˆì•ˆì •í•œ ì…€ì¼ ê²½ìš°ì—ëŠ” ë‹¤ìŒ ì…€ì—ì„œì˜ ë¬¼ì§ˆ ì´ë™ì´
+         *   ë§Žì„ ê²ƒìœ¼ë¡œ ì˜ˆìƒë˜ë¯€ë¡œ ì¤„ì´ì§€ ì•ŠìŒ */                                          
 
-        /* ÃßÁ¤ÇÑ Ä§½ÄÀ²À» ÁÙÀÓ */
+        /* ì¶”ì •í•œ ì¹¨ì‹ìœ¨ì„ ì¤„ìž„ */
         dElev2 = dElev2 * 0.5;
 
         if ((nextY == Y_TOP_BND) || (nextY == Y_BOTTOM_BND)
@@ -221,7 +221,7 @@ void CollapseMex(
             
             if (dElev2 < 0)
             {
-                /* ÁÖÀÇ: ÃµºÎÈ°µ¿ÀÏ °æ¿ì, ÀÌµ¿À²Àº ÅðÀûÃþ µÎ²²¿¡ Á¦ÇÑµÊ */
+                /* ì£¼ì˜: ì²œë¶€í™œë™ì¼ ê²½ìš°, ì´ë™ìœ¨ì€ í‡´ì ì¸µ ë‘ê»˜ì— ì œí•œë¨ */
                 if ((rapidMassMovementType == SOIL)
                     && (- dElev2 > sedimentThick[currentIdx]))
                 {
@@ -237,25 +237,25 @@ void CollapseMex(
             dElev2 = dElev2 * 2;
         } /* if (nextY == */
         
-        /* ÁÖÀÇ: (»ç¸é ÇÏºÎÀÇ ¿¬¼â ÀÌµ¿¿¡¼­) ÀÌµ¿À²Àº ÅðÀûÃþ µÎ²²¿¡ Á¦ÇÑµÊ */
+        /* ì£¼ì˜: (ì‚¬ë©´ í•˜ë¶€ì˜ ì—°ì‡„ ì´ë™ì—ì„œ) ì´ë™ìœ¨ì€ í‡´ì ì¸µ ë‘ê»˜ì— ì œí•œë¨ */
         if (- dElev2 > sedimentThick[currentIdx])
         {
             dElev2 = dElev1 - sedimentThick[currentIdx];
         }
 
-        /* 4. ´ÙÀ½ ¼¿ÀÇ °íµµ º¯È­À² */
+        /* 4. ë‹¤ìŒ ì…€ì˜ ê³ ë„ ë³€í™”ìœ¨ */
         if ((dElev2 >= 0) || (flood[currentIdx] == FLOODED))
         {
-            /* ´ÙÀ½ ¼¿·ÎÀÇ ÀÌµ¿ÀÌ ÀÏ¾î³ªÁö ¾Ê´Â ¾ÈÁ¤ »ç¸éÀÌ°Å³ª, flooded
-             * regionÀÌ¶ó¸é ÅðÀûÃþ µÎ²² º¯È­À²À» ±¸ÇÏ°í ¿¬¼â ÀÌµ¿À» Á¾·áÇÔ */
+            /* ë‹¤ìŒ ì…€ë¡œì˜ ì´ë™ì´ ì¼ì–´ë‚˜ì§€ ì•ŠëŠ” ì•ˆì • ì‚¬ë©´ì´ê±°ë‚˜, flooded
+             * regionì´ë¼ë©´ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ì„ êµ¬í•˜ê³  ì—°ì‡„ ì´ë™ì„ ì¢…ë£Œí•¨ */
             dSedimentThickByIthCell[currentIdx] = dSedimentThickByIthCell[currentIdx] - dElev1;
             
             isStable = true;
         }
         else if (- dElev1 >= - dElev2)
         {
-            /* ¿©ÀüÈ÷ ´ÙÀ½ ¼¿·ÎÀÇ ¹°Áú ÀÌµ¿ÀÌ ¹ß»ýÇÑ´Ù¸é ´ÙÀ½ ¼¿·ÎÀÇ ÀÌµ¿À²À»
-             * °í·ÁÇÑ ÅðÀûÃþ µÎ²² º¯È­À²À» ±¸ÇÔ		 */
+            /* ì—¬ì „ížˆ ë‹¤ìŒ ì…€ë¡œì˜ ë¬¼ì§ˆ ì´ë™ì´ ë°œìƒí•œë‹¤ë©´ ë‹¤ìŒ ì…€ë¡œì˜ ì´ë™ìœ¨ì„
+             * ê³ ë ¤í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ì„ êµ¬í•¨		 */
             dSedimentThickByIthCell[currentIdx]
                 = dSedimentThickByIthCell[currentIdx] - dElev1 + dElev2;
             
@@ -263,7 +263,7 @@ void CollapseMex(
 
         /* else  - dElev1 < - dElev2
          
-            * Çö ¼¿ÀÌ ¾ÖÃÊ ºÒ¾ÈÁ¤ÇÑ ¼¿ÀÌ¾ú´Ù¸é, ´ÙÀ½ ithCell¿¡¼­ Ã³¸®ÇÏµµ·Ï °Ç³Ê¶Ü */            
+            * í˜„ ì…€ì´ ì• ì´ˆ ë¶ˆì•ˆì •í•œ ì…€ì´ì—ˆë‹¤ë©´, ë‹¤ìŒ ithCellì—ì„œ ì²˜ë¦¬í•˜ë„ë¡ ê±´ë„ˆëœ€ */            
         } /* if (dElev2 >= 0) */
    } /* while (~isStable */
 } /* void Collapse */

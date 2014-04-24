@@ -1,14 +1,14 @@
 % =========================================================================
 %> @section INTRO CalcInfinitiveFlow
 %>
-%> - Tarboton (1997)ÀÇ ¹«ÇÑ À¯Çâ ¾Ë°í¸®µëÀ» ÀÌ¿ëÇÏ¿© À¯Çâ°ú °æ»ç¸¦ ±¸ÇÏ´Â ÇÔ¼ö
+%> - Tarboton (1997)ì˜ ë¬´í•œ ìœ í–¥ ì•Œê³ ë¦¬ë“¬ì„ ì´ìš©í•˜ì—¬ ìœ í–¥ê³¼ ê²½ì‚¬ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜
 %>
-%>  - ÁÖÀÇ : ÇÑ ¼¿¾¿ ¿¬»êÀ» ÇÏ´Â °ÍÀÌ ¾Æ´Ï¶ó, °ÝÀÚ ´ÜÀ§·Î ¿¬»êÀ» ¼öÇàÇÔ. ÀÌ¸¦
-%>    À§ÇØ 1) °ÝÀÚÀÇ °¢ ¼¿À» °¡¸®Å°±â À§ÇÑ ¼±Çü »öÀÎ(e0LinearIndicies)°ú
-%>    2) e0¸¦ ±âÁØÀ¸·Î ÀÌ¿ô ¼¿(e1, e2)À» °¡¸®Å°±â À§ÇÑ offsetÀ» »ý¼ºÇÔ. ¿©±â¼­
-%>    e0´Â 3x3 Ã¢ÀÇ Áß¾Ó ¼¿
+%>  - ì£¼ì˜ : í•œ ì…€ì”© ì—°ì‚°ì„ í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼, ê²©ìž ë‹¨ìœ„ë¡œ ì—°ì‚°ì„ ìˆ˜í–‰í•¨. ì´ë¥¼
+%>    ìœ„í•´ 1) ê²©ìžì˜ ê° ì…€ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ ì„ í˜• ìƒ‰ì¸(e0LinearIndicies)ê³¼
+%>    2) e0ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì´ì›ƒ ì…€(e1, e2)ì„ ê°€ë¦¬í‚¤ê¸° ìœ„í•œ offsetì„ ìƒì„±í•¨. ì—¬ê¸°ì„œ
+%>    e0ëŠ” 3x3 ì°½ì˜ ì¤‘ì•™ ì…€
 %>
-%>  - Âü°í¹®Çå
+%>  - ì°¸ê³ ë¬¸í—Œ
 %>   - Tarboton, "A new method for the determination of flow
 %>     directions and upslope areas in grid digital elevation models," Water
 %>     Resources Research, vol. 33, no. 2, pages 309-319, February 1997.
@@ -23,37 +23,37 @@
 %> @callgraph
 %> @callergraph
 %>
-%> @retval facetFlowDirection       : facet flow À¯Çâ [radian]
-%> @retval facetFlowSlope           : facet flow °æ»ç [radian]
-%> @retval e1LinearIndicies         : ´ÙÀ½ ¼¿(e1) »öÀÎ
-%> @retval e2LinearIndicies         : ´ÙÀ½ ¼¿(e2) »öÀÎ
-%> @retval outputFluxRatioToE1      : ´ÙÀ½ ¼¿(e1)·ÎÀÇ À¯ÀÔÀ²
-%> @retval outputFluxRatioToE2      : ´ÙÀ½ ¼¿(e2)·ÎÀÇ À¯ÀÔÀ²
+%> @retval facetFlowDirection       : facet flow ìœ í–¥ [radian]
+%> @retval facetFlowSlope           : facet flow ê²½ì‚¬ [radian]
+%> @retval e1LinearIndicies         : ë‹¤ìŒ ì…€(e1) ìƒ‰ì¸
+%> @retval e2LinearIndicies         : ë‹¤ìŒ ì…€(e2) ìƒ‰ì¸
+%> @retval outputFluxRatioToE1      : ë‹¤ìŒ ì…€(e1)ë¡œì˜ ìœ ìž…ìœ¨
+%> @retval outputFluxRatioToE2      : ë‹¤ìŒ ì…€(e2)ë¡œì˜ ìœ ìž…ìœ¨
 %>
-%> @param mRows                     : ¸ðÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
-%> @param nCols                     : ¸ðÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
-%> @param Y                         : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
-%> @param X                         : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
-%> @param Y_INI                     : ¸ðÇü ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param Y_MAX                     : ¸ðÇü ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª(=Y+1)
-%> @param X_INI                     : ¸ðÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param X_MAX                     : ¸ðÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1) 
+%> @param mRows                     : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
+%> @param nCols                     : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
+%> @param Y                         : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
+%> @param X                         : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
+%> @param Y_INI                     : ëª¨í˜• ì˜ì—­ Y ì‹œìž‘ ì¢Œí‘œê°’(=2)
+%> @param Y_MAX                     : ëª¨í˜• ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=Y+1)
+%> @param X_INI                     : ëª¨í˜• ì˜ì—­ X ì‹œìž‘ ì¢Œí‘œê°’(=2)
+%> @param X_MAX                     : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1) 
 %> @param QUARTER_PI                : pi * 0.25
 %> @param HALF_PI                   : pi * 0.5
-%> @param elev                      : ÁöÇ¥ °íµµ [m]
-%> @param dX                        : ¼¿ Å©±â [m]
-%> @param sE0LinearIndicies         : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ Áß¾Ó ¼¿
-%> @param s3E1LinearIndicies        : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ ´ÙÀ½ ¼¿(e1) »öÀÎ
-%> @param s3E2LinearIndicies        : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ ´ÙÀ½ ¼¿(e2) »öÀÎ
+%> @param elev                      : ì§€í‘œ ê³ ë„ [m]
+%> @param dX                        : ì…€ í¬ê¸° [m]
+%> @param sE0LinearIndicies         : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ ì¤‘ì•™ ì…€
+%> @param s3E1LinearIndicies        : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ ë‹¤ìŒ ì…€(e1) ìƒ‰ì¸
+%> @param s3E2LinearIndicies        : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ ë‹¤ìŒ ì…€(e2) ìƒ‰ì¸
 % =========================================================================
 function [facetFlowDirection,facetFlowSlope,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1,outputFluxRatioToE2]= CalcInfinitiveFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX,QUARTER_PI,HALF_PI,elev,dX,sE0LinearIndicies,s3E1LinearIndicies,s3E2LinearIndicies)
 %
 % function CalcInfinitiveFlow
 %
 
-% º¯¼ö ÃÊ±âÈ­
+% ë³€ìˆ˜ ì´ˆê¸°í™”
 
-% Ãâ·Â º¯¼ö ÃÊ±âÈ­
+% ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™”
 facetFlowSlope = nan(mRows,nCols);
 facetFlowDirection = nan(mRows,nCols);
 e1LinearIndicies = nan(mRows,nCols);
@@ -61,80 +61,80 @@ e2LinearIndicies = nan(mRows,nCols);
 outputFluxRatioToE1 = nan(mRows,nCols);
 outputFluxRatioToE2 = nan(mRows,nCols);
 
-% ¿¬»ê º¯¼ö ÃÊ±âÈ­
-% * ÁÖÀÇ : ¿¬»êÀº °ÝÀÚ ´ÜÀ§·Î ¼öÇàµÇ´Âµ¥ ¸ðµ¨ ¿µ¿ª ³»ºÎ¸¸À» ´ë»óÀ¸·Î ÇÏ±â ¶§¹®¿¡
-%          °æ°è¸¦ Á¦¿ÜÇÑ ¹è¿­À» »ý¼ºÇÏ°í ÃÊ±âÈ­ÇÑ´Ù. s´Â mRows*nColsº¸´Ù ÀÛÀº
-%          Y*X Å©±â¸¦ °¡Áö´Â Çà·ÄÀ» ÀÇ¹ÌÇÑ´Ù.
+% ì—°ì‚° ë³€ìˆ˜ ì´ˆê¸°í™”
+% * ì£¼ì˜ : ì—°ì‚°ì€ ê²©ìž ë‹¨ìœ„ë¡œ ìˆ˜í–‰ë˜ëŠ”ë° ëª¨ë¸ ì˜ì—­ ë‚´ë¶€ë§Œì„ ëŒ€ìƒìœ¼ë¡œ í•˜ê¸° ë•Œë¬¸ì—
+%          ê²½ê³„ë¥¼ ì œì™¸í•œ ë°°ì—´ì„ ìƒì„±í•˜ê³  ì´ˆê¸°í™”í•œë‹¤. sëŠ” mRows*nColsë³´ë‹¤ ìž‘ì€
+%          Y*X í¬ê¸°ë¥¼ ê°€ì§€ëŠ” í–‰ë ¬ì„ ì˜ë¯¸í•œë‹¤.
 sFacetFlowSlope = - Inf(Y,X);
-% À¯ÇâÀÌ ¾øÀ» °æ¿ì¿¡´Â NaNÀ¸·Î ±â·ÏµÈ´Ù.
+% ìœ í–¥ì´ ì—†ì„ ê²½ìš°ì—ëŠ” NaNìœ¼ë¡œ ê¸°ë¡ëœë‹¤.
 sFacetFlowDirection = nan(Y,X);
-% e1ÀÇ ¼±Çü »öÀÎ ÃÊ±âÈ­
+% e1ì˜ ì„ í˜• ìƒ‰ì¸ ì´ˆê¸°í™”
 sE1LinearIndicies = nan(Y,X);
-% e2ÀÇ ¼±Çü »öÀÎ ÃÊ±âÈ­
+% e2ì˜ ì„ í˜• ìƒ‰ì¸ ì´ˆê¸°í™”
 sE2LinearIndicies = nan(Y,X);
-% e1À¸·ÎÀÇ Àü´ÞµÇ´Â Èå¸§ ºñÀ²
+% e1ìœ¼ë¡œì˜ ì „ë‹¬ë˜ëŠ” íë¦„ ë¹„ìœ¨
 sOutputFluxRatioToE1 = nan(Y,X);
-% e2À¸·ÎÀÇ Àü´ÞµÇ´Â Èå¸§ ºñÀ²
+% e2ìœ¼ë¡œì˜ ì „ë‹¬ë˜ëŠ” íë¦„ ë¹„ìœ¨
 sOutputFluxRatioToE2 = nan(Y,X);
 
-% °³º° ¼¿º°·Î ¿¬»êÀ» ¼öÇàÇÏ¿© À¯Çâ°ú °æ»ç¸¦ ±¸ÇÏ´Â °ÍÀÌ ¾Æ´Ï¶ó, °ÝÀÚ(¹è¿­)
-% ´ÜÀ§·Î ¿¬»êÀ» ¼öÇàÇÑ´Ù.
+% ê°œë³„ ì…€ë³„ë¡œ ì—°ì‚°ì„ ìˆ˜í–‰í•˜ì—¬ ìœ í–¥ê³¼ ê²½ì‚¬ë¥¼ êµ¬í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼, ê²©ìž(ë°°ì—´)
+% ë‹¨ìœ„ë¡œ ì—°ì‚°ì„ ìˆ˜í–‰í•œë‹¤.
 
-% CalcFacetFlow ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© ±¸ÇÑ °³º° facet Èå¸§ÀÇ ÇâÀ» µ¿ÂÊÀ» ±âÁØÀ¸·Î
-% ½Ã°è ¹Ý´ë ¹æÇâÀ¸·Î Áõ°¡ÇÏµµ·Ï ¸¸µé¾îÁÖ´Â multipliers.
-% * Âü°í : Tarboton(1997)ÀÇ Table 1.
+% CalcFacetFlow í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ êµ¬í•œ ê°œë³„ facet íë¦„ì˜ í–¥ì„ ë™ìª½ì„ ê¸°ì¤€ìœ¼ë¡œ
+% ì‹œê³„ ë°˜ëŒ€ ë°©í–¥ìœ¼ë¡œ ì¦ê°€í•˜ë„ë¡ ë§Œë“¤ì–´ì£¼ëŠ” multipliers.
+% * ì°¸ê³  : Tarboton(1997)ì˜ Table 1.
 ac = [ 0  1  1  2  2  3  3  4];
 af = [ 1 -1  1 -1  1 -1  1 -1];
 
-% sFacetFlowDirectionÀ» ÀÌ¿ëÇÏ¿© e1°ú e2¿¡ Àü´ÞµÇ´Â Èå¸§ÀÇ ºñÀ²À» ±¸ÇÏ±â À§ÇÑ
-% multipliers * Âü°í : Tarboton(1997)ÀÇ Figure 2¸¦ ±¸ÇöÇÏ±â À§ÇÔ
+% sFacetFlowDirectionì„ ì´ìš©í•˜ì—¬ e1ê³¼ e2ì— ì „ë‹¬ë˜ëŠ” íë¦„ì˜ ë¹„ìœ¨ì„ êµ¬í•˜ê¸° ìœ„í•œ
+% multipliers * ì°¸ê³  : Tarboton(1997)ì˜ Figure 2ë¥¼ êµ¬í˜„í•˜ê¸° ìœ„í•¨
 a1 = [ 1 -1  3 -3  5 -5  7 -7];
 b1 = [-1  1 -1  1 -1  1 -1  1];
 a2 = [ 0  2 -2  4 -4  6 -6  8];
 b2 = [ 1 -1  1 -1  1 -1  1 -1];
             
-% e0ÀÇ (¼±Çü »öÀÎÀÌ °¡¸®Å°´Â) °íµµ¸¦ ÀúÀåÇÑ´Ù.
+% e0ì˜ (ì„ í˜• ìƒ‰ì¸ì´ ê°€ë¦¬í‚¤ëŠ”) ê³ ë„ë¥¼ ì €ìž¥í•œë‹¤.
 sE0Elevation = elev(sE0LinearIndicies);
 
-% e0¸¦ ±âÁØÀ¸·Î 8°³ facet Èå¸§ÀÇ Çâ°ú °æ»ç¸¦ Å½»öÇÏ¿©, À¯Çâ°ú °æ»ç¸¦ °áÁ¤ÇÑ´Ù.
+% e0ë¥¼ ê¸°ì¤€ìœ¼ë¡œ 8ê°œ facet íë¦„ì˜ í–¥ê³¼ ê²½ì‚¬ë¥¼ íƒìƒ‰í•˜ì—¬, ìœ í–¥ê³¼ ê²½ì‚¬ë¥¼ ê²°ì •í•œë‹¤.
 for kthFacet = 1:8
 
-    % k¹øÂ° facetÀÇ e1, e2 »öÀÎ Çà·ÄÀ» ±¸ÇÑ´Ù.
+    % kë²ˆì§¸ facetì˜ e1, e2 ìƒ‰ì¸ í–‰ë ¬ì„ êµ¬í•œë‹¤.
     sE1KIndicies = s3E1LinearIndicies(:,:,kthFacet);
     sE2KIndicies = s3E2LinearIndicies(:,:,kthFacet);
     
-    % e0ÀÇ ¼±Çü»öÀÎ°ú ¿É¼ÂÀ» ÀÌ¿ëÇÏ¿© k ¹øÂ° facetÀÇ e1, e2ÀÇ °íµµ¸¦ ±¸ÇÔ
+    % e0ì˜ ì„ í˜•ìƒ‰ì¸ê³¼ ì˜µì…‹ì„ ì´ìš©í•˜ì—¬ k ë²ˆì§¸ facetì˜ e1, e2ì˜ ê³ ë„ë¥¼ êµ¬í•¨
     sE1KElevation = elev(sE1KIndicies);
     sE2KElevation = elev(sE2KIndicies);
 
-    % e1°ú e2ÀÇ °íµµ¸¦ ÀÌ¿ëÇÏ¿©, k ¹øÂ° facet Èå¸§ÀÇ Çâ°ú °æ»ç¸¦ ±¸ÇÔ
+    % e1ê³¼ e2ì˜ ê³ ë„ë¥¼ ì´ìš©í•˜ì—¬, k ë²ˆì§¸ facet íë¦„ì˜ í–¥ê³¼ ê²½ì‚¬ë¥¼ êµ¬í•¨
     [sKFacetFlowDirection,sKFacetFlowSlope] ...
         = CalcFacetFlow(sE0Elevation,sE1KElevation,sE2KElevation,dX);
 
-    % ÀÌÀü facet Èå¸§ÀÇ °æ»çº¸´Ù Å©°í °æ»ç°ªÀÌ ¾ç¿¡ ÇØ´çÇÏ´Â ¼¿µéÀ»
-    % biggerFacetFlowSloepsÀ¸·Î Ç¥½ÃÇÏ°í,
+    % ì´ì „ facet íë¦„ì˜ ê²½ì‚¬ë³´ë‹¤ í¬ê³  ê²½ì‚¬ê°’ì´ ì–‘ì— í•´ë‹¹í•˜ëŠ” ì…€ë“¤ì„
+    % biggerFacetFlowSloepsìœ¼ë¡œ í‘œì‹œí•˜ê³ ,
     biggerFacetFlowSlope = (sKFacetFlowSlope > sFacetFlowSlope) ...
                          & (sKFacetFlowSlope > 0);
     
-    % ÀÌ¿¡ ÇØ´çÇÏ´Â ¼¿¿¡¸¸ k ¹øÂ° facet Èå¸§ÀÇ ÇâÀ» À¯ÇâÀ¸·Î ±â·ÏÇÑ´Ù
+    % ì´ì— í•´ë‹¹í•˜ëŠ” ì…€ì—ë§Œ k ë²ˆì§¸ facet íë¦„ì˜ í–¥ì„ ìœ í–¥ìœ¼ë¡œ ê¸°ë¡í•œë‹¤
     sFacetFlowDirection(biggerFacetFlowSlope) ... % Equation (6)
         = (af(kthFacet) * sKFacetFlowDirection(biggerFacetFlowSlope)) ...
         + (ac(kthFacet) * HALF_PI);  
          
-    % ÀÌ¿¡ ÇØ´çÇÏ´Â ¼¿¿¡ »õ·Î ±¸ÇÑ °æ»ç°ªÀ» ÀÔ·ÂÇÑ´Ù.
-    % * ÁÖÀÇ : slopeÀº À¯Çâ°ú ´Þ¸® facet ¼ø¼­¿Í °ü·Ã¾ø´Ù. facet ¼ø¼­¿Í °ü·ÃÀÖ´Â
-    %          °ÍÀº facet flow direction°ú flow proportionÀÌ´Ù.
+    % ì´ì— í•´ë‹¹í•˜ëŠ” ì…€ì— ìƒˆë¡œ êµ¬í•œ ê²½ì‚¬ê°’ì„ ìž…ë ¥í•œë‹¤.
+    % * ì£¼ì˜ : slopeì€ ìœ í–¥ê³¼ ë‹¬ë¦¬ facet ìˆœì„œì™€ ê´€ë ¨ì—†ë‹¤. facet ìˆœì„œì™€ ê´€ë ¨ìžˆëŠ”
+    %          ê²ƒì€ facet flow directionê³¼ flow proportionì´ë‹¤.
     sFacetFlowSlope(biggerFacetFlowSlope) ...
         = sKFacetFlowSlope(biggerFacetFlowSlope);
     
-    % ÀÌ¿¡ ÇØ´çÇÏ´Â ¼¿¿¡ e1°ú e2ÀÇ ¼±Çü »öÀÎÀ» ±â·ÏÇÑ´Ù.
+    % ì´ì— í•´ë‹¹í•˜ëŠ” ì…€ì— e1ê³¼ e2ì˜ ì„ í˜• ìƒ‰ì¸ì„ ê¸°ë¡í•œë‹¤.
     sE1LinearIndicies(biggerFacetFlowSlope) ...
         = sE1KIndicies(biggerFacetFlowSlope);
     sE2LinearIndicies(biggerFacetFlowSlope) ...
         = sE2KIndicies(biggerFacetFlowSlope);
 
-    % ÀÌ¿¡ ÇØ´çÇÏ´Â ¼¿¿¡ e1°ú e2·ÎÀÇ Èå¸§ ºñÀ²À» ±â·ÏÇÑ´Ù.
-    % Tarboton(1986)ÀÇ figure (2)
+    % ì´ì— í•´ë‹¹í•˜ëŠ” ì…€ì— e1ê³¼ e2ë¡œì˜ íë¦„ ë¹„ìœ¨ì„ ê¸°ë¡í•œë‹¤.
+    % Tarboton(1986)ì˜ figure (2)
     sOutputFluxRatioToE1(biggerFacetFlowSlope) ...
         = ( a1(kthFacet) * QUARTER_PI ...
         + b1(kthFacet) * sFacetFlowDirection(biggerFacetFlowSlope) ) ...
@@ -147,8 +147,8 @@ for kthFacet = 1:8
 
 end
 
-% Ãâ·Â º¯¼ö(À¯Çâ,°æ»ç,e1 ¹× e2 ¼±Çü»öÀÎ,e1 ¹× e2·ÎÀÇ Èå¸§ºñÀ²)ÀÇ °æ°è¸¦ ¼³Á¤ÇÑ´Ù.
-% ¸ðµ¨ ¿µ¿ª °æ°è´Â NaNÀ¸·Î ±â·ÏµÈ´Ù.
+% ì¶œë ¥ ë³€ìˆ˜(ìœ í–¥,ê²½ì‚¬,e1 ë° e2 ì„ í˜•ìƒ‰ì¸,e1 ë° e2ë¡œì˜ íë¦„ë¹„ìœ¨)ì˜ ê²½ê³„ë¥¼ ì„¤ì •í•œë‹¤.
+% ëª¨ë¸ ì˜ì—­ ê²½ê³„ëŠ” NaNìœ¼ë¡œ ê¸°ë¡ëœë‹¤.
 facetFlowDirection(Y_INI:Y_MAX,X_INI:X_MAX) = sFacetFlowDirection;
 facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX) = sFacetFlowSlope;
 e1LinearIndicies(Y_INI:Y_MAX,X_INI:X_MAX) = sE1LinearIndicies;

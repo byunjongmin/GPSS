@@ -1,32 +1,32 @@
 % =========================================================================
 %> @section INTRO ReadElevation
 %>
-%> - ÆÄÀÏ·ÎºÎÅÍ ÃÊ±â ÁöÇüÀÇ °íµµ¸¦ ÀÐ¾îµé¿© ÀÌ¸¦ ¹ÝÈ¯ÇÏ´Â ÇÔ¼ö
+%> - íŒŒì¼ë¡œë¶€í„° ì´ˆê¸° ì§€í˜•ì˜ ê³ ë„ë¥¼ ì½ì–´ë“¤ì—¬ ì´ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval elev         : ÃÊ±â ÁöÇü °íµµ [m] 
+%> @retval elev         : ì´ˆê¸° ì§€í˜• ê³ ë„ [m] 
 %>
-%> @param elevationFile : ÃÊ±â ÁöÇüÀÌ ±â·ÏµÈ ÆÄÀÏ ÀÌ¸§
+%> @param elevationFile : ì´ˆê¸° ì§€í˜•ì´ ê¸°ë¡ëœ íŒŒì¼ ì´ë¦„
 % =========================================================================
 function elev = ReadElevation(elevationFile)
 %
 %
 
-% ÃÊ±â ÁöÇü ÆÄÀÏÀ» ¿¬´Ù.
+% ì´ˆê¸° ì§€í˜• íŒŒì¼ì„ ì—°ë‹¤.
 fid=fopen(elevationFile,'r');
 
 if fid==-1
-    error('ÃÊ±â ÁöÇü ÆÄÀÏÀ» ºÒ·¯¿À´Âµ¥¼­ ¿¡·¯°¡ ¹ß»ýÇß½À´Ï´Ù.\n');
+    error('ì´ˆê¸° ì§€í˜• íŒŒì¼ì„ ë¶ˆëŸ¬ì˜¤ëŠ”ë°ì„œ ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.\n');
 end
 
-% ¿ì¼± ÃÊ±â ÁöÇüÀÇ Çà°ú ¿­¿¡ ´ëÇÑ Á¤º¸¸¦ ÀÐ¾îµéÀÎ´Ù.
+% ìš°ì„  ì´ˆê¸° ì§€í˜•ì˜ í–‰ê³¼ ì—´ì— ëŒ€í•œ ì •ë³´ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 mRows = fscanf(fid,'%i',1);
 nCols = fscanf(fid,'%i',1);
 
-% ´ÙÀ½À¸·Î ÃÊ±â ÁöÇüÀÇ °íµµ¸¦ ÀÐ¾îµéÀÎ´Ù.
+% ë‹¤ìŒìœ¼ë¡œ ì´ˆê¸° ì§€í˜•ì˜ ê³ ë„ë¥¼ ì½ì–´ë“¤ì¸ë‹¤.
 elev = fscanf(fid,'%f',[mRows,nCols]);
 
 fclose(fid);

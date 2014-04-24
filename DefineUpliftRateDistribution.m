@@ -1,67 +1,67 @@
 % =========================================================================
-%> @section INTRO DefineUpliftRateDistribution ºÎÇÔ¼ö
+%> @section INTRO DefineUpliftRateDistribution ë¶€í•¨ìˆ˜
 %>
-%> - À¶±âÀ²ÀÇ °ø°£Àû ½Ã°£Àû ºÐÆ÷¸¦ Á¤ÀÇÇÏ´Â ÇÔ¼ö
-%>  - ÀÌ ÇÔ¼ö¸¦ ÅëÇØ ½Ã°ø°£ÀûÀ¸·Î ºñ±ÕÁúÀûÀÎ Áö¹ÝÀ¶±â¸¦ ¸ðÀÇÇÔ. ÇöÀç °æµ¿¼º
-%>    ¿ä°î Áö¹ÝÀ¶±âµµ ¸ðÀÇ °¡´ÉÇÔ
+%> - ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ì‹œê°„ì  ë¶„í¬ë¥¼ ì •ì˜í•˜ëŠ” í•¨ìˆ˜
+%>  - ì´ í•¨ìˆ˜ë¥¼ í†µí•´ ì‹œê³µê°„ì ìœ¼ë¡œ ë¹„ê· ì§ˆì ì¸ ì§€ë°˜ìœµê¸°ë¥¼ ëª¨ì˜í•¨. í˜„ìž¬ ê²½ë™ì„±
+%>    ìš”ê³¡ ì§€ë°˜ìœµê¸°ë„ ëª¨ì˜ ê°€ëŠ¥í•¨
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval meanUpliftRateSpatialDistribution    : (¸ðÀÇ±â°£ Æò±Õ) ¿¬°£ À¶±âÀ²ÀÇ °ø°£Àû ºÐÆ÷
-%> @retval upliftRateTemporalDistribution       : (¸ðÀÇ±â°£) ¿¬°£ À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷
-%> @retval meanUpliftRateAtUpliftAxis           : À¶±âÃàÀÇ (¸ðÀÇ±â°£ Æò±Õ) ¿¬°£ À¶±âÀ²
-%> @retval topBndElev                           : ¿Ü°û À§ °æ°è¿¡¼­ÀÇ °íµµ
+%> @retval meanUpliftRateSpatialDistribution    : (ëª¨ì˜ê¸°ê°„ í‰ê· ) ì—°ê°„ ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ë¶„í¬
+%> @retval upliftRateTemporalDistribution       : (ëª¨ì˜ê¸°ê°„) ì—°ê°„ ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬
+%> @retval meanUpliftRateAtUpliftAxis           : ìœµê¸°ì¶•ì˜ (ëª¨ì˜ê¸°ê°„ í‰ê· ) ì—°ê°„ ìœµê¸°ìœ¨
+%> @retval topBndElev                           : ì™¸ê³½ ìœ„ ê²½ê³„ì—ì„œì˜ ê³ ë„
 %>
-%> @param Y                                     : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
-%> @param X                                     : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
-%> @param Y_INI                                 : ¸ðÇü ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param X_INI                                 : ¸ðÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param Y_MAX                                 : ¸ðÇü ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª(=Y+1)
-%> @param X_MAX                                 : ¸ðÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
-%> @param dX                                    : ¼¿ Å©±â [m]
-%> @param TIME_STEPS_NO                         : ÃÑ ½ÇÇà È½¼ö
-%> @param TOTAL_ACCUMULATED_UPLIFT              : (À¶±âÃà¿¡¼­) ¸ðÀÇ ±â°£ µ¿¾ÈÀÇ ´©Àû À¶±â·® [m]
-%> @param dT                                    : ¸¸¼öÀ¯·® ÀçÇö±â°£ [year]
-%> @param IS_TILTED_UPWARPING                   : °æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â ¿îµ¿À» °áÁ¤
-%> @param UPLIFT_AXIS_DISTANCE_FROM_COAST       : ¿µµ¿ ÇØ¾È¼±À¸·ÎºÎÅÍ À¶±âÃà±îÁöÀÇ °Å¸® [m]
-%> @param TOP_BOUNDARY_ELEV_COND                : ¿Ü°û À§ °æ°è Á¶°Ç
-%> @param Y_TOP_BND_FINAL_ELEV                  : ¿Ü°û À§ °æ°èÀÇ ÃÖÁ¾ °íµµ [m]
-%> @param RAMP_ANGLE_TO_TOP                     : (´©Àû Áö¹Ý À¶±â·®À» ±âÁØ) À¶±âÃà¿¡¼­ À§ °æ°è·ÎÀÇ °¢ [radian]
-%> @param UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND: À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷ °áÁ¤
-%> @param dUpliftRate                           : (À¶±âÀ² º¯µ¿ ºÐÆ÷ Á¶°Ç) Æò±Õ ¿¬°£ À¶±âÀ²À» ±âÁØÀ¸·Î ÃÖ´ë ÃÖ¼Ò À¶±âÀ²ÀÇ Â÷ÀÌ ºñÀ²
-%> @param acceleratedUpliftPhaseNo              : (À¶±âÀ² º¯µ¿ ºÐÆ÷ Á¶°Ç) ¸ðÀÇ±â°£ µ¿¾È ³ôÀº À¶±âÀ²ÀÌ ¹ß»ýÇÏ´Â ºóµµ
-%> @param upliftRate0                           : (À¶±âÀ² µ¹Ãâ-°¨¼è ºÐÆ÷ Á¶°Ç) À¶±âÀ² °¨¼èºÐÆ÷ÀÇ ÃÊ±â À¶±âÀ² [m/year]
-%> @param waveArrivalTime                       : (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) ¿µ¼­ ¿Ü°û °æ°è °íµµ°¡ º»°ÝÀûÀ¸·Î ÇÏ°­ÇÏ´Â ½ÃÁ¡ (¸ðÀÇ ±â°£¿¡¼­ ºñÀ²)
-%> @param initUpliftRate                        : (°æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â Á¶°Ç) º»°ÝÀû ÇÏ°­ ÀÌÀü Ä§½Ä ±âÁØ¸é ÇÏ°­À² [m/year]
+%> @param Y                                     : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
+%> @param X                                     : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
+%> @param Y_INI                                 : ëª¨í˜• ì˜ì—­ Y ì‹œìž‘ ì¢Œí‘œê°’(=2)
+%> @param X_INI                                 : ëª¨í˜• ì˜ì—­ X ì‹œìž‘ ì¢Œí‘œê°’(=2)
+%> @param Y_MAX                                 : ëª¨í˜• ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=Y+1)
+%> @param X_MAX                                 : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
+%> @param dX                                    : ì…€ í¬ê¸° [m]
+%> @param TIME_STEPS_NO                         : ì´ ì‹¤í–‰ íšŸìˆ˜
+%> @param TOTAL_ACCUMULATED_UPLIFT              : (ìœµê¸°ì¶•ì—ì„œ) ëª¨ì˜ ê¸°ê°„ ë™ì•ˆì˜ ëˆ„ì  ìœµê¸°ëŸ‰ [m]
+%> @param dT                                    : ë§Œìˆ˜ìœ ëŸ‰ ìž¬í˜„ê¸°ê°„ [year]
+%> @param IS_TILTED_UPWARPING                   : ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ìš´ë™ì„ ê²°ì •
+%> @param UPLIFT_AXIS_DISTANCE_FROM_COAST       : ì˜ë™ í•´ì•ˆì„ ìœ¼ë¡œë¶€í„° ìœµê¸°ì¶•ê¹Œì§€ì˜ ê±°ë¦¬ [m]
+%> @param TOP_BOUNDARY_ELEV_COND                : ì™¸ê³½ ìœ„ ê²½ê³„ ì¡°ê±´
+%> @param Y_TOP_BND_FINAL_ELEV                  : ì™¸ê³½ ìœ„ ê²½ê³„ì˜ ìµœì¢… ê³ ë„ [m]
+%> @param RAMP_ANGLE_TO_TOP                     : (ëˆ„ì  ì§€ë°˜ ìœµê¸°ëŸ‰ì„ ê¸°ì¤€) ìœµê¸°ì¶•ì—ì„œ ìœ„ ê²½ê³„ë¡œì˜ ê° [radian]
+%> @param UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND: ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬ ê²°ì •
+%> @param dUpliftRate                           : (ìœµê¸°ìœ¨ ë³€ë™ ë¶„í¬ ì¡°ê±´) í‰ê·  ì—°ê°„ ìœµê¸°ìœ¨ì„ ê¸°ì¤€ìœ¼ë¡œ ìµœëŒ€ ìµœì†Œ ìœµê¸°ìœ¨ì˜ ì°¨ì´ ë¹„ìœ¨
+%> @param acceleratedUpliftPhaseNo              : (ìœµê¸°ìœ¨ ë³€ë™ ë¶„í¬ ì¡°ê±´) ëª¨ì˜ê¸°ê°„ ë™ì•ˆ ë†’ì€ ìœµê¸°ìœ¨ì´ ë°œìƒí•˜ëŠ” ë¹ˆë„
+%> @param upliftRate0                           : (ìœµê¸°ìœ¨ ëŒì¶œ-ê°ì‡  ë¶„í¬ ì¡°ê±´) ìœµê¸°ìœ¨ ê°ì‡ ë¶„í¬ì˜ ì´ˆê¸° ìœµê¸°ìœ¨ [m/year]
+%> @param waveArrivalTime                       : (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ì˜ì„œ ì™¸ê³½ ê²½ê³„ ê³ ë„ê°€ ë³¸ê²©ì ìœ¼ë¡œ í•˜ê°•í•˜ëŠ” ì‹œì  (ëª¨ì˜ ê¸°ê°„ì—ì„œ ë¹„ìœ¨)
+%> @param initUpliftRate                        : (ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸° ì¡°ê±´) ë³¸ê²©ì  í•˜ê°• ì´ì „ ì¹¨ì‹ ê¸°ì¤€ë©´ í•˜ê°•ìœ¨ [m/year]
 % =========================================================================
 function [meanUpliftRateSpatialDistribution,upliftRateTemporalDistribution,meanUpliftRateAtUpliftAxis,topBndElev] = DefineUpliftRateDistribution(Y,X,Y_INI,X_INI,Y_MAX,X_MAX,dX,TIME_STEPS_NO,TOTAL_ACCUMULATED_UPLIFT,dT,IS_TILTED_UPWARPING,UPLIFT_AXIS_DISTANCE_FROM_COAST,TOP_BOUNDARY_ELEV_COND,Y_TOP_BND_FINAL_ELEV,RAMP_ANGLE_TO_TOP,UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND,dUpliftRate,acceleratedUpliftPhaseNo,upliftRate0,waveArrivalTime,initUpliftRate)
 %
 % function DefineUpliftRateDistribution
 %
 
-% »ó¼ö Á¤ÀÇ
-YEONGSEO_ELEV = 1;          % °æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â¿îµ¿ÀÇ ¿µ¼­ÂÊ ¿Ü°û °æ°è °íµµ Á¶°Ç
-CONSTANT_UPLIFTRATE = 1;    % À¶±âÀ² ÀÏÁ¤
-INTERMITTENT_UPLIFT = 2;    % °£ÇæÀû À¶±â
-% DECAYING_UPLIFTRATE = 3;  % À¶±âÀ² °¨¼è
+% ìƒìˆ˜ ì •ì˜
+YEONGSEO_ELEV = 1;          % ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸°ìš´ë™ì˜ ì˜ì„œìª½ ì™¸ê³½ ê²½ê³„ ê³ ë„ ì¡°ê±´
+CONSTANT_UPLIFTRATE = 1;    % ìœµê¸°ìœ¨ ì¼ì •
+INTERMITTENT_UPLIFT = 2;    % ê°„í—ì  ìœµê¸°
+% DECAYING_UPLIFTRATE = 3;  % ìœµê¸°ìœ¨ ê°ì‡ 
 
 RAMP_ANGLE_TO_BOTTOM ...
     = TOTAL_ACCUMULATED_UPLIFT / UPLIFT_AXIS_DISTANCE_FROM_COAST;
 
-% 1. À¶±âÀ²ÀÇ °ø°£Àû ºÐÆ÷¸¦ Á¤ÀÇÇÔ
+% 1. ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ë¶„í¬ë¥¼ ì •ì˜í•¨
 if IS_TILTED_UPWARPING == true
     
-    % 1) °æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â¸¦ ¸ðÀÇÇÒ °æ¿ì
+    % 1) ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸°ë¥¼ ëª¨ì˜í•  ê²½ìš°
     
-    % (1) Áö¹ÝÀ¶±âÃàÀÇ ÁÂÇ¥ ±¸ÇÏ±â
+    % (1) ì§€ë°˜ìœµê¸°ì¶•ì˜ ì¢Œí‘œ êµ¬í•˜ê¸°
     TOP_BOTTOM_DISTANCE = Y * dX;
     upliftAxisY ...
         = round((TOP_BOTTOM_DISTANCE - UPLIFT_AXIS_DISTANCE_FROM_COAST) / dX) ...
         + Y_INI;
 
-    % (2) (¸ðÀÇ±â°£ µ¿¾È) ´©Àû À¶±âÀ²ÀÇ °ø°£Àû ºÐÆ÷ [m/TIME_STEPS_NO]
+    % (2) (ëª¨ì˜ê¸°ê°„ ë™ì•ˆ) ëˆ„ì  ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ë¶„í¬ [m/TIME_STEPS_NO]
     totalAccumulatedUplift = zeros(Y+2,1);
 
     totalAccumulatedUplift(Y_INI:upliftAxisY) ...
@@ -72,50 +72,50 @@ if IS_TILTED_UPWARPING == true
         = TOTAL_ACCUMULATED_UPLIFT ...
         - RAMP_ANGLE_TO_BOTTOM * (0:dX:(Y_MAX-upliftAxisY)*dX);
 
-    % (3) ¸ðÀÇ±â°£ Æò±Õ À¶±âÀ²ÀÇ °ø°£Àû ºÐÆ÷ [m/dT]
+    % (3) ëª¨ì˜ê¸°ê°„ í‰ê·  ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ë¶„í¬ [m/dT]
     meanUpliftRateSpatialDistribution = totalAccumulatedUplift / TIME_STEPS_NO;
-    meanUpliftRateSpatialDistribution ... % 1Â÷¿ø -> 2Â÷¿ø
+    meanUpliftRateSpatialDistribution ... % 1ì°¨ì› -> 2ì°¨ì›
         = repmat(meanUpliftRateSpatialDistribution,1,X+2);
     
-    % (4) À¶±âÃàÀÇ (¸ðÀÇ±â°£ Æò±Õ) À¶±âÀ² [m/dT]
+    % (4) ìœµê¸°ì¶•ì˜ (ëª¨ì˜ê¸°ê°„ í‰ê· ) ìœµê¸°ìœ¨ [m/dT]
     meanUpliftRateAtUpliftAxis ...
         = totalAccumulatedUplift(upliftAxisY) / TIME_STEPS_NO;
         
 else
 
-    % 2) À¶±âÀ²ÀÇ °ø°£Àû ºÐÆ÷°¡ µ¿ÁúÀûÀÎ °æ¿ì,
+    % 2) ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ë¶„í¬ê°€ ë™ì§ˆì ì¸ ê²½ìš°,
     
-    % (1) (¸ðÀÇ±â°£ Æò±Õ) À¶±âÀ²ÀÇ °ø°£Àû ºÐÆ÷
+    % (1) (ëª¨ì˜ê¸°ê°„ í‰ê· ) ìœµê¸°ìœ¨ì˜ ê³µê°„ì  ë¶„í¬
     meanUpliftRateSpatialDistribution = zeros(Y+2,X+2);
     meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
         = TOTAL_ACCUMULATED_UPLIFT / TIME_STEPS_NO;
     
-    % (2) À¶±âÃàÀÇ (¸ðÀÇ±â°£ Æò±Õ) À¶±âÀ² [m/dT]
+    % (2) ìœµê¸°ì¶•ì˜ (ëª¨ì˜ê¸°ê°„ í‰ê· ) ìœµê¸°ìœ¨ [m/dT]
     meanUpliftRateAtUpliftAxis ...
         = TOTAL_ACCUMULATED_UPLIFT / TIME_STEPS_NO;
     
 end
 
-% 2. ¸ðÀÇ±â°£ µ¿¾È ¿¬°£ À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷
+% 2. ëª¨ì˜ê¸°ê°„ ë™ì•ˆ ì—°ê°„ ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬
 t = 1:TIME_STEPS_NO;
 
 if UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND == CONSTANT_UPLIFTRATE
     
-    % 1) À¶±âÀ²ÀÌ ÀÏÁ¤ÇÑ °æ¿ì
+    % 1) ìœµê¸°ìœ¨ì´ ì¼ì •í•œ ê²½ìš°
     
-    % (1) À¶±âÀ² ºÐÆ÷: À¶±âÃàÀÇ (¸ðÀÇ±â°£ Æò±Õ) À¶±âÀ²À» ´ëÀÔÇÔ
+    % (1) ìœµê¸°ìœ¨ ë¶„í¬: ìœµê¸°ì¶•ì˜ (ëª¨ì˜ê¸°ê°„ í‰ê· ) ìœµê¸°ìœ¨ì„ ëŒ€ìž…í•¨
     upliftRateTemporalDistribution ...
         = ones(TIME_STEPS_NO,1) * meanUpliftRateAtUpliftAxis;    
     
 elseif UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND == INTERMITTENT_UPLIFT
     
-    % 2) °£ÇæÀûÀ¸·Î À¶±âÀ²ÀÌ Å« °æ¿ì
-    % * ¿ø¸®: (¸ðÀÇ±â°£ Æò±Õ) À¶±âÀ²À» ±âÁØÀ¸·Î ÀÏÁ¤ ºñÀ² ¸¸Å­À» ´õÇÏ°Å³ª »­
-    acceleratedUpliftRate ...   % ³ôÀº ½Ã±âÀÇ À¶±âÀ² [m/dT]
+    % 2) ê°„í—ì ìœ¼ë¡œ ìœµê¸°ìœ¨ì´ í° ê²½ìš°
+    % * ì›ë¦¬: (ëª¨ì˜ê¸°ê°„ í‰ê· ) ìœµê¸°ìœ¨ì„ ê¸°ì¤€ìœ¼ë¡œ ì¼ì • ë¹„ìœ¨ ë§Œí¼ì„ ë”í•˜ê±°ë‚˜ ëºŒ
+    acceleratedUpliftRate ...   % ë†’ì€ ì‹œê¸°ì˜ ìœµê¸°ìœ¨ [m/dT]
         = meanUpliftRateAtUpliftAxis * (1 + dUpliftRate); 
-    deceleratedUpliftRate ...   % ³·Àº ½Ã±âÀÇ À¶±âÀ² [m/dT]
+    deceleratedUpliftRate ...   % ë‚®ì€ ì‹œê¸°ì˜ ìœµê¸°ìœ¨ [m/dT]
         = meanUpliftRateAtUpliftAxis * (1 - dUpliftRate);
-    % ³ôÀº À¶±âÀ² ºóµµ¿¡ µû¸¥ ¸ðÀÇ±â°£ µ¿¾ÈÀÇ À¶±âÀ² ÁÖ±â Á¤ÀÇ
+    % ë†’ì€ ìœµê¸°ìœ¨ ë¹ˆë„ì— ë”°ë¥¸ ëª¨ì˜ê¸°ê°„ ë™ì•ˆì˜ ìœµê¸°ìœ¨ ì£¼ê¸° ì •ì˜
     w = acceleratedUpliftPhaseNo * (2 * pi) / TIME_STEPS_NO;    
     upliftRateTemporalDistribution = - sin(w * t);    
     upliftRateTemporalDistribution(upliftRateTemporalDistribution >= 0) ...
@@ -125,57 +125,57 @@ elseif UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND == INTERMITTENT_UPLIFT
     
 else % upliftRateTemporalDistribution == DECAYING_UPLIFTRATE
     
-    % 3) À¶±âÀ²ÀÌ °¨¼èÇÏ´Â °æ¿ì
-    % * ¿ø¸®: tÀÏ ¶§ÀÇ À¶±âÀ²(dU/dt)Àº tÀÏ ¶§ÀÇ À¶±âÀ²(U,upliftRate)¿¡
-    %   ºñ·ÊÇÔ. ÃÊ±â À¶±âÀ²ÀÌ ÁÖ¾îÁú °æ¿ì, °¨¼è»ó¼ö°¡ À¶±âÀ²ÀÇ ½Ã°£Àû ºÐÆ÷¸¦
-    %   °áÁ¤ÇÔ. ¿©±â¼­ ¸ðÀÇ±â°£ µ¿¾ÈÀÇ ´©Àû À¶±âÀ²(integral of U)Àº À¶±âÃàÀÇ
-    %   ´©Àû À¶±âÀ²°ú °°¾Æ¾ß ÇÑ´Ù.
+    % 3) ìœµê¸°ìœ¨ì´ ê°ì‡ í•˜ëŠ” ê²½ìš°
+    % * ì›ë¦¬: tì¼ ë•Œì˜ ìœµê¸°ìœ¨(dU/dt)ì€ tì¼ ë•Œì˜ ìœµê¸°ìœ¨(U,upliftRate)ì—
+    %   ë¹„ë¡€í•¨. ì´ˆê¸° ìœµê¸°ìœ¨ì´ ì£¼ì–´ì§ˆ ê²½ìš°, ê°ì‡ ìƒìˆ˜ê°€ ìœµê¸°ìœ¨ì˜ ì‹œê°„ì  ë¶„í¬ë¥¼
+    %   ê²°ì •í•¨. ì—¬ê¸°ì„œ ëª¨ì˜ê¸°ê°„ ë™ì•ˆì˜ ëˆ„ì  ìœµê¸°ìœ¨(integral of U)ì€ ìœµê¸°ì¶•ì˜
+    %   ëˆ„ì  ìœµê¸°ìœ¨ê³¼ ê°™ì•„ì•¼ í•œë‹¤.
     
-    % (½Éº¼¸¯ °´Ã¼¸¦ ÀÌ¿ëÇÑ) °¨¼è»ó¼ö K ±¸ÇÏ±â
+    % (ì‹¬ë³¼ë¦­ ê°ì²´ë¥¼ ì´ìš©í•œ) ê°ì‡ ìƒìˆ˜ K êµ¬í•˜ê¸°
     syms time K;
     
-    U = (upliftRate0 * dT) ...      % [m/dT] ´ÜÀ§º¯È¯
-        * exp(K*time);              % À¶±âÀ² °¨¼è ÇÔ¼ö
-    integralU = int(U,'time',0,TIME_STEPS_NO); % (¸ðÀÇ ±â°£) °¨¼è ÇÔ¼ö ÀûºÐ°ª
-    % Ç×µî½Ä: °¨¼è ÇÔ¼ö ÀûºÐ°ª - ´©Àû À¶±â·® = 0
+    U = (upliftRate0 * dT) ...      % [m/dT] ë‹¨ìœ„ë³€í™˜
+        * exp(K*time);              % ìœµê¸°ìœ¨ ê°ì‡  í•¨ìˆ˜
+    integralU = int(U,'time',0,TIME_STEPS_NO); % (ëª¨ì˜ ê¸°ê°„) ê°ì‡  í•¨ìˆ˜ ì ë¶„ê°’
+    % í•­ë“±ì‹: ê°ì‡  í•¨ìˆ˜ ì ë¶„ê°’ - ëˆ„ì  ìœµê¸°ëŸ‰ = 0
     identicalEquation = integralU - TOTAL_ACCUMULATED_UPLIFT;
-    solvedK = double(solve(identicalEquation,'K')); % °¨¼è »ó¼öÀÇ ´ë¼öÇØ
+    solvedK = double(solve(identicalEquation,'K')); % ê°ì‡  ìƒìˆ˜ì˜ ëŒ€ìˆ˜í•´
     
-    upliftRateTemporalDistribution = (upliftRate0 * dT) ... % [m/dT] ´ÜÀ§º¯È¯
+    upliftRateTemporalDistribution = (upliftRate0 * dT) ... % [m/dT] ë‹¨ìœ„ë³€í™˜
         * exp(solvedK*t);
     
 end
 
-% 3. À§ ¿Ü°û °æ°è °íµµ[m]ÀÇ ½Ã°£Àû ºÐÆ÷
+% 3. ìœ„ ì™¸ê³½ ê²½ê³„ ê³ ë„[m]ì˜ ì‹œê°„ì  ë¶„í¬
 if TOP_BOUNDARY_ELEV_COND == YEONGSEO_ELEV
     
-    % 1) °æµ¿¼º ¿ä°î Áö¹ÝÀ¶±â¿îµ¿À» ¸ðÀÇÇÒ °æ¿ì
+    % 1) ê²½ë™ì„± ìš”ê³¡ ì§€ë°˜ìœµê¸°ìš´ë™ì„ ëª¨ì˜í•  ê²½ìš°
     
-    % (1) À§(¿µ¼­) ¿Ü°û °æ°è °íµµÀÇ ½Ã°£Àû ºÐÆ÷ ÃÊ±âÈ­
-    % * °¡Á¤: º»°ÝÀûÀÎ Ä§½Ä ±âÁØ¸é ÇÏ°­ ½Ã±â ÀÌÀüÀÇ ¿Ü°û °æ°è °íµµ´Â ¿µ¿ª °æ°è
-    %   °íµµ¿¡¼­ ¸ðÀÇ ÀÌÀü Ä§½Ä ±âÁØ¸é ÇÏ°­À²À» »« °íµµ¸¦ °è¼Ó À¯ÁöÇÔ
-    % * ÁÖÀÇ: ÇÏ±¸ °íµµ°¡ ¸¸¾à ¿¬Á¢ ¼¿º¸´Ù ³ôÀ¸¸é ¾î¶»ÇÏ³ª? ...
+    % (1) ìœ„(ì˜ì„œ) ì™¸ê³½ ê²½ê³„ ê³ ë„ì˜ ì‹œê°„ì  ë¶„í¬ ì´ˆê¸°í™”
+    % * ê°€ì •: ë³¸ê²©ì ì¸ ì¹¨ì‹ ê¸°ì¤€ë©´ í•˜ê°• ì‹œê¸° ì´ì „ì˜ ì™¸ê³½ ê²½ê³„ ê³ ë„ëŠ” ì˜ì—­ ê²½ê³„
+    %   ê³ ë„ì—ì„œ ëª¨ì˜ ì´ì „ ì¹¨ì‹ ê¸°ì¤€ë©´ í•˜ê°•ìœ¨ì„ ëº€ ê³ ë„ë¥¼ ê³„ì† ìœ ì§€í•¨
+    % * ì£¼ì˜: í•˜êµ¬ ê³ ë„ê°€ ë§Œì•½ ì—°ì ‘ ì…€ë³´ë‹¤ ë†’ìœ¼ë©´ ì–´ë–»í•˜ë‚˜? ...
     topBndElev = cumsum(upliftRateTemporalDistribution) ...
         .* (meanUpliftRateSpatialDistribution(Y_INI,X_INI) ...
         ./ meanUpliftRateAtUpliftAxis) - initUpliftRate;
     
-    % (2) °æ°è °íµµ(Ä§½Ä±âÁØ¸é)°¡ º»°ÝÀûÀ¸·Î ³»·Á°¡´Â ½ÃÁ¡ºÎÅÍ ÃÖÁ¾
-    %     ¸ðÀÇ±â°£±îÁöÀÇ °æ°è °íµµ
+    % (2) ê²½ê³„ ê³ ë„(ì¹¨ì‹ê¸°ì¤€ë©´)ê°€ ë³¸ê²©ì ìœ¼ë¡œ ë‚´ë ¤ê°€ëŠ” ì‹œì ë¶€í„° ìµœì¢…
+    %     ëª¨ì˜ê¸°ê°„ê¹Œì§€ì˜ ê²½ê³„ ê³ ë„
     
-    % A. Ä§½Ä±âÁØ¸éÀÇ º»°ÝÀû ÇÏ°­ ½ÃÁ¡
+    % A. ì¹¨ì‹ê¸°ì¤€ë©´ì˜ ë³¸ê²©ì  í•˜ê°• ì‹œì 
     waveArrivalTime = round(waveArrivalTime * TIME_STEPS_NO);
     if waveArrivalTime == 0
         waveArrivalTime = 1;
     end
 
-    % B. º»°ÝÀû ÇÏ°­½ÃÁ¡ºÎÅÍ ¸ðÀÇ±â°£ ³¡±îÁöÀÇ °æ°è°íµµÀÇ º¯È­À²
-    % * ¿ø¸®: º»°ÝÀûÀÎ Ä§½Ä ±âÁØ¸é ÇÏ°­ ½Ã±âÀÇ °íµµ¿¡¼­ºÎÅÍ (ÀÌ¹Ì Á¤ÀÇµÈ) ÃÖÁ¾
-    %   Ä§½Ä ±âÁØ¸é °íµµ±îÁö ÇÏ°­ÇÔ. µû¶ó¼­ ³²Àº ±â°£µ¿¾È ÃÖÁ¾ Ä§½Ä ±âÁØ¸é
-    %   °íµµ±îÁö µµ´ÞÇÏ´Âµ¥ ÇÊ¿äÇÑ ¿¬°£ °íµµ º¯È­À²À» ±¸ÇÔ
+    % B. ë³¸ê²©ì  í•˜ê°•ì‹œì ë¶€í„° ëª¨ì˜ê¸°ê°„ ëê¹Œì§€ì˜ ê²½ê³„ê³ ë„ì˜ ë³€í™”ìœ¨
+    % * ì›ë¦¬: ë³¸ê²©ì ì¸ ì¹¨ì‹ ê¸°ì¤€ë©´ í•˜ê°• ì‹œê¸°ì˜ ê³ ë„ì—ì„œë¶€í„° (ì´ë¯¸ ì •ì˜ëœ) ìµœì¢…
+    %   ì¹¨ì‹ ê¸°ì¤€ë©´ ê³ ë„ê¹Œì§€ í•˜ê°•í•¨. ë”°ë¼ì„œ ë‚¨ì€ ê¸°ê°„ë™ì•ˆ ìµœì¢… ì¹¨ì‹ ê¸°ì¤€ë©´
+    %   ê³ ë„ê¹Œì§€ ë„ë‹¬í•˜ëŠ”ë° í•„ìš”í•œ ì—°ê°„ ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•¨
     dElevAfterWaveArrival = - (topBndElev(waveArrivalTime) - Y_TOP_BND_FINAL_ELEV) ...
         / (TIME_STEPS_NO - waveArrivalTime);
     
-    % C. °æ°è °íµµ
+    % C. ê²½ê³„ ê³ ë„
     topBndElev(waveArrivalTime + 1:TIME_STEPS_NO) ...
         = topBndElev(waveArrivalTime) ...
         + dElevAfterWaveArrival * (1:TIME_STEPS_NO - waveArrivalTime);

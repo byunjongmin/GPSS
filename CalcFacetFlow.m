@@ -1,22 +1,22 @@
 % =========================================================================
 %> @section INTRO CalcFacetFlow
 %>
-%> - µ¿-ºÏµ¿ facet Èå¸§ÀÇ Çâ°ú °æ»ç¸¦ ±¸ÇÏ´Â ÇÔ¼ö
-%>  - Âü°í : Tarboton(1997)ÀÇ figure 3.
-%>  - Steven L. Eddins(2007) ÀÌ ±¸ÇöÇÑ °ÍÀ» ¼öÁ¤ÇÔ.
+%> - ë™-ë¶ë™ facet íë¦„ì˜ í–¥ê³¼ ê²½ì‚¬ë¥¼ êµ¬í•˜ëŠ” í•¨ìˆ˜
+%>  - ì°¸ê³  : Tarboton(1997)ì˜ figure 3.
+%>  - Steven L. Eddins(2007) ì´ êµ¬í˜„í•œ ê²ƒì„ ìˆ˜ì •í•¨.
 %>
 %> @version 0.1
 %>
 %> @callgraph
 %> @callergraph
 %>
-%> @retval facetFlowDirection       : facet flow À¯Çâ [radian]
-%> @retval facetFlowSlope           : facet flow °æ»ç [radian]
+%> @retval facetFlowDirection       : facet flow ìœ í–¥ [radian]
+%> @retval facetFlowSlope           : facet flow ê²½ì‚¬ [radian]
 %>
-%> @param e0Elev                    : Áß¾Ó ¼¿ÀÇ °íµµ [m]
-%> @param e1Elev                    : ´ÙÀ½ ¼¿(e1)ÀÇ °íµµ [m]
-%> @param e2Elev                    : ´ÙÀ½ ¼¿(e2)ÀÇ °íµµ [m]
-%> @param dX                        : ¼¿ Å©±â [m]
+%> @param e0Elev                    : ì¤‘ì•™ ì…€ì˜ ê³ ë„ [m]
+%> @param e1Elev                    : ë‹¤ìŒ ì…€(e1)ì˜ ê³ ë„ [m]
+%> @param e2Elev                    : ë‹¤ìŒ ì…€(e2)ì˜ ê³ ë„ [m]
+%> @param dX                        : ì…€ í¬ê¸° [m]
 % =========================================================================
 function [facetFlowDirection,facetFlowSlope] = CalcFacetFlow(e0Elev,e1Elev,e2Elev,dX)
 %
@@ -27,12 +27,12 @@ s1 = (e0Elev - e1Elev) / dX;                % eqn (1)
 s2 = (e1Elev - e2Elev) / dX;                % eqn (2)
 
 facetFlowDirection = atan2(s2, s1);                   % eqn (3)
-% ÁÖÀÇ: atan(s2./s1) ¸¦ »ç¿ëÇÏÁö ¾ÊÀ½.
-% ÀÌ´Â atan() °á°ú°¡ -0.5*pi ~ +0.5*pi »çÀÌ·Î Á¦ÇÑµÇ±â ¶§¹®ÀÓ
+% ì£¼ì˜: atan(s2./s1) ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ.
+% ì´ëŠ” atan() ê²°ê³¼ê°€ -0.5*pi ~ +0.5*pi ì‚¬ì´ë¡œ ì œí•œë˜ê¸° ë•Œë¬¸ì„
 facetFlowSlope = sqrt(s1.^2 + s2.^2);                 % eqn (3)
 
-% facet Èå¸§ÀÇ ÇâÀº ³»ºÎ ¶Ç´Â ÃÖ¼ÒÇÑ °æ°è¿¡ À§Ä¡ÇÑ´Ù.
-% ³²ÂÊ °æ°è¸¦ ³ÑÀ» ¶§
+% facet íë¦„ì˜ í–¥ì€ ë‚´ë¶€ ë˜ëŠ” ìµœì†Œí•œ ê²½ê³„ì— ìœ„ì¹˜í•œë‹¤.
+% ë‚¨ìª½ ê²½ê³„ë¥¼ ë„˜ì„ ë•Œ
 tooFarSouth = facetFlowDirection < 0;                 % eqn (4)
 
 facetFlowDirection(tooFarSouth) = 0;                  % eqn (4)
@@ -41,7 +41,7 @@ facetFlowSlope(tooFarSouth) = s1(tooFarSouth);        % eqn (4)
 
 diagonalAngle = atan2(dX, dX);
 
-% ºÏÂÊ °æ°è¸¦ ³ÑÀ» ¶§
+% ë¶ìª½ ê²½ê³„ë¥¼ ë„˜ì„ ë•Œ
 diagonalDistance = sqrt(dX^2 + dX^2);                 % eqn (5)
 
 tooFarNorth = facetFlowDirection > diagonalAngle;     % eqn (5)

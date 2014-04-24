@@ -1,37 +1,37 @@
 % =========================================================================
 %> @section INTRO HillslopeProcess
 %>
-%> - »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅğÀû¹° µÎ²² º¯È­À²[m/dT]À» ±¸ÇÏ´Â ÇÔ¼ö
-%>  - º¯È­À²(Æí¹ÌºĞ ¹æÁ¤½ÄÀÇ ÇØ)Àº finite volume Á¢±Ù¹ıÀ» ÀÌ¿ëÇÔ (Tucker et al., 2001).
+%> - ì‚¬ë©´ì‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨[m/dT]ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜
+%>  - ë³€í™”ìœ¨(í¸ë¯¸ë¶„ ë°©ì •ì‹ì˜ í•´)ì€ finite volume ì ‘ê·¼ë²•ì„ ì´ìš©í•¨ (Tucker et al., 2001).
 %>
 %> @version 0.8
 %> @callgraph
 %> @callergraph
 %>
-%> @retval dSedimentThick           : »ç¸éÀÛ¿ëÀ¸·Î ÀÎÇÑ ÅğÀûÃş µÎ²² º¯È­À² [m/dT]
+%> @retval dSedimentThick           : ì‚¬ë©´ì‘ìš©ìœ¼ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/dT]
 %>
-%> @param mRows                     : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
-%> @param nCols                     : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
-%> @param Y                         : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
-%> @param X                         : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
-%> @param Y_INI                     : ¸ğÇü ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param Y_MAX                     : ¸ğÇü ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª(=Y+1)
-%> @param X_INI                     : ¸ğÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param X_MAX                     : ¸ğÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
-%> @param dX                        : ¼¿ Å©±â [m]
-%> @param dT                        : ¸¸¼öÀ¯·® ÀçÇö±â°£ [year]
-%> @param CELL_AREA                 : ¼¿ ¸éÀû [m^2]
-%> @param sortedYXElev              : ³ôÀº °íµµ ¼øÀ¸·Î Á¤·ÄÇÑ Y,X ÁÂÇ¥°ª
-%> @param consideringCellsNo        : ÇÔ¼öÀÇ ´ë»óÀÌ µÇ´Â ¼¿µéÀÇ ¼ö
-%> @param s3IthNbrLinearIndicies    : 8 ¹æÇâ ÀÌ¿ô ¼¿À» °¡¸®Å°´Â 3Â÷¿ø »öÀÎ ¹è¿­
-%> @param sedimentThick             : ÅğÀûÃş µÎ²² [m]
-%> @param kmd                       : »ç¸éÀÛ¿ëÀÇ È®»ê °è¼ö [m2/m year]
-%> @param flood                     : SINK·Î ÀÎÇØ ¹°ÀÌ °íÀÌ´Â Áö¿ª(flooded region)
-%> @param floodedRegionCellsNo      : °³º° flooded region ¼¿ °³¼ö
-%> @param floodedRegionIndex        : °³º° flooded region »öÀÎ
-%> @param SDSNbrY                   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
-%> @param SDSNbrX                   : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
-%> @param slopeAllNbr               : 8 ÀÌ¿ô ¼¿°úÀÇ °æ»ç [radian]
+%> @param mRows                     : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
+%> @param nCols                     : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
+%> @param Y                         : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
+%> @param X                         : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
+%> @param Y_INI                     : ëª¨í˜• ì˜ì—­ Y ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param Y_MAX                     : ëª¨í˜• ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=Y+1)
+%> @param X_INI                     : ëª¨í˜• ì˜ì—­ X ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param X_MAX                     : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
+%> @param dX                        : ì…€ í¬ê¸° [m]
+%> @param dT                        : ë§Œìˆ˜ìœ ëŸ‰ ì¬í˜„ê¸°ê°„ [year]
+%> @param CELL_AREA                 : ì…€ ë©´ì  [m^2]
+%> @param sortedYXElev              : ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ ì •ë ¬í•œ Y,X ì¢Œí‘œê°’
+%> @param consideringCellsNo        : í•¨ìˆ˜ì˜ ëŒ€ìƒì´ ë˜ëŠ” ì…€ë“¤ì˜ ìˆ˜
+%> @param s3IthNbrLinearIndicies    : 8 ë°©í–¥ ì´ì›ƒ ì…€ì„ ê°€ë¦¬í‚¤ëŠ” 3ì°¨ì› ìƒ‰ì¸ ë°°ì—´
+%> @param sedimentThick             : í‡´ì ì¸µ ë‘ê»˜ [m]
+%> @param kmd                       : ì‚¬ë©´ì‘ìš©ì˜ í™•ì‚° ê³„ìˆ˜ [m2/m year]
+%> @param flood                     : SINKë¡œ ì¸í•´ ë¬¼ì´ ê³ ì´ëŠ” ì§€ì—­(flooded region)
+%> @param floodedRegionCellsNo      : ê°œë³„ flooded region ì…€ ê°œìˆ˜
+%> @param floodedRegionIndex        : ê°œë³„ flooded region ìƒ‰ì¸
+%> @param SDSNbrY                   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
+%> @param SDSNbrX                   : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
+%> @param slopeAllNbr               : 8 ì´ì›ƒ ì…€ê³¼ì˜ ê²½ì‚¬ [radian]
 % =========================================================================
 function dSedimentThick = HillslopeProcess(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX,dX,dT,CELL_AREA,sortedYXElev,consideringCellsNo,s3IthNbrLinearIndicies,sedimentThick,kmd,flood,floodedRegionCellsNo,floodedRegionIndex,SDSNbrY,SDSNbrX,slopeAllNbr)
 % 
@@ -39,113 +39,113 @@ function dSedimentThick = HillslopeProcess(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_M
 %
 
 %--------------------------------------------------------------------------
-% 1. ¼¿ ¿ÜºÎ·ÎÀÇ »ç¸éÀÛ¿ë (ÇÏÃµÀ» Æ÷ÇÔÇÏÁö ¾Ê´Â ¼¿ ´ë»ó)
+% 1. ì…€ ì™¸ë¶€ë¡œì˜ ì‚¬ë©´ì‘ìš© (í•˜ì²œì„ í¬í•¨í•˜ì§€ ì•ŠëŠ” ì…€ ëŒ€ìƒ)
 
-% 1) »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ °³º° ÀÌ¿ô ¼¿·ÎÀÇ ÅğÀû¹° ¿î¹İ´É·Â
-% * ÁÖÀÇ : °³º° ÀÌ¿ô ¼¿·ÎÀÇ ÃÖ´ë ÅğÀû¹° ¿î¹İ´É·Â ÃßÁ¤Àº °³º° ¿ä¼Ò ¿¬»ê¿¡ ÀÇÇÑ
-%   °ÍÀÌ ¾Æ´Ï¶ó, Çà·Ä ¿¬»êÀ¸·Î ±¸ÇÔ
+% 1) ì‚¬ë©´ì‘ìš©ì— ì˜í•œ ê°œë³„ ì´ì›ƒ ì…€ë¡œì˜ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥
+% * ì£¼ì˜ : ê°œë³„ ì´ì›ƒ ì…€ë¡œì˜ ìµœëŒ€ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ ì¶”ì •ì€ ê°œë³„ ìš”ì†Œ ì—°ì‚°ì— ì˜í•œ
+%   ê²ƒì´ ì•„ë‹ˆë¼, í–‰ë ¬ ì—°ì‚°ìœ¼ë¡œ êµ¬í•¨
 
-% º¯¼ö ÃÊ±âÈ­
-% °³º° ÀÌ¿ô ¼¿·ÎÀÇ ÅğÀû¹° ¿î¹İ´É·Â [m^3/m^2 dT]
+% ë³€ìˆ˜ ì´ˆê¸°í™”
+% ê°œë³„ ì´ì›ƒ ì…€ë¡œì˜ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ [m^3/m^2 dT]
 transportCapacityToNbrs = zeros(mRows,nCols,8);
-% ¸ğµç ÀÌ¿ô ¼¿·ÎÀÇ ÅğÀû¹° ¿î¹İ´É·Â [m^3/m^2 dT]
+% ëª¨ë“  ì´ì›ƒ ì…€ë¡œì˜ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ [m^3/m^2 dT]
 sumTransportCapacityToNbrs = zeros(mRows,nCols);
 
-% °¢°¢ÀÇ ÀÌ¿ô ¼¿¿¡ ´ëÇÑ ÅğÀû¹° ¿î¹İ´É·Â°ú ÀÌÀÇ ÃÑ ÇÕ
+% ê°ê°ì˜ ì´ì›ƒ ì…€ì— ëŒ€í•œ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ê³¼ ì´ì˜ ì´ í•©
 for ithNbr = 1:8
     
-    % 1. (Çà·Ä¿¬»êÀ» ½±°ÔÇÏ±â À§ÇØ) i¹øÂ° ÀÌ¿ô ¼¿°úÀÇ ÃÖ´ë ÇÏºÎ °æ»ç¸¦
-    %    2Â÷¿ø Çà·Ä·Î ÀúÀåÇÑ´Ù.
+    % 1. (í–‰ë ¬ì—°ì‚°ì„ ì‰½ê²Œí•˜ê¸° ìœ„í•´) ië²ˆì§¸ ì´ì›ƒ ì…€ê³¼ì˜ ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ë¥¼
+    %    2ì°¨ì› í–‰ë ¬ë¡œ ì €ì¥í•œë‹¤.
     sIthNbrSDSSlope = slopeAllNbr(Y_INI:Y_MAX,X_INI:X_MAX,ithNbr);
     
-    % 2. i¹øÂ° ÀÌ¿ô ¼¿°úÀÇ ÃÖ´ëÇÏºÎ°æ»ç°¡ ¾çÀÎ ¼¿
+    % 2. ië²ˆì§¸ ì´ì›ƒ ì…€ê³¼ì˜ ìµœëŒ€í•˜ë¶€ê²½ì‚¬ê°€ ì–‘ì¸ ì…€
     satisfyingCells = (sIthNbrSDSSlope > 0);
     
-    % 3. i¹øÂ° ÀÌ¿ô ¼¿·ÎÀÇ ÅğÀû¹° ¿î¹İ ´É·Â
-    % 1) º¯¼ö ÃÊ±âÈ­
+    % 3. ië²ˆì§¸ ì´ì›ƒ ì…€ë¡œì˜ í‡´ì ë¬¼ ìš´ë°˜ ëŠ¥ë ¥
+    % 1) ë³€ìˆ˜ ì´ˆê¸°í™”
     sTransportCapacityToIthNbr = zeros(Y,X);
     
-    % 2) ÅğÀû¹° ¿î¹İ ´É·Â
-    % * ¼±Çü ¸ğµ¨ÀÇ °æ¿ì
+    % 2) í‡´ì ë¬¼ ìš´ë°˜ ëŠ¥ë ¥
+    % * ì„ í˜• ëª¨ë¸ì˜ ê²½ìš°
     sTransportCapacityToIthNbr(satisfyingCells) ...
         = dX * ( kmd * sIthNbrSDSSlope(satisfyingCells) ) ...
-        .* dT ...                               % ´ÜÀ§º¯È¯ [m^3/dT]
-        ./ CELL_AREA;                           % ´ÜÀ§º¯È¯ [m/dT]
+        .* dT ...                               % ë‹¨ìœ„ë³€í™˜ [m^3/dT]
+        ./ CELL_AREA;                           % ë‹¨ìœ„ë³€í™˜ [m/dT]
     
-    % * ºñ¼±Çü ¸ğµ¨Àº Roering et al(1999) Âü°í
+    % * ë¹„ì„ í˜• ëª¨ë¸ì€ Roering et al(1999) ì°¸ê³ 
 %     sTransportCapacityToIthNbr(satisfyingCells) ...
 %         = dX .* ( kmd .* ( sIthNbrSDSSlope(satisfyingCells) ...
 %         ./ ( 1 - ( sIthNbrSDSSlope(satisfyingCells) ./ mu) .^ 2) ) ) ...
-%         .* dT ...                             % ´ÜÀ§º¯È¯ [m^3/dT]
-%         ./ CELL_AREA;                         % ´ÜÀ§º¯È¯ [m/dT]
+%         .* dT ...                             % ë‹¨ìœ„ë³€í™˜ [m^3/dT]
+%         ./ CELL_AREA;                         % ë‹¨ìœ„ë³€í™˜ [m/dT]
     
     transportCapacityToNbrs(Y_INI:Y_MAX,X_INI:X_MAX,ithNbr) ...
         = sTransportCapacityToIthNbr;
     
-    % 4. ¸ğµç ÀÌ¿ô ¼¿·ÎÀÇ ÅğÀû¹° ¿î¹İ ´É·Â
+    % 4. ëª¨ë“  ì´ì›ƒ ì…€ë¡œì˜ í‡´ì ë¬¼ ìš´ë°˜ ëŠ¥ë ¥
     sumTransportCapacityToNbrs(Y_INI:Y_MAX,X_INI:X_MAX) ...
         = sumTransportCapacityToNbrs(Y_INI:Y_MAX,X_INI:X_MAX) ...
         + sTransportCapacityToIthNbr;
     
 end
 
-% 2) (³ôÀº °íµµ ¼øÀ¸·Î) »ç¸éÀÛ¿ë¿¡ ÀÇÇÑ ÅğÀû¹° µÎ²² º¯È­À²
+% 2) (ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ) ì‚¬ë©´ì‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨
 
-% 8¹æÇâ ÀÌ¿ô ¼¿ »öÀÎ (3Â÷¿ø º¯¼ö)
-% * ÁÖÀÇ: CalcInfinitiveFlow ¹× CalcSDSFlow ÇÔ¼ö¿Í ´Ş¸® ÀÌ¿ô ¼¿ »öÀÎÀÇ Çà°ú
-%   ¿­Àº °¢°¢ mRows¿Í nColsÀÓ. nÀº 3Â÷¿øÀ» ³ªÅ¸³»´Â 3À» ºÙÀÌ±â À§ÇØ ±×³É'null'
-%   ºÙÀÎ °ÍÀÓ
+% 8ë°©í–¥ ì´ì›ƒ ì…€ ìƒ‰ì¸ (3ì°¨ì› ë³€ìˆ˜)
+% * ì£¼ì˜: CalcInfinitiveFlow ë° CalcSDSFlow í•¨ìˆ˜ì™€ ë‹¬ë¦¬ ì´ì›ƒ ì…€ ìƒ‰ì¸ì˜ í–‰ê³¼
+%   ì—´ì€ ê°ê° mRowsì™€ nColsì„. nì€ 3ì°¨ì›ì„ ë‚˜íƒ€ë‚´ëŠ” 3ì„ ë¶™ì´ê¸° ìœ„í•´ ê·¸ëƒ¥'null'
+%   ë¶™ì¸ ê²ƒì„
 n3IthNbrLinearIndicies = nan(mRows,nCols,8);
 n3IthNbrLinearIndicies(Y_INI:Y_MAX,X_INI:X_MAX,:) = s3IthNbrLinearIndicies;
 
 %--------------------------------------------------------------------------
-% HillslopeProcessMex ÇÔ¼ö ºÎºĞ
+% HillslopeProcessMex í•¨ìˆ˜ ë¶€ë¶„
 
-% ¼±Çü »öÀÎ ÁØºñ
+% ì„ í˜• ìƒ‰ì¸ ì¤€ë¹„
 mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
 mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
 
-[inputFlux ...                   0 »óºÎ À¯¿ªÀ¸·ÎºÎÅÍÀÇ À¯ÀÔÀ² [m/dT]
-,outputFlux...                   1 ÀÌ¿ô ¼¿·ÎÀÇ ÃÑ À¯ÃâÀ² [m/dT]
-,inputFloodedRegion ...          2 flooded regionÀ¸·ÎÀÇ À¯ÀÔÀ² [m/dT]
+[inputFlux ...                   0 ìƒë¶€ ìœ ì—­ìœ¼ë¡œë¶€í„°ì˜ ìœ ì…ìœ¨ [m/dT]
+,outputFlux...                   1 ì´ì›ƒ ì…€ë¡œì˜ ì´ ìœ ì¶œìœ¨ [m/dT]
+,inputFloodedRegion ...          2 flooded regionìœ¼ë¡œì˜ ìœ ì…ìœ¨ [m/dT]
     ] = HillslopeProcessMex(mRows,nCols,consideringCellsNo);
-% HillslopeProcessMex ÇÔ¼ö°¡ mexGetVariablePtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼ö
+% HillslopeProcessMex í•¨ìˆ˜ê°€ mexGetVariablePtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
 %
-% mexSortedIndicies ...            0 . °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
-% mexSDSNbrIndicies ...            1 . ´ÙÀ½ ¼¿ »öÀÎ
-% n3IthNbrLinearIndicies ...       2 . 3Â÷¿ø 8¹æÇâ ÀÌ¿ô ¼¿ »öÀÎ
+% mexSortedIndicies ...            0 . ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
+% mexSDSNbrIndicies ...            1 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
+% n3IthNbrLinearIndicies ...       2 . 3ì°¨ì› 8ë°©í–¥ ì´ì›ƒ ì…€ ìƒ‰ì¸
 % flood ...                        3 . flooded region
-% sedimentThick ...                4 . ÅğÀû¹° µÎ²²
-% transportCapacityToNbrs ...      5 . °¢ ÀÌ¿ô ¼¿·ÎÀÇ »ç¸éÀÛ¿ë ¿î¹İ´É·Â
-% sumTransportCapacityToNbrs ...   6 . ÃÑ »ç¸éÀÛ¿ë ¿î¹İ´É·Â
+% sedimentThick ...                4 . í‡´ì ë¬¼ ë‘ê»˜
+% transportCapacityToNbrs ...      5 . ê° ì´ì›ƒ ì…€ë¡œì˜ ì‚¬ë©´ì‘ìš© ìš´ë°˜ëŠ¥ë ¥
+% sumTransportCapacityToNbrs ...   6 . ì´ ì‚¬ë©´ì‘ìš© ìš´ë°˜ëŠ¥ë ¥
 %
 %--------------------------------------------------------------------------
 
-% 3) flooded regionÀÇ ÅğÀûÃş µÎ²² º¯È­À²
-% ¾Õ¼­ flooded regionÀ» Á¦¿ÜÇÑ ¼¿µéÀ» ´ë»óÀ¸·Î »ç¸é¹°ÁúÀ» ÀÌ¿ô ¼¿¿¡ ºĞ¹èÇÔ.
-% ¿©±â¼­´Â flooded regionÀ¸·Î À¯ÀÔÇÑ »ç¸é¹°Áú·Î ÀÎÇÑ flooded regionÀÇ ÅğÀûÃş
-% µÎ²² º¯È­À²À» ±¸ÇÔ
+% 3) flooded regionì˜ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨
+% ì•ì„œ flooded regionì„ ì œì™¸í•œ ì…€ë“¤ì„ ëŒ€ìƒìœ¼ë¡œ ì‚¬ë©´ë¬¼ì§ˆì„ ì´ì›ƒ ì…€ì— ë¶„ë°°í•¨.
+% ì—¬ê¸°ì„œëŠ” flooded regionìœ¼ë¡œ ìœ ì…í•œ ì‚¬ë©´ë¬¼ì§ˆë¡œ ì¸í•œ flooded regionì˜ í‡´ì ì¸µ
+% ë‘ê»˜ ë³€í™”ìœ¨ì„ êµ¬í•¨
 
-% (1) flooded regionµéÀÇ À¯Ãâ±¸ ÁÂÇ¥¿Í °³¼ö
+% (1) flooded regionë“¤ì˜ ìœ ì¶œêµ¬ ì¢Œí‘œì™€ ê°œìˆ˜
 [tmpOutletY,tmpOutletX] = find(floodedRegionCellsNo > 0);
 
 floodedRegionsNo = size(tmpOutletY,1);
 
-% (2) °³º° flooded region ±¸¼º ¼¿µéÀÇ ÅğÀûÃş µÎ²² º¯È­À²
+% (2) ê°œë³„ flooded region êµ¬ì„± ì…€ë“¤ì˜ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨
 for ithFloodedRegion = 1:floodedRegionsNo
     
-    % A. ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ À¯Ãâ±¸ ÁÂÇ¥
+    % A. í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ìœ ì¶œêµ¬ ì¢Œí‘œ
     outletY = tmpOutletY(ithFloodedRegion,1);
     outletX = tmpOutletX(ithFloodedRegion,1);
     
-    % B. ÇöÀç Ã³¸®ÇÒ flooded regionÀÇ »öÀÎ ¹øÈ£
+    % B. í˜„ì¬ ì²˜ë¦¬í•  flooded regionì˜ ìƒ‰ì¸ ë²ˆí˜¸
     floodedRegionIndexNo = - floodedRegionIndex(outletY,outletX);
     
-    % C. ÇöÀç Ã³¸®ÇÒ flooded regionÀ» Á¤ÀÇ
+    % C. í˜„ì¬ ì²˜ë¦¬í•  flooded regionì„ ì •ì˜
     currentFloodedRegion ...
         = (floodedRegionIndex == floodedRegionIndexNo);
     
-    % D. ÅğÀû¹° À¯ÀÔÀ¸·Î ÀÎÇØ »ó½ÂÇÏ´Â Æò±Õ ÅğÀûÃ÷ µÎ²²
+    % D. í‡´ì ë¬¼ ìœ ì…ìœ¼ë¡œ ì¸í•´ ìƒìŠ¹í•˜ëŠ” í‰ê·  í‡´ì ì¸  ë‘ê»˜
     inputFlux(currentFloodedRegion) ...
         = inputFlux(currentFloodedRegion) ...
         + ( inputFloodedRegion(outletY,outletX) ...
@@ -153,10 +153,10 @@ for ithFloodedRegion = 1:floodedRegionsNo
     
 end
 
-% 4) (¼¿ ¿ÜºÎ) »ç¸éÀÛ¿ëÀ¸·Î ÀÎÇÑ ÅğÀûÃş µÎ²² º¯È­À² [m/dT]
-% * ÁÖÀÇ: ¿©±â¼­ÀÇ »ç¸éÀÛ¿ëÀº Åä¾ç Æ÷Çà¿¡ ÇÑÁ¤µÇ¹Ç·Î, ±â¹İ¾Ï °íµµ º¯È­´Â ¾øÀ½
-% * ÁÖÀÇ: inputFlux ¿Ü°û °æ°è¿¡´Â »ç¸éÀÛ¿ëÀ¸·Î ÀÎÇÚ ¸ğµ¨¿µ¿ª¿¡¼­ À¯ÃâµÇ´Â ¾çÀÌ
-%   ¹İ¿µµÇ¾î ÀÖÀ½.
+% 4) (ì…€ ì™¸ë¶€) ì‚¬ë©´ì‘ìš©ìœ¼ë¡œ ì¸í•œ í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/dT]
+% * ì£¼ì˜: ì—¬ê¸°ì„œì˜ ì‚¬ë©´ì‘ìš©ì€ í† ì–‘ í¬í–‰ì— í•œì •ë˜ë¯€ë¡œ, ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ëŠ” ì—†ìŒ
+% * ì£¼ì˜: inputFlux ì™¸ê³½ ê²½ê³„ì—ëŠ” ì‚¬ë©´ì‘ìš©ìœ¼ë¡œ ì¸í•¸ ëª¨ë¸ì˜ì—­ì—ì„œ ìœ ì¶œë˜ëŠ” ì–‘ì´
+%   ë°˜ì˜ë˜ì–´ ìˆìŒ.
 dSedimentThick = inputFlux - outputFlux;
 
 end % HillslopeProcess end

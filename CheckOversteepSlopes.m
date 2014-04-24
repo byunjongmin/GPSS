@@ -1,12 +1,12 @@
 % =========================================================================
 %> @section INTRO CheckOversteepSlopes
 %>
-%> - È°µ¿ À¯Çü(ÃµºÎÈ°µ¿(shallow landsliding)°ú ±â¹İ¾ÏÈ°µ¿(bedrock
-%>    landsliding))¿¡ µû¶ó ºÒ¾ÈÁ¤ÇÑ »ç¸éÀ» ÆÄ¾ÇÇÏ´Â ÇÔ¼ö.
+%> - í™œë™ ìœ í˜•(ì²œë¶€í™œë™(shallow landsliding)ê³¼ ê¸°ë°˜ì•”í™œë™(bedrock
+%>    landsliding))ì— ë”°ë¼ ë¶ˆì•ˆì •í•œ ì‚¬ë©´ì„ íŒŒì•…í•˜ëŠ” í•¨ìˆ˜.
 %>
 %> - History
 %>  - 2010-12-21
-%>   -RapidMassMovement ÇÔ¼ö¿¡ È°µ¿ ¹ß»ıÈ®·ü °³³äÀ» µµÀÔÇÔ.
+%>   -RapidMassMovement í•¨ìˆ˜ì— í™œë™ ë°œìƒí™•ë¥  ê°œë…ì„ ë„ì…í•¨.
 %>
 %> @version 0.1
 %>
@@ -14,131 +14,131 @@
 %> @callergraph
 %> @see RapidMassMovement()
 %>
-%> @retval oversteepSlopes              : ºÒ¾ÈÁ¤ÇÑ ¼¿
-%> @retval oversteepSlopesIndicies      : (°íµµ¼øÀ¸·Î Á¤·ÄµÈ) ºÒ¾ÈÁ¤ÇÑ ¼¿ »öÀÎ
-%> @retval dTAfterLastShallowLandslide  : °»½ÅµÈ ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
-%> @retval dTAfterLastBedrockLandslide  : °»½ÅµÈ ¸¶Áö¸· ±â¹İ¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
+%> @retval oversteepSlopes              : ë¶ˆì•ˆì •í•œ ì…€
+%> @retval oversteepSlopesIndicies      : (ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ) ë¶ˆì•ˆì •í•œ ì…€ ìƒ‰ì¸
+%> @retval dTAfterLastShallowLandslide  : ê°±ì‹ ëœ ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
+%> @retval dTAfterLastBedrockLandslide  : ê°±ì‹ ëœ ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
 %>
-%> @param mRows                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª Çà °³¼ö
-%> @param nCols                         : ¸ğÇü (¿Ü°û °æ°è Æ÷ÇÔ) ¿µ¿ª ¿­ °³¼ö
-%> @param Y                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ YÃà Å©±â
-%> @param X                             : ¿Ü°û °æ°è¸¦ Á¦¿ÜÇÑ XÃà Å©±â
-%> @param Y_INI                         : ¸ğÇü ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param Y_MAX                         : ¸ğÇü ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª(=Y+1)
-%> @param X_INI                         : ¸ğÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param X_MAX                         : ¸ğÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
-%> @param dT                            : ¸¸¼öÀ¯·® ÀçÇö±â°£ [year]
+%> @param mRows                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ í–‰ ê°œìˆ˜
+%> @param nCols                         : ëª¨í˜• (ì™¸ê³½ ê²½ê³„ í¬í•¨) ì˜ì—­ ì—´ ê°œìˆ˜
+%> @param Y                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Yì¶• í¬ê¸°
+%> @param X                             : ì™¸ê³½ ê²½ê³„ë¥¼ ì œì™¸í•œ Xì¶• í¬ê¸°
+%> @param Y_INI                         : ëª¨í˜• ì˜ì—­ Y ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param Y_MAX                         : ëª¨í˜• ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=Y+1)
+%> @param X_INI                         : ëª¨í˜• ì˜ì—­ X ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param X_MAX                         : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
+%> @param dT                            : ë§Œìˆ˜ìœ ëŸ‰ ì¬í˜„ê¸°ê°„ [year]
 %> @param ROOT2                         : sqrt(2)
-%> @param rapidMassMovementType         : È°µ¿ À¯Çü
-%> @param criticalSlopeForFailure       : È°µ¿ ¹ß»ı ÀÓ°è »ç¸é°¢ [radian]
-%> @param bedrockElev                   : ±â¹İ¾Ï °íµµ [m]
-%> @param sedimentThick                 : ÅğÀûÃş µÎ²² [m]
-%> @param elev                          : ÁöÇ¥ °íµµ [m]
-%> @param dTAfterLastShallowLandslide   : ¸¶Áö¸· ÃµºÎÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
-%> @param dTAfterLastBedrockLandslide   : ¸¶Áö¸· ±â¹İ¾ÏÈ°µ¿ ÀÌÈÄ °æ°ú ½Ã°£ [year]
-%> @param dX                            : ¼¿ Å©±â [m]
-%> @param OUTER_BOUNDARY                : ¸ğÇü ¿µ¿ª ¿Ü°û °æ°è ¸¶½ºÅ©
-%> @param SDSNbrY                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ Y ÁÂÇ¥
-%> @param SDSNbrX                       : ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ X ÁÂÇ¥
-%> @param flood                         : SINK·Î ÀÎÇØ ¹°ÀÌ °íÀÌ´Â Áö¿ª(flooded region)
+%> @param rapidMassMovementType         : í™œë™ ìœ í˜•
+%> @param criticalSlopeForFailure       : í™œë™ ë°œìƒ ì„ê³„ ì‚¬ë©´ê° [radian]
+%> @param bedrockElev                   : ê¸°ë°˜ì•” ê³ ë„ [m]
+%> @param sedimentThick                 : í‡´ì ì¸µ ë‘ê»˜ [m]
+%> @param elev                          : ì§€í‘œ ê³ ë„ [m]
+%> @param dTAfterLastShallowLandslide   : ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
+%> @param dTAfterLastBedrockLandslide   : ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ì´í›„ ê²½ê³¼ ì‹œê°„ [year]
+%> @param dX                            : ì…€ í¬ê¸° [m]
+%> @param OUTER_BOUNDARY                : ëª¨í˜• ì˜ì—­ ì™¸ê³½ ê²½ê³„ ë§ˆìŠ¤í¬
+%> @param SDSNbrY                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ Y ì¢Œí‘œ
+%> @param SDSNbrX                       : ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ X ì¢Œí‘œ
+%> @param flood                         : SINKë¡œ ì¸í•´ ë¬¼ì´ ê³ ì´ëŠ” ì§€ì—­(flooded region)
 % =========================================================================
 function [oversteepSlopes,oversteepSlopesIndicies,dTAfterLastShallowLandslide,dTAfterLastBedrockLandslide] = CheckOversteepSlopes(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX,dT,ROOT2,rapidMassMovementType,criticalSlopeForFailure,bedrockElev,sedimentThick,elev,dTAfterLastShallowLandslide,dTAfterLastBedrockLandslide,dX,OUTER_BOUNDARY,SDSNbrY,SDSNbrX,flood)
 %
 % function CheckOversteepSlopes
 %
 
-% »ó¼ö ÃÊ±âÈ­
-FLOODED = 2; % flooded region ÅÂ±×
-% È°µ¿ À¯Çü
-SOIL = 1;   % ÃµºÎÈ°µ¿
-% ROCK = 2; % ±â¹İ¾ÏÈ°µ¿
+% ìƒìˆ˜ ì´ˆê¸°í™”
+FLOODED = 2; % flooded region íƒœê·¸
+% í™œë™ ìœ í˜•
+SOIL = 1;   % ì²œë¶€í™œë™
+% ROCK = 2; % ê¸°ë°˜ì•”í™œë™
 
-% º¯¼ö Á¤ÀÇ
-% * ÁÖÀÇ: ´Ù½Ã ÇÑ¹ø °í·ÁÇÒ ÇÊ¿ä°¡ ÀÖÀ½. ½ÇÁ¦·Î ½Ã¹Ä·¹ÀÌ¼ÇÀ» ÇØ¼­ ¾î´À Á¤µµÀÇ
-% È°µ¿ ¹ß»ı ºóµµ¸¦ º¸ÀÌ´ÂÁö ÆÄ¾ÇÇÒ ÇÊ¿ä°¡ ÀÖÀ½.
-minSedimentThickForInitiation = 0.1;    % [m] ÃµºÎÈ°µ¿ÀÌ ¹ß»ıÇÒ ¼ö ÀÖ´Â ÃÖ¼ÒÇÑÀÇ ÅğÀûÃş µÎ²²
-shallowLandslideCharTime = 100;         % [year] ÃµºÎÈ°µ¿ÀÌ ´Ù½Ã ¹ß»ıÇÏ´Â ÀçÇö±â°£
-bedrockLandslideCharTime = 100;         % [year] ±â¹İ¾ÏÈ°µ¿ÀÌ ´Ù½Ã ¹ß»ıÇÏ´Â ÀçÇö±â°£
+% ë³€ìˆ˜ ì •ì˜
+% * ì£¼ì˜: ë‹¤ì‹œ í•œë²ˆ ê³ ë ¤í•  í•„ìš”ê°€ ìˆìŒ. ì‹¤ì œë¡œ ì‹œë®¬ë ˆì´ì…˜ì„ í•´ì„œ ì–´ëŠ ì •ë„ì˜
+% í™œë™ ë°œìƒ ë¹ˆë„ë¥¼ ë³´ì´ëŠ”ì§€ íŒŒì•…í•  í•„ìš”ê°€ ìˆìŒ.
+minSedimentThickForInitiation = 0.1;    % [m] ì²œë¶€í™œë™ì´ ë°œìƒí•  ìˆ˜ ìˆëŠ” ìµœì†Œí•œì˜ í‡´ì ì¸µ ë‘ê»˜
+shallowLandslideCharTime = 100;         % [year] ì²œë¶€í™œë™ì´ ë‹¤ì‹œ ë°œìƒí•˜ëŠ” ì¬í˜„ê¸°ê°„
+bedrockLandslideCharTime = 100;         % [year] ê¸°ë°˜ì•”í™œë™ì´ ë‹¤ì‹œ ë°œìƒí•˜ëŠ” ì¬í˜„ê¸°ê°„
 
-% 1. È°µ¿ À¯Çü¿¡ µû¶ó ¹ß»ı ±âº» Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¼¿ÀÇ »öÀÎÀ» ÆÄ¾ÇÇÏ°í (¹ß»ıÈ®·ü
-% ¹× ÀÌµ¿À²À» ÃßÁ¤ÇÏ±â À§ÇÑ) À¯È¿ °íµµ¸¦ Á¤ÀÇÇÔ
+% 1. í™œë™ ìœ í˜•ì— ë”°ë¼ ë°œìƒ ê¸°ë³¸ ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì…€ì˜ ìƒ‰ì¸ì„ íŒŒì•…í•˜ê³  (ë°œìƒí™•ë¥ 
+% ë° ì´ë™ìœ¨ì„ ì¶”ì •í•˜ê¸° ìœ„í•œ) ìœ íš¨ ê³ ë„ë¥¼ ì •ì˜í•¨
 if rapidMassMovementType == SOIL
 
-	% ÃµºÎÈ°µ¿ÀÌ ½ÃÀÛµÇ´Â °÷Àº ÅğÀûÃş µÎ²²°¡ ÀÏÁ¤°ª ÀÌ»óÀÌ¾î¾ßÇÔ
-    % * ÀÌ´Â È°µ¿ ºóµµ°¡ À¯¿ª¸éÀû¿¡ ºñ·ÊÇÑ´Ù´Â »ç½ÇÀ» ´ëÃ¼ÇÔ. ÇÏÁö¸¸ ÀÌ´Â ¾ÆÁ÷
-    %   È®½ÇÇÑ ±Ù°Å°¡ ¾øÀ½. ÀÌ¸¦ Ã£´Â Áï½Ã »ğÀÔÇÒ °Í. ±×·¡µµ ÀÏ´Ü 0.5·Î ´ëÀÔÇÔ
+	% ì²œë¶€í™œë™ì´ ì‹œì‘ë˜ëŠ” ê³³ì€ í‡´ì ì¸µ ë‘ê»˜ê°€ ì¼ì •ê°’ ì´ìƒì´ì–´ì•¼í•¨
+    % * ì´ëŠ” í™œë™ ë¹ˆë„ê°€ ìœ ì—­ë©´ì ì— ë¹„ë¡€í•œë‹¤ëŠ” ì‚¬ì‹¤ì„ ëŒ€ì²´í•¨. í•˜ì§€ë§Œ ì´ëŠ” ì•„ì§
+    %   í™•ì‹¤í•œ ê·¼ê±°ê°€ ì—†ìŒ. ì´ë¥¼ ì°¾ëŠ” ì¦‰ì‹œ ì‚½ì…í•  ê²ƒ. ê·¸ë˜ë„ ì¼ë‹¨ 0.5ë¡œ ëŒ€ì…í•¨
 	preliminaryCellsIndicies ...
         = find(sedimentThick > minSedimentThickForInitiation ...
         & flood ~= FLOODED & ~ OUTER_BOUNDARY);
 	
-	% ÁöÇ¥ °íµµ°¡ À¯È¿ °íµµÀÓ
+	% ì§€í‘œ ê³ ë„ê°€ ìœ íš¨ ê³ ë„ì„
 	effectiveElev = elev;
 	
 else
 
-	% ±â¹İ¾ÏÈ°µ¿Àº ÅğÀûÃş µÎ²²¿Í °ü·Ã¾øÀ½
+	% ê¸°ë°˜ì•”í™œë™ì€ í‡´ì ì¸µ ë‘ê»˜ì™€ ê´€ë ¨ì—†ìŒ
 	preliminaryCellsIndicies = find(flood ~= FLOODED & ~ OUTER_BOUNDARY);
 	
-	% ±â¹İ¾Ï °íµµ°¡ À¯È¿ °íµµÀÓ
+	% ê¸°ë°˜ì•” ê³ ë„ê°€ ìœ íš¨ ê³ ë„ì„
 	effectiveElev = bedrockElev;
 	
 end
 
-% 2. È°µ¿ ¹ß»ı È®·ü ±¸ÇÏ±â
-% * ¿ø¸®: È°µ¿ ¹ß»ı ÀÓ°è °íµµ Â÷ÀÌ¿Í ¸¶Áö¸· È°µ¿ ¹ß»ı ÀÌÈÄ °æ°ú ½Ã°£À» ÀÌ¿ëÇÔ
+% 2. í™œë™ ë°œìƒ í™•ë¥  êµ¬í•˜ê¸°
+% * ì›ë¦¬: í™œë™ ë°œìƒ ì„ê³„ ê³ ë„ ì°¨ì´ì™€ ë§ˆì§€ë§‰ í™œë™ ë°œìƒ ì´í›„ ê²½ê³¼ ì‹œê°„ì„ ì´ìš©í•¨
 
-% 1) ±âº» Á¶°Ç ¸¸Á· ¼¿ÀÇ ´ÙÀ½ ¼¿ »öÀÎÀ» ±¸ÇÔ
+% 1) ê¸°ë³¸ ì¡°ê±´ ë§Œì¡± ì…€ì˜ ë‹¤ìŒ ì…€ ìƒ‰ì¸ì„ êµ¬í•¨
 preliminaryCellsNbrsY = SDSNbrY(preliminaryCellsIndicies);
 preliminaryCellsNbrsX = SDSNbrX(preliminaryCellsIndicies);
 preliminaryCellsNbrsIndicies ...
     = (preliminaryCellsNbrsX - 1)*mRows + preliminaryCellsNbrsY;
 
-% 2) ´ÙÀ½ ¼¿ ¹æÇâ¿¡ µû¸¥ ¾ÈÁ¤»ç¸é°¢À» ÀÌ·ç´Â °íµµ Â÷ÀÌ(ÀÌÇÏ critical height)¸¦ Á¤ÀÇÇÔ
+% 2) ë‹¤ìŒ ì…€ ë°©í–¥ì— ë”°ë¥¸ ì•ˆì •ì‚¬ë©´ê°ì„ ì´ë£¨ëŠ” ê³ ë„ ì°¨ì´(ì´í•˜ critical height)ë¥¼ ì •ì˜í•¨
 
-% (1) ÀÌ¿ô ¼¿ ¹æÇâ¿¡ µû¸¥ critical height
+% (1) ì´ì›ƒ ì…€ ë°©í–¥ì— ë”°ë¥¸ critical height
 criticalHeightForOrtho = criticalSlopeForFailure * dX;
 criticalHeightForDiag = criticalSlopeForFailure * dX * ROOT2;
 
-% (2) ´ÙÀ½ ¼¿ ¹æÇâ¿¡ µû¸¥ critical height
-% - (ÀÏ´Ü ´ë°¢¼± ¹æÇâ critical height·Î) ÃÊ±âÈ­
+% (2) ë‹¤ìŒ ì…€ ë°©í–¥ì— ë”°ë¥¸ critical height
+% - (ì¼ë‹¨ ëŒ€ê°ì„  ë°©í–¥ critical heightë¡œ) ì´ˆê¸°í™”
 criticalHeight = zeros(mRows,nCols);
 criticalHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
     = ones(Y,X) * criticalHeightForDiag;
 
-% - ´ÙÀ½ ¼¿ÀÌ Á÷°¢ ¹æÇâÀÎ ¼¿ÀÇ critical height
-nbrIndicies = (SDSNbrX - 1) * mRows + SDSNbrY;      % ´ÙÀ½ ¼¿ »öÀÎ
-indicies = reshape(1:mRows*nCols,[mRows,nCols]);    % Áß¾Ó ¼¿ »öÀÎ
-dIndicies = indicies - nbrIndicies;            % Áß¾Ó ¼¿°ú ´ÙÀ½ ¼¿ »öÀÎ Â÷
+% - ë‹¤ìŒ ì…€ì´ ì§ê° ë°©í–¥ì¸ ì…€ì˜ critical height
+nbrIndicies = (SDSNbrX - 1) * mRows + SDSNbrY;      % ë‹¤ìŒ ì…€ ìƒ‰ì¸
+indicies = reshape(1:mRows*nCols,[mRows,nCols]);    % ì¤‘ì•™ ì…€ ìƒ‰ì¸
+dIndicies = indicies - nbrIndicies;            % ì¤‘ì•™ ì…€ê³¼ ë‹¤ìŒ ì…€ ìƒ‰ì¸ ì°¨
 orthogonalDownstream = false(mRows,nCols);
 orthogonalDownstream(Y_INI:Y_MAX,X_INI:X_MAX) ...
     = (mod(dIndicies(Y_INI:Y_MAX,X_INI:X_MAX),mRows) == 0) ...
     | (abs(dIndicies(Y_INI:Y_MAX,X_INI:X_MAX)) == 1);
 criticalHeight(orthogonalDownstream) = criticalHeightForOrtho;
 
-% 3) (Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¼¿À» ´ë»óÀ¸·Î) ´ÙÀ½ ¼¿°úÀÇ °íµµÂ÷¸¦ ±¸ÇÔ
-% * ÁÖÀÇ: À¯È¿°íµµ¸¦ ±âÁØÀ¸·Î ÇÔ
+% 3) (ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ì…€ì„ ëŒ€ìƒìœ¼ë¡œ) ë‹¤ìŒ ì…€ê³¼ì˜ ê³ ë„ì°¨ë¥¼ êµ¬í•¨
+% * ì£¼ì˜: ìœ íš¨ê³ ë„ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í•¨
 downslopeDElev = zeros(mRows,nCols);
 downslopeDElev(preliminaryCellsIndicies) ...
     = effectiveElev(preliminaryCellsIndicies) ...
     - elev(preliminaryCellsNbrsIndicies);
 
-% 4) È°µ¿ À¯Çü¿¡ µû¶ó È°µ¿ ¹ß»ı È®·üÀ» ±¸ÇÏ°í, È°µ¿ ¹ß»ı ¼¿ÀÇ »öÀÎÀ» ÆÄ¾ÇÇÔ
+% 4) í™œë™ ìœ í˜•ì— ë”°ë¼ í™œë™ ë°œìƒ í™•ë¥ ì„ êµ¬í•˜ê³ , í™œë™ ë°œìƒ ì…€ì˜ ìƒ‰ì¸ì„ íŒŒì•…í•¨
 
-landslideProbability = zeros(mRows,nCols);  % È°µ¿ ¹ß»ı È®·ü ÃÊ±âÈ­
+landslideProbability = zeros(mRows,nCols);  % í™œë™ ë°œìƒ í™•ë¥  ì´ˆê¸°í™”
 
 if rapidMassMovementType == SOIL
     
-    % ÃµºÎÈ°µ¿ ¹ß»ı È®·ü
+    % ì²œë¶€í™œë™ ë°œìƒ í™•ë¥ 
     landslideProbability(preliminaryCellsIndicies) ...
         = (downslopeDElev(preliminaryCellsIndicies) ...
         ./ criticalHeight(preliminaryCellsIndicies) - 1) ...
         + dTAfterLastShallowLandslide(preliminaryCellsIndicies) ...
         / shallowLandslideCharTime;
-    % * ÁÖÀÇ: ¸¸¾à ÀÓ°è °íµµÂ÷º¸´Ù ÀûÀ» °æ¿ì ¹ß»ıÈ®·üÀº 0ÀÓ
-    % * ÀüÁ¦: ÀÓ°è °íµµÂ÷º¸´Ù Å¬ ¶§ È°µ¿ÀÌ ¹ß»ıÇÔ
+    % * ì£¼ì˜: ë§Œì•½ ì„ê³„ ê³ ë„ì°¨ë³´ë‹¤ ì ì„ ê²½ìš° ë°œìƒí™•ë¥ ì€ 0ì„
+    % * ì „ì œ: ì„ê³„ ê³ ë„ì°¨ë³´ë‹¤ í´ ë•Œ í™œë™ì´ ë°œìƒí•¨
     landslideProbability(downslopeDElev - criticalHeight < 0) = 0;
 
-    % ÃµºÎÈ°µ¿ ¹ß»ı ¼¿ »öÀÎ
+    % ì²œë¶€í™œë™ ë°œìƒ ì…€ ìƒ‰ì¸
     oversteepSlopesIndicies = find(landslideProbability >= 1);
     
     % for debug
@@ -149,7 +149,7 @@ if rapidMassMovementType == SOIL
     
     end
     
-    % ¸¶Áö¸· ÃµºÎÈ°µ¿ ¹ß»ı ÀÌÈÄ °æ°ú ½Ã°£
+    % ë§ˆì§€ë§‰ ì²œë¶€í™œë™ ë°œìƒ ì´í›„ ê²½ê³¼ ì‹œê°„
     dTAfterLastShallowLandslide(landslideProbability > 0) ...
         = dTAfterLastShallowLandslide(landslideProbability > 0) + dT;
     
@@ -157,17 +157,17 @@ if rapidMassMovementType == SOIL
     
 else
 
-    % ±â¹İ¾ÏÈ°µ¿ ¹ß»ı È®·ü
+    % ê¸°ë°˜ì•”í™œë™ ë°œìƒ í™•ë¥ 
     landslideProbability(preliminaryCellsIndicies) ...
         = (downslopeDElev(preliminaryCellsIndicies) ...
         ./ criticalHeight(preliminaryCellsIndicies) - 1) ...
         + dTAfterLastBedrockLandslide(preliminaryCellsIndicies) ...
         / bedrockLandslideCharTime;
-    % * ÁÖÀÇ: ¸¸¾à ÀÓ°è °íµµÂ÷º¸´Ù ÀûÀ» °æ¿ì ¹ß»ıÈ®·üÀº 0ÀÓ
-    % * ÀüÁ¦: ÀÓ°è °íµµÂ÷º¸´Ù Å¬ ¶§ È°µ¿ÀÌ ¹ß»ıÇÔ
+    % * ì£¼ì˜: ë§Œì•½ ì„ê³„ ê³ ë„ì°¨ë³´ë‹¤ ì ì„ ê²½ìš° ë°œìƒí™•ë¥ ì€ 0ì„
+    % * ì „ì œ: ì„ê³„ ê³ ë„ì°¨ë³´ë‹¤ í´ ë•Œ í™œë™ì´ ë°œìƒí•¨
     landslideProbability(downslopeDElev - criticalHeight < 0) = 0;
     
-    % ±â¹İ¾ÏÈ°µ¿ ¹ß»ı ¼¿ »öÀÎ
+    % ê¸°ë°˜ì•”í™œë™ ë°œìƒ ì…€ ìƒ‰ì¸
     oversteepSlopesIndicies = find(landslideProbability >= 1);
     
     % for debug
@@ -178,22 +178,22 @@ else
         
     end
     
-    % ¸¶Áö¸· ±â¹İ¾ÏÈ°µ¿ ¹ß»ı ÀÌÈÄ °æ°ú ½Ã°£
-    % * ÁÖÀÇ: ÃµºÎÈ°µ¿ÀÇ °æ°ú ½Ã°£µµ 0À¸·Î ¼³Á¤ÇÔ
+    % ë§ˆì§€ë§‰ ê¸°ë°˜ì•”í™œë™ ë°œìƒ ì´í›„ ê²½ê³¼ ì‹œê°„
+    % * ì£¼ì˜: ì²œë¶€í™œë™ì˜ ê²½ê³¼ ì‹œê°„ë„ 0ìœ¼ë¡œ ì„¤ì •í•¨
     dTAfterLastBedrockLandslide(landslideProbability > 0) ...
         = dTAfterLastBedrockLandslide(landslideProbability > 0) + dT;
     
     dTAfterLastBedrockLandslide(oversteepSlopesIndicies) = 0;
-    dTAfterLastShallowLandslide(oversteepSlopesIndicies) = 0; % ÁÖÀÇ
+    dTAfterLastShallowLandslide(oversteepSlopesIndicies) = 0; % ì£¼ì˜
     
     
 end
 
-% 3. È°µ¿ ¹ß»ı ¼¿ÀÇ °ø°£Àû ºĞÆ÷
+% 3. í™œë™ ë°œìƒ ì…€ì˜ ê³µê°„ì  ë¶„í¬
 oversteepSlopes = false(mRows,nCols);
 oversteepSlopes(oversteepSlopesIndicies) = true;
 
-% 4. È°µ¿ ¹ß»ı ¼¿ »öÀÎÀ» °íµµ ¼øÀ¸·Î ¹è¿­ÇÔ
+% 4. í™œë™ ë°œìƒ ì…€ ìƒ‰ì¸ì„ ê³ ë„ ìˆœìœ¼ë¡œ ë°°ì—´í•¨
 oversteepSlopesElev = elev(oversteepSlopesIndicies);
 sortedOversteepSlopes = [oversteepSlopesIndicies oversteepSlopesElev];
 sortedOversteepSlopes = sortrows(sortedOversteepSlopes,-2);

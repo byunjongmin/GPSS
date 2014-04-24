@@ -3,47 +3,47 @@
  *
  * version 0.2
  *
- * flooded regionÀ» Á¦¿ÜÇÑ ¼¿µéÀ» ´ë»óÀ¸·Î, ÇÏÃµ¿¡ ÀÇÇÑ ÅğÀûÃş µÎ²² ¹×
- * ±â¹İ¾Ï °íµµ º¯È­À²À» ±¸ÇÏ´Â ÇÔ¼ö. FluvialProcess ÇÔ¼ö(ver 0.8)ÀÇ for
- * ¹İº¹¹®¸¸À» C ·Î º¯°æÇÔ
+ * flooded regionì„ ì œì™¸í•œ ì…€ë“¤ì„ ëŒ€ìƒìœ¼ë¡œ, í•˜ì²œì— ì˜í•œ í‡´ì ì¸µ ë‘ê»˜ ë°
+ * ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜. FluvialProcess í•¨ìˆ˜(ver 0.8)ì˜ for
+ * ë°˜ë³µë¬¸ë§Œì„ C ë¡œ ë³€ê²½í•¨
  * 
- * [dSedimentThick ...          0 ÅğÀûÃş µÎ²² º¯È­À² [m/subDT]
- * ,dBedrockElev ...            1 ±â¹İ¾Ï º¯È­À² [m/subDT]
- * ,dChanBedSed ...             2 ÇÏµµ ³» ÇÏ»ó ÅğÀû¹° º¯È­À² [m^3/subDT]
- * ,inputFlux ...               3 »óºÎ À¯¿ªÀ¸·Î ºÎÅÍÀÇ À¯ÀÔÀ² [m^3/subDT]
- * ,outputFlux...               4 ÇÏ·ù·ÎÀÇ À¯ÃâÀ² [m^3/subDT]
- * ,inputFloodedRegion ...      5 flooded regionÀ¸·ÎÀÇ À¯ÀÔÀ² [m^3/subDT]
- * ,isFilled ...                6 flooded regionÀÇ ¸ÅÀû À¯¹«
+ * [dSedimentThick ...          0 í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT]
+ * ,dBedrockElev ...            1 ê¸°ë°˜ì•” ë³€í™”ìœ¨ [m/subDT]
+ * ,dChanBedSed ...             2 í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ ë³€í™”ìœ¨ [m^3/subDT]
+ * ,inputFlux ...               3 ìƒë¶€ ìœ ì—­ìœ¼ë¡œ ë¶€í„°ì˜ ìœ ì…ìœ¨ [m^3/subDT]
+ * ,outputFlux...               4 í•˜ë¥˜ë¡œì˜ ìœ ì¶œìœ¨ [m^3/subDT]
+ * ,inputFloodedRegion ...      5 flooded regionìœ¼ë¡œì˜ ìœ ì…ìœ¨ [m^3/subDT]
+ * ,isFilled ...                6 flooded regionì˜ ë§¤ì  ìœ ë¬´
  * ] = EstimateDElevByFluvialProcess ...
- * (dX ...                      0 . ¼¿ Å©±â
- * ,mRows ...                   1 . Çà °³¼ö
- * ,nCols ...                   2 . ¿­ °³¼ö
- * ,consideringCellsNo)         3 . ÇÏÃµÀÛ¿ëÀÌ ¹ß»ıÇÏ´Â ¼¿ ¼ö
- *----------------------------- mexGetVariablePtr ÇÔ¼ö·Î ÂüÁ¶ÇÏ´Â º¯¼ö
- * mexSortedIndicies ...        4 . °íµµ¼øÀ¸·Î Á¤·ÄµÈ »öÀÎ
- * mexSDSNbrIndicies ...        9 . ´ÙÀ½ ¼¿ »öÀÎ
+ * (dX ...                      0 . ì…€ í¬ê¸°
+ * ,mRows ...                   1 . í–‰ ê°œìˆ˜
+ * ,nCols ...                   2 . ì—´ ê°œìˆ˜
+ * ,consideringCellsNo)         3 . í•˜ì²œì‘ìš©ì´ ë°œìƒí•˜ëŠ” ì…€ ìˆ˜
+ *----------------------------- mexGetVariablePtr í•¨ìˆ˜ë¡œ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜
+ * mexSortedIndicies ...        4 . ê³ ë„ìˆœìœ¼ë¡œ ì •ë ¬ëœ ìƒ‰ì¸
+ * mexSDSNbrIndicies ...        9 . ë‹¤ìŒ ì…€ ìƒ‰ì¸
  * flood ...                    10 . flooded region
- * floodedRegionCellsNo ...     11 . flooded region ±¸¼º ¼¿ ¼ö
- * floodedRegionStorageVolume . 12 . flooded region ÀúÀå·®
- * bankfullWidth ...            13 . ¸¸Á¦À¯·®½Ã ÇÏÆø
- * transportCapacity ...        14 . ÅğÀû¹° ¿î¹İ´É·Â
- * bedrockIncision ...          15 . ±â¹İ¾Ï ÇÏ»ó Ä§½ÄÀ²
- * chanBedSed ...               16 . ÇÏµµ ³» ÇÏ»ó ÅğÀûÃş µÎ²²
- * sedimentThick ...            17 . ÅğÀûÃş µÎ²²
- * hillslope ...                18 . »ç¸é ¼¿
- * transportCapacityForShallow  19 . ÁöÇ¥À¯Ãâ·Î ÀÎÇÑ ¹°ÁúÀÌµ¿
+ * floodedRegionCellsNo ...     11 . flooded region êµ¬ì„± ì…€ ìˆ˜
+ * floodedRegionStorageVolume . 12 . flooded region ì €ì¥ëŸ‰
+ * bankfullWidth ...            13 . ë§Œì œìœ ëŸ‰ì‹œ í•˜í­
+ * transportCapacity ...        14 . í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥
+ * bedrockIncision ...          15 . ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨
+ * chanBedSed ...               16 . í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë‘ê»˜
+ * sedimentThick ...            17 . í‡´ì ì¸µ ë‘ê»˜
+ * hillslope ...                18 . ì‚¬ë©´ ì…€
+ * transportCapacityForShallow  19 . ì§€í‘œìœ ì¶œë¡œ ì¸í•œ ë¬¼ì§ˆì´ë™
  *------------------------------------------------------------------------- 
  *
- * °³¼±ÇÑ Á¡
+ * ê°œì„ í•œ ì 
  *
  * - 20101227
- *  - ÁöÇ¥À¯Ãâ·Î ÀÎÇÑ ¹°ÁúÀÌµ¿À» Æ÷ÇÔÇÔ
+ *  - ì§€í‘œìœ ì¶œë¡œ ì¸í•œ ë¬¼ì§ˆì´ë™ì„ í¬í•¨í•¨
  * 
  */
 
 # include "mex.h"
 
-/* °è»ê ÇÔ¼ö ¼±¾ğ */
+/* ê³„ì‚° í•¨ìˆ˜ ì„ ì–¸ */
 void EstimateDElevByFluvialProcess(
     double * dSedimentThick,
     double * dBedrockElev,
@@ -71,10 +71,10 @@ void EstimateDElevByFluvialProcess(
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
-    /* ÀÔ·Â º¯¼ö ¼±¾ğ
-     * ÁÖÀÇ: mxArray ÀÚ·áÇü º¯¼ö´Â mexGetVariablePtr ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿©
-     * È£ÃâÇÔ¼öÀÇ ÀÛ¾÷°ø°£¿¡ ÀÖ´Â º¯¼öµéÀÇ Æ÷ÀÎÅÍ¸¸ ºÒ·¯¿È */
-    /* È£ÃâÇÔ¼ö ÀÛ¾÷°ø°£ÀÇ º¯¼ö */
+    /* ì…ë ¥ ë³€ìˆ˜ ì„ ì–¸
+     * ì£¼ì˜: mxArray ìë£Œí˜• ë³€ìˆ˜ëŠ” mexGetVariablePtr í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬
+     * í˜¸ì¶œí•¨ìˆ˜ì˜ ì‘ì—…ê³µê°„ì— ìˆëŠ” ë³€ìˆ˜ë“¤ì˜ í¬ì¸í„°ë§Œ ë¶ˆëŸ¬ì˜´ */
+    /* í˜¸ì¶œí•¨ìˆ˜ ì‘ì—…ê³µê°„ì˜ ë³€ìˆ˜ */
     const mxArray * mxArray4; /* mexSortedIndicies */
     const mxArray * mxArray9; /* mexSDSNbrIndicies */
     const mxArray * mxArray10; /* flood */
@@ -88,7 +88,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     const mxArray * mxArray18; /* hillslope */
     const mxArray * mxArray19; /* transportCapacityForShallow */
     
-    /* ÀÔ·Âº¯¼ö ½ÇÁ¦ ÀÚ·á  */
+    /* ì…ë ¥ë³€ìˆ˜ ì‹¤ì œ ìë£Œ  */
     int dX;
     mwSize mRows;
     mwSize nCols;
@@ -106,7 +106,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     double * hillslope;
     double * transportCapacityForShallow;
     
-    /* Ãâ·Â º¯¼ö ¼±¾ğ */
+    /* ì¶œë ¥ ë³€ìˆ˜ ì„ ì–¸ */
     double * dSedimentThick;
     double * dBedrockElev;
     double * dChanBedSed;
@@ -115,7 +115,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     double * inputFloodedRegion;
     mxLogical * isFilled;
     
-    /* ÀÔ·Â º¯¼ö ÃÊ±âÈ­ */      
+    /* ì…ë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */      
     dX                  = (int) mxGetScalar(prhs[0]);
     mRows               = (mwSize) mxGetScalar(prhs[1]);
     nCols               = (mwSize) mxGetScalar(prhs[2]);
@@ -147,7 +147,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     hillslope                   = mxGetPr(mxArray18);
     transportCapacityForShallow = mxGetPr(mxArray19);
     
-    /* Ãâ·Â º¯¼ö ÃÊ±âÈ­ */
+    /* ì¶œë ¥ ë³€ìˆ˜ ì´ˆê¸°í™” */
     plhs[0] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[1] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[2] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
@@ -156,7 +156,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     plhs[5] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[6] = mxCreateLogicalMatrix(mRows,nCols);
     
-    /* Ãâ·Â º¯¼ö ÀÚ·á¿¡ Æ÷ÀÎÅÍ¸¦ ÁöÁ¤ */
+    /* ì¶œë ¥ ë³€ìˆ˜ ìë£Œì— í¬ì¸í„°ë¥¼ ì§€ì • */
     dSedimentThick = mxGetPr(plhs[0]);
     dBedrockElev = mxGetPr(plhs[1]);
     dChanBedSed = mxGetPr(plhs[2]);
@@ -165,7 +165,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     inputFloodedRegion = mxGetPr(plhs[5]);
     isFilled = mxGetLogicals(plhs[6]);
     
-    /* ¼­ºê ·çÆ¾ ¼öÇà */
+    /* ì„œë¸Œ ë£¨í‹´ ìˆ˜í–‰ */
     EstimateDElevByFluvialProcess(
         dSedimentThick,
         dBedrockElev,
@@ -214,7 +214,7 @@ void EstimateDElevByFluvialProcess(
     double * hillslope,
     double * transportCapacityForShallow)
 {
-    /* ÀÓ½Ã º¯¼ö ¼±¾ğ */
+    /* ì„ì‹œ ë³€ìˆ˜ ì„ ì–¸ */
     mwIndex ithCell,ithCellIdx,outlet,next;
     double excessTransportCapacity,outputFluxToNext;
     
@@ -222,20 +222,20 @@ void EstimateDElevByFluvialProcess(
     const int TRUE = 1;
     const int CELL_AREA = dX * dX;
             
-    /* (³ôÀº °íµµ ¼øÀ¸·Î) ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ ÅğÀû¹° µÎ²² ¹× ±â¹İ¾Ï °íµµ º¯È­À²À» ±¸ÇÔ */
+    /* (ë†’ì€ ê³ ë„ ìˆœìœ¼ë¡œ) í•˜ì²œì‘ìš©ì— ì˜í•œ í‡´ì ë¬¼ ë‘ê»˜ ë° ê¸°ë°˜ì•” ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•¨ */
     for (ithCell=0;ithCell<consideringCellsNo;ithCell++)
     {        
-        /* 1. i¹øÂ° ¼¿ÀÇ »öÀÎ
-         * *  ÁÖÀÇ: MATLAB ¹è¿­ ¼±Çü »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+        /* 1. ië²ˆì§¸ ì…€ì˜ ìƒ‰ì¸
+         * *  ì£¼ì˜: MATLAB ë°°ì—´ ì„ í˜• ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
         ithCellIdx = (mwIndex) mexSortedIndicies[ithCell] - 1;
 
-        /* 2. i¹øÀç ¼¿ÀÇ À¯ÃâÀ²À» ±¸ÇÏ°í, ÀÌ¸¦ À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿¿¡ ºĞ¹èÇÔ */
+        /* 2. ië²ˆì¬ ì…€ì˜ ìœ ì¶œìœ¨ì„ êµ¬í•˜ê³ , ì´ë¥¼ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì— ë¶„ë°°í•¨ */
 
-        /* 1). i¹øÂ° ¼¿ÀÌ flooded regionÀÇ À¯Ãâ±¸ÀÎÁö¸¦ È®ÀÎÇÔ */
+        /* 1). ië²ˆì§¸ ì…€ì´ flooded regionì˜ ìœ ì¶œêµ¬ì¸ì§€ë¥¼ í™•ì¸í•¨ */
         if ((int) floodedRegionCellsNo[ithCellIdx] == 0)
         {
             
-            /* (1) i¹øÂ° ¼¿ÀÌ »ç¸éÀÎÁö¸¦ È®ÀÎÇÔ */
+            /* (1) ië²ˆì§¸ ì…€ì´ ì‚¬ë©´ì¸ì§€ë¥¼ í™•ì¸í•¨ */
             if ((int) hillslope[ithCellIdx] == TRUE)                
             {
             
@@ -257,73 +257,73 @@ void EstimateDElevByFluvialProcess(
             else
             {
                 
-                /* A. flooded regionÀÇ À¯Ãâ±¸°¡ ¾Æ´Ï¶ó¸é ÇÏÃµÀÛ¿ë¿¡ ÀÇÇÑ À¯ÃâÀ²À»
-                 *     ±¸ÇÏ°í ÀÌ¸¦ ¹«ÇÑ À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿¿¡ ºĞ¹èÇÔ */
+                /* A. flooded regionì˜ ìœ ì¶œêµ¬ê°€ ì•„ë‹ˆë¼ë©´ í•˜ì²œì‘ìš©ì— ì˜í•œ ìœ ì¶œìœ¨ì„
+                 *     êµ¬í•˜ê³  ì´ë¥¼ ë¬´í•œ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì— ë¶„ë°°í•¨ */
 
-                /* A) ÃÊ°ú ÅğÀû¹° ¿î¹İ´É·Â[m^3/subDT]ÀÌ ÇÏµµ ³» ÇÏ»ó ÅğÀû¹°º¸´Ù Å« Áö¸¦ È®ÀÎÇÔ */
+                /* A) ì´ˆê³¼ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥[m^3/subDT]ì´ í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ë³´ë‹¤ í° ì§€ë¥¼ í™•ì¸í•¨ */
                 excessTransportCapacity /* [m^3/subDT] */
                     = transportCapacity[ithCellIdx] - inputFlux[ithCellIdx];
 
                 if (excessTransportCapacity > chanBedSed[ithCellIdx])
                 {
-                    /* (A) ÃÊ°ú ÅğÀû¹° ¿î¹İ´É·ÂÀÌ ÇÏ»ó ÅğÀû¹°º¸´Ù Å©¸é ºĞ¸®Á¦¾îÈ¯°æÀÓ */
+                    /* (A) ì´ˆê³¼ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ì´ í•˜ìƒ í‡´ì ë¬¼ë³´ë‹¤ í¬ë©´ ë¶„ë¦¬ì œì–´í™˜ê²½ì„ */
 
-                    /* a. ´ÙÀ½ ¼¿·ÎÀÇ À¯ÃâÀ²([m^3/subDT])À» ±¸ÇÔ */
+                    /* a. ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œìœ¨([m^3/subDT])ì„ êµ¬í•¨ */
                     outputFlux[ithCellIdx] = inputFlux[ithCellIdx] 
                         + chanBedSed[ithCellIdx] + bedrockIncision[ithCellIdx];
 
-                    /* b. ºĞ¸®Á¦¾îÈ¯°æ ¾Æ·¡ À¯ÃâÀ²Àº ÅğÀû¹° ¿î¹İ´É·Âº¸´Ù´Â ÀÛÀ½ */
+                    /* b. ë¶„ë¦¬ì œì–´í™˜ê²½ ì•„ë˜ ìœ ì¶œìœ¨ì€ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ë³´ë‹¤ëŠ” ì‘ìŒ */
                     if (outputFlux[ithCellIdx] > transportCapacity[ithCellIdx])
                     {
                        outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
                     }
 
-                    /* c. ÅğÀû¹° µÎ²² º¯È­À² [m/subDT] */
+                    /* c. í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT] */
                     dSedimentThick[ithCellIdx] = - chanBedSed[ithCellIdx]
                         / CELL_AREA;
 
-                    /* d. ±â¹İ¾Ï ÇÏ»ó Ä§½ÄÀ² [m/subDT] */
-                    /* ÁÖÀÇ: outputFlux°¡ Á¶Á¤µÇ¾úÀ» ¼ö ÀÖ±â ¶§¹®¿¡, ¾Æ·¡ ¼ö½ÄÀº
-                     * »ç¿ëÇÏÁö ¾ÊÀ½ */
+                    /* d. ê¸°ë°˜ì•” í•˜ìƒ ì¹¨ì‹ìœ¨ [m/subDT] */
+                    /* ì£¼ì˜: outputFluxê°€ ì¡°ì •ë˜ì—ˆì„ ìˆ˜ ìˆê¸° ë•Œë¬¸ì—, ì•„ë˜ ìˆ˜ì‹ì€
+                     * ì‚¬ìš©í•˜ì§€ ì•ŠìŒ */
                     /* dBedrockElev[ithCellIdx] = - bedrockIncision[ithCellIdx]; */
                     dBedrockElev[ithCellIdx] = - (outputFlux[ithCellIdx]
                         - (chanBedSed[ithCellIdx] + inputFlux[ithCellIdx]))
                         / CELL_AREA;
 
-                    /* e. ÇÏµµ ³» ÇÏ»ó ÅğÀû¹° º¯È­À² [m^3/subDT] */
+                    /* e. í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ ë³€í™”ìœ¨ [m^3/subDT] */
                     dChanBedSed[ithCellIdx] = - chanBedSed[ithCellIdx];
                 }
                 else
                 {
-                    /* (B) ÅğÀû¹° ¿î¹İ´É·ÂÀÌ ÇÏ»ó ÅğÀû¹°º¸´Ù ÀÛ´Ù¸é, ¿î¹İÁ¦¾îÈ¯°æÀÓ */
+                    /* (B) í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ì´ í•˜ìƒ í‡´ì ë¬¼ë³´ë‹¤ ì‘ë‹¤ë©´, ìš´ë°˜ì œì–´í™˜ê²½ì„ */
 
-                    /* a. ´ÙÀ½ ¼¿·ÎÀÇ À¯ÃâÀ² [m^3/subDT] */
+                    /* a. ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œìœ¨ [m^3/subDT] */
                     outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
 
-                    /* b. ÅğÀûÃş µÎ²² º¯È­À² [m/subDT] */
+                    /* b. í‡´ì ì¸µ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT] */
                     dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx]
                         - outputFlux[ithCellIdx]) / CELL_AREA;
 
-                    /* c. ÇÏµµ ³» ÇÏ»ó ÅğÀûÃş ºÎÇÇ [m^3] */
+                    /* c. í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ì¸µ ë¶€í”¼ [m^3] */
                     dChanBedSed[ithCellIdx] = inputFlux[ithCellIdx] 
                             - outputFlux[ithCellIdx];
                 }
             }
 
-            /* B. SDS À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿ÀÇ À¯ÀÔÀ²¿¡ À¯ÃâÀ²À» ´õÇÔ */
+            /* B. SDS ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì˜ ìœ ì…ìœ¨ì— ìœ ì¶œìœ¨ì„ ë”í•¨ */
             
-            /* ´ÙÀ½ ¼¿ »öÀÎ
-             * *  ÁÖÀÇ: MATLAB ¹è¿­ ¼±Çü »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+            /* ë‹¤ìŒ ì…€ ìƒ‰ì¸
+             * *  ì£¼ì˜: MATLAB ë°°ì—´ ì„ í˜• ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
             next = (mwIndex) mexSDSNbrIndicies[ithCellIdx] - 1;            
             
-            /* A) ´ÙÀ½ ¼¿¿¡ ¿î¹İµÉ ÅğÀû¹° À¯ÃâÀ² [m^3/subDT]*/
+            /* A) ë‹¤ìŒ ì…€ì— ìš´ë°˜ë  í‡´ì ë¬¼ ìœ ì¶œìœ¨ [m^3/subDT]*/
             outputFluxToNext = outputFlux[ithCellIdx];
             
-            /* B) ´ÙÀ½ ¼¿ÀÌ flooded regionÀÌ¶ó¸é inputFloodedRegion¿¡
-             *    À¯ÃâÀ²À» ¹İ¿µÇÏ°í ±×·¸Áö ¾Ê´Ù¸é ´ÙÀ½ ¼¿¿¡ Á÷Á¢ ¹İ¿µÇÔ */
+            /* B) ë‹¤ìŒ ì…€ì´ flooded regionì´ë¼ë©´ inputFloodedRegionì—
+             *    ìœ ì¶œìœ¨ì„ ë°˜ì˜í•˜ê³  ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ ë‹¤ìŒ ì…€ì— ì§ì ‘ ë°˜ì˜í•¨ */
             if ((int) flood[next] == FLOODED)
             {
-                /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+                /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
                 outlet = (mwIndex) mexSDSNbrIndicies[next] - 1;                
 
                 inputFloodedRegion[outlet] /* [m^3/subDT] */
@@ -337,25 +337,25 @@ void EstimateDElevByFluvialProcess(
         }
         else /* (floodedRegionCellsNo[ithCellIdx] != 0) */
         {
-            /* (2) i¹øÂ° ¼¿ÀÌ flooded regionÀÇ À¯Ãâ±¸¶ó¸é
-             *     SDSNbrY,SDSNbrX°¡ °¡¸®Å°´Â ´ÙÀ½ ¼¿·Î À¯ÃâÀ²À» Àü´ŞÇÔ */
+            /* (2) ië²ˆì§¸ ì…€ì´ flooded regionì˜ ìœ ì¶œêµ¬ë¼ë©´
+             *     SDSNbrY,SDSNbrXê°€ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ë¡œ ìœ ì¶œìœ¨ì„ ì „ë‹¬í•¨ */
 
-            /* A. flooded regionÀ¸·ÎÀÇ ÅğÀû¹° À¯ÀÔ·®ÀÌ flooded regionÀÇ
-             *    ÀúÀå·®À» ÃÊ°úÇÏ´ÂÁö È®ÀÎÇÔ */
+            /* A. flooded regionìœ¼ë¡œì˜ í‡´ì ë¬¼ ìœ ì…ëŸ‰ì´ flooded regionì˜
+             *    ì €ì¥ëŸ‰ì„ ì´ˆê³¼í•˜ëŠ”ì§€ í™•ì¸í•¨ */
             if (inputFloodedRegion[ithCellIdx] 
                     > floodedRegionStorageVolume[ithCellIdx])
             {
-                /* A) ÃÊ°úÇÒ °æ¿ì, ÃÊ°ú·®À» À¯Ãâ±¸ÀÇ À¯ÀÔÀ²¿¡ ´õÇÔ */
+                /* A) ì´ˆê³¼í•  ê²½ìš°, ì´ˆê³¼ëŸ‰ì„ ìœ ì¶œêµ¬ì˜ ìœ ì…ìœ¨ì— ë”í•¨ */
                 inputFlux[ithCellIdx] = inputFlux[ithCellIdx]
                     + (inputFloodedRegion[ithCellIdx]
                     - floodedRegionStorageVolume[ithCellIdx]);
 
-                /* B) flooded regionÀÌ À¯ÀÔÇÑ ÅğÀû¹°·Î Ã¤¿öÁ³´Ù°í Ç¥½ÃÇÔ */
+                /* B) flooded regionì´ ìœ ì…í•œ í‡´ì ë¬¼ë¡œ ì±„ì›Œì¡Œë‹¤ê³  í‘œì‹œí•¨ */
                 isFilled[ithCellIdx] = TRUE;
             }
             
             
-            /* B. i¹øÂ° ¼¿ÀÌ »ç¸éÀÎÁö¸¦ È®ÀÎÇÔ */
+            /* B. ië²ˆì§¸ ì…€ì´ ì‚¬ë©´ì¸ì§€ë¥¼ í™•ì¸í•¨ */
             if ((int) hillslope[ithCellIdx] == TRUE)                
             {
             
@@ -377,68 +377,68 @@ void EstimateDElevByFluvialProcess(
             else
             {
                         
-                /* A) ÃÊ°ú ÅğÀû¹° ¿î¹İ´É·ÂÀÌ ÇÏ»ó ÅğÀû¹°º¸´Ù Å« Áö¸¦ È®ÀÎÇÔ */
+                /* A) ì´ˆê³¼ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ì´ í•˜ìƒ í‡´ì ë¬¼ë³´ë‹¤ í° ì§€ë¥¼ í™•ì¸í•¨ */
                 excessTransportCapacity /* [m^3/subDT] */
                     = transportCapacity[ithCellIdx] - inputFlux[ithCellIdx];
 
                 if (excessTransportCapacity > chanBedSed[ithCellIdx])
                 {
-                    /* (A) ÃÊ°ú ÅğÀû¹° ¿î¹İ´É·ÂÀÌ ÇÏ»ó ÅğÀû¹°·®º¸´Ù Å©¸é ºĞ¸®Á¦¾îÈ¯°æÀÓ */
+                    /* (A) ì´ˆê³¼ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ì´ í•˜ìƒ í‡´ì ë¬¼ëŸ‰ë³´ë‹¤ í¬ë©´ ë¶„ë¦¬ì œì–´í™˜ê²½ì„ */
 
-                    /* a. ´ÙÀ½ ¼¿·ÎÀÇ À¯ÃâÀ² [m^3/subDT] */
+                    /* a. ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œìœ¨ [m^3/subDT] */
                     outputFlux[ithCellIdx] = inputFlux[ithCellIdx]
                         + chanBedSed[ithCellIdx] + bedrockIncision[ithCellIdx];
 
-                    /* b. ºĞ¸®Á¦¾îÈ¯°æ ¾Æ·¡ À¯ÃâÀ²Àº ÅğÀû¹° ¿î¹İ´É·Âº¸´Ù´Â ÀÛÀ½ */
+                    /* b. ë¶„ë¦¬ì œì–´í™˜ê²½ ì•„ë˜ ìœ ì¶œìœ¨ì€ í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ë³´ë‹¤ëŠ” ì‘ìŒ */
                     if (outputFlux[ithCellIdx] > transportCapacity[ithCellIdx])
                     {
                        outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
                     }
 
-                    /* c. ÅğÀû¹° µÎ²² º¯È­À² [m/subDT] */
+                    /* c. í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT] */
                     dSedimentThick[ithCellIdx] = - chanBedSed[ithCellIdx]
                         / CELL_AREA;
 
-                    /* d. ±â¹İ¾Ï ÇÏ»ó °íµµ º¯È­À² [m/subDT] */
-                    /* ÁÖÀÇ: outputFlux°¡ Á¶Á¤µÇ¾úÀ» ¼ö ÀÖ±â ¶§¹®¿¡, ¾Æ·¡ ¼ö½ÄÀº
-                     * »ç¿ëÇÏÁö ¾ÊÀ½ */
+                    /* d. ê¸°ë°˜ì•” í•˜ìƒ ê³ ë„ ë³€í™”ìœ¨ [m/subDT] */
+                    /* ì£¼ì˜: outputFluxê°€ ì¡°ì •ë˜ì—ˆì„ ìˆ˜ ìˆê¸° ë•Œë¬¸ì—, ì•„ë˜ ìˆ˜ì‹ì€
+                     * ì‚¬ìš©í•˜ì§€ ì•ŠìŒ */
                     /* dBedrockElev[ithCellIdx] = - bedrockIncision[ithCellIdx]; */
                     dBedrockElev[ithCellIdx] = - (outputFlux[ithCellIdx]
                         - (chanBedSed[ithCellIdx] + inputFlux[ithCellIdx]))
                         / CELL_AREA;
 
-                    /* e. ÇÏµµ ³» ÇÏ»ó ÅğÀû¹° º¯È­À² [m^3] */
+                    /* e. í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ ë³€í™”ìœ¨ [m^3] */
                     dChanBedSed[ithCellIdx] = - chanBedSed[ithCellIdx];
 
                 }
                 else
                 {
-                    /* (B) ÅğÀû¹° ¿î¹İ´É·ÂÀÌ ÇÏ»ó ÅğÀû¹°º¸´Ù ÀÛ´Ù¸é, ¿î¹İÁ¦¾îÈ¯°æÀÓ */
+                    /* (B) í‡´ì ë¬¼ ìš´ë°˜ëŠ¥ë ¥ì´ í•˜ìƒ í‡´ì ë¬¼ë³´ë‹¤ ì‘ë‹¤ë©´, ìš´ë°˜ì œì–´í™˜ê²½ì„ */
 
-                    /* a. ´ÙÀ½ ¼¿·ÎÀÇ À¯ÃâÀ² */
+                    /* a. ë‹¤ìŒ ì…€ë¡œì˜ ìœ ì¶œìœ¨ */
                     outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
 
-                    /* b. ÅğÀû¹° µÎ²² º¯È­À² [m/subDT] */
+                    /* b. í‡´ì ë¬¼ ë‘ê»˜ ë³€í™”ìœ¨ [m/subDT] */
                     dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx]
                         - outputFlux[ithCellIdx]) / CELL_AREA;
 
-                    /* c. ÇÏµµ ³» ÇÏ»ó ÅğÀû¹° º¯È­À² [m^3] */
+                    /* c. í•˜ë„ ë‚´ í•˜ìƒ í‡´ì ë¬¼ ë³€í™”ìœ¨ [m^3] */
                     dChanBedSed[ithCellIdx] = inputFlux[ithCellIdx] 
                             - outputFlux[ithCellIdx];
 
                 }
             }
             
-            /* C. ÃÖ´ëÇÏºÎ°æ»ç À¯ÇâÀ» µû¶ó ´ÙÀ½ ¼¿ÀÇ À¯ÀÔÀ²¿¡ À¯ÃâÀ²À» ´õÇÔ */
-            /* A) ÃÖ´ë ÇÏºÎ °æ»ç À¯ÇâÀÌ °¡¸®Å°´Â ´ÙÀ½ ¼¿ÀÇ ÁÂÇ¥
-            * *  ÁÖÀÇ: MATLAB ¹è¿­ ¼±Çü »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+            /* C. ìµœëŒ€í•˜ë¶€ê²½ì‚¬ ìœ í–¥ì„ ë”°ë¼ ë‹¤ìŒ ì…€ì˜ ìœ ì…ìœ¨ì— ìœ ì¶œìœ¨ì„ ë”í•¨ */
+            /* A) ìµœëŒ€ í•˜ë¶€ ê²½ì‚¬ ìœ í–¥ì´ ê°€ë¦¬í‚¤ëŠ” ë‹¤ìŒ ì…€ì˜ ì¢Œí‘œ
+            * *  ì£¼ì˜: MATLAB ë°°ì—´ ì„ í˜• ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
             next = (mwIndex) mexSDSNbrIndicies[ithCellIdx] - 1;            
 
-            /* B) ´ÙÀ½ ¼¿ÀÌ flooded region ÀÌ¶ó¸é inputFloodedRegion¿¡
-             *    À¯ÃâÀ²À» ¹İ¿µÇÏ°í ±×·¸Áö ¾Ê´Ù¸é ´ÙÀ½ ¼¿¿¡ Á÷Á¢ ¹İ¿µÇÔ */
+            /* B) ë‹¤ìŒ ì…€ì´ flooded region ì´ë¼ë©´ inputFloodedRegionì—
+             *    ìœ ì¶œìœ¨ì„ ë°˜ì˜í•˜ê³  ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ ë‹¤ìŒ ì…€ì— ì§ì ‘ ë°˜ì˜í•¨ */
             if  ( flood[next] == FLOODED )
             {
-                /* * ÁÖÀÇ: MATLAB ¹è¿­ »öÀÎÀ» À§ÇØ '-1'À» ¼öÇàÇÔ */
+                /* * ì£¼ì˜: MATLAB ë°°ì—´ ìƒ‰ì¸ì„ ìœ„í•´ '-1'ì„ ìˆ˜í–‰í•¨ */
                 outlet = (mwIndex) mexSDSNbrIndicies[next];                                
 
                 inputFloodedRegion[outlet] /* [m^3/subDT] */

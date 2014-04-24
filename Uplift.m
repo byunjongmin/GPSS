@@ -1,22 +1,22 @@
 % =========================================================================
 %> @section INTRO RockWeathering
 %>
-%> - ¸ğµ¨ ¿µ¿ª¿¡ Áö¹İÀ¶±â¸¦ ¹İ¿µÇÏ°í, À¶±â·Î ÀÎÇÑ °íµµ º¯È­À²À» ±¸ÇÏ´Â ÇÔ¼ö.
+%> - ëª¨ë¸ ì˜ì—­ì— ì§€ë°˜ìœµê¸°ë¥¼ ë°˜ì˜í•˜ê³ , ìœµê¸°ë¡œ ì¸í•œ ê³ ë„ ë³€í™”ìœ¨ì„ êµ¬í•˜ëŠ” í•¨ìˆ˜.
 %>
 %> @version 0.1
 %> @callgraph
 %> @callergraph
 %>
-%> @retval bedrockElev                      : Áö¹İÀ¶±âÀ²ÀÌ ¹İ¿µµÈ ±â¹İ¾Ï °íµµ [m]
+%> @retval bedrockElev                      : ì§€ë°˜ìœµê¸°ìœ¨ì´ ë°˜ì˜ëœ ê¸°ë°˜ì•” ê³ ë„ [m]
 %>
-%> @param Y_INI                             : ¸ğÇü ¿µ¿ª Y ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param Y_MAX                             : ¸ğÇü ¿µ¿ª Y ¸¶Áö¸· ÁÂÇ¥°ª(=Y+1)
-%> @param X_INI                             : ¸ğÇü ¿µ¿ª X ½ÃÀÛ ÁÂÇ¥°ª(=2)
-%> @param X_MAX                             : ¸ğÇü ¿µ¿ª X ¸¶Áö¸· ÁÂÇ¥°ª(=X+1)
-%> @param bedrockElev                       : ±â¹İ¾Ï °íµµ [m]
-%> @param ithTimeStepUpliftRate             : i ¹øÂ° ´ÜÀ§ ½Ã°£ÀÇ Æò±Õ À¶±âÀ²
-%> @param meanUpliftRateSpatialDistribution : ¸ğÀÇ ±â°£ µ¿¾ÈÀÇ Æò±Õ À¶±âÀ² ºĞÆ÷
-%> @param meanUpliftRateAtUpliftAxis        : ¸ğÀÇ ±â°£ µ¿¾È À¶±âÀ²ÀÇ Æò±Õ À¶±âÀ²
+%> @param Y_INI                             : ëª¨í˜• ì˜ì—­ Y ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param Y_MAX                             : ëª¨í˜• ì˜ì—­ Y ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=Y+1)
+%> @param X_INI                             : ëª¨í˜• ì˜ì—­ X ì‹œì‘ ì¢Œí‘œê°’(=2)
+%> @param X_MAX                             : ëª¨í˜• ì˜ì—­ X ë§ˆì§€ë§‰ ì¢Œí‘œê°’(=X+1)
+%> @param bedrockElev                       : ê¸°ë°˜ì•” ê³ ë„ [m]
+%> @param ithTimeStepUpliftRate             : i ë²ˆì§¸ ë‹¨ìœ„ ì‹œê°„ì˜ í‰ê·  ìœµê¸°ìœ¨
+%> @param meanUpliftRateSpatialDistribution : ëª¨ì˜ ê¸°ê°„ ë™ì•ˆì˜ í‰ê·  ìœµê¸°ìœ¨ ë¶„í¬
+%> @param meanUpliftRateAtUpliftAxis        : ëª¨ì˜ ê¸°ê°„ ë™ì•ˆ ìœµê¸°ìœ¨ì˜ í‰ê·  ìœµê¸°ìœ¨
 % =========================================================================
 function bedrockElev = Uplift(Y_INI,Y_MAX,X_INI,X_MAX,bedrockElev,ithTimeStepUpliftRate,meanUpliftRateSpatialDistribution,meanUpliftRateAtUpliftAxis)
 %
