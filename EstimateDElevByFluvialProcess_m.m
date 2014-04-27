@@ -54,12 +54,12 @@ for iCell = 1:consideringCellsNo
 	% 1) i번째 셀이 flooded region 유출구인지를 확인함
 	
 	if floodedRegionCellsNo(iCellY,iCellX) == 0
-
+    
 		% 유출구가 아니라면 (일반적임), 지표유출 및 하천에 의한 유출량을
 		%  구하고 이를 무한 유향을 따라 다음 셀에 분배함
 		
 		% (1) i번째 셀이 사면인지를 확인함
-		if hillslope(iCellY,iCellX) == true
+        if hillslope(iCellY,iCellX) == true
 
 			% A. 사면이라면, 지표유출에 의한 침식률을 구함
 			outputFlux(iCellY,iCellX) = transportCapacityForShallow(iCellY,iCellX);
@@ -79,7 +79,7 @@ for iCell = 1:consideringCellsNo
 			excessTransportCapacity ... % 유입량 제외 퇴적물 운반능력 [m^3/subDT]
 				= transportCapacity(iCellY,iCellX) - inputFlux(iCellY,iCellX);
 
-			if excessTransportCapacity <= chanBedSed(iCellY,iCellX)
+            if excessTransportCapacity <= chanBedSed(iCellY,iCellX)
 
 				% (A) 퇴적물 운반능력이 하상 퇴적물보다 작다면 운반제어환경임
 
@@ -91,7 +91,7 @@ for iCell = 1:consideringCellsNo
 					= chanBedSed(iCellY,iCellX) + inputFlux(iCellY,iCellX) ...
 					- outputFlux(iCellY,iCellX);
 
-			else
+            else
 
 				% (B) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임
 
@@ -107,8 +107,8 @@ for iCell = 1:consideringCellsNo
 
 					dBedrockElev(iCellY,iCellX) ...
 						= bedrockElev(iCellY,iCellX) ...
-						- max(bedrockElev(e1LinearIndicies(iCellY,iCellX) ...
-                            ,bedrockElev(e2LinearIndicies(iCellY,iCellX))));
+						- max(bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
+                            ,bedrockElev(e2LinearIndicies(iCellY,iCellX)));
 				end
 
 				outputFlux(iCellY,iCellX) ...
@@ -163,7 +163,7 @@ for iCell = 1:consideringCellsNo
                 = inputFloodedRegion(outletY,outletX) + outputFluxToE2;
         end            
         
-    else % floodedRegionCellsNo(iCellY,iCellX) ~= 0
+	else % floodedRegionCellsNo(iCellY,iCellX) ~= 0
 
         % i번째 셀이 유출구라면 무한유향을 이용하지 않고, 최대하부경사 유향알고리듬을 이용함.
         % 즉 SDSNbrY,SDSNbrX가 가리키는 다음 셀로 퇴적물을 전달함
@@ -232,8 +232,8 @@ for iCell = 1:consideringCellsNo
 
 					dBedrockElev(iCellY,iCellX) ...
 						= bedrockElev(iCellY,iCellX) ...
-						- max(bedrockElev(e1LinearIndicies(iCellY,iCellX) ...
-                            ,bedrockElev(e2LinearIndicies(iCellY,iCellX))));
+						- max(bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
+                            ,bedrockElev(e2LinearIndicies(iCellY,iCellX)));
 				end
 
                 outputFlux(iCellY,iCellX) ...

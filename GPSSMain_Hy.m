@@ -636,7 +636,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     while (sumSubDT < bankfullTime)
         
         % for debug
-        display(sumSubDT);
+        % display(sumSubDT);
         
         % (1) 세부 단위시간 동안의 유향과 경사를 정의함
 
@@ -921,11 +921,10 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)...
         = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
         + dSedThickByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
+    
     % for debug
     if min(min((bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)))) < 0
-       
-        fprintf('%g\n', ithTimeStep);   % 실행 횟수 출력
-        
+        fprintf('%g\n', ithTimeStep);   % 실행 횟수 출력        
     end
     
     % 일정 실행 횟수 간격으로 모의 결과를 파일에 기록한다.
