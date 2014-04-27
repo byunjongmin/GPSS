@@ -155,7 +155,7 @@ surf(meshgridXForMergedElev,meshgridYForMergedElev,mergedElev)
 view(150,50)
 
 set(gca,'DataAspectRatio',[1 1 0.25] ...
-    ,'Xlim',[0 endXAxisDistanceForMergedElev])
+    ,'Xlim',[0 endXAxisDistanceForMergedElev],'XDir','Reverse')
 
 set(gca,'XTick',[],'XTickLabel',[])
 
@@ -240,10 +240,10 @@ for ithSubDir = 1:totalSubDirs
             = sub2ind([Y X],repDrainBoundaryY,repDrainBoundaryX);
 
         % 유역 경계 보기
-%         figure(33)
-%         plot(repDrainBoundaryX,repDrainBoundaryY,'r');
-%         set(gca,'XLim',[1 X],'YLIM',[1 Y],'YDir','reverse','DataAspectRatio',[1 1 1])
-%         colorbar
+        figure(33)
+        plot(repDrainBoundaryX,repDrainBoundaryY,'r');
+        set(gca,'XLim',[1 X],'YLIM',[1 Y],'YDir','reverse','DataAspectRatio',[1 1 1])
+        colorbar
 
         repDrainUpslopeArea = ithSubDirUpslopeArea(repDrainCoord);    % 대표 유역의 유역면적
 

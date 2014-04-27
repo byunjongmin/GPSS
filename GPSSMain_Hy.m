@@ -635,6 +635,9 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     % 2) 만제유량 지속기간에 도달할 때까지 반복함
     while (sumSubDT < bankfullTime)
         
+        % for debug
+        display(sumSubDT);
+        
         % (1) 세부 단위시간 동안의 유향과 경사를 정의함
 
         % A. (유향과 경사를 구하기 위해) 고도를 갱신함
@@ -834,7 +837,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,floodedRegionTotalDepth,floodedRegionStorageVolume ...
             ,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1 ...
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
-            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,trialTime,dX);
+            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,trialTime,dX,bedrockElev);
         
         % B. 세부 단위시간을 정의함
         [subDT ...              % 세부 단위시간 [s]
@@ -869,7 +872,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,floodedRegionStorageVolume ...
             ,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1 ...
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
-            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX);
+            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX,bedrockElev);
         
         % B. 세부 단위시간의 퇴적물 두께 및 기반암 고도 변화율을 누적하고
         %    하도 내 하상 퇴적물을 갱신함
@@ -882,6 +885,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         % C. 퇴적물 두께 및 기반암 고도 변화율을 현 지형에 반영함
         sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
             = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
+            - chanBedSed(Y_INI:Y_MAX,X_INI:X_MAX) ./ CELL_AREA ... % chanBedSed 반영할 것.
             + dSedThickByFluvialPerSubDT(Y_INI:Y_MAX,X_INI:X_MAX);
         bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
             = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
@@ -918,7 +922,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
         + dSedThickByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
     % for debug
-    if sum(sum(dSedThickByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX))) > 0
+    if min(min((bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)))) < 0
        
         fprintf('%g\n', ithTimeStep);   % 실행 횟수 출력
         

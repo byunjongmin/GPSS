@@ -817,7 +817,7 @@ startedStepNo = startedTimeStepNo / WRITE_INTERVAL;
 
 % 2) 파일에서 i번째 모의결과를 읽고 이를 그래프로 표현하고 주요 변수는 일정
 %    간격으로 저장함
-endStep = 34; % for the unexpectedly stopped experiment
+endStep = 15; % for the unexpectedly stopped experiment
 for ithStep = initIthStep:endStep
     
     fprintf('%i\n',ithStep); % 실행 횟수 출력
