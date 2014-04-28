@@ -14,4 +14,6 @@
 
 # ignore all files in the following directories
 data/output
+data/input/.DS_Store
 !data/input/*
+MATLAB_coder
