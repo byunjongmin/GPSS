@@ -52,32 +52,32 @@
 
 /* Computational routine */
 void EstimateDElevByFluvialProcess(
-    double * dSedimentThick,                // output
-    double * dBedrockElev,                  // output
-    double * dChanBedSed,                   // output
-    double * inputFlux,                     // output
-    double * outputFlux,                    // output
-    double * inputFloodedRegion,            // output
-    mxLogical * isFilled,                   // output
-    mwSize dX,                                 // input
-    mwSize consideringCellsNo,              // input
-    double * mexSortedIndicies,             // input
-    double * e1LinearIndicies,              // input
-    double * e2LinearIndicies,              // input
-    double * outputFluxRatioToE1,           // input
-    double * outputFluxRatioToE2,           // input
-    double * mexSDSNbrIndicies,             // input
-    double * flood,                         // input
-    double * floodedRegionCellsNo,          // input
-    double * floodedRegionStorageVolume,    // input
-    double * bankfullWidth,                 // input
-    double * transportCapacity,             // input
-    double * bedrockIncision,               // input
-    double * chanBedSed,                    // input
-    double * sedimentThick,                 // input
-    mxLogical * hillslope,                     // input
-    double * transportCapacityForShallow,   // input
-    double * bedrockElev);                  // input
+    double * dSedimentThick,                /* output */
+    double * dBedrockElev,                  /* output */
+    double * dChanBedSed,                   /* output */
+    double * inputFlux,                     /* output */
+    double * outputFlux,                    /* output */
+    double * inputFloodedRegion,            /* output */
+    mxLogical * isFilled,                   /* output */
+    mwSize dX,                              /* input */
+    mwSize consideringCellsNo,              /* input */
+    double * mexSortedIndicies,             /* input */
+    double * e1LinearIndicies,              /* input */
+    double * e2LinearIndicies,              /* input */
+    double * outputFluxRatioToE1,           /* input */
+    double * outputFluxRatioToE2,           /* input */
+    double * mexSDSNbrIndicies,             /* input */
+    double * flood,                         /* input */
+    double * floodedRegionCellsNo,          /* input */
+    double * floodedRegionStorageVolume,    /* input */
+    double * bankfullWidth,                 /* input */
+    double * transportCapacity,             /* input */
+    double * bedrockIncision,               /* input */
+    double * chanBedSed,                    /* input */
+    double * sedimentThick,                 /* input */
+    mxLogical * hillslope,                  /* input */
+    double * transportCapacityForShallow,   /* input */
+    double * bedrockElev);                  /* input */
 
 /* Gateway Function */
 void mexFunction(int nlhs,       mxArray * plhs[]
