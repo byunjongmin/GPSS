@@ -73,23 +73,29 @@ takenTime = inf(mRows,nCols);   % 최종 소요 시간
 dElev = dSedimentThick + dBedrockElev;
 
 %--------------------------------------------------------------------------
+% 선형 색인 준비
+mexSortedIndicies ...       % sortedYXElev를 위한 선형 색인
+    = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
+mexSDSNbrIndicies ...       % SDSNbrY,SDSNbrX를 위한 선형 핵인
+    = (SDSNbrX-1)*mRows + SDSNbrY;
 
-takenTime ...
-= EstimateSubDTMex_m ...
-(mRows ...                 % 행 개수
-,nCols ...                 % 열 개수
-,consideringCellsNo ...    % 하천작용이 발생하는 셀 수
-,sortedYXElev ...          % 고도순으로 정렬된 색인
-,e1LinearIndicies ...      % 다음 셀 색인
-,e2LinearIndicies ...      % 다음 셀 색인
-,outputFluxRatioToE1 ...   % 다음 셀로의 유출 비율
-,outputFluxRatioToE2 ...   % 다음 셀로의 유출 비율
-,SDSNbrY ...               % 다음 셀 색인
-,SDSNbrX ...               % 다음 셀 색인
-,floodedRegionCellsNo ...  % flooded region 구성 셀 수
-,dElev ...                 % 고도 변화율 [m/trialTime]
-,elev ...                  % 고도 [m]
-,takenTime);               % inf로 초기화된 출력 변수
+takenTime ...                    0 하류방향 셀과의 경사가 0이 되는 시간 [s]
+    = EstimateSubDTMex ...
+ 	(mRows ...                   0 . 행 개수
+ 	,nCols ...                   1 . 열 개수
+ 	,consideringCellsNo); ...    2 . 하천작용이 발생하는 셀 수
+%----------------------------- mexGetVariablePtr 함수로 참조하는 변수
+% mexSortedIndicies ...        3 . 고도순으로 정렬된 색인
+% e1LinearIndicies ...         4 . 다음 셀 색인
+% e2LinearIndicies ...         5 . 다음 셀 색인
+% outputFluxRatioToE1 ...      6 . 다음 셀로의 유출 비율
+% outputFluxRatioToE2 ...      7 . 다음 셀로의 유출 비율
+% mexSDSNbrIndicies ...        8 . 다음 셀 색인
+% floodedRegionCellsNo ...     9 . flooded region 구성 셀 수
+% dElev ...                    10 . 고도 변화율 [m/trialTime]
+% elev ...                     11 . 고도 [m]
+%----------------------------- mexGetVariable 함수로 복사해오는 변수
+% takenTime ...                0 . inf로 초기화된 출력 변수
 
 %--------------------------------------------------------------------------
 
