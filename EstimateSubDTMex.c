@@ -25,8 +25,9 @@
  */
 
 # include "mex.h"
+# include "matrix.h"
 
-/* 계산 함수 선언 */
+/* computational routine */
 void EstimateSubDTMex(
     double * takenTime,
     mwSize consideringCellsNo,
@@ -44,69 +45,51 @@ void EstimateSubDTMex(
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
-    /* 입력 변수 선언
-     * 주의: mxArray 자료형 변수는 mexGetVariablePtr 함수를 이용하여
-     * 호출함수의 작업공간에 있는 변수들의 포인터만 불러옴 */
-    /* 호출함수 작업공간의 변수 */
-    const   mxArray * mxArray3;     /* mexSortedIndicies */
-    const   mxArray * mxArray4;     /* e1LinearIndicies */
-    const   mxArray * mxArray5;     /* e2LinearIndicies */
-    const   mxArray * mxArray6;     /* outputFluxRatioToE1 */
-    const   mxArray * mxArray7;     /* outputFluxRatioToE2 */
-    const   mxArray * mxArray8;     /* mexSDSNbrIndicies */
-    const   mxArray * mxArray9;     /* floodedRegionCellsNo */
-    const   mxArray * mxArray10;    /* dElev */
-    const   mxArray * mxArray11;    /* elev */
-            
-    /* 입력변수 실제 자료  */
+    /* check for proper number of arguments */
+    /* validate the input values */
+    
+    /* variable declaration */    
+    /* input variable declaration */
     mwSize mRows;
     mwSize nCols;
     mwSize consideringCellsNo;
-    double * mexSortedIndicies;
-    double * e1LinearIndicies;
-    double * e2LinearIndicies;
-    double * outputFluxRatioToE1;
-    double * outputFluxRatioToE2;
-    double * mexSDSNbrIndicies;
-    double * floodedRegionCellsNo;
-    double * dElev;
-    double * elev;
+    /* 주의: mxArray 자료형 변수는 mexGetVariablePtr 함수를 이용하여
+     * 호출함수의 작업공간에 있는 변수들의 포인터만 불러옴 */
+    const mxArray * mxArray3  = mexGetVariablePtr("caller","mexSortedIndicies");    
+    const mxArray * mxArray4  = mexGetVariablePtr("caller","e1LinearIndicies");    
+    const mxArray * mxArray5  = mexGetVariablePtr("caller","e2LinearIndicies");    
+    const mxArray * mxArray6  = mexGetVariablePtr("caller","outputFluxRatioToE1");
+    const mxArray * mxArray7  = mexGetVariablePtr("caller","outputFluxRatioToE2");
+    const mxArray * mxArray8  = mexGetVariablePtr("caller","mexSDSNbrIndicies");
+    const mxArray * mxArray9  = mexGetVariablePtr("caller","floodedRegionCellsNo");
+    const mxArray * mxArray10 = mexGetVariablePtr("caller","dElev");
+    const mxArray * mxArray11 = mexGetVariablePtr("caller","elev");
     
-    /* 출력 변수 선언 */
+    /* output variable declaration */
     double * takenTime;
-    
-    /* 입력 변수 초기화 */      
+            
+    /* create a pointer to the real data in the input matrix */
     mRows               = (mwSize) mxGetScalar(prhs[0]);
     nCols               = (mwSize) mxGetScalar(prhs[1]);
     consideringCellsNo  = (mwSize) mxGetScalar(prhs[2]);
+    double * mexSortedIndicies      = mxGetPr(mxArray3);    
+    double * e1LinearIndicies       = mxGetPr(mxArray4);    
+    double * e2LinearIndicies       = mxGetPr(mxArray5);    
+    double * outputFluxRatioToE1    = mxGetPr(mxArray6);    
+    double * outputFluxRatioToE2    = mxGetPr(mxArray7);    
+    double * mexSDSNbrIndicies      = mxGetPr(mxArray8);    
+    double * floodedRegionCellsNo   = mxGetPr(mxArray9);    
+    double * dElev                  = mxGetPr(mxArray10);
+    double * elev                   = mxGetPr(mxArray11);
     
-    mxArray3    = mexGetVariablePtr("caller","mexSortedIndicies");    
-    mxArray4    = mexGetVariablePtr("caller","e1LinearIndicies");    
-    mxArray5    = mexGetVariablePtr("caller","e2LinearIndicies");    
-    mxArray6    = mexGetVariablePtr("caller","outputFluxRatioToE1");
-    mxArray7    = mexGetVariablePtr("caller","outputFluxRatioToE2");
-    mxArray8    = mexGetVariablePtr("caller","mexSDSNbrIndicies");
-    mxArray9    = mexGetVariablePtr("caller","floodedRegionCellsNo");
-    mxArray10   = mexGetVariablePtr("caller","dElev");
-    mxArray11   = mexGetVariablePtr("caller","elev");
-    
-    mexSortedIndicies           = mxGetPr(mxArray3);    
-    e1LinearIndicies            = mxGetPr(mxArray4);    
-    e2LinearIndicies            = mxGetPr(mxArray5);    
-    outputFluxRatioToE1         = mxGetPr(mxArray6);    
-    outputFluxRatioToE2         = mxGetPr(mxArray7);    
-    mexSDSNbrIndicies           = mxGetPr(mxArray8);    
-    floodedRegionCellsNo        = mxGetPr(mxArray9);    
-    dElev                       = mxGetPr(mxArray10);
-    elev                        = mxGetPr(mxArray11);
-    
-    /* 출력 변수 초기화 */
+    /* prepare output data */
+    /* create the output matrix */
     plhs[0] = mexGetVariable("caller","takenTime");
     
-    /* 출력 변수의 자료에 포인터를 지정 */
+    /* get a pointer to the real data in the output matrix */
     takenTime = mxGetPr(plhs[0]);
     
-    /* 서브 루틴 수행 */
+    /* call the computational routine */
     EstimateSubDTMex(
         takenTime,
         consideringCellsNo,
