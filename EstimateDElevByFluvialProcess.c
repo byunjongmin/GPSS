@@ -36,93 +36,83 @@
  * sedimentThick ...            17 . 퇴적층 두께
  * hillslope ...                18 . 사면 셀
  * transportCapacityForShallow  19 . 지표유출로 인한 물질이동
+ * bedrockElev                  20 . 기반암 고도
  *------------------------------------------------------------------------- 
  *
  * 개선한 점
- *
+ * - 20140430
+ *  - dBedrockElev 제한 조건 추가함
  * - 20101227
  *  - 지표유출로 인한 물질이동을 포함함
  * 
  */
 
-# include "mex.h"
+#include "mex.h"
+#include "matrix.h"
 
-/* 계산 함수 선언 */
+/* Computational routine */
 void EstimateDElevByFluvialProcess(
-    double * dSedimentThick,
-    double * dBedrockElev,
-    double * dChanBedSed,
-    double * inputFlux,
-    double * outputFlux,
-    double * inputFloodedRegion,
-    mxLogical * isFilled,
-    int dX,
-    mwSize consideringCellsNo,
-    double * mexSortedIndicies,
-    double * e1LinearIndicies,
-    double * e2LinearIndicies,
-    double * outputFluxRatioToE1,
-    double * outputFluxRatioToE2,
-    double * mexSDSNbrIndicies,
-    double * flood,
-    double * floodedRegionCellsNo,
-    double * floodedRegionStorageVolume,
-    double * bankfullWidth,
-    double * transportCapacity,
-    double * bedrockIncision,
-    double * chanBedSed,
-    double * sedimentThick,
-    double * hillslope,
-    double * transportCapacityForShallow);
+    double * dSedimentThick,                // output
+    double * dBedrockElev,                  // output
+    double * dChanBedSed,                   // output
+    double * inputFlux,                     // output
+    double * outputFlux,                    // output
+    double * inputFloodedRegion,            // output
+    mxLogical * isFilled,                   // output
+    mwSize dX,                                 // input
+    mwSize consideringCellsNo,              // input
+    double * mexSortedIndicies,             // input
+    double * e1LinearIndicies,              // input
+    double * e2LinearIndicies,              // input
+    double * outputFluxRatioToE1,           // input
+    double * outputFluxRatioToE2,           // input
+    double * mexSDSNbrIndicies,             // input
+    double * flood,                         // input
+    double * floodedRegionCellsNo,          // input
+    double * floodedRegionStorageVolume,    // input
+    double * bankfullWidth,                 // input
+    double * transportCapacity,             // input
+    double * bedrockIncision,               // input
+    double * chanBedSed,                    // input
+    double * sedimentThick,                 // input
+    mxLogical * hillslope,                     // input
+    double * transportCapacityForShallow,   // input
+    double * bedrockElev);                  // input
 
 /* Gateway Function */
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
-    /* 입력 변수 선언
-     * 주의: mxArray 자료형 변수는 mexGetVariablePtr 함수를 이용하여
-     * 호출함수의 작업공간에 있는 변수들의 포인터만 불러옴 */
-    /* 호출함수 작업공간의 변수 */
-    const mxArray * mxArray4; /* mexSortedIndicies */
-    const mxArray * mxArray5; /* e1LinearIndicies */
-    const mxArray * mxArray6; /* e2LinearIndicies */
-    const mxArray * mxArray7; /* outputFluxRatioToE1 */
-    const mxArray * mxArray8; /* outputFluxRatioToE2 */
-    const mxArray * mxArray9; /* mexSDSNbrIndicies */
-    const mxArray * mxArray10; /* flood */
-    const mxArray * mxArray11; /* floodedRegionCellsNo */
-    const mxArray * mxArray12; /* floodedRegionStorageVolume */
-    const mxArray * mxArray13; /* bankfullWidth */
-    const mxArray * mxArray14; /* transportCapacity */
-    const mxArray * mxArray15; /* bedrockIncision */
-    const mxArray * mxArray16; /* chanBedSed */
-    const mxArray * mxArray17; /* sedimentThick */
-    const mxArray * mxArray18; /* hillslope */
-    const mxArray * mxArray19; /* transportCapacityForShallow */
+    /* check for proper number of arguments */
+    /* validate the input values */
     
-    /* 입력변수 실제 자료  */
-    int dX;
+    /* variable declaration */    
+    /* input variable declaration */
+    mwSize dX;
     mwSize mRows;
     mwSize nCols;
     mwSize consideringCellsNo;
-    double * mexSortedIndicies;
-    double * e1LinearIndicies;
-    double * e2LinearIndicies;
-    double * outputFluxRatioToE1;
-    double * outputFluxRatioToE2;
-    double * mexSDSNbrIndicies;
-    double * flood;
-    double * floodedRegionCellsNo;
-    double * floodedRegionStorageVolume;
-    double * bankfullWidth;
-    double * transportCapacity;
-    double * bedrockIncision;
-    double * chanBedSed;
-    double * sedimentThick;
-    double * hillslope;
-    double * transportCapacityForShallow;
+    /* 주의: mxArray 자료형 변수는 mexGetVariablePtr 함수를 이용하여
+     * 호출함수의 작업공간에 있는 변수들의 포인터만 불러옴 */
+    const mxArray * mxArray4  = mexGetVariablePtr("caller","mexSortedIndicies");
+    const mxArray * mxArray5  = mexGetVariablePtr("caller","e1LinearIndicies");
+    const mxArray * mxArray6  = mexGetVariablePtr("caller","e2LinearIndicies");
+    const mxArray * mxArray7  = mexGetVariablePtr("caller","outputFluxRatioToE1");
+    const mxArray * mxArray8  = mexGetVariablePtr("caller","outputFluxRatioToE2");
+    const mxArray * mxArray9  = mexGetVariablePtr("caller","mexSDSNbrIndicies");
+    const mxArray * mxArray10 = mexGetVariablePtr("caller","flood");
+    const mxArray * mxArray11 = mexGetVariablePtr("caller","floodedRegionCellsNo");
+    const mxArray * mxArray12 = mexGetVariablePtr("caller","floodedRegionStorageVolume");
+    const mxArray * mxArray13 = mexGetVariablePtr("caller","bankfullWidth");
+    const mxArray * mxArray14 = mexGetVariablePtr("caller","transportCapacity");
+    const mxArray * mxArray15 = mexGetVariablePtr("caller","bedrockIncision");
+    const mxArray * mxArray16 = mexGetVariablePtr("caller","chanBedSed");
+    const mxArray * mxArray17 = mexGetVariablePtr("caller","sedimentThick");
+    const mxArray * mxArray18 = mexGetVariablePtr("caller","hillslope");
+    const mxArray * mxArray19 = mexGetVariablePtr("caller","transportCapacityForShallow");
+    const mxArray * mxArray20 = mexGetVariablePtr("caller","bedrockElev");
     
-    /* 출력 변수 선언 */
+    /* output variable declaration */
     double * dSedimentThick;
     double * dBedrockElev;
     double * dChanBedSed;
@@ -131,47 +121,31 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     double * inputFloodedRegion;
     mxLogical * isFilled;
     
-    /* 입력 변수 초기화 */      
-    dX                  = (int) mxGetScalar(prhs[0]);
-    mRows               = (mwSize) mxGetScalar(prhs[1]);
-    nCols               = (mwSize) mxGetScalar(prhs[2]);
-    consideringCellsNo  = (mwSize) mxGetScalar(prhs[3]);
-    
-    mxArray4    = mexGetVariablePtr("caller","mexSortedIndicies");    
-    mxArray5    = mexGetVariablePtr("caller","e1LinearIndicies");    
-    mxArray6    = mexGetVariablePtr("caller","e2LinearIndicies");    
-    mxArray7    = mexGetVariablePtr("caller","outputFluxRatioToE1");
-    mxArray8    = mexGetVariablePtr("caller","outputFluxRatioToE2");
-    mxArray9    = mexGetVariablePtr("caller","mexSDSNbrIndicies");
-    mxArray10   = mexGetVariablePtr("caller","flood");
-    mxArray11   = mexGetVariablePtr("caller","floodedRegionCellsNo");
-    mxArray12   = mexGetVariablePtr("caller","floodedRegionStorageVolume");
-    mxArray13   = mexGetVariablePtr("caller","bankfullWidth");
-    mxArray14   = mexGetVariablePtr("caller","transportCapacity");
-    mxArray15   = mexGetVariablePtr("caller","bedrockIncision");
-    mxArray16   = mexGetVariablePtr("caller","chanBedSed");
-    mxArray17   = mexGetVariablePtr("caller","sedimentThick");
-    mxArray18   = mexGetVariablePtr("caller","hillslope");
-    mxArray19   = mexGetVariablePtr("caller","transportCapacityForShallow");
-    
-    mexSortedIndicies           = mxGetPr(mxArray4);    
-    e1LinearIndicies            = mxGetPr(mxArray5);    
-    e2LinearIndicies            = mxGetPr(mxArray6);    
-    outputFluxRatioToE1         = mxGetPr(mxArray7);    
-    outputFluxRatioToE2         = mxGetPr(mxArray8);    
-    mexSDSNbrIndicies           = mxGetPr(mxArray9);    
-    flood                       = mxGetPr(mxArray10);    
-    floodedRegionCellsNo        = mxGetPr(mxArray11);    
-    floodedRegionStorageVolume  = mxGetPr(mxArray12);    
-    bankfullWidth               = mxGetPr(mxArray13);
-    transportCapacity           = mxGetPr(mxArray14);    
-    bedrockIncision             = mxGetPr(mxArray15);
-    chanBedSed                  = mxGetPr(mxArray16);
-    sedimentThick               = mxGetPr(mxArray17);
-    hillslope                   = mxGetPr(mxArray18);
-    transportCapacityForShallow = mxGetPr(mxArray19);
-    
-    /* 출력 변수 초기화 */
+    /* create a pointer to the real data in the input matrix */
+    dX                  = mxGetScalar(prhs[0]);
+    mRows               = mxGetScalar(prhs[1]);
+    nCols               = mxGetScalar(prhs[2]);
+    consideringCellsNo  = mxGetScalar(prhs[3]);
+    double * mexSortedIndicies              = mxGetPr(mxArray4);
+    double * e1LinearIndicies               = mxGetPr(mxArray5);    
+    double * e2LinearIndicies               = mxGetPr(mxArray6);    
+    double * outputFluxRatioToE1            = mxGetPr(mxArray7);    
+    double * outputFluxRatioToE2            = mxGetPr(mxArray8);    
+    double * mexSDSNbrIndicies              = mxGetPr(mxArray9);    
+    double * flood                          = mxGetPr(mxArray10);    
+    double * floodedRegionCellsNo           = mxGetPr(mxArray11);    
+    double * floodedRegionStorageVolume     = mxGetPr(mxArray12);    
+    double * bankfullWidth                  = mxGetPr(mxArray13);
+    double * transportCapacity              = mxGetPr(mxArray14);    
+    double * bedrockIncision                = mxGetPr(mxArray15);
+    double * chanBedSed                     = mxGetPr(mxArray16);
+    double * sedimentThick                  = mxGetPr(mxArray17);
+    mxLogical * hillslope                   = mxGetLogicals(mxArray18);
+    double * transportCapacityForShallow    = mxGetPr(mxArray19);
+    double * bedrockElev                    = mxGetPr(mxArray20);
+
+    /* prepare output data */
+    /* create the output matrix */
     plhs[0] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[1] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[2] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
@@ -180,16 +154,16 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     plhs[5] = mxCreateDoubleMatrix(mRows,nCols,mxREAL);
     plhs[6] = mxCreateLogicalMatrix(mRows,nCols);
     
-    /* 출력 변수 자료에 포인터를 지정 */
-    dSedimentThick = mxGetPr(plhs[0]);
-    dBedrockElev = mxGetPr(plhs[1]);
-    dChanBedSed = mxGetPr(plhs[2]);
-    inputFlux = mxGetPr(plhs[3]);
-    outputFlux = mxGetPr(plhs[4]);
-    inputFloodedRegion = mxGetPr(plhs[5]);
-    isFilled = mxGetLogicals(plhs[6]);
+    /* get a pointer to the real data in the output matrix */
+    dSedimentThick      = mxGetPr(plhs[0]);
+    dBedrockElev        = mxGetPr(plhs[1]);
+    dChanBedSed         = mxGetPr(plhs[2]);
+    inputFlux           = mxGetPr(plhs[3]);
+    outputFlux          = mxGetPr(plhs[4]);
+    inputFloodedRegion  = mxGetPr(plhs[5]);
+    isFilled            = mxGetLogicals(plhs[6]);
     
-    /* 서브 루틴 수행 */
+    /* call the computational routine */
     EstimateDElevByFluvialProcess(
         dSedimentThick,
         dBedrockElev,
@@ -215,7 +189,8 @@ void mexFunction(int nlhs,       mxArray * plhs[]
         chanBedSed,
         sedimentThick,
         hillslope,
-        transportCapacityForShallow);
+        transportCapacityForShallow,
+        bedrockElev);
 
 }
 
@@ -227,7 +202,7 @@ void EstimateDElevByFluvialProcess(
     double * outputFlux,
     double * inputFloodedRegion,
     mxLogical * isFilled,
-    int dX,
+    mwSize dX,
     mwSize consideringCellsNo,
     double * mexSortedIndicies,
     double * e1LinearIndicies,
@@ -243,111 +218,104 @@ void EstimateDElevByFluvialProcess(
     double * bedrockIncision,
     double * chanBedSed,
     double * sedimentThick,
-    double * hillslope,
-    double * transportCapacityForShallow)
+    mxLogical * hillslope,
+    double * transportCapacityForShallow,
+    double * bedrockElev)
 {
     /* 임시 변수 선언 */
     mwIndex ithCell,ithCellIdx,outlet,next,e1,e2;
     double excessTransportCapacity,outputFluxToE1,outputFluxToE2;
+    double tmpBedElev;
     
-    const int FLOODED = 2; /* flooded region */
-    const int TRUE = 1;
-    const int CELL_AREA = dX * dX;
+    const mwSize FLOODED = 2; /* flooded region */
+    const double CELL_AREA = dX * dX;
             
     /* (높은 고도 순으로) 하천작용에 의한 퇴적물 두께 및 기반암 고도 변화율을 구함 */
     for (ithCell=0;ithCell<consideringCellsNo;ithCell++)
     {        
-        /* 1. i번째 셀의 색인
+        /* 1. i번째 셀 및 다음 셀의 색인
          * *  주의: MATLAB 배열 선형 색인을 위해 '-1'을 수행함 */
         ithCellIdx = (mwIndex) mexSortedIndicies[ithCell] - 1;
+        e1 = (mwIndex) e1LinearIndicies[ithCellIdx] - 1;
+        e2 = (mwIndex) e2LinearIndicies[ithCellIdx] - 1;
 
         /* 2. i번재 셀의 유출율을 구하고, 이를 유향을 따라 다음 셀에 분배함 */
 
         /* 1). i번째 셀이 flooded region의 유출구인지를 확인함 */
         if ((int) floodedRegionCellsNo[ithCellIdx] == 0)
         {
+            /* 유출구가 아니라면(일반적임), 지표유출 및 하천에 의한 유출량을 구하고
+             * 이를 무한유향을 따라 다음 셀에 분배함 */
             
             /* (1) i번째 셀이 사면인지를 확인함 */
-            if ((int) hillslope[ithCellIdx] == TRUE)                
+            if (hillslope[ithCellIdx] == true)                
             {
-            
+                /* A. 사면이라면, 지표유출에 의한 침식률을 구함*/
                 outputFlux[ithCellIdx] = transportCapacityForShallow[ithCellIdx];
-                
                 dSedimentThick[ithCellIdx] 
                         = (inputFlux[ithCellIdx] - outputFlux[ithCellIdx]) / CELL_AREA;
                 
+                /* to do: 기반암 고도에는 영향을 주지 않는 것으로 처리함*/
                 if ((sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx]) < 0)
-                {
-                        
+                {     
                     dSedimentThick[ithCellIdx] = - sedimentThick[ithCellIdx];
-                        
                     outputFlux[ithCellIdx] = sedimentThick[ithCellIdx];                    
-                }
-            
+                }            
             }
-            
             else
             {
+                /* B. 하천이라면, 하천에 의한 유출률을 구하고 이를 다음 셀에 분배함 */
                 
-                /* A. flooded region의 유출구가 아니라면 하천작용에 의한 유출율을
-                 *     구하고 이를 무한 유향을 따라 다음 셀에 분배함 */
-
-                /* A) 초과 퇴적물 운반능력[m^3/subDT]이 하도 내 하상 퇴적물보다 큰 지를 확인함 */
-                excessTransportCapacity /* [m^3/subDT] */
+                /* A) 퇴적물 운반능력이 하도 내 하상 퇴적물보다 큰 지를 확인함 */
+                excessTransportCapacity /* 유입량 제외 퇴적물 운반능력 [m^3/subDT] */
                     = transportCapacity[ithCellIdx] - inputFlux[ithCellIdx];
-
                 if (excessTransportCapacity > chanBedSed[ithCellIdx])
                 {
-                    /* (A) 초과 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임 */
-
-                    /* a. 다음 셀로의 유출율([m^3/subDT])을 구함 */
-                    outputFlux[ithCellIdx] = inputFlux[ithCellIdx] 
-                        + chanBedSed[ithCellIdx] + bedrockIncision[ithCellIdx];
-
-                    /* b. 분리제어환경 아래 유출율은 퇴적물 운반능력보다는 작음 */
-                    if (outputFlux[ithCellIdx] > transportCapacity[ithCellIdx])
+                    /* (A) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임 */
+                    
+                    /* 기반암 하식률 [m/subDT] */
+                    /* * 주의: 다음 셀의 기반암 하상 고도를 고려하여 기반암 하식률을 산정하는 것을 추가함 */
+                    dBedrockElev[ithCellIdx] = - (bedrockIncision[ithCellIdx] / CELL_AREA);
+                    
+                    /* prevent bedrock elevation from being lowered compared to downstream node */
+                    tmpBedElev = bedrockElev[ithCellIdx] + dBedrockElev[ithCellIdx];
+                    if (tmpBedElev < bedrockElev[e1] || tmpBedElev < bedrockElev[e2])
                     {
-                       outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
+                        if (bedrockElev[e1] > bedrockElev[e2])
+                        {
+                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e1]);
+                        }
+                        else
+                        {
+                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e2]);
+                        }
                     }
+                            
+                    /* 다음 셀로의 유출율 [m^3/subDT] */
+                    outputFlux[ithCellIdx] = inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
+                            - (dBedrockElev[ithCellIdx] * CELL_AREA);
 
-                    /* c. 퇴적물 두께 변화율 [m/subDT] */
-                    dSedimentThick[ithCellIdx] = - chanBedSed[ithCellIdx]
-                        / CELL_AREA;
-
-                    /* d. 기반암 하상 침식율 [m/subDT] */
-                    /* 주의: outputFlux가 조정되었을 수 있기 때문에, 아래 수식은
-                     * 사용하지 않음 */
-                    /* dBedrockElev[ithCellIdx] = - bedrockIncision[ithCellIdx]; */
-                    dBedrockElev[ithCellIdx] = - (outputFlux[ithCellIdx]
-                        - (chanBedSed[ithCellIdx] + inputFlux[ithCellIdx]))
-                        / CELL_AREA;
-
-                    /* e. 하도 내 하상 퇴적물 변화율 [m^3/subDT] */
-                    dChanBedSed[ithCellIdx] = - chanBedSed[ithCellIdx];
+                    /* don't include flux due to bedrock incision */
+                    dSedimentThick[ithCellIdx] = - (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]) / CELL_AREA;
+                    /* 하도 내 하상 퇴적물 변화율 [m^3/subDT] */
+                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] - outputFlux[ithCellIdx];
                 }
                 else
                 {
                     /* (B) 퇴적물 운반능력이 하상 퇴적물보다 작다면, 운반제어환경임 */
 
-                    /* a. 다음 셀로의 유출율 [m^3/subDT] */
+                    /* 다음 셀로의 유출율 [m^3/subDT] */
                     outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
-
                     /* b. 퇴적층 두께 변화율 [m/subDT] */
-                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx]
+                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
                         - outputFlux[ithCellIdx]) / CELL_AREA;
-
                     /* c. 하도 내 하상 퇴적층 부피 [m^3] */
-                    dChanBedSed[ithCellIdx] = inputFlux[ithCellIdx] 
-                            - outputFlux[ithCellIdx];
+                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] 
+                        - outputFlux[ithCellIdx];
                 }
             }
 
             /* B. 무한 유향을 따라 다음 셀(e1,e2)의 유입율에 유출율을 더함 */
-            
-            /* 다음 셀 색인
-             * *  주의: MATLAB 배열 선형 색인을 위해 '-1'을 수행함 */
-            e1 = (mwIndex) e1LinearIndicies[ithCellIdx] - 1;
-            e2 = (mwIndex) e2LinearIndicies[ithCellIdx] - 1;
             
             /* A) 다음 셀에 운반될 퇴적물 유출율 [m^3/subDT]*/
             outputFluxToE1 = outputFluxRatioToE1[ithCellIdx] 
@@ -357,11 +325,10 @@ void EstimateDElevByFluvialProcess(
 
             /* B) 다음 셀이 flooded region이라면 inputFloodedRegion에
              *    유출율을 반영하고 그렇지 않다면 다음 셀에 직접 반영함 */
-            if ((int) flood[e1] == FLOODED)
+            if ((mwSize) flood[e1] == FLOODED)
             {
                 /* * 주의: MATLAB 배열 색인을 위해 '-1'을 수행함 */
-                outlet = (mwIndex) mexSDSNbrIndicies[e1] - 1;                
-
+                outlet = (mwIndex) mexSDSNbrIndicies[e1] - 1;
                 inputFloodedRegion[outlet] /* [m^3/subDT] */
                     = inputFloodedRegion[outlet] + outputFluxToE1;
             }
@@ -370,11 +337,10 @@ void EstimateDElevByFluvialProcess(
                 inputFlux[e1] = inputFlux[e1] + outputFluxToE1;
             }
             
-            if ((int) flood[e2] == FLOODED)
+            if ((mwSize) flood[e2] == FLOODED)
             {
                 /* * 주의: MATLAB 배열 색인을 위해 '-1'을 수행함 */
-                outlet = (mwIndex) mexSDSNbrIndicies[e2] - 1;                
-
+                outlet = (mwIndex) mexSDSNbrIndicies[e2] - 1;
                 inputFloodedRegion[outlet] /* [m^3/subDT] */
                     = inputFloodedRegion[outlet] + outputFluxToE2;
             }
@@ -385,111 +351,102 @@ void EstimateDElevByFluvialProcess(
         }
         else /* (floodedRegionCellsNo[ithCellIdx] != 0) */
         {
-            /* (2) i번째 셀이 flooded region의 유출구라면 무한 유향을
-             *     이용하지 않고, 최대하부경사 유향 알고리듬을 이용한다.즉,
-             *     SDSNbrY,SDSNbrX가 가리키는 다음 셀로 유출율을 전달함 */
+            /* i번째 셀이 flooded region의 유출구라면 무한 유향을 이용하지
+             * 않고, 최대하부경사 유향 알고리듬을 이용한다.즉, SDSNbrY,
+             * SDSNbrX가 가리키는 다음 셀로 유출율을 전달함 */
 
-            /* A. flooded region으로의 퇴적물 유입량이 flooded region의
-             *    저장량을 초과하는지 확인함 */
+            /* (1) flooded region으로의 퇴적물 유입량이 flooded region의
+             *    저장량을 초과하는지 확인하고 이를 i번째 셀의 유입율에 반영함 */
             if (inputFloodedRegion[ithCellIdx] 
                     > floodedRegionStorageVolume[ithCellIdx])
             {
-                /* A) 초과할 경우, 초과량을 유출구의 유입율에 더함 */
+                /* A. 초과할 경우, 초과량을 유출구의 유입율에 더함 */
                 inputFlux[ithCellIdx] = inputFlux[ithCellIdx]
                     + (inputFloodedRegion[ithCellIdx]
                     - floodedRegionStorageVolume[ithCellIdx]);
-
-                /* B) flooded region이 유입한 퇴적물로 채워졌다고 표시함 */
-                isFilled[ithCellIdx] = TRUE;
+                /* B. flooded region이 유입한 퇴적물로 채워졌다고 표시함 */
+                isFilled[ithCellIdx] = true;
             }
             
-            
-            /* B. i번째 셀이 사면인지를 확인함 */
-            if ((int) hillslope[ithCellIdx] == TRUE)                
+            /* (2) i번째 셀이 사면인지를 확인함 */
+            if (hillslope[ithCellIdx] == true)                
             {
-            
-                outputFlux[ithCellIdx] = transportCapacityForShallow[ithCellIdx];
-                
+                /* A. 사면이라면, 지표유출에 의한 침식률을 구함 */
+                outputFlux[ithCellIdx] = transportCapacityForShallow[ithCellIdx];                
                 dSedimentThick[ithCellIdx] 
                         = (inputFlux[ithCellIdx] - outputFlux[ithCellIdx]) / CELL_AREA;
                 
+                /* to do: 기반암 고도에는 영향을 주지 않는 것으로 처리함 */
                 if ((sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx]) < 0)
                 {
-                        
-                    dSedimentThick[ithCellIdx] = - sedimentThick[ithCellIdx];
-                        
+                    dSedimentThick[ithCellIdx] = - sedimentThick[ithCellIdx];                        
                     outputFlux[ithCellIdx] = sedimentThick[ithCellIdx];                    
-                }
-            
-            }
-            
+                }            
+            }            
             else
             {
-                        
-                /* A) 초과 퇴적물 운반능력이 하상 퇴적물보다 큰 지를 확인함 */
-                excessTransportCapacity /* [m^3/subDT] */
-                    = transportCapacity[ithCellIdx] - inputFlux[ithCellIdx];
+                /* B. 하천이라면, 하천에 의한 유출률을 구하고 이를 다음 셀에 분배함 */ 
 
+                /* A) 퇴적물 운반능력이 하상 퇴적물보다 큰 지를 확인함 */
+                excessTransportCapacity /* 유입량 제외 퇴적물 운반능력 [m^3/subDT] */
+                    = transportCapacity[ithCellIdx] - inputFlux[ithCellIdx];
                 if (excessTransportCapacity > chanBedSed[ithCellIdx])
                 {
-                    /* (A) 초과 퇴적물 운반능력이 하상 퇴적물량보다 크면 분리제어환경임 */
-
-                    /* a. 다음 셀로의 유출율 [m^3/subDT] */
-                    outputFlux[ithCellIdx] = inputFlux[ithCellIdx]
-                        + chanBedSed[ithCellIdx] + bedrockIncision[ithCellIdx];
-
-                    /* b. 분리제어환경 아래 유출율은 퇴적물 운반능력보다는 작음 */
-                    if (outputFlux[ithCellIdx] > transportCapacity[ithCellIdx])
+                    /* (A) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임 */
+                    
+                    /* 기반암 하식률 [m/subDT] */
+                    /* * 주의: 다음 셀의 기반암 하상 고도를 고려하여 기반암 하식률을 산정하는 것을 추가함 */
+                    dBedrockElev[ithCellIdx] = - (bedrockIncision[ithCellIdx] / CELL_AREA);
+                    
+                    /* prevent bedrock elevation from being lowered compared to downstream node */
+                    tmpBedElev = bedrockElev[ithCellIdx] + dBedrockElev[ithCellIdx];
+                    if (tmpBedElev < bedrockElev[e1] || tmpBedElev < bedrockElev[e2])
                     {
-                       outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
+                        if (bedrockElev[e1] > bedrockElev[e2])
+                        {
+                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e1]);
+                        }
+                        else
+                        {
+                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e2]);
+                        }
                     }
+                            
+                    /* 다음 셀로의 유출율 [m^3/subDT] */
+                    outputFlux[ithCellIdx] = inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
+                            - (dBedrockElev[ithCellIdx] * CELL_AREA);
 
-                    /* c. 퇴적물 두께 변화율 [m/subDT] */
-                    dSedimentThick[ithCellIdx] = - chanBedSed[ithCellIdx]
-                        / CELL_AREA;
-
-                    /* d. 기반암 하상 고도 변화율 [m/subDT] */
-                    /* 주의: outputFlux가 조정되었을 수 있기 때문에, 아래 수식은
-                     * 사용하지 않음 */
-                    /* dBedrockElev[ithCellIdx] = - bedrockIncision[ithCellIdx]; */
-                    dBedrockElev[ithCellIdx] = - (outputFlux[ithCellIdx]
-                        - (chanBedSed[ithCellIdx] + inputFlux[ithCellIdx]))
-                        / CELL_AREA;
-
-                    /* e. 하도 내 하상 퇴적물 변화율 [m^3] */
-                    dChanBedSed[ithCellIdx] = - chanBedSed[ithCellIdx];
-
+                    /* don't include flux due to bedrock incision */
+                    dSedimentThick[ithCellIdx] = - (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]) / CELL_AREA;
+                    /* 하도 내 하상 퇴적물 변화율 [m^3/subDT] */
+                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] - outputFlux[ithCellIdx];
                 }
                 else
                 {
                     /* (B) 퇴적물 운반능력이 하상 퇴적물보다 작다면, 운반제어환경임 */
 
-                    /* a. 다음 셀로의 유출율 */
+                    /* 다음 셀로의 유출율 [m^3/subDT] */
                     outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
-
-                    /* b. 퇴적물 두께 변화율 [m/subDT] */
-                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx]
+                    /* b. 퇴적층 두께 변화율 [m/subDT] */
+                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
                         - outputFlux[ithCellIdx]) / CELL_AREA;
-
-                    /* c. 하도 내 하상 퇴적물 변화율 [m^3] */
-                    dChanBedSed[ithCellIdx] = inputFlux[ithCellIdx] 
-                            - outputFlux[ithCellIdx];
-
+                    /* c. 하도 내 하상 퇴적층 부피 [m^3] */
+                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] 
+                        - outputFlux[ithCellIdx];
                 }
             }
             
-            /* C. 최대하부경사 유향을 따라 다음 셀의 유입율에 유출율을 더함 */
-            /* A) 최대 하부 경사 유향이 가리키는 다음 셀의 좌표
+            /* (3) 최대하부경사 유향을 따라 다음 셀의 유입율에 유출율을 더함 */
+            /* A. 최대 하부 경사 유향이 가리키는 다음 셀의 좌표
             * *  주의: MATLAB 배열 선형 색인을 위해 '-1'을 수행함 */
             next = (mwIndex) mexSDSNbrIndicies[ithCellIdx] - 1;            
 
-            /* B) 다음 셀이 flooded region 이라면 inputFloodedRegion에
+            /* B. 다음 셀이 flooded region 이라면 inputFloodedRegion에
              *    유출율을 반영하고 그렇지 않다면 다음 셀에 직접 반영함 */
-            if  ( flood[next] == FLOODED )
+            if  ((mwSize) flood[next] == FLOODED )
             {
                 /* * 주의: MATLAB 배열 색인을 위해 '-1'을 수행함 */
                 outlet = (mwIndex) mexSDSNbrIndicies[next];                                
-
                 inputFloodedRegion[outlet] /* [m^3/subDT] */
                     = inputFloodedRegion[outlet] + outputFlux[ithCellIdx];
             }

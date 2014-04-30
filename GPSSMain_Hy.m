@@ -465,7 +465,8 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     ,floodedRegionCellsNo ...       % 각 flooded region 구성 셀 개수
     ,floodedRegionLocalDepth ...    % flooded region 고도와 유출구 고도와의 차이
     ,floodedRegionTotalDepth ...    % local depth 총 합
-    ,floodedRegionStorageVolume] ...% flooded region 총 저장량
+    ,floodedRegionStorageVolume ... % flooded region 총 저장량
+    ,allSinkCellsNo] ...            % for debug: sink cells no
         = ProcessSink(mRows,nCols,X_INI,X_MAX ...
         ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA ...
         ,elev,ithNbrYOffset,ithNbrXOffset ...
@@ -636,7 +637,8 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     while (sumSubDT < bankfullTime)
         
         % for debug
-        % display(sumSubDT);
+        % fprintf('time step:%g, sum sub DT:%g, sink cells no:%g\n' ...
+        %    ,ithTimeStep,sumSubDT,allSinkCellsNo);   % 실행 횟수 출력
         
         % (1) 세부 단위시간 동안의 유향과 경사를 정의함
 
@@ -673,14 +675,15 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         [flood ...                      % flooded region
         ,SDSNbrY ...                    % 수정된 다음 셀의 Y 좌표값
         ,SDSNbrX ...                    % 수정된 다음 셀의 X 좌표값
-        ,SDSFlowDirection ...           % 수정된 유향
-        ,steepestDescentSlope ...       % 수정된 경사
-        ,integratedSlope ...            % 수정된 facet flow 경사
+        ,SDSFlowDirection ...           % 수정된 (최대하부경사 유향 알고리듬의) 유향
+        ,steepestDescentSlope ...       % 수정된 (최대하부경사 유향 알고리듬의) 경사
+        ,integratedSlope ...            % 수정된 (무한 유향 알고리듬) 경사
         ,floodedRegionIndex ...         % flooded region 색인
-        ,floodedRegionCellsNo ...       % 각 flooed region 구성 셀 개수
+        ,floodedRegionCellsNo ...       % 각 flooded region 구성 셀 개수
         ,floodedRegionLocalDepth ...    % flooded region 고도와 유출구 고도와의 차이
-        ,floodedRegionTotalDepth ...    % 총 local depth
-        ,floodedRegionStorageVolume] ...% flooded region 총 저장량
+        ,floodedRegionTotalDepth ...    % local depth 총 합
+        ,floodedRegionStorageVolume ... % flooded region 총 저장량
+        ,allSinkCellsNo] ...            % for debug: sink cells no
             = ProcessSink(mRows,nCols,X_INI,X_MAX ...
             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA ...
             ,elev,ithNbrYOffset,ithNbrXOffset ...
@@ -891,6 +894,11 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
             + dBedrockElevByFluvialPerSubDT(Y_INI:Y_MAX,X_INI:X_MAX);
         
+        % for debug
+        if min(min((bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)))) < 0
+            fprintf('%g\n', ithTimeStep);   % 실행 횟수 출력        
+        end
+        
         % (5) 세부 실행 횟수를 하나 증가함
         ithSubTimeStep = ithSubTimeStep + 1;
         
@@ -921,11 +929,6 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
     sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)...
         = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
         + dSedThickByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
-    
-    % for debug
-    if min(min((bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)))) < 0
-        fprintf('%g\n', ithTimeStep);   % 실행 횟수 출력        
-    end
     
     % 일정 실행 횟수 간격으로 모의 결과를 파일에 기록한다.
     if mod(ithTimeStep,WRITE_INTERVAL) == 0

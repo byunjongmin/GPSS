@@ -57,7 +57,7 @@
 %> @param SDSNbrX                       : 최대하부경사 유향이 가리키는 다음 셀의 X 좌표
 %> @param SDSFlowDirection              : 최대하부경사 유향
 % =========================================================================
-function [flood,SDSNbrY,SDSNbrX,SDSFlowDirection,steepestDescentSlope,integratedSlope,floodedRegionIndex,floodedRegionCellsNo,floodedRegionLocalDepth,floodedRegionTotalDepth,floodedRegionStorageVolume] = ProcessSink(mRows,nCols,X_INI,X_MAX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA,elev,ithNbrYOffset,ithNbrXOffset,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED,slopeAllNbr,steepestDescentSlope,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection)
+function [flood,SDSNbrY,SDSNbrX,SDSFlowDirection,steepestDescentSlope,integratedSlope,floodedRegionIndex,floodedRegionCellsNo,floodedRegionLocalDepth,floodedRegionTotalDepth,floodedRegionStorageVolume,allSinkCellsNo] = ProcessSink(mRows,nCols,X_INI,X_MAX,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA,elev,ithNbrYOffset,ithNbrXOffset,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED,slopeAllNbr,steepestDescentSlope,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection)
 %
 % function ProcessSink
 %
