@@ -27,7 +27,8 @@ function ...
 ,bedrockElev ...				% 기반암 고도
 ,sedimentThick ...              % 퇴적층 두께
 ,hillslope ...                  % 사면 셀
-,transportCapacityForShallow)	% 지표유출로 인한 물질이동
+,transportCapacityForShallow ...% 지표유출로 인한 물질이동
+,elev)
 
 % define constants
 FLOODED = 2;
@@ -51,8 +52,7 @@ for iCell = 1:consideringCellsNo
 
 	% 2. i번째 셀의 유출률을 구하고 이를 유향을 따라 다음 셀에 분배함
 
-	% 1) i번째 셀이 flooded region 유출구인지를 확인함
-	
+	% 1) i번째 셀이 flooded region 유출구인지를 확인함	
 	if floodedRegionCellsNo(iCellY,iCellX) == 0
     
 		% 유출구가 아니라면 (일반적임), 지표유출 및 하천에 의한 유출량을
@@ -70,56 +70,77 @@ for iCell = 1:consideringCellsNo
 			% to do: 기반암 고도에는 영향을 주지 않는 것으로 처리함
 			if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0
 				dSedimentThick(iCellY,iCellX) = -sedimentThick(iCellY,iCellX);
+                outputFlux(iCellY,iCellX) = sedimentThick(iCellY,iCellX) * CELL_AREA;
 			end
 
 		else
 			
 			% B. 하천이라면, 하천작용에 의한 유출률을 구하고 이를 다음 셀에 분배함
+            
 			% A) 퇴적물 운반능력[m^3/subDT]이 하도 내 하상 퇴적물 보다 큰 지를 확인함
 			excessTransportCapacity ... % 유입량 제외 퇴적물 운반능력 [m^3/subDT]
 				= transportCapacity(iCellY,iCellX) - inputFlux(iCellY,iCellX);
-
             if excessTransportCapacity <= chanBedSed(iCellY,iCellX)
 
 				% (A) 퇴적물 운반능력이 하상 퇴적물보다 작다면 운반제어환경임
-
 				outputFlux(iCellY,iCellX) = transportCapacity(iCellY,iCellX);
 				dSedimentThick(iCellY,iCellX) ...
-					= (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX) ...
-					- outputFlux(iCellY,iCellX)) / CELL_AREA;
+					= (inputFlux(iCellY,iCellX) - outputFlux(iCellY,iCellX)) ...
+                        / CELL_AREA;
 				dChanBedSed(iCellY,iCellX) ...
-					= chanBedSed(iCellY,iCellX) + inputFlux(iCellY,iCellX) ...
-					- outputFlux(iCellY,iCellX);
-
+					= dSedimentThick(iCellY,iCellX) * CELL_AREA;
+                    
+                % for debug
+                if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0                
+                    error('EstimateDElevByFluvialProcess_m:negativeSedimentThick','negative sediment thickness');                    
+                end
+                if outputFlux(iCellY,iCellX) < 0
+                    error('EstimateDElevByFluvialProcess_m:negativeOutputFlux','negative output flux');                    
+                end
+                
             else
 
 				% (B) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임
-
 				% 다음 셀의 기반암 하상 고도를 고려하여 기반암 하식률을 산정하는 것을 추가함
 				dBedrockElev(iCellY,iCellX) ...
 					= - (bedrockIncision(iCellY,iCellX) / CELL_AREA);
 				
-				% prevent bedrock elevation from being lowered compared to
+                % prevent bedrock elevation from being lowered compared to
 				% donwstream node
 				tmpBedElev = bedrockElev(iCellY,iCellX) + dBedrockElev(iCellY,iCellX);
-                if tmpBedElev < bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
-                        || tmpBedElev < bedrockElev(e2LinearIndicies(iCellY,iCellX))
-
+                if (tmpBedElev < bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
+                        && outputFluxRatioToE1(iCellY,iCellX) > 0) ...
+                    || (tmpBedElev < bedrockElev(e2LinearIndicies(iCellY,iCellX)) ...
+                        && outputFluxRatioToE2(iCellY,iCellX) > 0)
+                    
 					dBedrockElev(iCellY,iCellX) ...
 						= max(bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
-                            ,bedrockElev(e2LinearIndicies(iCellY,iCellX))) ...
+                                ,bedrockElev(e2LinearIndicies(iCellY,iCellX))) ...
                             - bedrockElev(iCellY,iCellX);
+                        
+                    if dBedrockElev(iCellY,iCellX) > 0
+                        error('EstimateDElevByFluvialProcess_m:negativeDBedrockElev','negative dBedrockElev');                    
+                    end                
                 end
 
 				outputFlux(iCellY,iCellX) ...
 					= inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX) ...
-					- (dBedrockElev(iCellY,iCellX) * CELL_AREA);
+                        - (dBedrockElev(iCellY,iCellX) * CELL_AREA);
 				% don't include flux due to bedrock incision
 				dSedimentThick(iCellY,iCellX) ...
-					= - (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX)) / CELL_AREA;
+					= - (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX)) ...
+                        / CELL_AREA;
 				dChanBedSed(iCellY,iCellX) ...
-					= chanBedSed(iCellY,iCellX) + inputFlux(iCellY,iCellX) ...
-					- outputFlux(iCellY,iCellX);
+					= dSedimentThick(iCellY,iCellX) * CELL_AREA;
+                    
+                % for debug
+                if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0                
+                    error('EstimateDElevByFluvialProcess_m:negativeSedimentThick','negative sediment thickness');                    
+                end
+                if outputFlux(iCellY,iCellX) < 0
+                    error('EstimateDElevByFluvialProcess_m:negativeOutputFlux','negative output flux');                    
+                end
+                
             end
         end % hillslope(iCellY,iCellX) == true
 
@@ -194,6 +215,7 @@ for iCell = 1:consideringCellsNo
             % to do: 기반암 고도에는 영향을 주지 않는 것으로 처리함
             if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0
                 dSedimentThick(iCellY,iCellX) = -sedimentThick(iCellY,iCellX);
+                outputFlux(iCellY,iCellX) = sedimentThick(iCellY,iCellX) * CELL_AREA;
             end
 
         else
@@ -203,48 +225,66 @@ for iCell = 1:consideringCellsNo
             % A) 퇴적물 운반능력[m^3/subDT]이 하도 내 하상 퇴적물 보다 큰 지를 확인함
             excessTransportCapacity ... % 유입량 제외 퇴적물 운반능력 [m^3/subDT]
                 = transportCapacity(iCellY,iCellX) - inputFlux(iCellY,iCellX);
-
             if excessTransportCapacity <= chanBedSed(iCellY,iCellX)
 
                 % (A) 퇴적물 운반능력이 하상 퇴적물보다 작다면 운반제어환경임
-
                 outputFlux(iCellY,iCellX) = transportCapacity(iCellY,iCellX);
                 dSedimentThick(iCellY,iCellX) ...
-                    = (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX) ...
-                    - outputFlux(iCellY,iCellX)) / CELL_AREA;
+                    = (inputFlux(iCellY,iCellX) - outputFlux(iCellY,iCellX)) ...
+                        / CELL_AREA;
                 dChanBedSed(iCellY,iCellX) ...
-                    = chanBedSed(iCellY,iCellX) + inputFlux(iCellY,iCellX) ...
-                    - outputFlux(iCellY,iCellX);
+                    = dSedimentThick(iCellY,iCellX) * CELL_AREA;
+                    
+                % for debug
+                if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0                
+                    error('EstimateDElevByFluvialProcess_m:negativeSedimentThick','negative sediment thickness');                    
+                end
+                if outputFlux(iCellY,iCellX) < 0
+                    error('EstimateDElevByFluvialProcess_m:negativeOutputFlux','negative output flux');                    
+                end
 
             else
 
                 % (B) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임
-
                 % 다음 셀의 기반암 하상 고도를 고려하여 기반암 하식률을 산정하는 것을 추가함
                 dBedrockElev(iCellY,iCellX) ...
                     = - (bedrockIncision(iCellY,iCellX) / CELL_AREA);
-
-				% prevent bedrock elevation from being lowered compared to
+				
+                % prevent bedrock elevation from being lowered compared to
 				% donwstream node
 				tmpBedElev = bedrockElev(iCellY,iCellX) + dBedrockElev(iCellY,iCellX);
-				if tmpBedElev < bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
-                        || tmpBedElev < bedrockElev(e2LinearIndicies(iCellY,iCellX))
-
+                if (tmpBedElev < bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
+                        && outputFluxRatioToE1(iCellY,iCellX) > 0) ...
+                    || (tmpBedElev < bedrockElev(e2LinearIndicies(iCellY,iCellX)) ...
+                        && outputFluxRatioToE2(iCellY,iCellX) > 0)
+                    
 					dBedrockElev(iCellY,iCellX) ...
 						= max(bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
-                            ,bedrockElev(e2LinearIndicies(iCellY,iCellX))) ...
+                                ,bedrockElev(e2LinearIndicies(iCellY,iCellX))) ...
                             - bedrockElev(iCellY,iCellX);
-				end
-
+                        
+                    if dBedrockElev(iCellY,iCellX) > 0
+                        error('EstimateDElevByFluvialProcess_m:negativeDBedrockElev','negative dBedrockElev');                    
+                    end                
+                end
+                
                 outputFlux(iCellY,iCellX) ...
                     = inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX) ...
-                    - (dBedrockElev(iCellY,iCellX) * CELL_AREA);
+                        - (dBedrockElev(iCellY,iCellX) * CELL_AREA);
                 % don't include flux due to bedrock incision
                 dSedimentThick(iCellY,iCellX) ...
-                    = - (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX)) / CELL_AREA;
+                    = - (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX)) ...
+                        / CELL_AREA;
                 dChanBedSed(iCellY,iCellX) ...
-                    = chanBedSed(iCellY,iCellX) + inputFlux(iCellY,iCellX) ...
-                    - outputFlux(iCellY,iCellX);
+                    = dSedimentThick(iCellY,iCellX) * CELL_AREA;
+                
+                % for debug
+                if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0                
+                    error('EstimateDElevByFluvialProcess_m:negativeSedimentThick','negative sediment thickness');                    
+                end
+                if outputFlux(iCellY,iCellX) < 0
+                    error('EstimateDElevByFluvialProcess_m:negativeOutputFlux','negative output flux');   
+                end
 
             end
         end % hillslope(iCellY,iCellX) == true

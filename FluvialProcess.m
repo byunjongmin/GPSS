@@ -86,7 +86,7 @@
 %> @param dX                            : 셀 크기 [s]
 %> @param bedrockElev                   : 기반암 고도[m]
 % =========================================================================
-function [dSedimentThick,dBedrockElev,dChanBedSed] = FluvialProcess(mRows,nCols,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA,FLUVIALPROCESS_COND,timeWeight,sortedYXElev,consideringCellsNo,channel,chanBedSed,hillslope,sedimentThick,OUTER_BOUNDARY,bankfullDischarge,bankfullWidth,flood,floodedRegionIndex,floodedRegionCellsNo,floodedRegionLocalDepth,floodedRegionTotalDepth,floodedRegionStorageVolume,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX,bedrockElev)
+function [dSedimentThick,dBedrockElev,dChanBedSed] = FluvialProcess(mRows,nCols,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA,FLUVIALPROCESS_COND,timeWeight,sortedYXElev,consideringCellsNo,channel,chanBedSed,hillslope,sedimentThick,OUTER_BOUNDARY,bankfullDischarge,bankfullWidth,flood,floodedRegionIndex,floodedRegionCellsNo,floodedRegionLocalDepth,floodedRegionTotalDepth,floodedRegionStorageVolume,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX,bedrockElev,elev)
 %
 % function FluvialProcess
 %
@@ -126,9 +126,40 @@ bedrockIncision ...
 
 % flooded region을 제외한 셀들의 퇴적층 두께 및 기반암 고도 변화율 추정
 
-% 선형 색인 준비
-mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
-mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
+% % 선형 색인 준비
+% mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
+% mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
+% 
+% [dSedimentThick ...      % 퇴적층 두께 변화율 [m^3/m^2 subDT]
+% ,dBedrockElev ...        % 기반암 고도 변화율 [m^3/m^2 subDT]
+% ,dChanBedSed ...         % 하도 내 하상 퇴적물 변화율 [m^3/subDT]
+% ,inputFlux ...           % 상부 유역으로 부터의 유입율 [m^3/subDT]
+% ,outputFlux...           % 하류로의 유출율 [m^3/subDT]
+% ,inputFloodedRegion ...  % flooded region으로의 유입율 [m^3/subDT]
+% ,isFilled] ...           % 상부 유입으로 인한 flooded region의 매적 유무
+% = EstimateDElevByFluvialProcess ...
+% (dX ...                              % 0 . 셀 크기
+% ,mRows ...                           % 1 . 행 개수
+% ,nCols ...                           % 2 . 열 개수
+% ,consideringCellsNo);                % 3 . 하천작용이 발생하는 셀 수
+% % ------------------------------------% 이하는 mexGetVariablePtr로 부름
+% % mexSortedIndicies ...              % 4 . 고도순으로 정렬된 색인
+% % e1LinearIndicies ...               % 5 . 다음 셀 색인
+% % e2LinearIndicies ...               % 6 . 다음 셀 색인
+% % outputFluxRatioToE1 ...            % 7 . 다음 셀로의 유출 비율
+% % outputFluxRatioToE2 ...            % 8 . 다음 셀로의 유출 비율
+% % mexSDSNbrIndicies ...              % 9 . 다음 셀 색인
+% % flood ...                          % 10 . flooded region
+% % floodedRegionCellsNo ...           % 11 . flooded region 구성 셀 수
+% % floodedRegionStorageVolume ...     % 12 . flooded region 저장량
+% % bankfullWidth ...                  % 13 . 만제유량시 하폭
+% % transportCapacity ...              % 14 . 최대 퇴적물 운반능력
+% % bedrockIncision ...                % 15 . 기반암 하상 침식율
+% % chanBedSed ...                     % 16 . 하도내 하상 퇴적층 부피
+% % sedimentThick ...                  % 17 . 퇴적층 두께
+% % hillslope ...                      % 18 . 사면셀
+% % transportCapacityForShallow ...    % 19 . 지표유출로 인한 물질이동
+% % bedrockElev ...                    % 20 . 기반암 고도
 
 [dSedimentThick ...      % 퇴적층 두께 변화율 [m^3/m^2 subDT]
 ,dBedrockElev ...        % 기반암 고도 변화율 [m^3/m^2 subDT]
@@ -137,30 +168,32 @@ mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
 ,outputFlux...           % 하류로의 유출율 [m^3/subDT]
 ,inputFloodedRegion ...  % flooded region으로의 유입율 [m^3/subDT]
 ,isFilled] ...           % 상부 유입으로 인한 flooded region의 매적 유무
-= EstimateDElevByFluvialProcess ...
-(dX ...                              % 0 . 셀 크기
-,mRows ...                           % 1 . 행 개수
-,nCols ...                           % 2 . 열 개수
-,consideringCellsNo);                % 3 . 하천작용이 발생하는 셀 수
-% ------------------------------------% 이하는 mexGetVariablePtr로 부름
-% mexSortedIndicies ...              % 4 . 고도순으로 정렬된 색인
-% e1LinearIndicies ...               % 5 . 다음 셀 색인
-% e2LinearIndicies ...               % 6 . 다음 셀 색인
-% outputFluxRatioToE1 ...            % 7 . 다음 셀로의 유출 비율
-% outputFluxRatioToE2 ...            % 8 . 다음 셀로의 유출 비율
-% mexSDSNbrIndicies ...              % 9 . 다음 셀 색인
-% flood ...                          % 10 . flooded region
-% floodedRegionCellsNo ...           % 11 . flooded region 구성 셀 수
-% floodedRegionStorageVolume ...     % 12 . flooded region 저장량
-% bankfullWidth ...                  % 13 . 만제유량시 하폭
-% transportCapacity ...              % 14 . 최대 퇴적물 운반능력
-% bedrockIncision ...                % 15 . 기반암 하상 침식율
-% chanBedSed ...                     % 16 . 하도내 하상 퇴적층 부피
-% sedimentThick ...                  % 17 . 퇴적층 두께
-% hillslope ...                      % 18 . 사면셀
-% transportCapacityForShallow ...    % 19 . 지표유출로 인한 물질이동
-% bedrockElev ...                    % 20 . 기반암 고도
+= EstimateDElevByFluvialProcess_m ...
+(dX ...                         % 셀 크기
+,mRows ...
+,nCols ...
+,consideringCellsNo ...         % 하천작용이 발생하는 셀 수
+,sortedYXElev ... 		        % 고도순으로 정렬된 Y,X 좌표
+,e1LinearIndicies ...           % 다음 셀 색인
+,e2LinearIndicies ...           % 다음 셀 색인
+,outputFluxRatioToE1 ...        % 다음 셀로의 유출 비율
+,outputFluxRatioToE2 ...        % 다음 셀로의 유출 비율
+,SDSNbrY ...                    % 다음 셀 색인
+,SDSNbrX ...                    % 다음 셀 색인
+,flood ...                      % flooded region
+,floodedRegionCellsNo ...       % flooded region 구성 셀 수
+,floodedRegionStorageVolume ... % flooded region 저장량
+,transportCapacity ...          % 최대 퇴적물 운반능력
+,bedrockIncision ...			% 기반암 하상 침식율
+,chanBedSed ...                 % 하도내 하상 퇴적층 부피
+,bedrockElev ...				% 기반암 고도
+,sedimentThick ...              % 퇴적층 두께
+,hillslope ...                  % 사면 셀
+,transportCapacityForShallow ...
+,elev);	% 지표유출로 인한 물질이동
 %--------------------------------------------------------------------------
+
+
 % (flooded region 고도 변화율을 구하기 위한) 차원 변화 [m^3 -> m]
 inputFlux = inputFlux ./ CELL_AREA;
 outputFlux = outputFlux ./ CELL_AREA;
@@ -230,15 +263,15 @@ for ithFloodedRegion = 1:floodedRegionsNo
         % a. flooded region으로의 유입율[m/subDT]이 저장량[m^3/m^2]을
         %    초과했는지 확인함
         if inputFloodedRegion(outletY,outletX) > ...
-            floodedRegionTotalDepth(outletY,outletX)
+            (floodedRegionTotalDepth(outletY,outletX) / floodedRegionCellsNo(outletY,outletX))
 
             % a) 유입율이 저장량을 초과한다면,
             % (a) 유출구의 유입율에 flooded region 초과 평균 유입율을 더함
             inputFlux(outletY,outletX) ...
                 = inputFlux(outletY,outletX) ...
                 + (inputFloodedRegion(outletY,outletX) ...      % [m/subDT]
-                - floodedRegionTotalDepth(outletY,outletX)) ... % [m/subDT]
-                / floodedRegionCellsNo(outletY,outletX);
+                    - floodedRegionTotalDepth(outletY,outletX) ...  % [m/subDT]
+                        / floodedRegionCellsNo(outletY,outletX));
 
             % * 유입 퇴적물이 저장율을 초과했다고 표시함
             isFilled(outletY,outletX) = true;
@@ -328,11 +361,17 @@ for ithFloodedRegion = 1:floodedRegionsNo
             %     높이[m^3/m^2]를 구함
             increasingHeightByInput = inputFloodedRegion(outletY,outletX);
             % * 주의: floodedRegionCellsNo(outletY,outletX) 나눌 필요 없음
+            %   이미 위에서 나눴음.
 
             % (B) flooded region의 퇴적물 두께 변화율을 평균 높이만큼 증가시킴
             dSedimentThick(currentFloodedRegion) ...
               = increasingHeightByInput ...
-              + verySmallRandomValues(currentFloodedRegion);            
+              + verySmallRandomValues(currentFloodedRegion);
+          
+            % for debug
+            if min(dSedimentThick(currentFloodedRegion)) < 0
+                error('FluvialProcess:negativeFloodedRegionInput', 'negative flooded region input');
+            end
 
         else % FLUVIALPROCESS_COND == DETAIL
 

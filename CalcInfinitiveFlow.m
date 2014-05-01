@@ -18,7 +18,10 @@
 %>     triangular facets on a block-centered grid.
 %> 	 - Table 1. Facet Elevation and Factors for Slope and Angle Calculation, p311
 %>
-%> @version 0.1
+%>  - History
+%>   - 20140501, ver. 0.1.1.: convert negative outputFluxRatio values to 0
+%>
+%> @version 0.1.1.
 %>
 %> @callgraph
 %> @callergraph
@@ -154,6 +157,10 @@ facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX) = sFacetFlowSlope;
 e1LinearIndicies(Y_INI:Y_MAX,X_INI:X_MAX) = sE1LinearIndicies;
 e2LinearIndicies(Y_INI:Y_MAX,X_INI:X_MAX) = sE2LinearIndicies;
 outputFluxRatioToE1(Y_INI:Y_MAX,X_INI:X_MAX) = sOutputFluxRatioToE1;
+negRatioIdxE1 = find(outputFluxRatioToE1 < 0);
+outputFluxRatioToE1(negRatioIdxE1) = 0;
 outputFluxRatioToE2(Y_INI:Y_MAX,X_INI:X_MAX) = sOutputFluxRatioToE2;
+negRatioIdxE2 = find(outputFluxRatioToE2 < 0);
+outputFluxRatioToE2(negRatioIdxE2) = 0;
 
 end % CalcInfinitiveFlow end

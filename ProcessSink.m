@@ -31,9 +31,9 @@
 %> @retval integratedSlope              : 수정된 facet flow 경사
 %> @retval floodedRegionIndex           : flooded region 색인
 %> @retval floodedRegionCellsNo         : flooded region 구성 셀 수
-%> @retval floodedRegionLocalDepth      : flooded region 고도와 유출구 고도 차이
-%> @retval floodedRegionTotalDepth      : flooded region local depth 총 합
-%> @retval floodedRegionStorageVolume   : flooded region 저수량
+%> @retval floodedRegionLocalDepth      : flooded region 고도와 유출구 고도 차이 [m]
+%> @retval floodedRegionTotalDepth      : flooded region local depth 총 합 [m]
+%> @retval floodedRegionStorageVolume   : flooded region 저수량 [m^3]
 %>
 %> @param mRows                         : 모형 (외곽 경계 포함) 영역 행 개수
 %> @param nCols                         : 모형 (외곽 경계 포함) 영역 열 개수

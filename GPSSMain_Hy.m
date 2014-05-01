@@ -771,9 +771,9 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         hillslope = ~ channel;
         
         % 하천이 아닌 셀들을 제외할 경우
-        % elevForSorting(flood == FLOODED | ~ channel) = - inf;
+        elevForSorting(flood == FLOODED | ~ channel) = - inf;
         % 사면에서의 토양 침식까지 모두 구할 경우
-        elevForSorting(flood == FLOODED) = - inf;
+        % elevForSorting(flood == FLOODED) = - inf;
         
         % (B) 높은 고도 순으로 정렬하고 이의 Y,X 좌표값을 구함
         vectorElev = reshape(elevForSorting(Y_INI:Y_MAX,X_INI:X_MAX),[],1);
@@ -840,7 +840,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,floodedRegionTotalDepth,floodedRegionStorageVolume ...
             ,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1 ...
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
-            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,trialTime,dX,bedrockElev);
+            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,trialTime,dX,bedrockElev,elev);
         
         % B. 세부 단위시간을 정의함
         [subDT ...              % 세부 단위시간 [s]
@@ -875,7 +875,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,floodedRegionStorageVolume ...
             ,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1 ...
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
-            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX,bedrockElev);
+            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX,bedrockElev,elev);
         
         % B. 세부 단위시간의 퇴적물 두께 및 기반암 고도 변화율을 누적하고
         %    하도 내 하상 퇴적물을 갱신함
@@ -888,7 +888,6 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         % C. 퇴적물 두께 및 기반암 고도 변화율을 현 지형에 반영함
         sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
             = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            - chanBedSed(Y_INI:Y_MAX,X_INI:X_MAX) ./ CELL_AREA ... % chanBedSed 반영할 것.
             + dSedThickByFluvialPerSubDT(Y_INI:Y_MAX,X_INI:X_MAX);
         bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
             = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
@@ -896,7 +895,10 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         
         % for debug
         if min(min((bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)))) < 0
-            fprintf('%g\n', ithTimeStep);   % 실행 횟수 출력        
+            error('GPSSMain:negativeBedrockElev', 'negative bedrock elevation');   % 실행 횟수 출력        
+        end
+        if min(min((sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)))) < 0
+            error('GPSSMain:negativeSedimentThick', 'negative sediment thickness');   % 실행 횟수 출력        
         end
         
         % (5) 세부 실행 횟수를 하나 증가함
