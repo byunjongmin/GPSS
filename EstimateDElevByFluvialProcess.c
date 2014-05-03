@@ -242,7 +242,7 @@ void EstimateDElevByFluvialProcess(
         /* 2. i번재 셀의 유출율을 구하고, 이를 유향을 따라 다음 셀에 분배함 */
 
         /* 1). i번째 셀이 flooded region의 유출구인지를 확인함 */
-        if ((int) floodedRegionCellsNo[ithCellIdx] == 0)
+        if ((mwSize) floodedRegionCellsNo[ithCellIdx] == 0)
         {
             /* 유출구가 아니라면(일반적임), 지표유출 및 하천에 의한 유출량을 구하고
              * 이를 무한유향을 따라 다음 셀에 분배함 */
@@ -259,7 +259,7 @@ void EstimateDElevByFluvialProcess(
                 if ((sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx]) < 0)
                 {     
                     dSedimentThick[ithCellIdx] = - sedimentThick[ithCellIdx];
-                    outputFlux[ithCellIdx] = sedimentThick[ithCellIdx];                    
+                    outputFlux[ithCellIdx] = sedimentThick[ithCellIdx] * CELL_AREA;                    
                 }            
             }
             else
@@ -269,17 +269,38 @@ void EstimateDElevByFluvialProcess(
                 /* A) 퇴적물 운반능력이 하도 내 하상 퇴적물보다 큰 지를 확인함 */
                 excessTransportCapacity /* 유입량 제외 퇴적물 운반능력 [m^3/subDT] */
                     = transportCapacity[ithCellIdx] - inputFlux[ithCellIdx];
-                if (excessTransportCapacity > chanBedSed[ithCellIdx])
+                if (excessTransportCapacity <= chanBedSed[ithCellIdx])
                 {
-                    /* (A) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임 */
+                    /* (A) 퇴적물 운반능력이 하상 퇴적물보다 작다면, 운반제어환경임 */
+                    /* 다음 셀로의 유출율 [m^3/subDT] */
+                    outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
+                    /* b. 퇴적층 두께 변화율 [m/subDT] */
+                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx] - outputFlux[ithCellIdx])
+                                                    / CELL_AREA;
+                    /* c. 하도 내 하상 퇴적층 부피 [m^3] */
+                    dChanBedSed[ithCellIdx] = dSedimentThick[ithCellIdx] * CELL_AREA;
                     
+                    /* for debug */
+                    if (sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx] < 0)
+                    {
+                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
+                    }
+                    if (outputFlux[ithCellIdx] < 0)
+                    {
+                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                    }
+                }
+                else /* (excessTransportCapacity > chanBedSed[ithCellIdx) */
+                {
+                    /* (B) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임 */
                     /* 기반암 하식률 [m/subDT] */
                     /* * 주의: 다음 셀의 기반암 하상 고도를 고려하여 기반암 하식률을 산정하는 것을 추가함 */
                     dBedrockElev[ithCellIdx] = - (bedrockIncision[ithCellIdx] / CELL_AREA);
-                    
+                   
                     /* prevent bedrock elevation from being lowered compared to downstream node */
                     tmpBedElev = bedrockElev[ithCellIdx] + dBedrockElev[ithCellIdx];
-                    if (tmpBedElev < bedrockElev[e1] || tmpBedElev < bedrockElev[e2])
+                    if (((tmpBedElev < bedrockElev[e1]) && (outputFluxRatioToE1[ithCellIdx] > 0))
+                            || ((tmpBedElev < bedrockElev[e2]) && (outputFluxRatioToE2[ithCellIdx] > 0)))
                     {
                         if (bedrockElev[e1] > bedrockElev[e2])
                         {
@@ -289,29 +310,34 @@ void EstimateDElevByFluvialProcess(
                         {
                             dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e2]);
                         }
+                        
+                        /* for debug */
+                        if (dBedrockElev[ithCellIdx] > 0)
+                        {
+                            mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev","negative dBedrockElev");
+                        }           
                     }
                             
                     /* 다음 셀로의 유출율 [m^3/subDT] */
                     outputFlux[ithCellIdx] = inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
                             - (dBedrockElev[ithCellIdx] * CELL_AREA);
-
                     /* don't include flux due to bedrock incision */
-                    dSedimentThick[ithCellIdx] = - (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]) / CELL_AREA;
+                    dSedimentThick[ithCellIdx] = - (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx])
+                                                    / CELL_AREA;
+                    if (sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx] < 0)
+                    {
+                        dSedimentThick[ithCellIdx] = - sedimentThick[ithCellIdx];
+                        outputFlux[ithCellIdx]
+                                = - (dSedimentThick[ithCellIdx] + dBedrockElev[ithCellIdx]) * CELL_AREA;
+                    } 
                     /* 하도 내 하상 퇴적물 변화율 [m^3/subDT] */
-                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] - outputFlux[ithCellIdx];
-                }
-                else
-                {
-                    /* (B) 퇴적물 운반능력이 하상 퇴적물보다 작다면, 운반제어환경임 */
-
-                    /* 다음 셀로의 유출율 [m^3/subDT] */
-                    outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
-                    /* b. 퇴적층 두께 변화율 [m/subDT] */
-                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
-                        - outputFlux[ithCellIdx]) / CELL_AREA;
-                    /* c. 하도 내 하상 퇴적층 부피 [m^3] */
-                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] 
-                        - outputFlux[ithCellIdx];
+                    dChanBedSed[ithCellIdx] = dSedimentThick[ithCellIdx] * CELL_AREA;
+                    
+                    /* for debug */
+                    if (outputFlux[ithCellIdx] < 0)
+                    {
+                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                    }
                 }
             }
 
@@ -380,7 +406,7 @@ void EstimateDElevByFluvialProcess(
                 if ((sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx]) < 0)
                 {
                     dSedimentThick[ithCellIdx] = - sedimentThick[ithCellIdx];                        
-                    outputFlux[ithCellIdx] = sedimentThick[ithCellIdx];                    
+                    outputFlux[ithCellIdx] = sedimentThick[ithCellIdx] * CELL_AREA;                    
                 }            
             }            
             else
@@ -390,17 +416,38 @@ void EstimateDElevByFluvialProcess(
                 /* A) 퇴적물 운반능력이 하상 퇴적물보다 큰 지를 확인함 */
                 excessTransportCapacity /* 유입량 제외 퇴적물 운반능력 [m^3/subDT] */
                     = transportCapacity[ithCellIdx] - inputFlux[ithCellIdx];
-                if (excessTransportCapacity > chanBedSed[ithCellIdx])
+                if (excessTransportCapacity <= chanBedSed[ithCellIdx])
                 {
-                    /* (A) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임 */
+                    /* (A) 퇴적물 운반능력이 하상 퇴적물보다 작다면, 운반제어환경임 */
+                    /* 다음 셀로의 유출율 [m^3/subDT] */
+                    outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
+                    /* b. 퇴적층 두께 변화율 [m/subDT] */
+                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx] - outputFlux[ithCellIdx])
+                                                    / CELL_AREA;
+                    /* c. 하도 내 하상 퇴적층 부피 [m^3] */
+                    dChanBedSed[ithCellIdx] = dSedimentThick[ithCellIdx] * CELL_AREA;
                     
+                    /* for debug */
+                    if (sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx] < 0)
+                    {
+                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
+                    }
+                    if (outputFlux[ithCellIdx] < 0)
+                    {
+                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                    }
+                }
+                else /* (excessTransportCapacity > chanBedSed[ithCellIdx) */
+                {
+                    /* (B) 퇴적물 운반능력이 하상 퇴적물보다 크면 분리제어환경임 */
                     /* 기반암 하식률 [m/subDT] */
                     /* * 주의: 다음 셀의 기반암 하상 고도를 고려하여 기반암 하식률을 산정하는 것을 추가함 */
                     dBedrockElev[ithCellIdx] = - (bedrockIncision[ithCellIdx] / CELL_AREA);
-                    
+                   
                     /* prevent bedrock elevation from being lowered compared to downstream node */
                     tmpBedElev = bedrockElev[ithCellIdx] + dBedrockElev[ithCellIdx];
-                    if (tmpBedElev < bedrockElev[e1] || tmpBedElev < bedrockElev[e2])
+                    if (((tmpBedElev < bedrockElev[e1]) && (outputFluxRatioToE1[ithCellIdx] > 0))
+                            || ((tmpBedElev < bedrockElev[e2]) && (outputFluxRatioToE2[ithCellIdx] > 0)))
                     {
                         if (bedrockElev[e1] > bedrockElev[e2])
                         {
@@ -410,29 +457,34 @@ void EstimateDElevByFluvialProcess(
                         {
                             dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e2]);
                         }
+                        
+                        /* for debug */
+                        if (dBedrockElev[ithCellIdx] > 0)
+                        {
+                            mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev","negative dBedrockElev");
+                        }           
                     }
                             
                     /* 다음 셀로의 유출율 [m^3/subDT] */
                     outputFlux[ithCellIdx] = inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
                             - (dBedrockElev[ithCellIdx] * CELL_AREA);
-
                     /* don't include flux due to bedrock incision */
-                    dSedimentThick[ithCellIdx] = - (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]) / CELL_AREA;
+                    dSedimentThick[ithCellIdx] = - (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx])
+                                                    / CELL_AREA;
+                    if (sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx] < 0)
+                    {
+                        dSedimentThick[ithCellIdx] = - sedimentThick[ithCellIdx];
+                        outputFlux[ithCellIdx]
+                                = - (dSedimentThick[ithCellIdx] + dBedrockElev[ithCellIdx]) * CELL_AREA;
+                    } 
                     /* 하도 내 하상 퇴적물 변화율 [m^3/subDT] */
-                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] - outputFlux[ithCellIdx];
-                }
-                else
-                {
-                    /* (B) 퇴적물 운반능력이 하상 퇴적물보다 작다면, 운반제어환경임 */
-
-                    /* 다음 셀로의 유출율 [m^3/subDT] */
-                    outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
-                    /* b. 퇴적층 두께 변화율 [m/subDT] */
-                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx] + chanBedSed[ithCellIdx]
-                        - outputFlux[ithCellIdx]) / CELL_AREA;
-                    /* c. 하도 내 하상 퇴적층 부피 [m^3] */
-                    dChanBedSed[ithCellIdx] = chanBedSed[ithCellIdx] + inputFlux[ithCellIdx] 
-                        - outputFlux[ithCellIdx];
+                    dChanBedSed[ithCellIdx] = dSedimentThick[ithCellIdx] * CELL_AREA;
+                    
+                    /* for debug */
+                    if (outputFlux[ithCellIdx] < 0)
+                    {
+                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                    }
                 }
             }
             

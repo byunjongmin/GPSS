@@ -63,7 +63,6 @@ for iCell = 1:consideringCellsNo
 
 			% A. 사면이라면, 지표유출에 의한 침식률을 구함
 			outputFlux(iCellY,iCellX) = transportCapacityForShallow(iCellY,iCellX);
-			
 			dSedimentThick(iCellY,iCellX) ...
 				= (inputFlux(iCellY,iCellX) - outputFlux(iCellY,iCellX)) / CELL_AREA;
 
@@ -117,7 +116,8 @@ for iCell = 1:consideringCellsNo
 						= max(bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
                                 ,bedrockElev(e2LinearIndicies(iCellY,iCellX))) ...
                             - bedrockElev(iCellY,iCellX);
-                        
+                    
+                    % for debug
                     if dBedrockElev(iCellY,iCellX) > 0
                         error('EstimateDElevByFluvialProcess_m:negativeDBedrockElev','negative dBedrockElev');                    
                     end                
@@ -130,13 +130,15 @@ for iCell = 1:consideringCellsNo
 				dSedimentThick(iCellY,iCellX) ...
 					= - (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX)) ...
                         / CELL_AREA;
+                if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0                
+                    dSedimentThick(iCellY,iCellX) = - sedimentThick(iCellY,iCellX);
+                    outputFlux(iCellY,iCellX) ...
+                        = - (dSedimentThick(iCellY,iCellX) + dBedrockElev(iCellY,iCellX)) * CELL_AREA;
+                end
 				dChanBedSed(iCellY,iCellX) ...
 					= dSedimentThick(iCellY,iCellX) * CELL_AREA;
                     
                 % for debug
-                if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0                
-                    error('EstimateDElevByFluvialProcess_m:negativeSedimentThick','negative sediment thickness');                    
-                end
                 if outputFlux(iCellY,iCellX) < 0
                     error('EstimateDElevByFluvialProcess_m:negativeOutputFlux','negative output flux');                    
                 end
@@ -275,15 +277,17 @@ for iCell = 1:consideringCellsNo
                 dSedimentThick(iCellY,iCellX) ...
                     = - (inputFlux(iCellY,iCellX) + chanBedSed(iCellY,iCellX)) ...
                         / CELL_AREA;
-                dChanBedSed(iCellY,iCellX) ...
-                    = dSedimentThick(iCellY,iCellX) * CELL_AREA;
-                
-                % for debug
                 if sedimentThick(iCellY,iCellX) + dSedimentThick(iCellY,iCellX) < 0                
-                    error('EstimateDElevByFluvialProcess_m:negativeSedimentThick','negative sediment thickness');                    
+                    dSedimentThick(iCellY,iCellX) = - sedimentThick(iCellY,iCellX);
+                    outputFlux(iCellY,iCellX) ...
+                        = - (dSedimentThick(iCellY,iCellX) + dBedrockElev(iCellY,iCellX)) * CELL_AREA;
                 end
+				dChanBedSed(iCellY,iCellX) ...
+					= dSedimentThick(iCellY,iCellX) * CELL_AREA;
+                    
+                % for debug
                 if outputFlux(iCellY,iCellX) < 0
-                    error('EstimateDElevByFluvialProcess_m:negativeOutputFlux','negative output flux');   
+                    error('EstimateDElevByFluvialProcess_m:negativeOutputFlux','negative output flux');                    
                 end
 
             end
