@@ -302,13 +302,20 @@ void EstimateDElevByFluvialProcess(
                     if (((tmpBedElev < bedrockElev[e1]) && (outputFluxRatioToE1[ithCellIdx] > 0))
                             || ((tmpBedElev < bedrockElev[e2]) && (outputFluxRatioToE2[ithCellIdx] > 0)))
                     {
-                        if (bedrockElev[e1] > bedrockElev[e2])
+                        if ((bedrockElev[e1] > bedrockElev[e2]) && (outputFluxRatioToE1[ithCellIdx] > 0))
                         {
-                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e1]);
+                            dBedrockElev[ithCellIdx] = bedrockElev[e1] - bedrockElev[ithCellIdx];
                         }
                         else
                         {
-                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e2]);
+                            if (outputFluxRatioToE2[ithCellIdx] > 0)
+                            {
+                                dBedrockElev[ithCellIdx] = bedrockElev[e2] - bedrockElev[ithCellIdx];
+                            }
+                            else
+                            {
+                                dBedrockElev[ithCellIdx] = bedrockElev[e1] - bedrockElev[ithCellIdx];
+                            }
                         }
                         
                         /* for debug */
@@ -449,13 +456,20 @@ void EstimateDElevByFluvialProcess(
                     if (((tmpBedElev < bedrockElev[e1]) && (outputFluxRatioToE1[ithCellIdx] > 0))
                             || ((tmpBedElev < bedrockElev[e2]) && (outputFluxRatioToE2[ithCellIdx] > 0)))
                     {
-                        if (bedrockElev[e1] > bedrockElev[e2])
+                        if ((bedrockElev[e1] > bedrockElev[e2]) && (outputFluxRatioToE1[ithCellIdx] > 0))
                         {
-                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e1]);
+                            dBedrockElev[ithCellIdx] = bedrockElev[e1] - bedrockElev[ithCellIdx];
                         }
                         else
                         {
-                            dBedrockElev[ithCellIdx] = - (bedrockElev[ithCellIdx] - bedrockElev[e2]);
+                            if (outputFluxRatioToE2[ithCellIdx] > 0)
+                            {
+                                dBedrockElev[ithCellIdx] = bedrockElev[e2] - bedrockElev[ithCellIdx];
+                            }
+                            else
+                            {
+                                dBedrockElev[ithCellIdx] = bedrockElev[e1] - bedrockElev[ithCellIdx];
+                            }
                         }
                         
                         /* for debug */

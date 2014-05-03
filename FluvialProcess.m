@@ -118,38 +118,38 @@ bedrockIncision ...
     .* integratedSlope .^ nfb ) ) .* subDT ...
     .* timeWeight;                  % 만제유량 지속기간 축소를 위한 가중치
 
-% % EstimateDElevByFluvial_m.m 부분
-% 
-% [dSedimentThick ...      % 퇴적층 두께 변화율 [m^3/m^2 subDT]
-% ,dBedrockElev ...        % 기반암 고도 변화율 [m^3/m^2 subDT]
-% ,dChanBedSed ...         % 하도 내 하상 퇴적물 변화율 [m^3/subDT]
-% ,inputFlux ...           % 상부 유역으로 부터의 유입율 [m^3/subDT]
-% ,outputFlux...           % 하류로의 유출율 [m^3/subDT]
-% ,inputFloodedRegion ...  % flooded region으로의 유입율 [m^3/subDT]
-% ,isFilled] ...           % 상부 유입으로 인한 flooded region의 매적 유무
-% = EstimateDElevByFluvialProcess_m ...
-% (dX ...                         % 셀 크기
-% ,mRows ...
-% ,nCols ...
-% ,consideringCellsNo ...         % 하천작용이 발생하는 셀 수
-% ,sortedYXElev ... 		        % 고도순으로 정렬된 Y,X 좌표
-% ,e1LinearIndicies ...           % 다음 셀 색인
-% ,e2LinearIndicies ...           % 다음 셀 색인
-% ,outputFluxRatioToE1 ...        % 다음 셀로의 유출 비율
-% ,outputFluxRatioToE2 ...        % 다음 셀로의 유출 비율
-% ,SDSNbrY ...                    % 다음 셀 색인
-% ,SDSNbrX ...                    % 다음 셀 색인
-% ,flood ...                      % flooded region
-% ,floodedRegionCellsNo ...       % flooded region 구성 셀 수
-% ,floodedRegionStorageVolume ... % flooded region 저장량
-% ,transportCapacity ...          % 최대 퇴적물 운반능력
-% ,bedrockIncision ...			% 기반암 하상 침식율
-% ,chanBedSed ...                 % 하도내 하상 퇴적층 부피
-% ,bedrockElev ...				% 기반암 고도
-% ,sedimentThick ...              % 퇴적층 두께
-% ,hillslope ...                  % 사면 셀
-% ,transportCapacityForShallow ...
-% ,elev);	% 지표유출로 인한 물질이동
+% EstimateDElevByFluvial_m.m 부분
+
+[dSedimentThick ...      % 퇴적층 두께 변화율 [m^3/m^2 subDT]
+,dBedrockElev ...        % 기반암 고도 변화율 [m^3/m^2 subDT]
+,dChanBedSed ...         % 하도 내 하상 퇴적물 변화율 [m^3/subDT]
+,inputFlux ...           % 상부 유역으로 부터의 유입율 [m^3/subDT]
+,outputFlux...           % 하류로의 유출율 [m^3/subDT]
+,inputFloodedRegion ...  % flooded region으로의 유입율 [m^3/subDT]
+,isFilled] ...           % 상부 유입으로 인한 flooded region의 매적 유무
+= EstimateDElevByFluvialProcess_m ...
+(dX ...                         % 셀 크기
+,mRows ...
+,nCols ...
+,consideringCellsNo ...         % 하천작용이 발생하는 셀 수
+,sortedYXElev ... 		        % 고도순으로 정렬된 Y,X 좌표
+,e1LinearIndicies ...           % 다음 셀 색인
+,e2LinearIndicies ...           % 다음 셀 색인
+,outputFluxRatioToE1 ...        % 다음 셀로의 유출 비율
+,outputFluxRatioToE2 ...        % 다음 셀로의 유출 비율
+,SDSNbrY ...                    % 다음 셀 색인
+,SDSNbrX ...                    % 다음 셀 색인
+,flood ...                      % flooded region
+,floodedRegionCellsNo ...       % flooded region 구성 셀 수
+,floodedRegionStorageVolume ... % flooded region 저장량
+,transportCapacity ...          % 최대 퇴적물 운반능력
+,bedrockIncision ...			% 기반암 하상 침식율
+,chanBedSed ...                 % 하도내 하상 퇴적층 부피
+,bedrockElev ...				% 기반암 고도
+,sedimentThick ...              % 퇴적층 두께
+,hillslope ...                  % 사면 셀
+,transportCapacityForShallow ...
+,elev);	% 지표유출로 인한 물질이동
 
 %--------------------------------------------------------------------------
 % EstimateDElevByFluvial.c 부분
@@ -189,29 +189,29 @@ mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
 % transportCapacityForShallow ...    % 19 . 지표유출로 인한 물질이동
 % bedrockElev ...                    % 20 . 기반암 고도
 
-% % for debug
-% if sum(sum(dSedimentThick1-dSedimentThick)) > 1e-6
-%     error('FuvialProcess:notEqual','dSedimentThick');
-% end
-% if sum(sum(dBedrockElev1-dBedrockElev)) > 1e-6
-%     error('FuvialProcess:notEqual','dBedrockElev1');
-% end
-% if sum(sum(dChanBedSed1-dChanBedSed)) > 1e-6
-%     error('FuvialProcess:notEqual','dChanBedSed');
-% end
-% if sum(sum(inputFlux1-inputFlux)) > 1e-6
-%     error('FuvialProcess:notEqual','inputFlux');
-% end
-% if sum(sum(outputFlux1-outputFlux)) > 1e-6
-%     %error('FuvialProcess:notEqual','outputFlux');
-%     1;
-% end
-% if sum(sum(inputFloodedRegion1-inputFloodedRegion)) > 1e-6
-%     error('FuvialProcess:notEqual','inputFloodedRegion');
-% end
-% if sum(sum(isFilled1-isFilled)) > 1e-6
-%     error('FuvialProcess:notEqual','isFilled');
-% end
+% for debug
+if sum(sum(dSedimentThick1-dSedimentThick)) > 1e-6
+    error('FuvialProcess:notEqual','dSedimentThick');
+end
+if sum(sum(dBedrockElev1-dBedrockElev)) > 1e-6
+    error('FuvialProcess:notEqual','dBedrockElev1');
+end
+if sum(sum(dChanBedSed1-dChanBedSed)) > 1e-6
+    error('FuvialProcess:notEqual','dChanBedSed');
+end
+if sum(sum(inputFlux1-inputFlux)) > 1e-6
+    error('FuvialProcess:notEqual','inputFlux');
+end
+if sum(sum(outputFlux1-outputFlux)) > 1e-6
+    %error('FuvialProcess:notEqual','outputFlux');
+    1;
+end
+if sum(sum(inputFloodedRegion1-inputFloodedRegion)) > 1e-6
+    error('FuvialProcess:notEqual','inputFloodedRegion');
+end
+if sum(sum(isFilled1-isFilled)) > 1e-6
+    error('FuvialProcess:notEqual','isFilled');
+end
 %--------------------------------------------------------------------------
 
 %--------------------------------------------------------------------------
