@@ -10,7 +10,7 @@
 %>      ,ReadParameterValue(), hypsometry(), streamorder(), wflowacc()
 %>      
 %>
-%> @retval majorOutputs              : 주요 결과를 저장한 자료
+%> @retval majorOutputs            : 주요 결과를 저장한 자료
 %>
 %> @param OUTPUT_SUBDIR             : 출력 파일이 저장된 디렉터리
 %> @param GRAPH_INTERVAL            : 모의결과가 기록된 파일에서 그래프를 보여주는 간격
@@ -766,6 +766,7 @@ end
 
 % 주요 2차원 변수를 저장하는 총 횟수
 totalExtractTimesNo = floor(totalGraphShowTimesNo / EXTRACT_INTERVAL);
+totalExtractTimesNo = floor(endStep / EXTRACT_INTERVAL);
 
 ithExtractTime = 0;                 % mat 파일 기록을 위한 색인 초기화
 
@@ -817,7 +818,7 @@ startedStepNo = startedTimeStepNo / WRITE_INTERVAL;
 
 % 2) 파일에서 i번째 모의결과를 읽고 이를 그래프로 표현하고 주요 변수는 일정
 %    간격으로 저장함
-endStep = 15; % for the unexpectedly stopped experiment
+endStep = 2332; % for the unexpectedly stopped experiment
 for ithStep = initIthStep:endStep
     
     fprintf('%i\n',ithStep); % 실행 횟수 출력
@@ -1557,7 +1558,7 @@ for ithStep = initIthStep:endStep
         %------------------------------------------------------------------        
         % 일정한 간격으로 주요 변수들을 기록함
         % 큰 간격으로 2차원 주요 변수들을 기록함
-        if mod(ithGraph,EXTRACT_INTERVAL) == 0
+        if rem(ithStep,EXTRACT_INTERVAL) == 0
             
             ithExtractTime = ithExtractTime + 1;
             

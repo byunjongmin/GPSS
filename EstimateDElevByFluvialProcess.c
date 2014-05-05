@@ -59,8 +59,8 @@ void EstimateDElevByFluvialProcess(
     double * outputFlux,                    /* output */
     double * inputFloodedRegion,            /* output */
     mxLogical * isFilled,                   /* output */
-    mwSize dX,                              /* input */
-    mwSize consideringCellsNo,              /* input */
+    double dX,                              /* input */
+    double consideringCellsNo,              /* input */
     double * mexSortedIndicies,             /* input */
     double * e1LinearIndicies,              /* input */
     double * e2LinearIndicies,              /* input */
@@ -88,10 +88,10 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     
     /* variable declaration */    
     /* input variable declaration */
-    mwSize dX;
-    mwSize mRows;
-    mwSize nCols;
-    mwSize consideringCellsNo;
+    double dX;
+    double mRows;
+    double nCols;
+    double consideringCellsNo;
     /* 주의: mxArray 자료형 변수는 mexGetVariablePtr 함수를 이용하여
      * 호출함수의 작업공간에 있는 변수들의 포인터만 불러옴 */
     const mxArray * mxArray4  = mexGetVariablePtr("caller","mexSortedIndicies");
@@ -202,8 +202,8 @@ void EstimateDElevByFluvialProcess(
     double * outputFlux,
     double * inputFloodedRegion,
     mxLogical * isFilled,
-    mwSize dX,
-    mwSize consideringCellsNo,
+    double dX,
+    double consideringCellsNo,
     double * mexSortedIndicies,
     double * e1LinearIndicies,
     double * e2LinearIndicies,
@@ -227,7 +227,7 @@ void EstimateDElevByFluvialProcess(
     double excessTransportCapacity,outputFluxToE1,outputFluxToE2;
     double tmpBedElev;
     
-    const mwSize FLOODED = 2; /* flooded region */
+    const double FLOODED = 2; /* flooded region */
     const double CELL_AREA = dX * dX;
             
     /* (높은 고도 순으로) 하천작용에 의한 퇴적물 두께 및 기반암 고도 변화율을 구함 */
@@ -235,14 +235,14 @@ void EstimateDElevByFluvialProcess(
     {        
         /* 1. i번째 셀 및 다음 셀의 색인
          * *  주의: MATLAB 배열 선형 색인을 위해 '-1'을 수행함 */
-        ithCellIdx = (mwIndex) mexSortedIndicies[ithCell] - 1;
-        e1 = (mwIndex) e1LinearIndicies[ithCellIdx] - 1;
-        e2 = (mwIndex) e2LinearIndicies[ithCellIdx] - 1;
+        ithCellIdx = (mwIndex)mexSortedIndicies[ithCell] - 1;
+        e1 = (mwIndex)e1LinearIndicies[ithCellIdx] - 1;
+        e2 = (mwIndex)e2LinearIndicies[ithCellIdx] - 1;
 
         /* 2. i번재 셀의 유출율을 구하고, 이를 유향을 따라 다음 셀에 분배함 */
 
         /* 1). i번째 셀이 flooded region의 유출구인지를 확인함 */
-        if ((mwSize) floodedRegionCellsNo[ithCellIdx] == 0)
+        if ((mwSize)floodedRegionCellsNo[ithCellIdx] == 0)
         {
             /* 유출구가 아니라면(일반적임), 지표유출 및 하천에 의한 유출량을 구하고
              * 이를 무한유향을 따라 다음 셀에 분배함 */
@@ -318,10 +318,26 @@ void EstimateDElevByFluvialProcess(
                             }
                         }
                         
-                        /* for debug */
+                        /* for warning and debug */
                         if (dBedrockElev[ithCellIdx] > 0)
                         {
-                            mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev","negative dBedrockElev");
+                            /* for the intitial condition in which upstream bedrock
+                             * elevation is lower than its downstream (e1, e2) */
+                            if ((bedrockElev[ithCellIdx] < bedrockElev[e1])
+                                || (bedrockElev[ithCellIdx] < bedrockElev[e2]))
+                            {
+                                mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
+                                    ,"reversed dBedrockElev: diff with e1, %f; diff with e2, %f"
+                                    ,bedrockElev[e1] - bedrockElev[ithCellIdx]
+                                    ,bedrockElev[e2] - bedrockElev[ithCellIdx]);
+                                dBedrockElev[ithCellIdx] = 0;
+                            }
+                            else
+                            {
+                                /* for debug */                                
+                                mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
+                                        ,"negative dBedrockElev");
+                            }                        
                         }           
                     }
                             
@@ -358,7 +374,7 @@ void EstimateDElevByFluvialProcess(
 
             /* B) 다음 셀이 flooded region이라면 inputFloodedRegion에
              *    유출율을 반영하고 그렇지 않다면 다음 셀에 직접 반영함 */
-            if ((mwSize) flood[e1] == FLOODED)
+            if ((mwSize)flood[e1] == FLOODED)
             {
                 /* * 주의: MATLAB 배열 색인을 위해 '-1'을 수행함 */
                 outlet = (mwIndex) mexSDSNbrIndicies[e1] - 1;
@@ -370,7 +386,7 @@ void EstimateDElevByFluvialProcess(
                 inputFlux[e1] = inputFlux[e1] + outputFluxToE1;
             }
             
-            if ((mwSize) flood[e2] == FLOODED)
+            if ((mwSize)flood[e2] == FLOODED)
             {
                 /* * 주의: MATLAB 배열 색인을 위해 '-1'을 수행함 */
                 outlet = (mwIndex) mexSDSNbrIndicies[e2] - 1;
@@ -472,10 +488,26 @@ void EstimateDElevByFluvialProcess(
                             }
                         }
                         
-                        /* for debug */
+                        /* for warning and debug */
                         if (dBedrockElev[ithCellIdx] > 0)
                         {
-                            mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev","negative dBedrockElev");
+                            /* for the intitial condition in which upstream bedrock
+                             * elevation is lower than its downstream (e1, e2) */
+                            if ((bedrockElev[ithCellIdx] < bedrockElev[e1])
+                                || (bedrockElev[ithCellIdx] < bedrockElev[e2]))
+                            {
+                                mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
+                                    ,"reversed dBedrockElev: diff with e1, %f; diff with e2, %f"
+                                    ,bedrockElev[e1] - bedrockElev[ithCellIdx]
+                                    ,bedrockElev[e2] - bedrockElev[ithCellIdx]);
+                                dBedrockElev[ithCellIdx] = 0;
+                            }
+                            else
+                            {
+                                /* for debug */                                
+                                mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
+                                        ,"negative dBedrockElev");
+                            }                        
                         }           
                     }
                             
@@ -505,14 +537,14 @@ void EstimateDElevByFluvialProcess(
             /* (3) 최대하부경사 유향을 따라 다음 셀의 유입율에 유출율을 더함 */
             /* A. 최대 하부 경사 유향이 가리키는 다음 셀의 좌표
             * *  주의: MATLAB 배열 선형 색인을 위해 '-1'을 수행함 */
-            next = (mwIndex) mexSDSNbrIndicies[ithCellIdx] - 1;            
+            next = (mwIndex)mexSDSNbrIndicies[ithCellIdx] - 1;            
 
             /* B. 다음 셀이 flooded region 이라면 inputFloodedRegion에
              *    유출율을 반영하고 그렇지 않다면 다음 셀에 직접 반영함 */
-            if  ((mwSize) flood[next] == FLOODED )
+            if  ((mwSize)flood[next] == FLOODED )
             {
                 /* * 주의: MATLAB 배열 색인을 위해 '-1'을 수행함 */
-                outlet = (mwIndex) mexSDSNbrIndicies[next];                                
+                outlet = (mwIndex)mexSDSNbrIndicies[next] - 1;                                
                 inputFloodedRegion[outlet] /* [m^3/subDT] */
                     = inputFloodedRegion[outlet] + outputFlux[ithCellIdx];
             }

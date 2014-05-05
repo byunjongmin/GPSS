@@ -28,7 +28,7 @@ function ...
 ,sedimentThick ...              % 퇴적층 두께
 ,hillslope ...                  % 사면 셀
 ,transportCapacityForShallow ...% 지표유출로 인한 물질이동
-,elev)
+,elev) %#codegen
 
 % define constants
 FLOODED = 2;
@@ -137,10 +137,25 @@ for iCell = 1:consideringCellsNo
                         end                                
                     end
                     
-                    % for debug
                     if dBedrockElev(iCellY,iCellX) > 0
-                        error('EstimateDElevByFluvialProcess_m:negativeDBedrockElev','negative dBedrockElev');                    
-                    end                
+                        
+                        % for the intitial condition in which upstream bedrock
+                        % elevation is lower than its downstream (e1, e2)
+                        if bedrockElev(iCellY,iCellX) < bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
+                            || bedrockElev(iCellY,iCellX) < bedrockElev(e2LinearIndicies(iCellY,iCellX))
+                        
+                            warning('EstimateDElevByFluvialProcess_m:negativeDBedrockElev' ...
+                                ,'reversed dBedrockElev: diff with e1, %f; diff with e2, %f' ...
+                                ,bedrockElev(e1LinearIndicies(iCellY,iCellX)) - bedrockElev(iCellY,iCellX) ...
+                                ,bedrockElev(e2LinearIndicies(iCellY,iCellX)) - bedrockElev(iCellY,iCellX));
+                            dBedrockElev(iCellY,iCellX) = 0;
+                        
+                        else
+                            % for debug                            
+                            error('EstimateDElevByFluvialProcess_m:negativeDBedrockElev','reversed dBedrockElev');
+                            
+                        end
+                    end
                 end
 
 				outputFlux(iCellY,iCellX) ...
@@ -306,8 +321,24 @@ for iCell = 1:consideringCellsNo
                     end
                         
                     if dBedrockElev(iCellY,iCellX) > 0
-                        error('EstimateDElevByFluvialProcess_m:negativeDBedrockElev','negative dBedrockElev');                    
-                    end                
+                        
+                        % for the intitial condition in which upstream bedrock
+                        % elevation is lower than its downstream (e1, e2)
+                        if bedrockElev(iCellY,iCellX) < bedrockElev(e1LinearIndicies(iCellY,iCellX)) ...
+                            || bedrockElev(iCellY,iCellX) < bedrockElev(e2LinearIndicies(iCellY,iCellX))
+                        
+                            warning('EstimateDElevByFluvialProcess_m:negativeDBedrockElev' ...
+                                ,'reversed dBedrockElev: diff with e1, %f; diff with e2, %f' ...
+                                ,bedrockElev(e1LinearIndicies(iCellY,iCellX)) - bedrockElev(iCellY,iCellX) ...
+                                ,bedrockElev(e2LinearIndicies(iCellY,iCellX)) - bedrockElev(iCellY,iCellX));
+                            dBedrockElev(iCellY,iCellX) = 0;
+                        
+                        else
+                            % for debug                            
+                            error('EstimateDElevByFluvialProcess_m:negativeDBedrockElev','reversed dBedrockElev');
+                            
+                        end
+                    end
                 end
                 
                 outputFlux(iCellY,iCellX) ...

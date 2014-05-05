@@ -4,7 +4,8 @@
 # Mac OS noises
 .DS_Store
 
-# MATLAB noises
+# noises
+*.c~
 *.m~
 *.mexw64
 *.mexmaci64

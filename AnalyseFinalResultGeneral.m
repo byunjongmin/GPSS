@@ -58,7 +58,7 @@ for ithSubDir = 1:totalSubDirs
     totalExtractTimesNo = majorOutputs.totalExtractTimesNo;
     
     % if a broken simulation
-    totalExtractTimesNo = 24;
+    totalExtractTimesNo = 23;
 
     lastSedimentThick ...   % 초기 지형 고려
         = majorOutputs.sedimentThick(:,:,totalExtractTimesNo + 1);
@@ -295,8 +295,8 @@ for ithSubDir = 1:totalSubDirs
     % 사용자 정의시에 여기에 정지하고 pY, pX를 달리할 것
     figure(34)
     imagesc(ithSubDirUpslopeArea)
-    pY = 99; % for custom setting
-    pX = 49; % for custom setting
+    % pY = 99; % for custom setting
+    % pX = 49; % for custom setting
 
     % 하천종단곡선 경로 기록 변수 초기화
     ithRiverProfileYX = zeros(Y*X,2);           % 경로 좌표
