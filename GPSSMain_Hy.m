@@ -134,8 +134,10 @@ INPUT_FILE_PARAM_PATH ...   % 입력 파일 경로 상수
 ,kw1 ...                    % 지수 감소 풍화함수에서 연장되는 노출 기반암의 풍화율 [m/yr]
 ,kwm ...                    % 풍화층 두께 축적 [m]
 ,kmd ...                    % 사면작용의 확산 계수
+,FAILURE_OPT ...            % Hillslope failure option
 ,soilCriticalSlopeForFailure ... % 천부활동의 안정 사면각
 ,rockCriticalSlopeForFailure ... % 기반암활동의 안정 사면각
+,FLOW_ROUTING ...           % Chosen flow routing algorithm
 ,annualPrecipitation ...    % 연 강우량 [m/yr]
 ,annualEvapotranspiration ... % 연 증발산량 [m/yr]
 ,kqb ...                    % 평균유량과 만제유량과의 관계식에서 계수
@@ -168,7 +170,6 @@ INPUT_FILE_PARAM_PATH ...   % 입력 파일 경로 상수
 % 1. 반복문 내 임시 세부 단위시간 설정과 관련된 변수의 계수와 지수
 % (최적화된 값을 파악하기 어려워 여기서 일단 고정함)
 basicManipulationRatio = 0.5; nt = 4;
-
 %--------------------------------------------------------------------------
 
 % 모의 결과를 저장하는 세부 디렉터리
@@ -241,6 +242,7 @@ CELL_AREA = dX * dX; % 셀 면적
 
 bankfullTime = ceil(bankfullTime / timeWeight); % 줄어든 만제유량 지속기
 
+IS_TRUE = 1;
 QUARTER_PI = 0.785398163397448;     % pi * 0.25
 HALF_PI = 1.57079632679490;         % pi * 0.5
 ROOT2 = 1.41421356237310;           % sqrt(2)
@@ -506,7 +508,8 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         ,flood,floodedRegionCellsNo ...
         ,floodedRegionStorageVolume,floodedRegionIndex ...
         ,facetFlowDirection,e1LinearIndicies,e2LinearIndicies ...
-        ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX);    
+        ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX ...
+        ,FLOW_ROUTING);    
 
     % B. 만제유량, 만제유량시 수심과 하폭
     
@@ -726,7 +729,8 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,flood,floodedRegionCellsNo ...
             ,floodedRegionStorageVolume,floodedRegionIndex ...
             ,facetFlowDirection,e1LinearIndicies,e2LinearIndicies ...
-            ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX);
+            ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX ...
+            ,FLOW_ROUTING);
 
         % B. 만제유량, 만제유량시 하폭과 수심
         
@@ -840,7 +844,8 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,floodedRegionTotalDepth,floodedRegionStorageVolume ...
             ,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1 ...
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
-            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,trialTime,dX,bedrockElev,elev);
+            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,trialTime,dX,bedrockElev,elev ...
+            ,FLOW_ROUTING);
         
         % B. 세부 단위시간을 정의함
         [subDT ...              % 세부 단위시간 [s]
@@ -875,7 +880,8 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             ,floodedRegionStorageVolume ...
             ,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1 ...
             ,outputFluxRatioToE2,SDSNbrY,SDSNbrX,integratedSlope ...
-            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX,bedrockElev,elev);
+            ,kfa,mfa,nfa,kfbre,fSRho,g,nB,mfb,nfb,subDT,dX,bedrockElev,elev ...
+            ,FLOW_ROUTING);
         
         % B. 세부 단위시간의 퇴적물 두께 및 기반암 고도 변화율을 누적하고
         %    하도 내 하상 퇴적물을 갱신함
@@ -906,31 +912,35 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         
     end % while (sumSubDT < bankfullTime)
     
-    % 5. 빠른 매스무브먼트로 인한 퇴적층 두께 및 기반암 고도 변화율
-    % * 원리: 불안정한 사면을 파악하고, 이들에 대해 빠른 매스무브먼트를 발생시켜
-    %   사면물질을 하부로 연쇄이동 시킴
-    
-    % 1) 빠른 매스무브먼트로 인한 퇴적층 두께 및 기반암 고도 변화율
-    [dBedrockElevByRapidMass ...        % 기반암 고도 변화율 [m/dT]
-    ,dSedThickByRapidMass ...          % 퇴적층 두께 변화율 [m/dT]
-    ,dTAfterLastShallowLandslide ...    % 마지막 천부활동 이후 경과 시간
-    ,dTAfterLastBedrockLandslide] ...   % 마지막 기반암활동 이후 경과 시간
-        = RapidMassMovement(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
-        ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,dT,ROOT2,QUARTER_PI ...
-        ,CELL_AREA,DISTANCE_RATIO_TO_NBR,soilCriticalSlopeForFailure ...
-        ,rockCriticalSlopeForFailure,bedrockElev,sedimentThick ...
-        ,dTAfterLastShallowLandslide,dTAfterLastBedrockLandslide ...
-        ,dX,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED ...
-        ,ithNbrYOffset,ithNbrXOffset ...
-        ,sE0LinearIndicies,s3IthNbrLinearIndicies);
+    if FAILURE_OPT == IS_TRUE
+        
+        % 5. 빠른 매스무브먼트로 인한 퇴적층 두께 및 기반암 고도 변화율
+        % * 원리: 불안정한 사면을 파악하고, 이들에 대해 빠른 매스무브먼트를 발생시켜
+        %   사면물질을 하부로 연쇄이동 시킴
 
-    % 2) 기반암 고도와 퇴적층 두께를 갱신함
-    bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
-        = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
-        + dBedrockElevByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
-    sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)...
-        = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
-        + dSedThickByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
+        % 1) 빠른 매스무브먼트로 인한 퇴적층 두께 및 기반암 고도 변화율
+        [dBedrockElevByRapidMass ...        % 기반암 고도 변화율 [m/dT]
+        ,dSedThickByRapidMass ...          % 퇴적층 두께 변화율 [m/dT]
+        ,dTAfterLastShallowLandslide ...    % 마지막 천부활동 이후 경과 시간
+        ,dTAfterLastBedrockLandslide] ...   % 마지막 기반암활동 이후 경과 시간
+            = RapidMassMovement(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
+            ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,dT,ROOT2,QUARTER_PI ...
+            ,CELL_AREA,DISTANCE_RATIO_TO_NBR,soilCriticalSlopeForFailure ...
+            ,rockCriticalSlopeForFailure,bedrockElev,sedimentThick ...
+            ,dTAfterLastShallowLandslide,dTAfterLastBedrockLandslide ...
+            ,dX,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED ...
+            ,ithNbrYOffset,ithNbrXOffset ...
+            ,sE0LinearIndicies,s3IthNbrLinearIndicies);
+
+        % 2) 기반암 고도와 퇴적층 두께를 갱신함
+        bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
+            = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
+            + dBedrockElevByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
+        sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)...
+            = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX) ...
+            + dSedThickByRapidMass(Y_INI:Y_MAX,X_INI:X_MAX);
+        
+    end
     
     % 일정 실행 횟수 간격으로 모의 결과를 파일에 기록한다.
     if mod(ithTimeStep,WRITE_INTERVAL) == 0

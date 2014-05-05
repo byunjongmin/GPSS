@@ -52,11 +52,15 @@
 %> @param outputFluxRatioToE2           : 무한 유향에 의해 다음 셀로 분배되는 비율
 %> @param SDSNbrY                       : 최대하부경사 유향이 가리키는 다음 셀의 Y 좌표
 %> @param SDSNbrX                       : 최대하부경사 유향이 가리키는 다음 셀의 X 좌표
+%> @param FLOW_ROUTING                  : Chosen flow routing algorithm
 % =========================================================================
-function [upstreamDischarge1,isOverflowing] = AccumulateUpstreamFlow(mRows,nCols,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA,sortedYXElev,consideringCellsNo,OUTER_BOUNDARY,annualRunoff,flood,floodedRegionCellsNo,floodedRegionStorageVolume,floodedRegionIndex,facetFlowDirection,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX)
+function [upstreamDischarge1,isOverflowing] = AccumulateUpstreamFlow(mRows,nCols,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA,sortedYXElev,consideringCellsNo,OUTER_BOUNDARY,annualRunoff,flood,floodedRegionCellsNo,floodedRegionStorageVolume,floodedRegionIndex,facetFlowDirection,e1LinearIndicies,e2LinearIndicies,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX,FLOW_ROUTING)
 %
 % function AccumulateUpstreamFlow
 %
+
+% constant
+D_INF = 1; % infinitive flow routing algorithm
 
 % 변수 초기화
 % 출력 변수 초기화
@@ -74,29 +78,59 @@ upstreamCellsNo(OUTER_BOUNDARY) = 0;
 mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
 mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
 
-[upstreamDischarge1 ...              0 상부 유역으로부터의 유량 [m^3]
-,inputDischarge ...                  1 상부 유역으로부터의 유량 [m^3]
-,dischargeInputInFloodedRegion ...   2 flooded region으로의 유량
-,isOverflowing] ...                  3 flooded region 저장량 초과 태그
-= EstimateUpstreamFlow ...
-(CELL_AREA ...                       0 셀 면적
-,consideringCellsNo ...              1 상부 유역 유량과 셀 개수를 구하는 셀 수
-,annualRunoff); ...                  2 연간 유출량
-%--------------------------------- 입력 변수에서 생략한 부분
-%,upstreamCellsNo2 ...                 4 상부 유역의 누적 셀 개수
-%,inputCellsNo2 ...                    5 상부 유역의 누적 셀 개수
-% -------------------------------- mexGetVariabelPtr 함수로 참조하는 변수들
-% upstreamDischarge1 ...             3 상부 유역으로부터의 유출량 초기값
-% upstreamCellsNo); ...              4 상부 유역의 누적 셀 개수 초기값
-% mexSortedYXElev ...                5 고도순으로 정렬된 색인
-% e1LinearIndicies ...               6 다음 셀 색인
-% e2LinearIndicies ...               7 다음 셀 색인 
-% outputFluxRatio1 ...               8 다음 셀로의 유출 비율
-% outputFluxRatio2 ...               9 다음 셀로의 유출 비율
-% mexSDSNbrLinearIndicies ...        10 다음 셀 색인
-% flood ...                          11 flooded region
-% floodedRegionCellsNo ...           12 flooded region 구성 셀 개수
-% floodedRegionStorageVolume ...     13 flooded region 저장량 [m^3]
+if FLOW_ROUTING == D_INF
+
+    [upstreamDischarge1 ...              0 상부 유역으로부터의 유량 [m^3]
+    ,inputDischarge ...                  1 상부 유역으로부터의 유량 [m^3]
+    ,dischargeInputInFloodedRegion ...   2 flooded region으로의 유량
+    ,isOverflowing] ...                  3 flooded region 저장량 초과 태그
+    = EstimateUpstreamFlow ...
+    (CELL_AREA ...                       0 셀 면적
+    ,consideringCellsNo ...              1 상부 유역 유량과 셀 개수를 구하는 셀 수
+    ,annualRunoff); ...                  2 연간 유출량
+    %--------------------------------- 입력 변수에서 생략한 부분
+    %,upstreamCellsNo2 ...                 4 상부 유역의 누적 셀 개수
+    %,inputCellsNo2 ...                    5 상부 유역의 누적 셀 개수
+    % -------------------------------- mexGetVariabelPtr 함수로 참조하는 변수들
+    % upstreamDischarge1 ...             3 상부 유역으로부터의 유출량 초기값
+    % upstreamCellsNo); ...              4 상부 유역의 누적 셀 개수 초기값
+    % mexSortedYXElev ...                5 고도순으로 정렬된 색인
+    % e1LinearIndicies ...               6 다음 셀 색인
+    % e2LinearIndicies ...               7 다음 셀 색인 
+    % outputFluxRatio1 ...               8 다음 셀로의 유출 비율
+    % outputFluxRatio2 ...               9 다음 셀로의 유출 비율
+    % mexSDSNbrLinearIndicies ...        10 다음 셀 색인
+    % flood ...                          11 flooded region
+    % floodedRegionCellsNo ...           12 flooded region 구성 셀 개수
+    % floodedRegionStorageVolume ...     13 flooded region 저장량 [m^3]
+    
+else
+    
+    [upstreamDischarge1 ...              0 상부 유역으로부터의 유량 [m^3]
+    ,inputDischarge ...                  1 상부 유역으로부터의 유량 [m^3]
+    ,dischargeInputInFloodedRegion ...   2 flooded region으로의 유량
+    ,isOverflowing] ...                  3 flooded region 저장량 초과 태그
+    = EstimateUpstreamFlowBySDS ...
+    (CELL_AREA ...                       0 셀 면적
+    ,consideringCellsNo ...              1 상부 유역 유량과 셀 개수를 구하는 셀 수
+    ,annualRunoff); ...                  2 연간 유출량
+    %--------------------------------- 입력 변수에서 생략한 부분
+    %,upstreamCellsNo2 ...               4 상부 유역의 누적 셀 개수
+    %,inputCellsNo2 ...                  5 상부 유역의 누적 셀 개수
+    % -------------------------------- mexGetVariabelPtr 함수로 참조하는 변수들
+    % upstreamDischarge1 ...             3 상부 유역으로부터의 유출량 초기값
+    % upstreamCellsNo); ...              4 상부 유역의 누적 셀 개수 초기값
+    % mexSortedYXElev ...                5 고도순으로 정렬된 색인
+    % e1LinearIndicies ...               6 다음 셀 색인
+    % e2LinearIndicies ...               7 다음 셀 색인 
+    % outputFluxRatio1 ...               8 다음 셀로의 유출 비율
+    % outputFluxRatio2 ...               9 다음 셀로의 유출 비율
+    % mexSDSNbrLinearIndicies ...        10 다음 셀 색인
+    % flood ...                          11 flooded region
+    % floodedRegionCellsNo ...           12 flooded region 구성 셀 개수
+    % floodedRegionStorageVolume ...     13 flooded region 저장량 [m^3]
+
+end
 
 %--------------------------------------------------------------------------
 % 앞서 flooded region을 제외한 셀들의 유량과 셀 개수를 구했다. 여기서는

@@ -40,8 +40,10 @@
 %> @retval kw1                              : 지수 감소 풍화함수에서 연장되는 노출 기반암의 풍화율 [m/year]
 %> @retval kwm                              : 풍화층 두께 축적 [m]
 %> @retval kmd                              : 사면작용의 확산 계수
+%> @retval FAILURE_COND                     : Hillslope failure option
 %> @retval soilCriticalSlopeForFailure      : 천부활동의 안정 사면각 [radian]
 %> @retval rockCriticalSlopeForFailure      : 기반암활동의 안정 사면각 [radian]
+%> @retval FLOW_ROUTING                     : Flow routing algorithm option
 %> @retval annualPrecipitation              : 연 강우량 [m/year]
 %> @retval annualEvapotranspiration         : 연 증발산량 [m/year]
 %> @retval kqb                              : 평균유량과 만수유량과의 관계식에서 계수
@@ -69,7 +71,20 @@
 %>
 %> @param INPUT_FILE_PARAM_PATH             : 초기 입력변수가 기록된 파일 이름
 % =========================================================================
-function [OUTPUT_SUBDIR,Y,X,dX,PLANE_ANGLE,INIT_BEDROCK_ELEV_FILE,initSedThick,INIT_SED_THICK_FILE,TIME_STEPS_NO,INIT_TIME_STEP_NO,dT,WRITE_INTERVAL,BOUNDARY_OUTFLOW_COND,TOP_BOUNDARY_ELEV_COND,IS_LEFT_RIGHT_CONNECTED,TOTAL_ACCUMULATED_UPLIFT,IS_TILTED_UPWARPING,UPLIFT_AXIS_DISTANCE_FROM_COAST,RAMP_ANGLE_TO_TOP,Y_TOP_BND_FINAL_ELEV,UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND,acceleratedUpliftPhaseNo,dUpliftRate,upliftRate0,waveArrivalTime,initUpliftRate,kw0,kwa,kw1,kwm,kmd,soilCriticalSlopeForFailure,rockCriticalSlopeForFailure,annualPrecipitation,annualEvapotranspiration,kqb,mqb,bankfullTime,timeWeight,minSubDT,khw,mhw,khd,mhd,FLUVIALPROCESS_COND,channelInitiation,criticalUpslopeCellsNo,mfa,nfa,fSRho,fSD50,eta,nA,mfb,nfb,kfbre,nB] = LoadParameterValues(INPUT_FILE_PARAM_PATH)
+function [OUTPUT_SUBDIR,Y,X,dX,PLANE_ANGLE,INIT_BEDROCK_ELEV_FILE ...
+    ,initSedThick,INIT_SED_THICK_FILE,TIME_STEPS_NO,INIT_TIME_STEP_NO ...
+    ,dT,WRITE_INTERVAL,BOUNDARY_OUTFLOW_COND,TOP_BOUNDARY_ELEV_COND ...
+    ,IS_LEFT_RIGHT_CONNECTED,TOTAL_ACCUMULATED_UPLIFT ...
+    ,IS_TILTED_UPWARPING,UPLIFT_AXIS_DISTANCE_FROM_COAST ...
+    ,RAMP_ANGLE_TO_TOP,Y_TOP_BND_FINAL_ELEV ...
+    ,UPLIFT_RATE_TEMPORAL_DISTRIBUTION_COND,acceleratedUpliftPhaseNo ...
+    ,dUpliftRate,upliftRate0,waveArrivalTime,initUpliftRate,kw0,kwa,kw1 ...
+    ,kwm,kmd,FAILURE_OPT,soilCriticalSlopeForFailure,rockCriticalSlopeForFailure ...
+    ,FLOW_ROUTING,annualPrecipitation,annualEvapotranspiration,kqb,mqb ...
+    ,bankfullTime,timeWeight,minSubDT,khw,mhw,khd,mhd ...
+    ,FLUVIALPROCESS_COND,channelInitiation,criticalUpslopeCellsNo,mfa ...
+    ,nfa,fSRho,fSD50,eta,nA,mfb,nfb,kfbre,nB] ...
+    = LoadParameterValues(INPUT_FILE_PARAM_PATH)
 %
 %
 
@@ -178,6 +193,8 @@ kwm ... % 풍화층 두께 축적 [m]
 
 kmd ... % 사면작용의 확산 계수 [m2/m yr]
     = ReadParameterValue(fid,'kmd',NUMERIC);
+FAILURE_OPT ... % Hillslope failure option
+    = ReadParameterValue(fid,'FAILURE_OPT',NUMERIC);
 % * 주의: 암석붕괴 안정사면각보다 작게 설정함
 soilCriticalSlopeForFailure ... % 쇄설류의 안정 사면각
     = ReadParameterValue(fid,'soilCriticalSlopeForFailure',NUMERIC);
@@ -188,6 +205,8 @@ rockCriticalSlopeForFailure ... % 암석붕괴의 안정 사면각
 %--------------------------------------------------------------------------
 % 수문
 
+FLOW_ROUTING ... % FLOW_ROUTING [m]
+    = ReadParameterValue(fid,'FLOW_ROUTING',NUMERIC);
 annualPrecipitation ... % 연간 강우량 [m/yr]
     = ReadParameterValue(fid,'annualPrecipitation',NUMERIC);
 annualEvapotranspiration ... % 연간 증발산량 [m/yr]

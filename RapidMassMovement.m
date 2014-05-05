@@ -62,13 +62,11 @@ function [dBedrockElev,dSedimentThick,dTAfterLastShallowLandslide,dTAfterLastBed
 SOIL = 1; % 천부활동
 ROCK = 2; % 암석붕괴
 
-% RapidMassMovement 가 발생하지 않도록 하려면 0을 대입할 것
-oversteepSlopesNo = 0;
-
 dBedrockElev = zeros(mRows,nCols);
 dSedimentThick = zeros(mRows,nCols);
 facetFlowSlope = nan(mRows,nCols);
 
+oversteepSlopesNo = 1;
 while (oversteepSlopesNo > 0)
     
     % 지표 고도를 갱신함

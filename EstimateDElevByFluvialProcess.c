@@ -52,34 +52,34 @@
 
 /* Computational routine */
 void EstimateDElevByFluvialProcess(
-    double * dSedimentThick,                /* output */
-    double * dBedrockElev,                  /* output */
-    double * dChanBedSed,                   /* output */
-    double * inputFlux,                     /* output */
-    double * outputFlux,                    /* output */
-    double * inputFloodedRegion,            /* output */
-    mxLogical * isFilled,                   /* output */
-    double dX,                              /* input */
-    double consideringCellsNo,              /* input */
-    double * mexSortedIndicies,             /* input */
-    double * e1LinearIndicies,              /* input */
-    double * e2LinearIndicies,              /* input */
-    double * outputFluxRatioToE1,           /* input */
-    double * outputFluxRatioToE2,           /* input */
-    double * mexSDSNbrIndicies,             /* input */
-    double * flood,                         /* input */
-    double * floodedRegionCellsNo,          /* input */
-    double * floodedRegionStorageVolume,    /* input */
-    double * bankfullWidth,                 /* input */
-    double * transportCapacity,             /* input */
-    double * bedrockIncision,               /* input */
-    double * chanBedSed,                    /* input */
-    double * sedimentThick,                 /* input */
-    mxLogical * hillslope,                  /* input */
-    double * transportCapacityForShallow,   /* input */
-    double * bedrockElev);                  /* input */
+    double * dSedimentThick,                /* output 0 */
+    double * dBedrockElev,                  /* output 1 */
+    double * dChanBedSed,                   /* output 2 */
+    double * inputFlux,                     /* output 3 */
+    double * outputFlux,                    /* output 4 */
+    double * inputFloodedRegion,            /* output 5 */
+    mxLogical * isFilled,                   /* output 6 */
+    double dX,                              /* input 0 */
+    double consideringCellsNo,              /* input 3 */
+    double * mexSortedIndicies,             /* input 4 */
+    double * e1LinearIndicies,              /* input 5 */
+    double * e2LinearIndicies,              /* input 6 */
+    double * outputFluxRatioToE1,           /* input 7 */
+    double * outputFluxRatioToE2,           /* input 8 */
+    double * mexSDSNbrIndicies,             /* input 9 */
+    double * flood,                         /* input 10 */
+    double * floodedRegionCellsNo,          /* input 11 */
+    double * floodedRegionStorageVolume,    /* input 12 */
+    double * bankfullWidth,                 /* input 13 */
+    double * transportCapacity,             /* input 14 */
+    double * bedrockIncision,               /* input 15 */
+    double * chanBedSed,                    /* input 16 */
+    double * sedimentThick,                 /* input 17 */
+    mxLogical * hillslope,                  /* input 18 */
+    double * transportCapacityForShallow,   /* input 19 */
+    double * bedrockElev);                  /* input 20 */
 
-/* Gateway Function */
+/* gateway Function */
 void mexFunction(int nlhs,       mxArray * plhs[]
                 ,int nrhs, const mxArray * prhs[])
 {
@@ -272,11 +272,11 @@ void EstimateDElevByFluvialProcess(
                 if (excessTransportCapacity <= chanBedSed[ithCellIdx])
                 {
                     /* (A) 퇴적물 운반능력이 하상 퇴적물보다 작다면, 운반제어환경임 */
-                    /* 다음 셀로의 유출율 [m^3/subDT] */
+                    /* a. 다음 셀로의 유출율 [m^3/subDT] */
                     outputFlux[ithCellIdx] = transportCapacity[ithCellIdx];
                     /* b. 퇴적층 두께 변화율 [m/subDT] */
-                    dSedimentThick[ithCellIdx] = (inputFlux[ithCellIdx] - outputFlux[ithCellIdx])
-                                                    / CELL_AREA;
+                    dSedimentThick[ithCellIdx] 
+                            = (inputFlux[ithCellIdx] - outputFlux[ithCellIdx]) / CELL_AREA;
                     /* c. 하도 내 하상 퇴적층 부피 [m^3] */
                     dChanBedSed[ithCellIdx] = dSedimentThick[ithCellIdx] * CELL_AREA;
                     
