@@ -311,9 +311,6 @@ vectorX = reshape(sArrayX,[],1); % X 좌표 행렬의 벡터
 SECPERYEAR = 31536000;          % = 365 * 24 * 60 * 60
 FLOODED = 2;                    % flooded region 태그
 
-dTAfterLastShallowLandslide = zeros(mRows,nCols); % 마지막 천부활동 이후 경과 시간
-dTAfterLastBedrockLandslide = zeros(mRows,nCols); % 마지막 기반암활동 이후 경과 시간
-
 % oldChanBedSed ...               % 이전 하도 내 하상 퇴적물 [m^3]
 %     = zeros(mRows,nCols);    
 % dChanBedSedPerDT ...            % 이전 하도 내 하상 퇴적물과의 차이 [m^3/dT]
@@ -322,6 +319,11 @@ chanBedSedBudgetPerDT ...       % 잔존 하상 퇴적물과 새로 구한 퇴적물과의 차이 [
     = zeros(mRows,nCols);
 remnantChanBedSed ...           % 잔존 하상 퇴적물 [m^3]
     = zeros(mRows,nCols);
+
+dSedThickByRapidMass = zeros(mRows,nCols);     
+dBedrockElevByRapidMass = zeros(mRows,nCols);
+dTAfterLastShallowLandslide = zeros(mRows,nCols); % 마지막 천부활동 이후 경과 시간
+dTAfterLastBedrockLandslide = zeros(mRows,nCols); % 마지막 기반암활동 이후 경과 시간
 
 %--------------------------------------------------------------------------
 % 충적 하천에 의한 퇴적물 운반율 수식(Einstein-Brown)의 계수

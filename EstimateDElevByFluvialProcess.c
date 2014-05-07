@@ -47,8 +47,8 @@
  * 
  */
 
-#include "mex.h"
-#include "matrix.h"
+# include "mex.h"
+# include "matrix.h"
 
 /* Computational routine */
 void EstimateDElevByFluvialProcess(
@@ -86,33 +86,52 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     /* check for proper number of arguments */
     /* validate the input values */
     
-    /* variable declaration */    
-    /* input variable declaration */
+    /* variable declaration */
+    
+    /* input variable */
     double dX;
     double mRows;
     double nCols;
     double consideringCellsNo;
     /* 주의: mxArray 자료형 변수는 mexGetVariablePtr 함수를 이용하여
      * 호출함수의 작업공간에 있는 변수들의 포인터만 불러옴 */
-    const mxArray * mxArray4  = mexGetVariablePtr("caller","mexSortedIndicies");
-    const mxArray * mxArray5  = mexGetVariablePtr("caller","e1LinearIndicies");
-    const mxArray * mxArray6  = mexGetVariablePtr("caller","e2LinearIndicies");
-    const mxArray * mxArray7  = mexGetVariablePtr("caller","outputFluxRatioToE1");
-    const mxArray * mxArray8  = mexGetVariablePtr("caller","outputFluxRatioToE2");
-    const mxArray * mxArray9  = mexGetVariablePtr("caller","mexSDSNbrIndicies");
-    const mxArray * mxArray10 = mexGetVariablePtr("caller","flood");
-    const mxArray * mxArray11 = mexGetVariablePtr("caller","floodedRegionCellsNo");
-    const mxArray * mxArray12 = mexGetVariablePtr("caller","floodedRegionStorageVolume");
-    const mxArray * mxArray13 = mexGetVariablePtr("caller","bankfullWidth");
-    const mxArray * mxArray14 = mexGetVariablePtr("caller","transportCapacity");
-    const mxArray * mxArray15 = mexGetVariablePtr("caller","bedrockIncision");
-    const mxArray * mxArray16 = mexGetVariablePtr("caller","chanBedSed");
-    const mxArray * mxArray17 = mexGetVariablePtr("caller","sedimentThick");
-    const mxArray * mxArray18 = mexGetVariablePtr("caller","hillslope");
-    const mxArray * mxArray19 = mexGetVariablePtr("caller","transportCapacityForShallow");
-    const mxArray * mxArray20 = mexGetVariablePtr("caller","bedrockElev");
+    const mxArray * mxArray4;
+    const mxArray * mxArray5;
+    const mxArray * mxArray6;
+    const mxArray * mxArray7;
+    const mxArray * mxArray8;
+    const mxArray * mxArray9;
+    const mxArray * mxArray10;
+    const mxArray * mxArray11;
+    const mxArray * mxArray12;
+    const mxArray * mxArray13;
+    const mxArray * mxArray14;
+    const mxArray * mxArray15;
+    const mxArray * mxArray16;
+    const mxArray * mxArray17;
+    const mxArray * mxArray18;
+    const mxArray * mxArray19;
+    const mxArray * mxArray20;
     
-    /* output variable declaration */
+    mxArray4  = mexGetVariablePtr("caller","mexSortedIndicies");
+    mxArray5  = mexGetVariablePtr("caller","e1LinearIndicies");
+    mxArray6  = mexGetVariablePtr("caller","e2LinearIndicies");
+    mxArray7  = mexGetVariablePtr("caller","outputFluxRatioToE1");
+    mxArray8  = mexGetVariablePtr("caller","outputFluxRatioToE2");
+    mxArray9  = mexGetVariablePtr("caller","mexSDSNbrIndicies");
+    mxArray10 = mexGetVariablePtr("caller","flood");
+    mxArray11 = mexGetVariablePtr("caller","floodedRegionCellsNo");
+    mxArray12 = mexGetVariablePtr("caller","floodedRegionStorageVolume");
+    mxArray13 = mexGetVariablePtr("caller","bankfullWidth");
+    mxArray14 = mexGetVariablePtr("caller","transportCapacity");
+    mxArray15 = mexGetVariablePtr("caller","bedrockIncision");
+    mxArray16 = mexGetVariablePtr("caller","chanBedSed");
+    mxArray17 = mexGetVariablePtr("caller","sedimentThick");
+    mxArray18 = mexGetVariablePtr("caller","hillslope");
+    mxArray19 = mexGetVariablePtr("caller","transportCapacityForShallow");
+    mxArray20 = mexGetVariablePtr("caller","bedrockElev");
+    
+    /* output variable */
     double * dSedimentThick;
     double * dBedrockElev;
     double * dChanBedSed;
@@ -126,23 +145,42 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     mRows               = mxGetScalar(prhs[1]);
     nCols               = mxGetScalar(prhs[2]);
     consideringCellsNo  = mxGetScalar(prhs[3]);
-    double * mexSortedIndicies              = mxGetPr(mxArray4);
-    double * e1LinearIndicies               = mxGetPr(mxArray5);    
-    double * e2LinearIndicies               = mxGetPr(mxArray6);    
-    double * outputFluxRatioToE1            = mxGetPr(mxArray7);    
-    double * outputFluxRatioToE2            = mxGetPr(mxArray8);    
-    double * mexSDSNbrIndicies              = mxGetPr(mxArray9);    
-    double * flood                          = mxGetPr(mxArray10);    
-    double * floodedRegionCellsNo           = mxGetPr(mxArray11);    
-    double * floodedRegionStorageVolume     = mxGetPr(mxArray12);    
-    double * bankfullWidth                  = mxGetPr(mxArray13);
-    double * transportCapacity              = mxGetPr(mxArray14);    
-    double * bedrockIncision                = mxGetPr(mxArray15);
-    double * chanBedSed                     = mxGetPr(mxArray16);
-    double * sedimentThick                  = mxGetPr(mxArray17);
-    mxLogical * hillslope                   = mxGetLogicals(mxArray18);
-    double * transportCapacityForShallow    = mxGetPr(mxArray19);
-    double * bedrockElev                    = mxGetPr(mxArray20);
+    
+    double * mexSortedIndicies;
+    double * e1LinearIndicies;
+    double * e2LinearIndicies;
+    double * outputFluxRatioToE1;
+    double * outputFluxRatioToE2;
+    double * mexSDSNbrIndicies;
+    double * flood;
+    double * floodedRegionCellsNo;
+    double * floodedRegionStorageVolume;
+    double * bankfullWidth;
+    double * transportCapacity;
+    double * bedrockIncision;
+    double * chanBedSed;
+    double * sedimentThick;
+    mxLogical * hillslope;
+    double * transportCapacityForShallow;
+    double * bedrockElev;
+    
+    mexSortedIndicies              = mxGetPr(mxArray4);
+    e1LinearIndicies               = mxGetPr(mxArray5);    
+    e2LinearIndicies               = mxGetPr(mxArray6);    
+    outputFluxRatioToE1            = mxGetPr(mxArray7);    
+    outputFluxRatioToE2            = mxGetPr(mxArray8);    
+    mexSDSNbrIndicies              = mxGetPr(mxArray9);    
+    flood                          = mxGetPr(mxArray10);    
+    floodedRegionCellsNo           = mxGetPr(mxArray11);    
+    floodedRegionStorageVolume     = mxGetPr(mxArray12);    
+    bankfullWidth                  = mxGetPr(mxArray13);
+    transportCapacity              = mxGetPr(mxArray14);    
+    bedrockIncision                = mxGetPr(mxArray15);
+    chanBedSed                     = mxGetPr(mxArray16);
+    sedimentThick                  = mxGetPr(mxArray17);
+    hillslope                      = mxGetLogicals(mxArray18);
+    transportCapacityForShallow    = mxGetPr(mxArray19);
+    bedrockElev                    = mxGetPr(mxArray20);
 
     /* prepare output data */
     /* create the output matrix */

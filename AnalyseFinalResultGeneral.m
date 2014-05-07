@@ -58,7 +58,7 @@ for ithSubDir = 1:totalSubDirs
     totalExtractTimesNo = majorOutputs.totalExtractTimesNo;
     
     % if a broken simulation
-    totalExtractTimesNo = 23;
+    % totalExtractTimesNo = 23;
 
     lastSedimentThick ...   % 초기 지형 고려
         = majorOutputs.sedimentThick(:,:,totalExtractTimesNo + 1);
@@ -544,5 +544,7 @@ for ithSubDir = 1:totalSubDirs
     hypsometricIntegral(ithSubDir,1) ...
         = hypsometry(ithSubDirElev(representDrainage),20,[1 1],'ro-',[2 2] ...
         ,figHypsometry,totalSubDirs,ithSubDir);
+    
+    hold on;
     
 end
