@@ -152,17 +152,15 @@ endXAxisDistanceForMergedElev ...
 % surfl 그래프
 surf(meshgridXForMergedElev,meshgridYForMergedElev,mergedElev)
 
-view(150,50)
+view(150,50) % 그래프 각도 조정
 
 set(gca,'DataAspectRatio',[1 1 0.25] ...
-    ,'Xlim',[0 endXAxisDistanceForMergedElev],'XDir','Reverse')
-
-set(gca,'XTick',[],'XTickLabel',[])
+    ,'Xlim',[0 endXAxisDistanceForMergedElev] ...
+    ,'XDir','Reverse' ...
+    ,'XTick',[],'XTickLabel',[]);
 
 grid(gca,'on')
-
 shading interp
-
 colormap(demcmap(mergedElev))               % PPT 용
 % colormap(flipud(gray))                    % 출판용
 
@@ -190,12 +188,11 @@ for ithSubDir = 1:totalSubDirs
     watersheds = watershed(ithSubDirElev);                   % 유역 구분
 
     % 유역구분한 것 보기
-    % figure(32)
-    % rgb = label2rgb(watersheds,'jet','w','shuffle');
-    % imshow(rgb,'initialMagnification','fit')
+    figure(32)
+    rgb = label2rgb(watersheds,'jet','w','shuffle');
+    imshow(rgb,'initialMagnification','fit')
 
     watershedTable = tabulate(watersheds(:));
-
     sortedWatershedTable = sortrows(watershedTable,-2);
     
     % i 번째 유역면적
@@ -476,9 +473,11 @@ for ithSubDir = 1:totalSubDirs
     set(gcf,'Color',[1 1 1])
     
     ithSubDirBedrockElev = bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
+    ithSubDirSedimentThick = sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX,ithSubDir);
+    ithSubDirElev = ithSubDirBedrockElev + ithSubDirSedimentThick;
         
     plot(ithRivProfDistance(1:onlyRiverNodesNo) ...
-        ,ithSubDirBedrockElev(ithRiverProfileCoord(1:onlyRiverNodesNo)) ...
+        ,ithSubDirElev(ithRiverProfileCoord(1:onlyRiverNodesNo)) ...
         ,'Color',cMap(round(endColor*(ithSubDir/totalSubDirs)),:),'LineWidth',3);
     
     hold on

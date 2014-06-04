@@ -1,5 +1,5 @@
 OUTPUT_SUBDIR :
-20140505_1816
+20140604_1813
 Y :
 100
 X :
@@ -9,7 +9,7 @@ dX :
 PLANE_ANGLE :
 1
 INIT_BEDROCK_ELEV_FILE :
-INIT_ELEV_slope.txt
+INIT_ELEV_plane.txt
 initSedThick :
 0.5
 INIT_SED_THICK_FILE :
@@ -23,13 +23,13 @@ dT :
 WRITE_INTERVAL :
 100
 BOUNDARY_OUTFLOW_COND :
-0
+3
 TOP_BOUNDARY_ELEV_COND :
 0
 IS_LEFT_RIGHT_CONNECTED :
 0
 TOTAL_ACCUMULATED_UPLIFT :
-100
+50
 IS_TILTED_UPWARPING :
 0
 UPLIFT_AXIS_DISTANCE_FROM_COAST :
@@ -67,15 +67,15 @@ soilCriticalSlopeForFailure :
 rockCriticalSlopeForFailure :
 0.6
 FLOW_ROUTING :
-0
+1
 annualPrecipitation :
 1.2
 annualEvapotranspiration :
 0.6
 kqb :
-25
+48.7
 mqb :
-0.75
+1
 bankfullTime :
 3600
 timeWeight :
@@ -93,9 +93,9 @@ mhd :
 FLUVIALPROCESS_COND :
 1
 channelInitiation :
-6000
+0
 criticalUpslopeCellsNo :
-10
+0
 mfa :
 1.8
 nfa :

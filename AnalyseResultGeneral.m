@@ -19,6 +19,12 @@
 %> @param EXTRACT_INTERVAL          : (그래프를 보여주는 동안) (2차원) 주요 변수를 저장하는 간격
 %> @param SHOW_GRAPH                : 주요 결과를 그래프로 보여줄 것인지를 지정함
 %>
+%> * 예제
+%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,1,1);
+%> AnalyseResultGeneral('20140505','parameter.txt',100,1,1,1,1); % 그래프 간격
+%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,100,1); % 2차원 변수 출력 간격
+%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,1,2); % 그래프 생략
+%>
 %>
 %> * 분석내용
 %>  01. 3차원 DEM
@@ -98,9 +104,6 @@ function majorOutputs = AnalyseResultGeneral(OUTPUT_SUBDIR ...
 %--------------------------------------------------------------------------
 
 % 입력변수 점검
-if mod(GRAPH_INTERVAL,EXTRACT_INTERVAL) ~= 0
-    error('주요 2차원 변수를 저장하는 간격은 그래프를 보여주는 간격의 약수여야 합니다.');    
-end
 
 % 출력 디렉터리에 있는 parameterValues.txt 를 볼러옴
 DATA_DIR = 'data';      % 입출력 파일을 저장하는 최상위 디렉터리
@@ -428,11 +431,11 @@ if SHOW_GRAPH == SHOW_GRAPH_YES
 %     Hf_01 = figure(1);
 %     set(gcf,'MenuBar','none');
     Hf_02 = figure(2);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
     Hf_03 = figure(3);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
     Hf_04 = figure(4);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
 %     Hf_05 = figure(5);
 %     set(gcf,'MenuBar','none');
 %     Hf_06 = figure(6);
@@ -444,19 +447,19 @@ if SHOW_GRAPH == SHOW_GRAPH_YES
 %     Hf_09 = figure(9);
 %     set(gcf,'MenuBar','none');
     Hf_10 = figure(10);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
     Hf_11 = figure(11);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
     Hf_12 = figure(12);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
     Hf_13 = figure(13);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
 %     Hf_14 = figure(14);
 %     set(gcf,'MenuBar','none');
     Hf_15 = figure(15);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
     Hf_20 = figure(20);
-    set(gcf,'MenuBar','none');
+%     set(gcf,'MenuBar','none');
 %     Hf_21 = figure(21);
 %     set(gcf,'MenuBar','none');
 %     Hf_22 = figure(22);
@@ -522,16 +525,9 @@ ithGraph = 0;                                        % 현재까지 보여준 그래프 횟
 dGraphShowTime = WRITE_INTERVAL * GRAPH_INTERVAL;    % 그래프 갱신 시간
 
 % 주요 변수를 저장(파일->mat)하는 간격 조정
-% * 주의: 두 가지 간격으로 저장함. 2차원 변수는 큰 간격으로, 1차원 (시계열)
-%   변수는 작은 간격으로 totalGraphShowTimesNo과 동일하게 저장함
-% * 주의: 추출 간격이 그래프 보여주기 횟수보다 크면 보여주기 횟수를 추출간격으로
-%   대체함
-if EXTRACT_INTERVAL > totalGraphShowTimesNo
-    EXTRACT_INTERVAL = totalGraphShowTimesNo;
-end
-
+% * 주의: 두 가지 간격으로 저장함. 2차원 변수는 EXTRACT_INTERVAL 간격으로,
+%   1차원 (주로 시계열) 변수는 모든 저장함
 % 주요 2차원 변수를 저장하는 총 횟수
-totalExtractTimesNo = floor(totalGraphShowTimesNo / EXTRACT_INTERVAL);
 totalExtractTimesNo = floor(endStep / EXTRACT_INTERVAL);
 
 ithExtractTime = 0;                 % mat 파일 기록을 위한 색인 초기화
@@ -551,6 +547,10 @@ extChanBedSedBudget = zeros(mRows,nCols,totalExtractTimesNo);
 extUpslopeArea = zeros(mRows,nCols,totalExtractTimesNo);
 extTransportMode = zeros(mRows,nCols,totalExtractTimesNo);
 extFacetFlowSlope = zeros(mRows,nCols,totalExtractTimesNo);
+
+% 1차원
+% * 주의: 그래프로 화면에 보여줄 수 없어서 저장함
+% extEastDrainageDensity = zeros(endStep,1);
 
 % 융기율 누적 변수
 cumsumUpliftRate = cumsum(upliftRateTemporalDistribution);
@@ -574,6 +574,8 @@ upliftedHeight = zeros(mRows,nCols);                    % 단위시간 융기율 [m/dT]
 % * 주의: 이는 초기 지형 및 초기 퇴적층 두께를 결과 파일에 출력하기 때문임
 initSedThick = fscanf(FID_SEDTHICK,'%f',[mRows,nCols]);
 initBedrockElev = fscanf(FID_BEDROCKELEV,'%f',[mRows,nCols]);
+[initMaxElev,~] ...
+    = max(max(initSedThick(Y_INI:Y_MAX,X_INI:X_MAX) + initBedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)));
 
 % 초기 기반암고도와 퇴적층 두께를 기록함
 extSedimentThick(:,:,1) = initSedThick;
@@ -671,10 +673,13 @@ for ithStep = initIthStep:endStep
             
         figure(Hf_02);
         
-        contourLevel = 0:10:TOTAL_ACCUMULATED_UPLIFT;
+%         maxElev = ceil((TOTAL_ACCUMULATED_UPLIFT+initMaxElev)*0.1)*10;
+%         cInterval = ceil(maxElev * 0.02);
+%         contourLevel = 0:cInterval:maxElev;
+%         contourf(arrayXForGraph,arrayYForGraph ...  % 등고선도
+%             ,elev(Y_INI:Y_MAX,X_INI:X_MAX),contourLevel,'DisplayName','elev');        
         contourf(arrayXForGraph,arrayYForGraph ...  % 등고선도
-            ,elev(Y_INI:Y_MAX,X_INI:X_MAX),contourLevel,'DisplayName','elev');        
-        
+            ,elev(Y_INI:Y_MAX,X_INI:X_MAX),'DisplayName','elev');         
         set(gca,'DataAspectRatio',[1 1 1])
         set(gca,'YDir','Reverse')
         
@@ -961,31 +966,36 @@ for ithStep = initIthStep:endStep
             (sedimentThick < ...
             - (dSedThickByHillslopePerDT + dSedThickByFluvialPerDT ...
                 + dSedThickByRapidMassPerDT) );
+        % for debug
+        % soilMantledHillslope = hillslope & ~bedrockExposedHillslope;
         
         transportMode(bedrockExposedHillslope) ...
             = BEDROCK_EXPOSED_HILLSLOPE;    
         
-        % (B) 하도 분류            
-        upslopeArea = annualDischarge1 ./ annualRunoff; % 유역면적: [m^3/yr]/[m/yr]
-
+        % (B) 하도 분류
         transportMode(channel) = ALLUVIAL_CHANNEL;
         
         bedrockChannel = channel & (dBedrockElevByFluvialPerDT < 0);        
         transportMode(bedrockChannel) = BEDROCK_CHANNEL;
+        % for debug
+        % alluvialChannel = channel & ~bedrockChannel;
         
         % (C) 물질운반환경 분류 비율
         soilMantledHill = transportMode == SOIL_MANTLED_HILLSLOPE;
-        soilMantledHillRatio = sum(soilMantledHill(:)) / (Y*X);
+        soilMantledHillRatio = sum(soilMantledHill(:)) / (mRows*nCols);
         
         bedrockExposedHill = transportMode == BEDROCK_EXPOSED_HILLSLOPE;
-        bedrockExposedHillRatio = sum(bedrockExposedHill(:)) / (Y*X);
+        bedrockExposedHillRatio = sum(bedrockExposedHill(:)) / (mRows*nCols);
         
         alluvialChan = transportMode == ALLUVIAL_CHANNEL;
-        alluvialChanRatio = sum(alluvialChan(:)) / (Y*X);
+        alluvialChanRatio = sum(alluvialChan(:)) / (mRows*nCols);
         
         bedrockChan = transportMode == BEDROCK_CHANNEL;
-        bedrockChanRatio = sum(bedrockChan(:)) / (Y*X);
-                
+        bedrockChanRatio = sum(bedrockChan(:)) / (mRows*nCols);
+        
+        % for debug
+        % tmp = soilMantledHillRatio + bedrockExposedHillRatio + alluvialChanRatio +  bedrockChanRatio;
+        
         % (D) 물질운반환경 분류 그래프        
         if SHOW_GRAPH == SHOW_GRAPH_YES   
             
