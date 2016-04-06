@@ -902,10 +902,15 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
             + dBedrockElevByFluvialPerSubDT(Y_INI:Y_MAX,X_INI:X_MAX);
         
         % for debug
-        if min(min((bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)))) < -1e-10
-            error('GPSSMain:negativeBedrockElev', 'negative bedrock elevation');   % 실행 횟수 출력        
+        min_bedElev = min(min((bedrockElev(Y_INI:Y_MAX,X_INI:X_MAX))));
+        if min_bedElev < -1e-10
+            fprintf('The minimum bedrock elevation = %4.6f\n',min_bedElev);
+            bedrockElev(bedrockElev == min_bedElev) = 0;
+            % error('GPSSMain:negativeBedrockElev', 'negative bedrock elevation');   % 실행 횟수 출력        
         end
+        min_sedThick = min(min((sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX))));
         if min(min((sedimentThick(Y_INI:Y_MAX,X_INI:X_MAX)))) < -1e-10
+            fprintf('The minimum sediment thickness = %4.6f\n',min_sedThick)
             error('GPSSMain:negativeSedimentThick', 'negative sediment thickness');   % 실행 횟수 출력        
         end
         
