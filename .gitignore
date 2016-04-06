@@ -1,5 +1,5 @@
 # Git noises
-#.gitignore
+.gitignore
 
 # Mac OS noises
 .DS_Store
@@ -13,9 +13,20 @@
 # Design-related files
 *.oo3
 
+# For analysis
+AnalyseResult.m
+AnalyseResultGeneralBySDS.m
+AnalyseFinalResult.m
+AnalyseFinalResultGeneral.m
+hypsometry.m
+streamorder.m
+wflowacc.m
+
 # ignore all files in the following directories
+old
+utility
 data/output
 data/input/.DS_Store
-data/input/guideForParameterInput.xlsm
-!data/input/*
+data/input/guideForParameterInput_v_01.xlsm
+data/input/old
 MATLAB_coder

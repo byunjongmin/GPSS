@@ -683,7 +683,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         set(gca,'YDir','Reverse')
         
-        contourcmap('summer',5);
+%         contourcmap('summer',5);
         colorbar
         
         tmpTitle = [int2str(simulatingTime) '[yr] Elevation'];
@@ -1018,7 +1018,7 @@ for ithStep = initIthStep:endStep
         labels = {'Alluvial Channel','Bedrock Channel' ...
             ,'Bedrock Exposed Hillslope','Soil-mantled Hillslope'};
         
-        lcolorbar(labels,'fontweight','bold')
+%         lcolorbar(labels,'fontweight','bold')
         tmpTitle = [int2str(simulatingTime) '[yr] Transport Mode' ...
             '(' int2str(round(soilMantledHillRatio * 100)) '/' ...
             int2str(round(bedrockExposedHillRatio * 100)) '/' ...
