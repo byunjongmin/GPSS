@@ -409,309 +409,314 @@ kfa ...                 % 퇴적물 운반율 수식 계수
 % 그래프 보여주기 옵션 상수 정의
 SHOW_GRAPH_YES = 1;
 SHOW_GRAPH_NO = 2;
+% 
+% % (1) 분석시 그래프를 보여줄 경우, figure들의 위치와 핸들 정의
+% if SHOW_GRAPH == SHOW_GRAPH_YES
+% 
+%     % A. 모니터 위치 변수 관련 정의
+% 
+%     % 주모니터 상수 정의
+%     LEFT_MONITOR = 1;
+%     RIGHT_MONITOR = 2;
+%     
+%     % 주모니터의 위치 정의
+%     primaryMonitor = LEFT_MONITOR;
+%     secondaryMonitor = RIGHT_MONITOR;
+%     
+%     % (figure 배치를 위한) 모니터 분할
+%     leftMonWidthDivisionNo = 6;                 % 좌측 모니터 분할 수:열,행
+%     leftMonHeightDivisionNo = 3;
+%     rightMonWidthDivisionNo = 6;                % 우측 모니터 분할 수:열,행
+%     rightMonHeightDivisionNo = 3;    
+%     
+%     % figure 창 폭 설정
+%     % * 주의: figure 위치 조절시에 창 폭을 고려하지 않기 때문에 미리 제목 두께와
+%     %   창 옆의 폭을 파악함
+%     figSideBorderThick = 1;
+%     figHeaderBorderThick = 40;
+%     bothThick = figSideBorderThick + figHeaderBorderThick;
+%     
+%     % B. 모니터 위치 및 폭과 높이 파악
+%     monPosition = get(0,'MonitorPosition'); % 모니터 위치 정보 획득
+%     % * 참고: 듀얼 모니터일경우, 주모니터가 1째 행에 그리고 부모니터는 2째 행에
+%     %   관련 정보가 나타남.
+%     %   1열은 모니터 좌측 첫번째 화소의 위치, 2열은 아래 첫번째 화소의 위치,
+%     %   3열은 모니터 좌우폭, 4열은 모니터 위아래폭임. 단위 화소.
+%     % * 주의: 주모니터는 1열과 2열 모두 각각 1이 입력됨. 따라서 주모니터가
+%     %   우측에 있을 경우, 좌측 모니터의 좌측 첫번째 화소의 위치는 음의 값을 가짐
+%     %
+%     % * 예1: set(0,'Units','Normalized')을 하지 않은 경우
+%     % * 예1: 주모니터가 좌측(해상도: 1680x1050)이고, 부모니터(해상도:
+%     %   1024x768)가 우측에 위치할 경우
+%     %   (1025, 1, 2074, 1050; 1, 1, 1024, 768)
+%     % * 예2: 주모니터가 우측(해상도: 1024x768)이고, 부모니터(해상도:
+%     %   1680x1050)가 좌측에 위치할 경우
+%     %   (1, 1, 1680, 1050; -1023, 1, 0, 768)
+%     
+%     if primaryMonitor == LEFT_MONITOR
+%         
+%         % 좌측 모니터 위치
+%         leftMonLeftPos = 1;
+%         leftMonBottomPos = monPosition(primaryMonitor,2);   % 좌측 모니터 바닥 위치
+%         leftMonWidth = monPosition(primaryMonitor,3);       % 좌측 모니터 좌우 길이
+%         leftMonHeight = monPosition(primaryMonitor,4);      % 좌측 모니터 위아래 길이
+% 
+%         % 우측 모니터 위치
+%         rightMonLeftPos = monPosition(secondaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
+%         rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
+%         rightMonWidth = monPosition(secondaryMonitor,3);    % 우측 모니터 좌우 길이
+%         % * 주의: 주모니터가 좌측이고 부모니터가 우측이면 좌측 모니터의 좌우 길이를
+%         %   빼야함
+%         rightMonWidth = rightMonWidth - leftMonWidth;
+%         rightMonHeight = monPosition(secondaryMonitor,4); % 우측 모니터 위아래 길이
+%         
+%     else % primaryMonitor == LEFT_MONITOR
+%         
+%         % 좌측 모니터 위치
+%         leftMonLeftPos = monPosition(secondaryMonitor,1);       % 좌측 모니터 좌측 첫번째 화소 위치 
+%         leftMonBottomPos = monPosition(secondaryMonitor,2);     % 좌측 모니터 바닥 위치
+%         leftMonWidth = - monPosition(secondaryMonitor,1);       % 좌측 모니터 좌우 길이
+%         leftMonHeight = monPosition(secondaryMonitor,4) - monPosition(secondaryMonitor,2);      % 좌측 모니터 위아래 길이
+% 
+%         % 우측 모니터 위치
+%         rightMonLeftPos = monPosition(primaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
+%         rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
+%         rightMonWidth = monPosition(primaryMonitor,3);    % 우측 모니터 좌우 길이
+%         rightMonHeight = monPosition(primaryMonitor,4); % 우측 모니터 위아래 길이
+%         
+%        
+%     end
+% 
+%     % C. figure 위치 설정
+%     % * 참고: [모니터 좌측 경계에서부터,모니터 바닥 경계에서부터,좌우 길이,위아래 길이]
+%     % * 수정: 1) 가로 폭을 좁혀, figure 개수를 늘림. 2) 물질수지 등은 text 박스 표시
+%     
+%     % 좌측 모니터
+%     leftMonModifiedLeftPos ...             % 좌측 모니터 좌측 좌표
+%         = leftMonLeftPos + figSideBorderThick; 
+%     leftMonModifiedBottomPos ...           % 좌측 모니터 바닥 좌표
+%         = leftMonBottomPos + figSideBorderThick;
+%     leftMonBasicDividedWidth ...           % 좌측 모니터 분할된 좌우 길이
+%         = (leftMonWidth - leftMonWidthDivisionNo * 2 * figSideBorderThick) ...
+%         / leftMonWidthDivisionNo;    
+%     leftMonBasicDividedHeight ...       % 좌측 모니터 분할된 위아래 길이
+%         = (leftMonHeight - leftMonHeightDivisionNo * bothThick) ...
+%         / leftMonHeightDivisionNo;
+%     
+%     leftMonPos01 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 1 ...
+%         ,leftMonBasicDividedWidth * 3 ...
+%         ,leftMonBasicDividedHeight * 2];
+% 
+%     leftMonPos02 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     leftMonPos03 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 1) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     leftMonPos04 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 2) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+%     
+%     leftMonPos05 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 3) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     leftMonPos06 ...
+%         = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 4) ...
+%         ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
+%         ,leftMonBasicDividedWidth * 1 ...
+%         ,leftMonBasicDividedHeight * 1];
+% 
+%     % 우측 모니터    
+%     rightMonModifiedLeftPos ...             % 우측 모니터 좌측 좌표
+%         = rightMonLeftPos + figSideBorderThick;
+%     rightMonModifiedBottomPos ...           % 우측 모니터 바닥 좌표
+%         = rightMonBottomPos + figSideBorderThick;       
+%     rightMonBasicDividedWidth ...           % 우측 모니터 분할된 좌우 길이
+%         = (rightMonWidth - rightMonWidthDivisionNo * 2 * figSideBorderThick) ... % 약간 줄임
+%         / rightMonWidthDivisionNo;
+%     rightMonBasicDividedHeight ...          % 우측 모니터 분할된 위아래 길이
+%         = (rightMonHeight - rightMonHeightDivisionNo * bothThick) ....
+%         / rightMonHeightDivisionNo;
+%     
+%     rightMonPos01 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos02 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos03 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos04 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos05 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos06 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos07 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos08 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos09 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos10 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos11 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos12 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos13 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos14 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos15 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos16 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     rightMonPos17 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+%     
+%     rightMonPos18 ...
+%         = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5) ...
+%         ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
+%         ,rightMonBasicDividedWidth * 1 ...
+%         ,rightMonBasicDividedHeight * 1];
+% 
+%     %--------------------------------------------------------------------------
+%     % 2) figure 핸들
+% 
+%     Hf_01 = figure(1);
+%     set(gcf,'Units','Pixel','Position',leftMonPos01,'MenuBar','none');
+%     Hf_02 = figure(2);
+%     set(gcf,'units','Pixel','position',leftMonPos02,'MenuBar','none');
+%     Hf_03 = figure(3);
+%     set(gcf,'units','Pixel','position',leftMonPos03,'MenuBar','none');
+%     Hf_04 = figure(4);
+%     set(gcf,'units','Pixel','position',leftMonPos04,'MenuBar','none');
+%     Hf_05 = figure(5);
+%     set(gcf,'units','Pixel','position',leftMonPos05,'MenuBar','none');
+%     Hf_06 = figure(6);
+%     set(gcf,'units','Pixel','position',leftMonPos06,'MenuBar','none');
+%     Hf_07 = figure(7);
+%     set(gcf,'units','Pixel','position',rightMonPos01,'MenuBar','none');
+%     Hf_08 = figure(8);
+%     set(gcf,'units','Pixel','position',rightMonPos02,'MenuBar','none');
+%     Hf_09 = figure(9);
+%     set(gcf,'units','Pixel','position',rightMonPos03,'MenuBar','none');
+%     Hf_10 = figure(10);
+%     set(gcf,'units','Pixel','position',rightMonPos04,'MenuBar','none');
+%     Hf_11 = figure(11);
+%     set(gcf,'units','Pixel','position',rightMonPos05,'MenuBar','none');
+%     Hf_12 = figure(12);
+%     set(gcf,'units','Pixel','position',rightMonPos06,'MenuBar','none');
+%     Hf_13 = figure(13);
+%     set(gcf,'units','Pixel','position',rightMonPos07,'MenuBar','none');
+%     Hf_14 = figure(14);
+%     set(gcf,'units','Pixel','position',rightMonPos08,'MenuBar','none');
+%     Hf_15 = figure(15);
+%     set(gcf,'units','Pixel','position',rightMonPos09,'MenuBar','none');
+%     Hf_16 = figure(16);
+%     set(gcf,'units','Pixel','position',rightMonPos10,'MenuBar','none');
+%     Hf_17 = figure(17);
+%     set(gcf,'units','Pixel','position',rightMonPos11,'MenuBar','none');
+%     Hf_18 = figure(18);
+%     set(gcf,'units','Pixel','position',rightMonPos12,'MenuBar','none');
+%     Hf_19 = figure(19);
+%     set(gcf,'units','Pixel','position',rightMonPos13,'MenuBar','none');
+%     Hf_20 = figure(20);
+%     set(gcf,'units','Pixel','position',rightMonPos14,'MenuBar','none');
+%     Hf_21 = figure(21);
+%     set(gcf,'units','Pixel','position',rightMonPos15,'MenuBar','none');
+%     Hf_22 = figure(22);
+%     set(gcf,'units','Pixel','position',rightMonPos16,'MenuBar','none');
+%     Hf_23 = figure(23);
+%     set(gcf,'units','Pixel','position',rightMonPos17,'MenuBar','none');
+%     Hf_24 = figure(24);
+%     set(gcf,'units','Pixel','position',rightMonPos18,'MenuBar','none');
+% 
+% end
 
-% (1) 분석시 그래프를 보여줄 경우, figure들의 위치와 핸들 정의
-if SHOW_GRAPH == SHOW_GRAPH_YES
-
-    % A. 모니터 위치 변수 관련 정의
-
-    % 주모니터 상수 정의
-    LEFT_MONITOR = 1;
-    RIGHT_MONITOR = 2;
-    
-    % 주모니터의 위치 정의
-    primaryMonitor = LEFT_MONITOR;
-    secondaryMonitor = RIGHT_MONITOR;
-    
-    % (figure 배치를 위한) 모니터 분할
-    leftMonWidthDivisionNo = 6;                 % 좌측 모니터 분할 수:열,행
-    leftMonHeightDivisionNo = 3;
-    rightMonWidthDivisionNo = 6;                % 우측 모니터 분할 수:열,행
-    rightMonHeightDivisionNo = 3;    
-    
-    % figure 창 폭 설정
-    % * 주의: figure 위치 조절시에 창 폭을 고려하지 않기 때문에 미리 제목 두께와
-    %   창 옆의 폭을 파악함
-    figSideBorderThick = 1;
-    figHeaderBorderThick = 40;
-    bothThick = figSideBorderThick + figHeaderBorderThick;
-    
-    % B. 모니터 위치 및 폭과 높이 파악
-    monPosition = get(0,'MonitorPosition'); % 모니터 위치 정보 획득
-    % * 참고: 듀얼 모니터일경우, 주모니터가 1째 행에 그리고 부모니터는 2째 행에
-    %   관련 정보가 나타남.
-    %   1열은 모니터 좌측 첫번째 화소의 위치, 2열은 아래 첫번째 화소의 위치,
-    %   3열은 모니터 좌우폭, 4열은 모니터 위아래폭임. 단위 화소.
-    % * 주의: 주모니터는 1열과 2열 모두 각각 1이 입력됨. 따라서 주모니터가
-    %   우측에 있을 경우, 좌측 모니터의 좌측 첫번째 화소의 위치는 음의 값을 가짐
-    %
-    % * 예1: set(0,'Units','Normalized')을 하지 않은 경우
-    % * 예1: 주모니터가 좌측(해상도: 1680x1050)이고, 부모니터(해상도:
-    %   1024x768)가 우측에 위치할 경우
-    %   (1025, 1, 2074, 1050; 1, 1, 1024, 768)
-    % * 예2: 주모니터가 우측(해상도: 1024x768)이고, 부모니터(해상도:
-    %   1680x1050)가 좌측에 위치할 경우
-    %   (1, 1, 1680, 1050; -1023, 1, 0, 768)
-    
-    if primaryMonitor == LEFT_MONITOR
-        
-        % 좌측 모니터 위치
-        leftMonLeftPos = 1;
-        leftMonBottomPos = monPosition(primaryMonitor,2);   % 좌측 모니터 바닥 위치
-        leftMonWidth = monPosition(primaryMonitor,3);       % 좌측 모니터 좌우 길이
-        leftMonHeight = monPosition(primaryMonitor,4);      % 좌측 모니터 위아래 길이
-
-        % 우측 모니터 위치
-        rightMonLeftPos = monPosition(secondaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
-        rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
-        rightMonWidth = monPosition(secondaryMonitor,3);    % 우측 모니터 좌우 길이
-        % * 주의: 주모니터가 좌측이고 부모니터가 우측이면 좌측 모니터의 좌우 길이를
-        %   빼야함
-        rightMonWidth = rightMonWidth - leftMonWidth;
-        rightMonHeight = monPosition(secondaryMonitor,4); % 우측 모니터 위아래 길이
-        
-    else % primaryMonitor == LEFT_MONITOR
-        
-        % 좌측 모니터 위치
-        leftMonLeftPos = monPosition(secondaryMonitor,1);       % 좌측 모니터 좌측 첫번째 화소 위치 
-        leftMonBottomPos = monPosition(secondaryMonitor,2);     % 좌측 모니터 바닥 위치
-        leftMonWidth = - monPosition(secondaryMonitor,1);       % 좌측 모니터 좌우 길이
-        leftMonHeight = monPosition(secondaryMonitor,4) - monPosition(secondaryMonitor,2);      % 좌측 모니터 위아래 길이
-
-        % 우측 모니터 위치
-        rightMonLeftPos = monPosition(primaryMonitor,1);  % 우측 모니터 좌측 첫번째 화소 위치    
-        rightMonBottomPos = 1;                                 % 우측 모니터 바닥. * 주의: monPosition(secondaryMonitor,2)는 이상함
-        rightMonWidth = monPosition(primaryMonitor,3);    % 우측 모니터 좌우 길이
-        rightMonHeight = monPosition(primaryMonitor,4); % 우측 모니터 위아래 길이
-        
-       
-    end
-
-    % C. figure 위치 설정
-    % * 참고: [모니터 좌측 경계에서부터,모니터 바닥 경계에서부터,좌우 길이,위아래 길이]
-    % * 수정: 1) 가로 폭을 좁혀, figure 개수를 늘림. 2) 물질수지 등은 text 박스 표시
-    
-    % 좌측 모니터
-    leftMonModifiedLeftPos ...             % 좌측 모니터 좌측 좌표
-        = leftMonLeftPos + figSideBorderThick; 
-    leftMonModifiedBottomPos ...           % 좌측 모니터 바닥 좌표
-        = leftMonBottomPos + figSideBorderThick;
-    leftMonBasicDividedWidth ...           % 좌측 모니터 분할된 좌우 길이
-        = (leftMonWidth - leftMonWidthDivisionNo * 2 * figSideBorderThick) ...
-        / leftMonWidthDivisionNo;    
-    leftMonBasicDividedHeight ...       % 좌측 모니터 분할된 위아래 길이
-        = (leftMonHeight - leftMonHeightDivisionNo * bothThick) ...
-        / leftMonHeightDivisionNo;
-    
-    leftMonPos01 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 1 ...
-        ,leftMonBasicDividedWidth * 3 ...
-        ,leftMonBasicDividedHeight * 2];
-
-    leftMonPos02 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 0) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    leftMonPos03 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 1) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    leftMonPos04 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 2) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-    
-    leftMonPos05 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 3) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    leftMonPos06 ...
-        = [leftMonModifiedLeftPos + (leftMonBasicDividedWidth * 4) ...
-        ,leftMonModifiedBottomPos + (leftMonBasicDividedHeight + bothThick) * 0 ...
-        ,leftMonBasicDividedWidth * 1 ...
-        ,leftMonBasicDividedHeight * 1];
-
-    % 우측 모니터    
-    rightMonModifiedLeftPos ...             % 우측 모니터 좌측 좌표
-        = rightMonLeftPos + figSideBorderThick;
-    rightMonModifiedBottomPos ...           % 우측 모니터 바닥 좌표
-        = rightMonBottomPos + figSideBorderThick;       
-    rightMonBasicDividedWidth ...           % 우측 모니터 분할된 좌우 길이
-        = (rightMonWidth - rightMonWidthDivisionNo * 2 * figSideBorderThick) ... % 약간 줄임
-        / rightMonWidthDivisionNo;
-    rightMonBasicDividedHeight ...          % 우측 모니터 분할된 위아래 길이
-        = (rightMonHeight - rightMonHeightDivisionNo * bothThick) ....
-        / rightMonHeightDivisionNo;
-    
-    rightMonPos01 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos02 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos03 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos04 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos05 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos06 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 2 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos07 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos08 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos09 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos10 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos11 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos12 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 1 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos13 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 0)  ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos14 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 1) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos15 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 2) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos16 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 3) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    rightMonPos17 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 4) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-    
-    rightMonPos18 ...
-        = [rightMonModifiedLeftPos + (rightMonBasicDividedWidth * 5) ...
-        ,rightMonModifiedBottomPos + (rightMonBasicDividedHeight + bothThick) * 0 ...
-        ,rightMonBasicDividedWidth * 1 ...
-        ,rightMonBasicDividedHeight * 1];
-
-    %--------------------------------------------------------------------------
-    % 2) figure 핸들
-
-    Hf_01 = figure(1);
-    set(gcf,'Units','Pixel','Position',leftMonPos01,'MenuBar','none');
-    Hf_02 = figure(2);
-    set(gcf,'units','Pixel','position',leftMonPos02,'MenuBar','none');
-    Hf_03 = figure(3);
-    set(gcf,'units','Pixel','position',leftMonPos03,'MenuBar','none');
-    Hf_04 = figure(4);
-    set(gcf,'units','Pixel','position',leftMonPos04,'MenuBar','none');
-    Hf_05 = figure(5);
-    set(gcf,'units','Pixel','position',leftMonPos05,'MenuBar','none');
-    Hf_06 = figure(6);
-    set(gcf,'units','Pixel','position',leftMonPos06,'MenuBar','none');
-    Hf_07 = figure(7);
-    set(gcf,'units','Pixel','position',rightMonPos01,'MenuBar','none');
-    Hf_08 = figure(8);
-    set(gcf,'units','Pixel','position',rightMonPos02,'MenuBar','none');
-    Hf_09 = figure(9);
-    set(gcf,'units','Pixel','position',rightMonPos03,'MenuBar','none');
-    Hf_10 = figure(10);
-    set(gcf,'units','Pixel','position',rightMonPos04,'MenuBar','none');
-    Hf_11 = figure(11);
-    set(gcf,'units','Pixel','position',rightMonPos05,'MenuBar','none');
-    Hf_12 = figure(12);
-    set(gcf,'units','Pixel','position',rightMonPos06,'MenuBar','none');
-    Hf_13 = figure(13);
-    set(gcf,'units','Pixel','position',rightMonPos07,'MenuBar','none');
-    Hf_14 = figure(14);
-    set(gcf,'units','Pixel','position',rightMonPos08,'MenuBar','none');
-    Hf_15 = figure(15);
-    set(gcf,'units','Pixel','position',rightMonPos09,'MenuBar','none');
-    Hf_16 = figure(16);
-    set(gcf,'units','Pixel','position',rightMonPos10,'MenuBar','none');
-    Hf_17 = figure(17);
-    set(gcf,'units','Pixel','position',rightMonPos11,'MenuBar','none');
-    Hf_18 = figure(18);
-    set(gcf,'units','Pixel','position',rightMonPos12,'MenuBar','none');
-    Hf_19 = figure(19);
-    set(gcf,'units','Pixel','position',rightMonPos13,'MenuBar','none');
-    Hf_20 = figure(20);
-    set(gcf,'units','Pixel','position',rightMonPos14,'MenuBar','none');
-    Hf_21 = figure(21);
-    set(gcf,'units','Pixel','position',rightMonPos15,'MenuBar','none');
-    Hf_22 = figure(22);
-    set(gcf,'units','Pixel','position',rightMonPos16,'MenuBar','none');
-    Hf_23 = figure(23);
-    set(gcf,'units','Pixel','position',rightMonPos17,'MenuBar','none');
-    Hf_24 = figure(24);
-    set(gcf,'units','Pixel','position',rightMonPos18,'MenuBar','none');
-
-end
+% added on 20191126
+Hf_01 = figure(1);
+Hf_02 = figure(2);
+Hf_03 = figure(3);
 
 %--------------------------------------------------------------------------
 % 3) 결과 분석을 위한 변수 초기화
@@ -955,7 +960,7 @@ for ithStep = initIthStep:endStep
         view(25,30)            % 그래프 각도 조정
 
         grid(gca,'on')        
-        set(gca,'DataAspectRatio',[1 1 0.25],'ZLim',[0 1500])
+        set(gca,'DataAspectRatio',[1 1 0.25],'ZLim',[0 TOTAL_ACCUMULATED_UPLIFT])
         endYAxisDistance = 30;
         set(gca,'YTick',0:endYAxisDistance/6:endYAxisDistance ...
             ,'YTickLabel',{'30 Km','','20','','10','','0'} ...
@@ -1045,597 +1050,597 @@ for ithStep = initIthStep:endStep
         end
         
         %------------------------------------------------------------------
-        % E. i번째 경사
-        
-        % A) 무한 유향 알고리듬을 이용한 유향과 경사
-        [facetFlowDirection ...     % 유향
-        ,facetFlowSlope ...         % 경사
-        ,e1LinearIndicies ...       % 다음 셀(e1) 색인
-        ,e2LinearIndicies ...       % 다음 셀(e2) 색인
-        ,outputFluxRatioToE1 ...    % 다음 셀(e1)로의 유입율
-        ,outputFluxRatioToE2] ...   % 다음 셀(e2)로의 유입율
-            = CalcInfinitiveFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
-            ,QUARTER_PI,HALF_PI,elev,dX ...
-            ,sE0LinearIndicies,s3E1LinearIndicies,s3E2LinearIndicies);
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        % B) i번째 경사
-        figure(Hf_04);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th Gradient'];
-        title(tmpTitle)
-        
-        %------------------------------------------------------------------
-        % F. i번째 풍화율
-        
-        figure(Hf_05);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,weatheringProduct(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th Weathering Product'];
-        title(tmpTitle)
-        
-        %------------------------------------------------------------------
-        % G. i번째 사면작용에 의한 퇴적층 두께 변화율
-        
-        figure(Hf_06);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dSedThickByHillslopePerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th dSedThick By Slow Mass'];
-        title(tmpTitle)
-        
-        %------------------------------------------------------------------
-        % H. i번째 빠른 사면작용에 의한 퇴적층 두께 변화율
-        
-        figure(Hf_07);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dSedThickByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th dSedThick By Rapid Mass'];
-        title(tmpTitle)
-        
-        %------------------------------------------------------------------
-        % I. i번째 빠른 사면작용에 의한 기반암 고도 변화율
-        
-        figure(Hf_08);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dBedrockElevByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th dBedrockElev By Rapid Mass'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % J. i번째 flooded region 및 만제유량
-        
-        % A) 최대 하부 경사 유향 알고리듬을 이용한 유향과 경사
-        [steepestDescentSlope ...   % 경사
-        ,slopeAllNbr ...            % 8개 이웃 셀과의 경사
-        ,SDSFlowDirection ...       % 유향
-        ,SDSNbrY ...                % 다음 셀 Y 좌표값
-        ,SDSNbrX] ...               % 다음 셀 X 좌표값
-            = CalcSDSFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
-            ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND ...
-            ,QUARTER_PI,DISTANCE_RATIO_TO_NBR,elev,dX ...
-            ,IS_LEFT_RIGHT_CONNECTED ...
-            ,ithNbrYOffset,ithNbrXOffset ...
-            ,sE0LinearIndicies,s3IthNbrLinearIndicies);
-        
-        % B) 유향이 정의되지 않은 셀에 유향을 정의함
-        % * sink에 유향을 부여하고, flooded region에 유향을 재설정함
-        [flood ...                      % flooded region
-        ,SDSNbrY ...                    % 수정된 다음 셀의 Y 좌표값
-        ,SDSNbrX ...                    % 수정된 다음 셀의 X 좌표값
-        ,SDSFlowDirection ...           % 수정된 (최대하부경사 유향 알고리듬의) 유향
-        ,steepestDescentSlope ...       % 수정된 (최대하부경사 유향 알고리듬의) 경사
-        ,integratedSlope ...            % 수정된 (무한 유향 알고리듬) 경사
-        ,floodedRegionIndex ...         % flooded region 색인
-        ,floodedRegionCellsNo ...       % 각 flooded region 구성 셀 개수
-        ,floodedRegionLocalDepth ...    % flooded region 고도와 유출구 고도와의 차이
-        ,floodedRegionTotalDepth ...    % local depth 총 합
-        ,floodedRegionStorageVolume] ...% flooded region 총 저장량
-            = ProcessSink(mRows,nCols,X_INI,X_MAX ...
-            ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA ...
-            ,elev,ithNbrYOffset,ithNbrXOffset ...
-            ,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED ...
-            ,slopeAllNbr,steepestDescentSlope ...
-            ,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection);
-        
-        % C) flooded region 그래프
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        figure(Hf_09);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,flood(Y_INI:Y_MAX,X_INI:X_MAX))
-        set(gca,'DataAspectRatio',[1 1 1],'CLim',[0 2])        
-        colormap(jet(3))
-        labels = {'Unflooded','Sink','Flooded'};
-        lcolorbar(labels,'fontweight','bold')       
-        tmpTitle = [int2str(simulatingTime) 'th Flooded Region'];
-        title(tmpTitle)
-        
-        end
-        
-        % D) 연간 유량[m^3/dT]
-
-        % a. 셀들을 고도 순으로 정렬
-        elevForSorting = elev;
-
-        % b. flooded region을 제외함
-        % * 원리 : 제외하는 셀의 고도값에는 - inf를 입력함
-        elevForSorting(flood == FLOODED) = - inf;
-
-        % c. 높은 고도 순으로 정렬하고 이의 Y,X 좌표값을 구함
-        vectorElev = reshape(elevForSorting(Y_INI:Y_MAX,X_INI:X_MAX),[],1);
-        sortedYXElevForUpstreamFlow = [vectorY,vectorX,vectorElev];
-        sortedYXElevForUpstreamFlow = sortrows(sortedYXElevForUpstreamFlow,-3);
-
-        % d. AccumulateUpstreamFlow 함수의 대상 셀 수
-        consideringCellsNoForUpstreamFlow = find(vectorElev > - inf);
-        consideringCellsNoForUpstreamFlow ...
-            = size(consideringCellsNoForUpstreamFlow,1);
-
-        % e. 연간유량 [m^3/dT]
-        [annualDischarge1 ...   % 연간유량 [m^3/dT]
-        ,isOverflowing] ...     % flooded region 저수량 초과 여부 태그
-            = AccumulateUpstreamFlow(mRows,nCols ...
-            ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
-            ,sortedYXElevForUpstreamFlow ...
-            ,consideringCellsNoForUpstreamFlow ...
-            ,OUTER_BOUNDARY,annualRunoff ...
-            ,flood,floodedRegionCellsNo ...
-            ,floodedRegionStorageVolume,floodedRegionIndex ...
-            ,facetFlowDirection,e1LinearIndicies,e2LinearIndicies ...
-            ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX);    
-
-        % E) 만제유량
-
-        % a. 연 평균유량 [m^3/s]
-        meanDischarge = annualDischarge1 / SECPERYEAR;
-
-        % b. 만제유량 [m^3/s]
-        bankfullDischarge = kqb * meanDischarge .^ mqb;
-        
-        % F) 만제유량 그래프
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_10);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,log10(bankfullDischarge(Y_INI:Y_MAX,X_INI:X_MAX)))
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th Bankfull Discharge(log10)'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % K. i번째 하천작용에 의한 퇴적층 두께 변화율
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        figure(Hf_11);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dSedThickByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX))
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        
-        % * 주의: 평균을 상회하는 값들이 존재해서, 중간값의 경향을 파악하기 위해
-        %   표준편차 3배 범위로 그래프를 표현함
-        mu = mean2(dSedThickByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        sigma = std2(dSedThickByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'CLim',[mu - sigma*3, mu + sigma*3])
-        
-        tmpTitle = [int2str(simulatingTime) 'th dSedThick By Fluvial'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % L. i번째 하천작용에 의한 기반암 고도 변화율
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_12);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,dBedrockElevByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX))
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th dBedrockElev By Fluvial'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % M. i번째 물질운반환경 분류
-        
-        % (A) 물질운반환경 변수 초기화
-        transportMode = zeros(mRows,nCols);         % 0으로 초기화
-        
-        % (B) 사면 셀과 하천 포함 셀을 구분함
-        upslopeArea = annualDischarge1 ./ annualRunoff; % 유역면적: [m^3/yr]/[m/yr]
-        
-        channel ...                         % 하천 시작 임계치를 넘은 셀
-            = ((upslopeArea .* integratedSlope .^ 2 >= channelInitiation) ...
-            & (integratedSlope ~= -inf)) ... % 초기 경사값은 제외함
-            | (upslopeArea / CELL_AREA >= criticalUpslopeCellsNo) ...
-            | (flood == FLOODED);
-        
-        hillslope = ~channel;               % 사면 셀
-        
-        % (C) 사면 분류        
-        transportMode(hillslope) ...        % 전토층으로 덮힌 사면
-            = SOIL_MANTLED_HILLSLOPE;
-        
-        bedrockExposedHillslope = hillslope & ...   % 기반암으로 노출된 사면
-            (sedimentThick < ...
-            - (dSedThickByHillslopePerDT + dSedThickByFluvialPerDT) );
-        
-        transportMode(bedrockExposedHillslope) ...
-            = BEDROCK_EXPOSED_HILLSLOPE;    
-        
-        % (B) 하도 분류            
-        upslopeArea = annualDischarge1 ./ annualRunoff; % 유역면적: [m^3/yr]/[m/yr]
-
-        transportMode(channel) = ALLUVIAL_CHANNEL;
-        
-        bedrockChannel = channel & (dBedrockElevByFluvialPerDT < 0);        
-        transportMode(bedrockChannel) = BEDROCK_CHANNEL;
-        
-        % (C) 물질운반환경 분류 비율
-        soilMantledHill = transportMode == SOIL_MANTLED_HILLSLOPE;
-        soilMantledHillRatio = sum(soilMantledHill(:)) / (Y*X);
-        
-        bedrockExposedHill = transportMode == BEDROCK_EXPOSED_HILLSLOPE;
-        bedrockExposedHillRatio = sum(bedrockExposedHill(:)) / (Y*X);
-        
-        alluvialChan = transportMode == ALLUVIAL_CHANNEL;
-        alluvialChanRatio = sum(alluvialChan(:)) / (Y*X);
-        
-        bedrockChan = transportMode == BEDROCK_CHANNEL;
-        bedrockChanRatio = sum(bedrockChan(:)) / (Y*X);
-                
-        % (D) 물질운반환경 분류 그래프        
-        if SHOW_GRAPH == SHOW_GRAPH_YES   
-            
-        % a. 외곽경계 조건 설정
-        % * 주의: 물질운반환경이 4가지가 아닐 경우, 범례 색깔과 실제 그래프의
-        %   색깔과 다를 수 있기 때문에 외곽 경계에 각 값을 대입함
-        transportMode(Y_TOP_BND,X_LEFT_BND) = SOIL_MANTLED_HILLSLOPE;
-        transportMode(Y_BOTTOM_BND,X_LEFT_BND) = BEDROCK_EXPOSED_HILLSLOPE;
-        transportMode(Y_TOP_BND,X_RIGHT_BND) = ALLUVIAL_CHANNEL;
-        transportMode(Y_BOTTOM_BND,X_RIGHT_BND) = BEDROCK_CHANNEL;
-        
-        % b. 그래프
-        figure(Hf_13);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,transportMode(Y_INI:Y_MAX,X_INI:X_MAX))
-        set(gca,'DataAspectRatio',[1 1 1])
-
-        colormap(jet(4))
-        labels = {'Bedrock Channel','Alluvial Channel' ...
-            ,'Bedrock Exposed Hillslope','Soil-mantled Hillslope'};
-        
-        lcolorbar(labels,'fontweight','bold')
-        tmpTitle = [int2str(simulatingTime) 'th Transport Mode' ...
-            '(' int2str(round(soilMantledHillRatio * 100)) '/' ...
-            int2str(round(bedrockExposedHillRatio * 100)) '/' ...
-            int2str(round(alluvialChanRatio * 100)) '/' ...
-            int2str(round(bedrockChanRatio * 100)) ')'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % N. 누적 침식량
-        
-        % (A) 누적 융기량
-        % * 주의: 초기 지형을 반영하여해야 올바른 누적 침식량을 구함
-        accumulatedUpliftedHeight = zeros(mRows,nCols);
-        accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            = (meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            ./ meanUpliftRateAtUpliftAxis) ...
-            * cumsumUpliftRate(ithTimeStep) ...
-            + initBedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            + initSedThick(Y_INI:Y_MAX,X_INI:X_MAX);
-        
-        % (B) 누적 침식량
-        accumulatedErosionRate = zeros(mRows,nCols);
-        accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            = accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX)...
-            - elev(Y_INI:Y_MAX,X_INI:X_MAX);
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        figure(Hf_14);
-        set(gcf,'MenuBar','none')
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX))
-        colorbar
-        set(gca,'DataAspectRatio',[1 1 1])
-        
-        tmpTitle = [int2str(simulatingTime) 'th Acc Erosion Rate'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % O. Topographic Position Index
-        filterSize = 3;                     % 필터 크기 
-        
-        % 좌우가 연결되었다면 좌우 외곽경계의 고도를 조정함
-        
-        % (필터 크기에 맞춘)좌우 외곽경계로 추가해야할 열 개수
-        boundMarginColsNo = filterSize - 1;
-        
-        modifiedDEM = zeros(mRows,nCols+boundMarginColsNo*2);
-        modifiedDEM(:,X_LEFT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo) = elev;
-        
-        % 좌우 외곽경계 고도 조정
-        modifiedDEM(:,X_RIGHT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo*2) ...
-            = modifiedDEM(:,X_INI+boundMarginColsNo:X_INI+boundMarginColsNo*2);
-        modifiedDEM(:,X_LEFT_BND:X_LEFT_BND+boundMarginColsNo) ...
-            = modifiedDEM(:,X_MAX:X_MAX+boundMarginColsNo);
-        
-        % 상하 외곽경계 고도 조정
-        modifiedDEM(Y_TOP_BND,:) = modifiedDEM(Y_INI,:);
-        modifiedDEM(Y_BOTTOM_BND,:) = modifiedDEM(Y_MAX,:);
-        
-        diskFilter = fspecial('disk',filterSize);
-
-        smoothedDEMDisk = imfilter(modifiedDEM,diskFilter);
-
-        diffElevDisk = smoothedDEMDisk - modifiedDEM;
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_15);
-        set(gcf,'MenuBar','none')
-        imagesc(diffElevDisk(Y_INI:Y_MAX ...
-            ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo))
-        colorbar
-        
-        % * 주의: 외곽경계 영향으로 서쪽 경계의 값이 매우 작음
-        maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX ...
-            ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo)));
-        set(gca,'CLim',[-maxDiffElev maxDiffElev])
-        
-        set(gca,'DataAspectRatio',[1 1 1])
-        
-        tmpTitle = [int2str(simulatingTime) 'th TPI'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % P. 영동과 영서지역 분수계 파악하기
-        % * 경동성 요곡 지반융기운동을 모의할 경우
-
-        % (A) 모델 영역 추출
-        %   - 좌우외곽경계는 날려버림.
-        %   - 영서외곽경계는 유출구를 제외하고는 inf로 설정되어 있음.
-        %     따라서 이들을 영서외곽경계에서 가장 낮은 유출구의 고도로 설정함.
-        %   - 이후 watershed 함수를 이용하여 분수계를 파악함
-        sOldElev = elev(Y_TOP_BND:Y_BOTTOM_BND,X_INI:X_MAX);
-        outletX = find(elev(Y_TOP_BND,:) ~= inf);
-        outletElev = elev(Y_TOP_BND,outletX);
-        sOldElev(Y_TOP_BND,:) = outletElev;
-        
-        
-        % (B) 영동과 영서로 향하는 2개의 유역분지를 만들기 위한 마스크 만들기
-        %     * 마스크는 이진 자료형으로 나가는 면을 true로 설정해야 함.
-        boundMask = false(mRows,X);
-        boundMask(Y_TOP_BND,:) = true;
-        boundMask(Y_BOTTOM_BND,:) = true;
-
-        % (C) regional minimum 제거를 위한 고도 보정
-        modifiedSOldElev = imimposemin(sOldElev,boundMask);
-        
-        % (D) 영서와 영동 및 분수계 색인 정의
-        L(Y_TOP_BND:Y_BOTTOM_BND,X_INI:X_MAX) = watershed(modifiedSOldElev);
-        EAST_DRAINAGE = L(Y_BOTTOM_BND,X_INI);
-        WEST_DRAINAGE = L(Y_TOP_BND,X_INI);
-        WATERSHED_DIVIDE = 0;
-
-        % (E) 유역 label을 시각화
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        % a. 고도 투영
-        figure(Hf_02);
-        hold on
-
-        % b. 분수계를 더욱 돋보이게 함
-        b = bwboundaries(L == WATERSHED_DIVIDE,4);
-        b1 = b{1};
-        x = b1(:,2);
-        y = b1(:,1);
-        plot(x,y,'r','LineWidth',2)     
-        
-        end
-        
-        %------------------------------------------------------------------
-        % Q. 횡단곡선상 속성
-        
-        % 퇴적물 운반능력 구하기
-   
-        % 만제유량시 하폭 [m]
-        bankfullWidth = khw * bankfullDischarge .^ mhw;        
-        
-        fluvialTransportCapacity ...   % 임시 퇴적물 운반 능력[m^3/subDT]
-            = ( bankfullWidth ...
-            .* ( kfa .* ( bankfullDischarge ./ bankfullWidth ) .^ mfa ...
-            .* integratedSlope .^ nfa ) );
-        
-        % 영동 유역 상류
-        upperHillslope ...      % 사면 색인
-            = transportMode(upperCrossProfileZone,:) == SOIL_MANTLED_HILLSLOPE ...
-            | transportMode(upperCrossProfileZone,:) == BEDROCK_EXPOSED_HILLSLOPE;
-        upperChannel ...        % 하천 색인
-            = transportMode(upperCrossProfileZone,:) == ALLUVIAL_CHANNEL ...
-            | transportMode(upperCrossProfileZone,:) == BEDROCK_CHANNEL; 
-        
-
-        % 사면 평균 풍화층 두께
-        upperHillslopeSed = sedimentThick(upperCrossProfileZone,:);        
-        extEastUpperHillRegolithThick(ithGraph,1) ...
-            = mean(upperHillslopeSed(upperHillslope));
-        
-        % 하천 평균 퇴적층 두께
-        upperChannelSed = sedimentThick(upperCrossProfileZone,:);       
-        extEastUpperChannelSedThick(ithGraph,1) ...
-            = mean(upperChannelSed(upperChannel));
-        
-        % 사면작용에 의한 퇴적층 두께 변화율
-        upperHillDSedThick = dSedThickByHillslopePerDT(upperCrossProfileZone,:);
-        extEastUpperHillDSedThick(ithGraph,1) ...
-            = mean(upperHillDSedThick(upperHillslope));
-        
-        % 기반암 하상 침식율
-        upperChannelDBedrockElev = dBedrockElevByFluvialPerDT(upperCrossProfileZone,:);
-        extEastUpperChannelDBedrockElev(ithGraph,1) ...
-            = mean(upperChannelDBedrockElev(upperChannel));
-        
-        % 하천에 의한 퇴적층 두께 변화율
-        upperChannelDSedThick = dSedThickByFluvialPerDT(upperCrossProfileZone,:);
-        extEastUpperChannelDSedThick(ithGraph,1) ...
-            = mean(upperChannelDSedThick(upperChannel));
-        
-        % 융기율
-        upperUpliftedHeight = upliftedHeightPerDT(upperCrossProfileZone,:);
-        extEastUpperUpliftedHeight(ithGraph,1) = mean(upperUpliftedHeight(:));
-        
-        % 풍화율
-        upperWeatheringRate = weatheringProduct(upperCrossProfileZone,:);
-        extEastUpperChannelWeatheringRate(ithGraph,1) ...
-            = mean(mean(upperWeatheringRate(upperChannel)));
-        extEastUpperHillslopeWeatheringRate(ithGraph,1) ...
-            = mean(mean(upperWeatheringRate(upperHillslope)));
-        
-        % 퇴적물 운반능력
-        upperFluvialTransportCapacity = fluvialTransportCapacity(upperCrossProfileZone,:);
-        extEastUpperFluvialTransportCapacity(ithGraph,1) ...
-            = mean(upperFluvialTransportCapacity(upperChannel));
-             
-        
-        % 영동 유역 중류
-        middleHillslope ...     % 사면 색인
-            = transportMode(middleCrossProfileZone,:) == SOIL_MANTLED_HILLSLOPE ...
-            | transportMode(middleCrossProfileZone,:) == BEDROCK_EXPOSED_HILLSLOPE;          
-        middleChannel ...       % 하천 색인
-            = transportMode(middleCrossProfileZone,:) == ALLUVIAL_CHANNEL ...
-            | transportMode(middleCrossProfileZone,:) == BEDROCK_CHANNEL;                  
-        
-        % 사면 평균 풍화층 두께
-        middleHillslopeReg = sedimentThick(middleCrossProfileZone,:);
-        extEastMiddleHillRegolithThick(ithGraph,1) ...
-            = mean(middleHillslopeReg(middleHillslope));
-        
-        % 하천 평균 퇴적층 두께
-        middleChannelSedThick = sedimentThick(middleCrossProfileZone,:);
-        extEastMiddleChannelSedThick(ithGraph,1) ...
-            = mean(middleChannelSedThick(middleChannel));
-        
-        % 사면작용에 의한 퇴적층 두께 변화율
-        middleHillslopeDSedThick = dSedThickByHillslopePerDT(middleCrossProfileZone,:);
-        extEastMiddleHillDSedThick(ithGraph,1) ...
-            = mean(middleHillslopeDSedThick(middleHillslope));
-        
-        % 기반암 하상 침식율
-        middleChannelDBedrockElev = dBedrockElevByFluvialPerDT(middleCrossProfileZone,:);
-        extEastMiddleChannelDBedrockElev(ithGraph,1) ...
-            = mean(middleChannelDBedrockElev(middleChannel));
-        
-        % 하천에 의한 퇴적층 두께 변화율
-        middleChannelDSedThick = dSedThickByFluvialPerDT(middleCrossProfileZone,:);
-        extEastMiddleChannelDSedThick(ithGraph,1) ...
-            = mean(middleChannelDSedThick(middleChannel));
-        
-        % 융기율
-        middleUpliftedHeight = upliftedHeightPerDT(middleCrossProfileZone,:);
-        extEastMiddleUpliftedHeight(ithGraph,1) = mean(middleUpliftedHeight(:));   
-        
-        % 풍화율
-        middleWeatheringRate = weatheringProduct(middleCrossProfileZone,:);
-        extEastMiddleChannelWeatheringRate(ithGraph,1) ...
-            = mean(mean(middleWeatheringRate(middleChannel)));
-        extEastMiddleHillslopeWeatheringRate(ithGraph,1) ...
-            = mean(mean(middleWeatheringRate(middleHillslope)));
-        
-        % 퇴적물 운반능력
-        middleFluvialTransportCapacity = fluvialTransportCapacity(middleCrossProfileZone,:);
-        extEastMiddleFluvialTransportCapacity(ithGraph,1) ...
-            = mean(middleFluvialTransportCapacity(middleChannel));
-        
-        
-        % 영동 유역 하류
-        bottomHillslope ...             % 사면 색인
-            = transportMode(lowerCrossProfileZone,:) == SOIL_MANTLED_HILLSLOPE ...
-            | transportMode(lowerCrossProfileZone,:) == BEDROCK_EXPOSED_HILLSLOPE;    
-        bottomChannel ...               % 하천 색인
-            = transportMode(lowerCrossProfileZone,:) == ALLUVIAL_CHANNEL ...
-            | transportMode(lowerCrossProfileZone,:) == BEDROCK_CHANNEL;  
-        
-        % 사면 평균 풍화층 두께
-        bottomHillReg = sedimentThick(lowerCrossProfileZone,:);
-        extEastBottomHillRegolithThick(ithGraph,1) ...
-            = mean(bottomHillReg(bottomHillslope));
-        
-        % 하천 평균 퇴적층 두께
-        bottomChannelSedThick = sedimentThick(lowerCrossProfileZone,:);
-        extEastBottomChannelSedThick(ithGraph,1) ...
-            = mean(bottomChannelSedThick(bottomChannel));      
-        
-        % 사면작용에 의한 퇴적층 두께 변화율
-        lowerHillDSedThick = dSedThickByHillslopePerDT(lowerCrossProfileZone,:);
-        extEastLowerHillDSedThick(ithGraph,1) ...
-            = mean(lowerHillDSedThick(bottomHillslope));
-        
-        % 기반암 하상 침식율
-        lowerChannelDBedrockElev = dBedrockElevByFluvialPerDT(lowerCrossProfileZone,:);
-        extEastLowerChannelDBedrockElev(ithGraph,1) ...
-            = mean(lowerChannelDBedrockElev(bottomChannel));
-        
-        % 하천에 의한 퇴적층 두께 변화율
-        lowerChannelDSedThick = dSedThickByFluvialPerDT(lowerCrossProfileZone,:);
-        extEastLowerChannelDSedThick(ithGraph,1) ...
-            = mean(lowerChannelDSedThick(bottomChannel));
-        
-        % 융기율
-        lowerUpliftedHeight = upliftedHeightPerDT(lowerCrossProfileZone,:);
-        extEastLowerUpliftedHeight(ithGraph,1) = mean(lowerUpliftedHeight(:));  
-        
-        % 풍화율
-        lowerWeatheringRate = weatheringProduct(lowerCrossProfileZone,:);
-        extEastLowerChannelWeatheringRate(ithGraph,1) ...
-            = mean(mean(lowerWeatheringRate(bottomChannel)));
-        extEastLowerHillslopeWeatheringRate(ithGraph,1) ...
-            = mean(mean(lowerWeatheringRate(bottomHillslope)));
-        
-        % 퇴적물 운반능력
-        lowerFluvialTransportCapacity = fluvialTransportCapacity(lowerCrossProfileZone,:);
-        extEastLowerFluvialTransportCapacity(ithGraph,1) ...
-            = mean(lowerFluvialTransportCapacity(bottomChannel));
-        
-        %------------------------------------------------------------------
+%         % E. i번째 경사
+%         
+%         % A) 무한 유향 알고리듬을 이용한 유향과 경사
+%         [facetFlowDirection ...     % 유향
+%         ,facetFlowSlope ...         % 경사
+%         ,e1LinearIndicies ...       % 다음 셀(e1) 색인
+%         ,e2LinearIndicies ...       % 다음 셀(e2) 색인
+%         ,outputFluxRatioToE1 ...    % 다음 셀(e1)로의 유입율
+%         ,outputFluxRatioToE2] ...   % 다음 셀(e2)로의 유입율
+%             = CalcInfinitiveFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
+%             ,QUARTER_PI,HALF_PI,elev,dX ...
+%             ,sE0LinearIndicies,s3E1LinearIndicies,s3E2LinearIndicies);
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         % B) i번째 경사
+%         figure(Hf_04);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th Gradient'];
+%         title(tmpTitle)
+%         
+%         %------------------------------------------------------------------
+%         % F. i번째 풍화율
+%         
+%         figure(Hf_05);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,weatheringProduct(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th Weathering Product'];
+%         title(tmpTitle)
+%         
+%         %------------------------------------------------------------------
+%         % G. i번째 사면작용에 의한 퇴적층 두께 변화율
+%         
+%         figure(Hf_06);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dSedThickByHillslopePerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th dSedThick By Slow Mass'];
+%         title(tmpTitle)
+%         
+%         %------------------------------------------------------------------
+%         % H. i번째 빠른 사면작용에 의한 퇴적층 두께 변화율
+%         
+%         figure(Hf_07);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dSedThickByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th dSedThick By Rapid Mass'];
+%         title(tmpTitle)
+%         
+%         %------------------------------------------------------------------
+%         % I. i번째 빠른 사면작용에 의한 기반암 고도 변화율
+%         
+%         figure(Hf_08);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dBedrockElevByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th dBedrockElev By Rapid Mass'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % J. i번째 flooded region 및 만제유량
+%         
+%         % A) 최대 하부 경사 유향 알고리듬을 이용한 유향과 경사
+%         [steepestDescentSlope ...   % 경사
+%         ,slopeAllNbr ...            % 8개 이웃 셀과의 경사
+%         ,SDSFlowDirection ...       % 유향
+%         ,SDSNbrY ...                % 다음 셀 Y 좌표값
+%         ,SDSNbrX] ...               % 다음 셀 X 좌표값
+%             = CalcSDSFlow(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
+%             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND ...
+%             ,QUARTER_PI,DISTANCE_RATIO_TO_NBR,elev,dX ...
+%             ,IS_LEFT_RIGHT_CONNECTED ...
+%             ,ithNbrYOffset,ithNbrXOffset ...
+%             ,sE0LinearIndicies,s3IthNbrLinearIndicies);
+%         
+%         % B) 유향이 정의되지 않은 셀에 유향을 정의함
+%         % * sink에 유향을 부여하고, flooded region에 유향을 재설정함
+%         [flood ...                      % flooded region
+%         ,SDSNbrY ...                    % 수정된 다음 셀의 Y 좌표값
+%         ,SDSNbrX ...                    % 수정된 다음 셀의 X 좌표값
+%         ,SDSFlowDirection ...           % 수정된 (최대하부경사 유향 알고리듬의) 유향
+%         ,steepestDescentSlope ...       % 수정된 (최대하부경사 유향 알고리듬의) 경사
+%         ,integratedSlope ...            % 수정된 (무한 유향 알고리듬) 경사
+%         ,floodedRegionIndex ...         % flooded region 색인
+%         ,floodedRegionCellsNo ...       % 각 flooded region 구성 셀 개수
+%         ,floodedRegionLocalDepth ...    % flooded region 고도와 유출구 고도와의 차이
+%         ,floodedRegionTotalDepth ...    % local depth 총 합
+%         ,floodedRegionStorageVolume] ...% flooded region 총 저장량
+%             = ProcessSink(mRows,nCols,X_INI,X_MAX ...
+%             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,QUARTER_PI,CELL_AREA ...
+%             ,elev,ithNbrYOffset,ithNbrXOffset ...
+%             ,OUTER_BOUNDARY,IS_LEFT_RIGHT_CONNECTED ...
+%             ,slopeAllNbr,steepestDescentSlope ...
+%             ,facetFlowSlope,SDSNbrY,SDSNbrX,SDSFlowDirection);
+%         
+%         % C) flooded region 그래프
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         figure(Hf_09);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,flood(Y_INI:Y_MAX,X_INI:X_MAX))
+%         set(gca,'DataAspectRatio',[1 1 1],'CLim',[0 2])        
+%         colormap(jet(3))
+%         labels = {'Unflooded','Sink','Flooded'};
+%         lcolorbar(labels,'fontweight','bold')       
+%         tmpTitle = [int2str(simulatingTime) 'th Flooded Region'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         % D) 연간 유량[m^3/dT]
+% 
+%         % a. 셀들을 고도 순으로 정렬
+%         elevForSorting = elev;
+% 
+%         % b. flooded region을 제외함
+%         % * 원리 : 제외하는 셀의 고도값에는 - inf를 입력함
+%         elevForSorting(flood == FLOODED) = - inf;
+% 
+%         % c. 높은 고도 순으로 정렬하고 이의 Y,X 좌표값을 구함
+%         vectorElev = reshape(elevForSorting(Y_INI:Y_MAX,X_INI:X_MAX),[],1);
+%         sortedYXElevForUpstreamFlow = [vectorY,vectorX,vectorElev];
+%         sortedYXElevForUpstreamFlow = sortrows(sortedYXElevForUpstreamFlow,-3);
+% 
+%         % d. AccumulateUpstreamFlow 함수의 대상 셀 수
+%         consideringCellsNoForUpstreamFlow = find(vectorElev > - inf);
+%         consideringCellsNoForUpstreamFlow ...
+%             = size(consideringCellsNoForUpstreamFlow,1);
+% 
+%         % e. 연간유량 [m^3/dT]
+%         [annualDischarge1 ...   % 연간유량 [m^3/dT]
+%         ,isOverflowing] ...     % flooded region 저수량 초과 여부 태그
+%             = AccumulateUpstreamFlow(mRows,nCols ...
+%             ,Y_TOP_BND,Y_BOTTOM_BND,X_LEFT_BND,X_RIGHT_BND,CELL_AREA ...
+%             ,sortedYXElevForUpstreamFlow ...
+%             ,consideringCellsNoForUpstreamFlow ...
+%             ,OUTER_BOUNDARY,annualRunoff ...
+%             ,flood,floodedRegionCellsNo ...
+%             ,floodedRegionStorageVolume,floodedRegionIndex ...
+%             ,facetFlowDirection,e1LinearIndicies,e2LinearIndicies ...
+%             ,outputFluxRatioToE1,outputFluxRatioToE2,SDSNbrY,SDSNbrX);    
+% 
+%         % E) 만제유량
+% 
+%         % a. 연 평균유량 [m^3/s]
+%         meanDischarge = annualDischarge1 / SECPERYEAR;
+% 
+%         % b. 만제유량 [m^3/s]
+%         bankfullDischarge = kqb * meanDischarge .^ mqb;
+%         
+%         % F) 만제유량 그래프
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         figure(Hf_10);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,log10(bankfullDischarge(Y_INI:Y_MAX,X_INI:X_MAX)))
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th Bankfull Discharge(log10)'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % K. i번째 하천작용에 의한 퇴적층 두께 변화율
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         figure(Hf_11);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dSedThickByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX))
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         
+%         % * 주의: 평균을 상회하는 값들이 존재해서, 중간값의 경향을 파악하기 위해
+%         %   표준편차 3배 범위로 그래프를 표현함
+%         mu = mean2(dSedThickByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         sigma = std2(dSedThickByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'CLim',[mu - sigma*3, mu + sigma*3])
+%         
+%         tmpTitle = [int2str(simulatingTime) 'th dSedThick By Fluvial'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % L. i번째 하천작용에 의한 기반암 고도 변화율
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         figure(Hf_12);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,dBedrockElevByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX))
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th dBedrockElev By Fluvial'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % M. i번째 물질운반환경 분류
+%         
+%         % (A) 물질운반환경 변수 초기화
+%         transportMode = zeros(mRows,nCols);         % 0으로 초기화
+%         
+%         % (B) 사면 셀과 하천 포함 셀을 구분함
+%         upslopeArea = annualDischarge1 ./ annualRunoff; % 유역면적: [m^3/yr]/[m/yr]
+%         
+%         channel ...                         % 하천 시작 임계치를 넘은 셀
+%             = ((upslopeArea .* integratedSlope .^ 2 >= channelInitiation) ...
+%             & (integratedSlope ~= -inf)) ... % 초기 경사값은 제외함
+%             | (upslopeArea / CELL_AREA >= criticalUpslopeCellsNo) ...
+%             | (flood == FLOODED);
+%         
+%         hillslope = ~channel;               % 사면 셀
+%         
+%         % (C) 사면 분류        
+%         transportMode(hillslope) ...        % 전토층으로 덮힌 사면
+%             = SOIL_MANTLED_HILLSLOPE;
+%         
+%         bedrockExposedHillslope = hillslope & ...   % 기반암으로 노출된 사면
+%             (sedimentThick < ...
+%             - (dSedThickByHillslopePerDT + dSedThickByFluvialPerDT) );
+%         
+%         transportMode(bedrockExposedHillslope) ...
+%             = BEDROCK_EXPOSED_HILLSLOPE;    
+%         
+%         % (B) 하도 분류            
+%         upslopeArea = annualDischarge1 ./ annualRunoff; % 유역면적: [m^3/yr]/[m/yr]
+% 
+%         transportMode(channel) = ALLUVIAL_CHANNEL;
+%         
+%         bedrockChannel = channel & (dBedrockElevByFluvialPerDT < 0);        
+%         transportMode(bedrockChannel) = BEDROCK_CHANNEL;
+%         
+%         % (C) 물질운반환경 분류 비율
+%         soilMantledHill = transportMode == SOIL_MANTLED_HILLSLOPE;
+%         soilMantledHillRatio = sum(soilMantledHill(:)) / (Y*X);
+%         
+%         bedrockExposedHill = transportMode == BEDROCK_EXPOSED_HILLSLOPE;
+%         bedrockExposedHillRatio = sum(bedrockExposedHill(:)) / (Y*X);
+%         
+%         alluvialChan = transportMode == ALLUVIAL_CHANNEL;
+%         alluvialChanRatio = sum(alluvialChan(:)) / (Y*X);
+%         
+%         bedrockChan = transportMode == BEDROCK_CHANNEL;
+%         bedrockChanRatio = sum(bedrockChan(:)) / (Y*X);
+%                 
+%         % (D) 물질운반환경 분류 그래프        
+%         if SHOW_GRAPH == SHOW_GRAPH_YES   
+%             
+%         % a. 외곽경계 조건 설정
+%         % * 주의: 물질운반환경이 4가지가 아닐 경우, 범례 색깔과 실제 그래프의
+%         %   색깔과 다를 수 있기 때문에 외곽 경계에 각 값을 대입함
+%         transportMode(Y_TOP_BND,X_LEFT_BND) = SOIL_MANTLED_HILLSLOPE;
+%         transportMode(Y_BOTTOM_BND,X_LEFT_BND) = BEDROCK_EXPOSED_HILLSLOPE;
+%         transportMode(Y_TOP_BND,X_RIGHT_BND) = ALLUVIAL_CHANNEL;
+%         transportMode(Y_BOTTOM_BND,X_RIGHT_BND) = BEDROCK_CHANNEL;
+%         
+%         % b. 그래프
+%         figure(Hf_13);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,transportMode(Y_INI:Y_MAX,X_INI:X_MAX))
+%         set(gca,'DataAspectRatio',[1 1 1])
+% 
+%         colormap(jet(4))
+%         labels = {'Bedrock Channel','Alluvial Channel' ...
+%             ,'Bedrock Exposed Hillslope','Soil-mantled Hillslope'};
+%         
+%         lcolorbar(labels,'fontweight','bold')
+%         tmpTitle = [int2str(simulatingTime) 'th Transport Mode' ...
+%             '(' int2str(round(soilMantledHillRatio * 100)) '/' ...
+%             int2str(round(bedrockExposedHillRatio * 100)) '/' ...
+%             int2str(round(alluvialChanRatio * 100)) '/' ...
+%             int2str(round(bedrockChanRatio * 100)) ')'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % N. 누적 침식량
+%         
+%         % (A) 누적 융기량
+%         % * 주의: 초기 지형을 반영하여해야 올바른 누적 침식량을 구함
+%         accumulatedUpliftedHeight = zeros(mRows,nCols);
+%         accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             = (meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             ./ meanUpliftRateAtUpliftAxis) ...
+%             * cumsumUpliftRate(ithTimeStep) ...
+%             + initBedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             + initSedThick(Y_INI:Y_MAX,X_INI:X_MAX);
+%         
+%         % (B) 누적 침식량
+%         accumulatedErosionRate = zeros(mRows,nCols);
+%         accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             = accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX)...
+%             - elev(Y_INI:Y_MAX,X_INI:X_MAX);
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         figure(Hf_14);
+%         set(gcf,'MenuBar','none')
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX))
+%         colorbar
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         
+%         tmpTitle = [int2str(simulatingTime) 'th Acc Erosion Rate'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % O. Topographic Position Index
+%         filterSize = 3;                     % 필터 크기 
+%         
+%         % 좌우가 연결되었다면 좌우 외곽경계의 고도를 조정함
+%         
+%         % (필터 크기에 맞춘)좌우 외곽경계로 추가해야할 열 개수
+%         boundMarginColsNo = filterSize - 1;
+%         
+%         modifiedDEM = zeros(mRows,nCols+boundMarginColsNo*2);
+%         modifiedDEM(:,X_LEFT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo) = elev;
+%         
+%         % 좌우 외곽경계 고도 조정
+%         modifiedDEM(:,X_RIGHT_BND+boundMarginColsNo:X_RIGHT_BND+boundMarginColsNo*2) ...
+%             = modifiedDEM(:,X_INI+boundMarginColsNo:X_INI+boundMarginColsNo*2);
+%         modifiedDEM(:,X_LEFT_BND:X_LEFT_BND+boundMarginColsNo) ...
+%             = modifiedDEM(:,X_MAX:X_MAX+boundMarginColsNo);
+%         
+%         % 상하 외곽경계 고도 조정
+%         modifiedDEM(Y_TOP_BND,:) = modifiedDEM(Y_INI,:);
+%         modifiedDEM(Y_BOTTOM_BND,:) = modifiedDEM(Y_MAX,:);
+%         
+%         diskFilter = fspecial('disk',filterSize);
+% 
+%         smoothedDEMDisk = imfilter(modifiedDEM,diskFilter);
+% 
+%         diffElevDisk = smoothedDEMDisk - modifiedDEM;
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         figure(Hf_15);
+%         set(gcf,'MenuBar','none')
+%         imagesc(diffElevDisk(Y_INI:Y_MAX ...
+%             ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo))
+%         colorbar
+%         
+%         % * 주의: 외곽경계 영향으로 서쪽 경계의 값이 매우 작음
+%         maxDiffElev = max(max(diffElevDisk(Y_INI:Y_MAX ...
+%             ,X_INI+boundMarginColsNo:X_MAX+boundMarginColsNo)));
+%         set(gca,'CLim',[-maxDiffElev maxDiffElev])
+%         
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         
+%         tmpTitle = [int2str(simulatingTime) 'th TPI'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % P. 영동과 영서지역 분수계 파악하기
+%         % * 경동성 요곡 지반융기운동을 모의할 경우
+% 
+%         % (A) 모델 영역 추출
+%         %   - 좌우외곽경계는 날려버림.
+%         %   - 영서외곽경계는 유출구를 제외하고는 inf로 설정되어 있음.
+%         %     따라서 이들을 영서외곽경계에서 가장 낮은 유출구의 고도로 설정함.
+%         %   - 이후 watershed 함수를 이용하여 분수계를 파악함
+%         sOldElev = elev(Y_TOP_BND:Y_BOTTOM_BND,X_INI:X_MAX);
+%         outletX = find(elev(Y_TOP_BND,:) ~= inf);
+%         outletElev = elev(Y_TOP_BND,outletX);
+%         sOldElev(Y_TOP_BND,:) = outletElev;
+%         
+%         
+%         % (B) 영동과 영서로 향하는 2개의 유역분지를 만들기 위한 마스크 만들기
+%         %     * 마스크는 이진 자료형으로 나가는 면을 true로 설정해야 함.
+%         boundMask = false(mRows,X);
+%         boundMask(Y_TOP_BND,:) = true;
+%         boundMask(Y_BOTTOM_BND,:) = true;
+% 
+%         % (C) regional minimum 제거를 위한 고도 보정
+%         modifiedSOldElev = imimposemin(sOldElev,boundMask);
+%         
+%         % (D) 영서와 영동 및 분수계 색인 정의
+%         L(Y_TOP_BND:Y_BOTTOM_BND,X_INI:X_MAX) = watershed(modifiedSOldElev);
+%         EAST_DRAINAGE = L(Y_BOTTOM_BND,X_INI);
+%         WEST_DRAINAGE = L(Y_TOP_BND,X_INI);
+%         WATERSHED_DIVIDE = 0;
+% 
+%         % (E) 유역 label을 시각화
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         % a. 고도 투영
+%         figure(Hf_02);
+%         hold on
+% 
+%         % b. 분수계를 더욱 돋보이게 함
+%         b = bwboundaries(L == WATERSHED_DIVIDE,4);
+%         b1 = b{1};
+%         x = b1(:,2);
+%         y = b1(:,1);
+%         plot(x,y,'r','LineWidth',2)     
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % Q. 횡단곡선상 속성
+%         
+%         % 퇴적물 운반능력 구하기
+%    
+%         % 만제유량시 하폭 [m]
+%         bankfullWidth = khw * bankfullDischarge .^ mhw;        
+%         
+%         fluvialTransportCapacity ...   % 임시 퇴적물 운반 능력[m^3/subDT]
+%             = ( bankfullWidth ...
+%             .* ( kfa .* ( bankfullDischarge ./ bankfullWidth ) .^ mfa ...
+%             .* integratedSlope .^ nfa ) );
+%         
+%         % 영동 유역 상류
+%         upperHillslope ...      % 사면 색인
+%             = transportMode(upperCrossProfileZone,:) == SOIL_MANTLED_HILLSLOPE ...
+%             | transportMode(upperCrossProfileZone,:) == BEDROCK_EXPOSED_HILLSLOPE;
+%         upperChannel ...        % 하천 색인
+%             = transportMode(upperCrossProfileZone,:) == ALLUVIAL_CHANNEL ...
+%             | transportMode(upperCrossProfileZone,:) == BEDROCK_CHANNEL; 
+%         
+% 
+%         % 사면 평균 풍화층 두께
+%         upperHillslopeSed = sedimentThick(upperCrossProfileZone,:);        
+%         extEastUpperHillRegolithThick(ithGraph,1) ...
+%             = mean(upperHillslopeSed(upperHillslope));
+%         
+%         % 하천 평균 퇴적층 두께
+%         upperChannelSed = sedimentThick(upperCrossProfileZone,:);       
+%         extEastUpperChannelSedThick(ithGraph,1) ...
+%             = mean(upperChannelSed(upperChannel));
+%         
+%         % 사면작용에 의한 퇴적층 두께 변화율
+%         upperHillDSedThick = dSedThickByHillslopePerDT(upperCrossProfileZone,:);
+%         extEastUpperHillDSedThick(ithGraph,1) ...
+%             = mean(upperHillDSedThick(upperHillslope));
+%         
+%         % 기반암 하상 침식율
+%         upperChannelDBedrockElev = dBedrockElevByFluvialPerDT(upperCrossProfileZone,:);
+%         extEastUpperChannelDBedrockElev(ithGraph,1) ...
+%             = mean(upperChannelDBedrockElev(upperChannel));
+%         
+%         % 하천에 의한 퇴적층 두께 변화율
+%         upperChannelDSedThick = dSedThickByFluvialPerDT(upperCrossProfileZone,:);
+%         extEastUpperChannelDSedThick(ithGraph,1) ...
+%             = mean(upperChannelDSedThick(upperChannel));
+%         
+%         % 융기율
+%         upperUpliftedHeight = upliftedHeightPerDT(upperCrossProfileZone,:);
+%         extEastUpperUpliftedHeight(ithGraph,1) = mean(upperUpliftedHeight(:));
+%         
+%         % 풍화율
+%         upperWeatheringRate = weatheringProduct(upperCrossProfileZone,:);
+%         extEastUpperChannelWeatheringRate(ithGraph,1) ...
+%             = mean(mean(upperWeatheringRate(upperChannel)));
+%         extEastUpperHillslopeWeatheringRate(ithGraph,1) ...
+%             = mean(mean(upperWeatheringRate(upperHillslope)));
+%         
+%         % 퇴적물 운반능력
+%         upperFluvialTransportCapacity = fluvialTransportCapacity(upperCrossProfileZone,:);
+%         extEastUpperFluvialTransportCapacity(ithGraph,1) ...
+%             = mean(upperFluvialTransportCapacity(upperChannel));
+%              
+%         
+%         % 영동 유역 중류
+%         middleHillslope ...     % 사면 색인
+%             = transportMode(middleCrossProfileZone,:) == SOIL_MANTLED_HILLSLOPE ...
+%             | transportMode(middleCrossProfileZone,:) == BEDROCK_EXPOSED_HILLSLOPE;          
+%         middleChannel ...       % 하천 색인
+%             = transportMode(middleCrossProfileZone,:) == ALLUVIAL_CHANNEL ...
+%             | transportMode(middleCrossProfileZone,:) == BEDROCK_CHANNEL;                  
+%         
+%         % 사면 평균 풍화층 두께
+%         middleHillslopeReg = sedimentThick(middleCrossProfileZone,:);
+%         extEastMiddleHillRegolithThick(ithGraph,1) ...
+%             = mean(middleHillslopeReg(middleHillslope));
+%         
+%         % 하천 평균 퇴적층 두께
+%         middleChannelSedThick = sedimentThick(middleCrossProfileZone,:);
+%         extEastMiddleChannelSedThick(ithGraph,1) ...
+%             = mean(middleChannelSedThick(middleChannel));
+%         
+%         % 사면작용에 의한 퇴적층 두께 변화율
+%         middleHillslopeDSedThick = dSedThickByHillslopePerDT(middleCrossProfileZone,:);
+%         extEastMiddleHillDSedThick(ithGraph,1) ...
+%             = mean(middleHillslopeDSedThick(middleHillslope));
+%         
+%         % 기반암 하상 침식율
+%         middleChannelDBedrockElev = dBedrockElevByFluvialPerDT(middleCrossProfileZone,:);
+%         extEastMiddleChannelDBedrockElev(ithGraph,1) ...
+%             = mean(middleChannelDBedrockElev(middleChannel));
+%         
+%         % 하천에 의한 퇴적층 두께 변화율
+%         middleChannelDSedThick = dSedThickByFluvialPerDT(middleCrossProfileZone,:);
+%         extEastMiddleChannelDSedThick(ithGraph,1) ...
+%             = mean(middleChannelDSedThick(middleChannel));
+%         
+%         % 융기율
+%         middleUpliftedHeight = upliftedHeightPerDT(middleCrossProfileZone,:);
+%         extEastMiddleUpliftedHeight(ithGraph,1) = mean(middleUpliftedHeight(:));   
+%         
+%         % 풍화율
+%         middleWeatheringRate = weatheringProduct(middleCrossProfileZone,:);
+%         extEastMiddleChannelWeatheringRate(ithGraph,1) ...
+%             = mean(mean(middleWeatheringRate(middleChannel)));
+%         extEastMiddleHillslopeWeatheringRate(ithGraph,1) ...
+%             = mean(mean(middleWeatheringRate(middleHillslope)));
+%         
+%         % 퇴적물 운반능력
+%         middleFluvialTransportCapacity = fluvialTransportCapacity(middleCrossProfileZone,:);
+%         extEastMiddleFluvialTransportCapacity(ithGraph,1) ...
+%             = mean(middleFluvialTransportCapacity(middleChannel));
+%         
+%         
+%         % 영동 유역 하류
+%         bottomHillslope ...             % 사면 색인
+%             = transportMode(lowerCrossProfileZone,:) == SOIL_MANTLED_HILLSLOPE ...
+%             | transportMode(lowerCrossProfileZone,:) == BEDROCK_EXPOSED_HILLSLOPE;    
+%         bottomChannel ...               % 하천 색인
+%             = transportMode(lowerCrossProfileZone,:) == ALLUVIAL_CHANNEL ...
+%             | transportMode(lowerCrossProfileZone,:) == BEDROCK_CHANNEL;  
+%         
+%         % 사면 평균 풍화층 두께
+%         bottomHillReg = sedimentThick(lowerCrossProfileZone,:);
+%         extEastBottomHillRegolithThick(ithGraph,1) ...
+%             = mean(bottomHillReg(bottomHillslope));
+%         
+%         % 하천 평균 퇴적층 두께
+%         bottomChannelSedThick = sedimentThick(lowerCrossProfileZone,:);
+%         extEastBottomChannelSedThick(ithGraph,1) ...
+%             = mean(bottomChannelSedThick(bottomChannel));      
+%         
+%         % 사면작용에 의한 퇴적층 두께 변화율
+%         lowerHillDSedThick = dSedThickByHillslopePerDT(lowerCrossProfileZone,:);
+%         extEastLowerHillDSedThick(ithGraph,1) ...
+%             = mean(lowerHillDSedThick(bottomHillslope));
+%         
+%         % 기반암 하상 침식율
+%         lowerChannelDBedrockElev = dBedrockElevByFluvialPerDT(lowerCrossProfileZone,:);
+%         extEastLowerChannelDBedrockElev(ithGraph,1) ...
+%             = mean(lowerChannelDBedrockElev(bottomChannel));
+%         
+%         % 하천에 의한 퇴적층 두께 변화율
+%         lowerChannelDSedThick = dSedThickByFluvialPerDT(lowerCrossProfileZone,:);
+%         extEastLowerChannelDSedThick(ithGraph,1) ...
+%             = mean(lowerChannelDSedThick(bottomChannel));
+%         
+%         % 융기율
+%         lowerUpliftedHeight = upliftedHeightPerDT(lowerCrossProfileZone,:);
+%         extEastLowerUpliftedHeight(ithGraph,1) = mean(lowerUpliftedHeight(:));  
+%         
+%         % 풍화율
+%         lowerWeatheringRate = weatheringProduct(lowerCrossProfileZone,:);
+%         extEastLowerChannelWeatheringRate(ithGraph,1) ...
+%             = mean(mean(lowerWeatheringRate(bottomChannel)));
+%         extEastLowerHillslopeWeatheringRate(ithGraph,1) ...
+%             = mean(mean(lowerWeatheringRate(bottomHillslope)));
+%         
+%         % 퇴적물 운반능력
+%         lowerFluvialTransportCapacity = fluvialTransportCapacity(lowerCrossProfileZone,:);
+%         extEastLowerFluvialTransportCapacity(ithGraph,1) ...
+%             = mean(lowerFluvialTransportCapacity(bottomChannel));
+%         
+%         %------------------------------------------------------------------
 %         % R. 하천종단곡선
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %         
@@ -1891,454 +1896,454 @@ for ithStep = initIthStep:endStep
 %         title(tmpTitle)
 %         
 %         end
-        
-        %------------------------------------------------------------------
-        % S. 유역분지 특성 그래프
-        
-        % (A) 영동과 영서 지역 색인
-        L(Y_TOP_BND,X_INI:X_MAX) = 0;
-        L(Y_BOTTOM_BND,X_INI:X_MAX) = 0;       
-        eastDrainage = L == EAST_DRAINAGE;
-        eastDrainageCellsNo = sum(eastDrainage(:));
-        westDrainage = L == WEST_DRAINAGE;
-        westDrainageCellsNo = sum(westDrainage(:));
-        
-        % (B) 현재까지의 시간축
-        endTimeX = firstGraphShowTime + (ithGraph-1) * dGraphShowTime * dT;
-        timeX = firstGraphShowTime:dGraphShowTime*dT:endTimeX;
-        
-        % (C) 평균 고도와 평균 경사
-        facetFlowSlope(isinf(facetFlowSlope)) = NaN;
-        
-        eastMeanElev(ithGraph) = mean(elev(eastDrainage));
-        eastMeanSlope(ithGraph) = nanmean(facetFlowSlope(eastDrainage));
-        westMeanElev(ithGraph) = mean(elev(westDrainage));
-        westMeanSlope(ithGraph) = nanmean(facetFlowSlope(westDrainage));
-        
-        % * 그래프
-        maxElev = max(max(eastMeanElev(1:ithGraph)) ...
-            ,max(westMeanElev(1:ithGraph)));
-        maxSlope = max(max(eastMeanSlope(1:ithGraph)) ...
-            ,max(westMeanSlope(1:ithGraph)));
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        figure(Hf_18);
-        
-        subplot(2,1,1)
-        [AX,H1,H2] ...
-            = plotyy(timeX,eastMeanElev(1:ithGraph) ...
-            ,timeX,eastMeanSlope(1:ithGraph),'plot');
-        set(get(AX(1),'Ylabel'),'String','Mean Elevation')
-        set(get(AX(2),'Ylabel'),'String','Mean Slope')
-        set(AX(1),'ylim',[0 maxElev],'xlim',[0 endTimeX])
-        set(AX(2),'ylim',[0 maxSlope],'xlim',[0 endTimeX])
-        
-        % xlabel('Time')
-        set(H1,'LineStyle','--')
-        set(H2,'LineStyle',':')
-        tmpTitle = [int2str(simulatingTime) 'th East Drainage Geomorphic Char.'];
-        title(tmpTitle)
-        
-        subplot(2,1,2)
-        [AX,H1,H2] ...
-            = plotyy(timeX,westMeanElev(1:ithGraph) ...
-            ,timeX,westMeanSlope(1:ithGraph),'plot');
-        set(get(AX(1),'Ylabel'),'String','Mean Elevation')
-        set(get(AX(2),'Ylabel'),'String','Mean Slope')
-        set(AX(1),'ylim',[0 maxElev],'xlim',[0 endTimeX])
-        set(AX(2),'ylim',[0 maxSlope],'xlim',[0 endTimeX])
-        xlabel('Time')
-        set(H1,'LineStyle','--')
-        set(H2,'LineStyle',':')        
-        tmpTitle = [int2str(simulatingTime) 'th West Drainage Geomorphic Char.'];
-        title(tmpTitle)
-        
-        end
-        
-        % (D) 하계밀도
-        drainageNetwork = bedrockChan | alluvialChan;
-        eastDrainageDensity = sum(drainageNetwork(eastDrainage)) * dX ...
-            / (eastDrainageCellsNo * dX * dX);
-        westDrainageDensity = sum(drainageNetwork(westDrainage)) * dX ...
-            / (westDrainageCellsNo * dX * dX);
-        
-        % (E) 운반환경 비율
-        eastSoilMantledHillRatio ...
-            = sum(soilMantledHill(eastDrainage)) / eastDrainageCellsNo;
-        westSoilMantledHillRatio ...
-            = sum(soilMantledHill(westDrainage)) / westDrainageCellsNo;
-        
-        eastBedrockExposedHillRatio ...
-            = sum(bedrockExposedHill(eastDrainage)) / eastDrainageCellsNo;
-        westBedrockExposedHillRatio ...
-            = sum(bedrockExposedHill(:)) / westDrainageCellsNo;
-        
-        eastAlluvialChanRatio ...
-            = sum(alluvialChan(eastDrainage)) / eastDrainageCellsNo;
-        westAlluvialChanRatio ...
-            = sum(alluvialChan(westDrainage)) / westDrainageCellsNo;
-        
-        eastBedrockChanRatio ...
-            = sum(bedrockChan(eastDrainage)) / eastDrainageCellsNo;
-        westBedrockChanRatio ...
-            = sum(bedrockChan(westDrainage)) / westDrainageCellsNo;        
-        
-        % (D) 구성물질 특성
-        eastMeanSedimentThick(ithGraph) ...
-            = mean(sedimentThick(eastDrainage));
-        eastMeanWeatheringProduct(ithGraph) ...
-            = mean(weatheringProduct(eastDrainage));
-        westMeanSedimentThick(ithGraph) ...
-            = mean(sedimentThick(westDrainage));
-        westMeanWeatheringProduct(ithGraph) ...
-            = mean(weatheringProduct(westDrainage));        
-        
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        % * 그래프
-        maxSedThick = max(max(eastMeanSedimentThick(1:ithGraph)) ...
-            ,max(westMeanSedimentThick(1:ithGraph)));
-        maxWeathering = max(max(eastMeanWeatheringProduct(1:ithGraph)) ...
-            ,max(westMeanWeatheringProduct(1:ithGraph)));
-        
-        figure(Hf_19);
-        
-        subplot(2,1,1);
-        [AX,H1,H2] ...
-            = plotyy(timeX,eastMeanSedimentThick(1:ithGraph) ...
-            ,timeX,eastMeanWeatheringProduct(1:ithGraph),'plot');
-        set(get(AX(1),'Ylabel'),'String','Mean Sediment Thickness')
-        set(get(AX(2),'Ylabel'),'String','Mean Weathering Product')
-        % xlabel('Time')
-        set(H1,'LineStyle','--')
-        set(H2,'LineStyle',':')
-        set(AX(1),'ylim',[0 maxSedThick],'xlim',[0 endTimeX])
-        set(AX(2),'ylim',[0 maxWeathering],'xlim',[0 endTimeX])
-        tmpTitle = [int2str(simulatingTime) 'th East Drainage Material Char'];
-        title(tmpTitle)
-        
-        subplot(2,1,2);
-        [AX,H1,H2] ...
-            = plotyy(timeX,westMeanSedimentThick(1:ithGraph) ...
-            ,timeX,westMeanWeatheringProduct(1:ithGraph),'plot');
-        set(get(AX(1),'Ylabel'),'String','Mean Sediment Thickness')
-        set(get(AX(2),'Ylabel'),'String','Mean Weathering Product')
-        xlabel('Time')
-        set(H1,'LineStyle','--')
-        set(H2,'LineStyle',':')
-        set(AX(1),'ylim',[0 maxSedThick],'xlim',[0 endTimeX])
-        set(AX(2),'ylim',[0 maxWeathering],'xlim',[0 endTimeX])
-        tmpTitle = [int2str(simulatingTime) 'th West Drainage Material Char'];
-        title(tmpTitle)
-        
-        end
-        
-        %------------------------------------------------------------------
-        % T. 지형형성과정 특성
-        
-        % (A) 유역 평균 침식율 [m^3/m^2 East Drainage]
-        
-        % a. 사면작용에 의한 평균 침식율
-        eastMeanHillslopeErosionRate ...
-            = sum(dSedThickByHillslopePerDT(Y_BOTTOM_BND,:)) / eastDrainageCellsNo;
-        westMeanHillslopeErosionRate ...
-            = sum(dSedThickByHillslopePerDT(Y_TOP_BND,:)) / westDrainageCellsNo;
-        
-        % b. 빠른 사면작용에 의한 평균 침식율
-        eastMeanRapidMassErosionRate ...
-            = sum(dSedThickByRapidMassPerDT(Y_BOTTOM_BND,:)) / eastDrainageCellsNo;
-        westMeanRapidMassErosionRate ...
-            = sum(dSedThickByRapidMassPerDT(Y_TOP_BND,:)) / westDrainageCellsNo;
-        
-        % c. 하천에 의한 평균 침식율
-        eastFluvialOutputFluxAtBnd = dSedThickByFluvialPerDT(Y_BOTTOM_BND,:);
-        westFluvialOutputFluxAtBnd = dSedThickByFluvialPerDT(Y_TOP_BND,:);
-        
-        % * 주의: eastFluvialOutputFluxAtBnd 자체가 셀 면적으로 나눈 값이므로
-        %   유역 평균값을 구하기 위해서는 셀 개수로 나누면 됨
-        eastMeanFluvialErosionRate ...
-            = sum(eastFluvialOutputFluxAtBnd) / eastDrainageCellsNo;
-        westMeanFluvialErosionRate ...
-            = sum(westFluvialOutputFluxAtBnd) / westDrainageCellsNo;        
-        
-        % d. 유역 평균 침식율
-        eastMeanErosionRate(ithGraph) = eastMeanHillslopeErosionRate ...
-            + eastMeanRapidMassErosionRate + eastMeanFluvialErosionRate;
-        
-        westMeanErosionRate(ithGraph) = westMeanHillslopeErosionRate ...
-            + westMeanRapidMassErosionRate + westMeanFluvialErosionRate;        
-        
-        % (B) 유역 평균 융기율 [m/East Drainage]
-        upliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            = (meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            ./ meanUpliftRateAtUpliftAxis) ...
-            .* upliftRateTemporalDistribution(ithTimeStep);
-        eastMeanUpliftedHeight(ithGraph) = mean(upliftedHeight(eastDrainage));
-        westMeanUpliftedHeight(ithGraph) = mean(upliftedHeight(westDrainage));
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        % (C) 그래프 축 설정
-        maxErosionRate ...
-            = max(max(eastMeanErosionRate(1:ithGraph)) ...
-            ,max(max(westMeanErosionRate(1:ithGraph))));
-        
-        if maxErosionRate == 0
-            maxErosionRate = 1 * 10^-10;
-        end
-        
-        maxUpliftedHeight ...
-            = max(max(eastMeanUpliftedHeight(1:ithGraph)) ...
-            ,max(max(westMeanUpliftedHeight(1:ithGraph))));
-        
-        maxY = max(maxErosionRate,maxUpliftedHeight);
-        
-        % (D) 그래프
-        figure(Hf_20);
-        
-        subplot(2,1,1);
-        [AX,H1,H2] ...
-            = plotyy(timeX,eastMeanErosionRate(1:ithGraph) ...
-            ,timeX,eastMeanUpliftedHeight(1:ithGraph),'plot');
-        set(get(AX(1),'Ylabel'),'String','Mean Erosion Rate')
-        set(get(AX(2),'Ylabel'),'String','Mean Uplifted Height')
-        % xlabel('Time')
-        set(H1,'LineStyle','--')
-        set(H2,'LineStyle',':')
-        set(AX(1),'ylim',[0 maxY],'xlim',[0 endTimeX])
-        set(AX(2),'ylim',[0 maxY],'xlim',[0 endTimeX])
-        tmpTitle = [int2str(simulatingTime) 'th East Drainage Process Char'];
-        title(tmpTitle)
-        
-        subplot(2,1,2);
-        [AX,H1,H2] ...
-            = plotyy(timeX,westMeanErosionRate(1:ithGraph) ...
-            ,timeX,westMeanUpliftedHeight(1:ithGraph),'plot');
-        set(get(AX(1),'Ylabel'),'String','Mean Erosion Rate')
-        set(get(AX(2),'Ylabel'),'String','Mean Uplifted Height')
-        set(AX(1),'ylim',[0 maxY],'xlim',[0 endTimeX])
-        set(AX(2),'ylim',[0 maxY],'xlim',[0 endTimeX])       
-        xlabel('Time')
-        set(H1,'LineStyle','--')
-        set(H2,'LineStyle',':')        
-        tmpTitle = [int2str(simulatingTime) 'th West Drainage Process Char'];
-        title(tmpTitle)
-        
-        end
-        
-        % (E) 사태발생셀 개수
-        rapidMassOccured = (dSedThickByRapidMassPerDT < 0) ...
-            | (dBedrockElevByRapidMassPerDT < 0);
-        eastRapidMassFreq = sum(rapidMassOccured(eastDrainage));
-        westRapidMassFreq = sum(rapidMassOccured(westDrainage));
-        
-        %------------------------------------------------------------------
-        % U. 퇴적물[m] 수지
-        % * 주의: 장차 하도 내 하상 퇴적물[m^3/ED] 수지로 범위를 넓혀갈 예정
-        
-        % a. 퇴적물 공급 측면
-        eastDBedrockElevByFluvial ...             % 기반암 하상으로부터의 공급
-            = mean(dBedrockElevByFluvialPerDT(eastDrainage));        
-        eastMeanDBedrockElevByRapidMass ...     % 암석붕괴로 인한 공급
-            = mean(dBedrockElevByRapidMassPerDT(eastDrainage));        
-        eastMeanOldSedimentThick ...            % 초기 퇴적층 두께
-            = mean(sedimentThick(eastDrainage));
-
-        eastSedimentNewInput ...
-            = eastMeanWeatheringProduct(ithGraph) ...
-            - eastDBedrockElevByFluvial ...
-            - eastMeanDBedrockElevByRapidMass;
-        
-        eastSedimentInput ...
-            = eastSedimentNewInput + eastMeanOldSedimentThick;
-        
-        westDBedrockElevByFluvial ...             % 기반암 하상으로부터의 공급
-            = mean(dBedrockElevByFluvialPerDT(westDrainage));        
-        westMeanDBedrockElevByRapidMass ...     % 암석붕괴로 인한 공급
-            = mean(dBedrockElevByRapidMassPerDT(westDrainage));        
-        westMeanOldSedimentThick ...            % 초기 퇴적층 두께
-            = mean(sedimentThick(westDrainage));
-
-        westSedimentNewInput ...
-            = westMeanWeatheringProduct(ithGraph) ...
-            - westDBedrockElevByFluvial ...
-            - westMeanDBedrockElevByRapidMass;
-        
-        westSedimentInput ...
-            = westSedimentNewInput + westMeanOldSedimentThick;
-        
-        % b. 퇴적물 제거 측면
-        eastMeanNextSedimentThick ...   % 잔존 퇴적층 두께
-            = mean(sedimentThick(eastDrainage));       
-        
-        eastRemovedSedimentOutput ...
-            = eastMeanFluvialErosionRate ...
-            + eastMeanHillslopeErosionRate ...
-            + eastMeanRapidMassErosionRate;
-        
-        eastSedimentOutput ...
-            = eastRemovedSedimentOutput + eastMeanNextSedimentThick;
-        
-        westMeanNextSedimentThick ...   % 잔존 퇴적층 두께
-            = mean(sedimentThick(westDrainage));       
-        
-        westRemovedSedimentOutput ...
-            = westMeanFluvialErosionRate ...
-            + westMeanHillslopeErosionRate ...
-            + westMeanRapidMassErosionRate;
-        
-        westSedimentOutput ...
-            = westRemovedSedimentOutput + westMeanNextSedimentThick;
-        
-        % c. 퇴적층 수지: 0 이 되어야 함 
-        eastSedimentBudget = eastSedimentInput - eastSedimentOutput;        
-        westSedimentBudget = westSedimentInput - westSedimentOutput;
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        % (C) 결과 출력
-        figure(Hf_21)
-        clf
-        set(gcf,'Color','white');               % 바탕화면 하얀 색
-        mTextBox = uicontrol('style','text');   % "text" uicontrol 만듦
-        set(mTextBox,'Units','characters' ...   % 크기 단위 'characters'
-            ,'FontSize',8 ...                  % 폰트 크기
-            ,'Position',[4,0,60,21])           % 텍스트 상자 위치 및 크기
-        set(mTextBox,'String' ...
-            ,{sprintf('East Drainage Sediment Budget: %6.3f',eastSedimentBudget) ...
-            ,sprintf('-------------------------------------------------------------------') ...
-            ,sprintf('Old Sed[m]: %6.3f              / Current Sediment[m]: %6.3f' ...
-            ,eastMeanOldSedimentThick,eastMeanNextSedimentThick) ...
-            ,sprintf('Weathering[p]: %6.1f         /                                     ' ...
-            ,eastMeanWeatheringProduct(ithGraph) / eastSedimentNewInput * 100) ...
-            ,sprintf('Fluvial dBedElev[p]: %6.1f / Fluvial Erosio[p]n: %6.1f' ...
-            ,- eastDBedrockElevByFluvial / eastSedimentNewInput * 100 ...
-            ,eastMeanFluvialErosionRate / eastRemovedSedimentOutput * 100) ...
-            ,sprintf('RapidMass dBedElev[p]: %6.1f / RapidMass Erosion[p]: %6.1f' ...
-            ,- eastMeanDBedrockElevByRapidMass / eastSedimentNewInput * 100 ...
-            ,eastMeanRapidMassErosionRate / eastRemovedSedimentOutput * 100) ...
-            ,sprintf('                                              / SlowMass Erosion[p]: %6.1f' ...
-            ,eastMeanHillslopeErosionRate / eastRemovedSedimentOutput * 100) ...
-            ,sprintf('-------------------------------------------------------------------') ...
-            ,sprintf('New Input[m]: %9.6f     / Total Output[m]: %9.6f' ...
-            ,eastSedimentNewInput,eastRemovedSedimentOutput) ...
-            ,sprintf('==================================================') ...
-            ,sprintf('West Drainage Sediment Budget: %6.3f',westSedimentBudget) ...
-            ,sprintf('-------------------------------------------------------------------') ...
-            ,sprintf('Old Sed[m]: %6.3f              / Current Sediment[m]: %6.3f' ...
-            ,westMeanOldSedimentThick,westMeanNextSedimentThick) ...
-            ,sprintf('Weathering[p]: %6.1f         /                                     ' ...
-            ,westMeanWeatheringProduct(ithGraph) / westSedimentNewInput * 100 ) ...
-            ,sprintf('Fluvial dBedElev[p]: %6.1f / Fluvial Erosion[p]: %6.1f' ...
-            ,- westDBedrockElevByFluvial / westSedimentNewInput * 100 ...
-            ,westMeanFluvialErosionRate / westRemovedSedimentOutput * 100 ) ...
-            ,sprintf('RapidMass dBedElev[p]: %6.1f / RapidMass Erosion[p]: %6.1f' ...
-            ,-westMeanDBedrockElevByRapidMass / westSedimentNewInput * 100 ...
-            ,westMeanRapidMassErosionRate / westRemovedSedimentOutput * 100) ...
-            ,sprintf('                                              / SlowMass Erosion[p]: %6.f' ...
-            ,westMeanHillslopeErosionRate / westRemovedSedimentOutput * 100) ...
-            ,sprintf('-------------------------------------------------------------------') ...
-            ,sprintf('New Input[m]: %9.6f     / Total Output[m]: %9.6f' ...
-            ,westSedimentNewInput,westRemovedSedimentOutput)})
-        % 텍스트 상자 색을 figure 색과 동일하게 설정함
-        colorOfFigureWindow = get(Hf_21,'Color');
-        set(mTextBox,'BackgroundColor',colorOfFigureWindow)
-        
-        end
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-            
-        % (B) 하도 내 하상 퇴적물 수지
-        figure(Hf_22);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,chanBedSedBudget(Y_INI:Y_MAX,X_INI:X_MAX));
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) 'th chanBedSed Budget'];
-        title(tmpTitle)      
-        
-        end
-        
-        %------------------------------------------------------------------
-        % V. i번째 (스트랄러식) 하천 차수
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_23);
-
-        % calculate flow accumulation and direction
-        [A,M] = wflowacc(arrayXForGraph,arrayYForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX),'type','single');
-        % let's simply assume that channels start where A is larger than 100;
-        W = A>100;
-        % and calculate the strahler stream order
-        [S,nodes] = streamorder(M,W);
-        % and visualize it
-        subplot(1,2,1); 
-        pcolor(arrayXForGraph,arrayYForGraph,+W); axis image; shading flat;
-        set(gca,'YDir','reverse')
-        colorbar
-        title('Stream Network')
-        subplot(1,2,2);
-        pcolor(arrayXForGraph,arrayYForGraph,S); axis image; shading flat;
-        set(gca,'YDir','reverse')
-        colorbar
-        hold on
-        plot(arrayXForGraph(nodes),arrayYForGraph(nodes),'ks','MarkerFaceColor','g')
-        title('Strahler Stream Order')
-        
-        end
-       
-        %------------------------------------------------------------------
-        % W. i 번째 힙소메트리 곡선
-        
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_24);
-        
-        hypsometry(elev(Y_INI:Y_MAX,X_INI:X_MAX),20,[1 1],'ro-',[2 2],Hf_24,totalGraphShowTimesNo,ithGraph);
-        
-        end
-        
-        % 일정한 간격으로 주요 변수들을 기록함
-        % 큰 간격으로 2차원 주요 변수들을 기록함
-        if mod(ithGraph,EXTRACT_INTERVAL) == 0
-            
-            ithExtractTime = ithExtractTime + 1;
-            
-            extSedimentThick(:,:,ithExtractTime+1) = sedimentThick;
-            extBedrockElev(:,:,ithExtractTime+1) = bedrockElev;
-            extWeatheringProduct(:,:,ithExtractTime) = weatheringProduct;
-            extDSedThickByHillslopePerDT(:,:,ithExtractTime) = dSedThickByHillslopePerDT;
-            extDSedThickByRapidMassPerDT(:,:,ithExtractTime) = dSedThickByRapidMassPerDT;
-            extDBedrockElevByRapidMassPerDT(:,:,ithExtractTime) = dBedrockElevByRapidMassPerDT;
-            extDSedThickByFluvialPerDT(:,:,ithExtractTime) = dSedThickByFluvialPerDT;
-            extDBedrockElevByFluvialPerDT(:,:,ithExtractTime) = dBedrockElevByFluvialPerDT;
-            extChanBedSedBudget(:,:,ithExtractTime) = chanBedSedBudget;
-            extUpslopeArea(:,:,ithExtractTime) = upslopeArea;
-            extTransportMode(:,:,ithExtractTime) = transportMode;
-            extFacetFlowSlope(:,:,ithExtractTime) = facetFlowSlope;
-            
-        end
-        
-        % 1차원
-        extEastDrainageDensity(ithGraph,:) = eastDrainageDensity;
-        extWestDrainageDensity(ithGraph,:) = westDrainageDensity;
-        extEastSoilMantledHillRatio(ithGraph,:) = eastSoilMantledHillRatio;
-        extWestSoilMantledHillRatio(ithGraph,:) = westSoilMantledHillRatio;
-        extEastBedrockExposedHillRatio(ithGraph,:) = eastBedrockExposedHillRatio;
-        extWestBedrockExposedHillRatio(ithGraph,:) = westBedrockExposedHillRatio;
-        extEastAlluvialChanRatio(ithGraph,:) = eastAlluvialChanRatio;
-        extWestAlluvialChanRatio(ithGraph,:) = westAlluvialChanRatio;
-        extEastBedrockChanRatio(ithGraph,:) = eastBedrockChanRatio;
-        extWestBedrockChanRatio(ithGraph,:) = westBedrockChanRatio;
-        extEastRapidMassFreq(ithGraph,:) = eastRapidMassFreq;
-        extWestRapidMassFreq(ithGraph,:) = westRapidMassFreq;
-        
-    end
-    
+%         
+%         %------------------------------------------------------------------
+%         % S. 유역분지 특성 그래프
+%         
+%         % (A) 영동과 영서 지역 색인
+%         L(Y_TOP_BND,X_INI:X_MAX) = 0;
+%         L(Y_BOTTOM_BND,X_INI:X_MAX) = 0;       
+%         eastDrainage = L == EAST_DRAINAGE;
+%         eastDrainageCellsNo = sum(eastDrainage(:));
+%         westDrainage = L == WEST_DRAINAGE;
+%         westDrainageCellsNo = sum(westDrainage(:));
+%         
+%         % (B) 현재까지의 시간축
+%         endTimeX = firstGraphShowTime + (ithGraph-1) * dGraphShowTime * dT;
+%         timeX = firstGraphShowTime:dGraphShowTime*dT:endTimeX;
+%         
+%         % (C) 평균 고도와 평균 경사
+%         facetFlowSlope(isinf(facetFlowSlope)) = NaN;
+%         
+%         eastMeanElev(ithGraph) = mean(elev(eastDrainage));
+%         eastMeanSlope(ithGraph) = nanmean(facetFlowSlope(eastDrainage));
+%         westMeanElev(ithGraph) = mean(elev(westDrainage));
+%         westMeanSlope(ithGraph) = nanmean(facetFlowSlope(westDrainage));
+%         
+%         % * 그래프
+%         maxElev = max(max(eastMeanElev(1:ithGraph)) ...
+%             ,max(westMeanElev(1:ithGraph)));
+%         maxSlope = max(max(eastMeanSlope(1:ithGraph)) ...
+%             ,max(westMeanSlope(1:ithGraph)));
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         figure(Hf_18);
+%         
+%         subplot(2,1,1)
+%         [AX,H1,H2] ...
+%             = plotyy(timeX,eastMeanElev(1:ithGraph) ...
+%             ,timeX,eastMeanSlope(1:ithGraph),'plot');
+%         set(get(AX(1),'Ylabel'),'String','Mean Elevation')
+%         set(get(AX(2),'Ylabel'),'String','Mean Slope')
+%         set(AX(1),'ylim',[0 maxElev],'xlim',[0 endTimeX])
+%         set(AX(2),'ylim',[0 maxSlope],'xlim',[0 endTimeX])
+%         
+%         % xlabel('Time')
+%         set(H1,'LineStyle','--')
+%         set(H2,'LineStyle',':')
+%         tmpTitle = [int2str(simulatingTime) 'th East Drainage Geomorphic Char.'];
+%         title(tmpTitle)
+%         
+%         subplot(2,1,2)
+%         [AX,H1,H2] ...
+%             = plotyy(timeX,westMeanElev(1:ithGraph) ...
+%             ,timeX,westMeanSlope(1:ithGraph),'plot');
+%         set(get(AX(1),'Ylabel'),'String','Mean Elevation')
+%         set(get(AX(2),'Ylabel'),'String','Mean Slope')
+%         set(AX(1),'ylim',[0 maxElev],'xlim',[0 endTimeX])
+%         set(AX(2),'ylim',[0 maxSlope],'xlim',[0 endTimeX])
+%         xlabel('Time')
+%         set(H1,'LineStyle','--')
+%         set(H2,'LineStyle',':')        
+%         tmpTitle = [int2str(simulatingTime) 'th West Drainage Geomorphic Char.'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         % (D) 하계밀도
+%         drainageNetwork = bedrockChan | alluvialChan;
+%         eastDrainageDensity = sum(drainageNetwork(eastDrainage)) * dX ...
+%             / (eastDrainageCellsNo * dX * dX);
+%         westDrainageDensity = sum(drainageNetwork(westDrainage)) * dX ...
+%             / (westDrainageCellsNo * dX * dX);
+%         
+%         % (E) 운반환경 비율
+%         eastSoilMantledHillRatio ...
+%             = sum(soilMantledHill(eastDrainage)) / eastDrainageCellsNo;
+%         westSoilMantledHillRatio ...
+%             = sum(soilMantledHill(westDrainage)) / westDrainageCellsNo;
+%         
+%         eastBedrockExposedHillRatio ...
+%             = sum(bedrockExposedHill(eastDrainage)) / eastDrainageCellsNo;
+%         westBedrockExposedHillRatio ...
+%             = sum(bedrockExposedHill(:)) / westDrainageCellsNo;
+%         
+%         eastAlluvialChanRatio ...
+%             = sum(alluvialChan(eastDrainage)) / eastDrainageCellsNo;
+%         westAlluvialChanRatio ...
+%             = sum(alluvialChan(westDrainage)) / westDrainageCellsNo;
+%         
+%         eastBedrockChanRatio ...
+%             = sum(bedrockChan(eastDrainage)) / eastDrainageCellsNo;
+%         westBedrockChanRatio ...
+%             = sum(bedrockChan(westDrainage)) / westDrainageCellsNo;        
+%         
+%         % (D) 구성물질 특성
+%         eastMeanSedimentThick(ithGraph) ...
+%             = mean(sedimentThick(eastDrainage));
+%         eastMeanWeatheringProduct(ithGraph) ...
+%             = mean(weatheringProduct(eastDrainage));
+%         westMeanSedimentThick(ithGraph) ...
+%             = mean(sedimentThick(westDrainage));
+%         westMeanWeatheringProduct(ithGraph) ...
+%             = mean(weatheringProduct(westDrainage));        
+%         
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         % * 그래프
+%         maxSedThick = max(max(eastMeanSedimentThick(1:ithGraph)) ...
+%             ,max(westMeanSedimentThick(1:ithGraph)));
+%         maxWeathering = max(max(eastMeanWeatheringProduct(1:ithGraph)) ...
+%             ,max(westMeanWeatheringProduct(1:ithGraph)));
+%         
+%         figure(Hf_19);
+%         
+%         subplot(2,1,1);
+%         [AX,H1,H2] ...
+%             = plotyy(timeX,eastMeanSedimentThick(1:ithGraph) ...
+%             ,timeX,eastMeanWeatheringProduct(1:ithGraph),'plot');
+%         set(get(AX(1),'Ylabel'),'String','Mean Sediment Thickness')
+%         set(get(AX(2),'Ylabel'),'String','Mean Weathering Product')
+%         % xlabel('Time')
+%         set(H1,'LineStyle','--')
+%         set(H2,'LineStyle',':')
+%         set(AX(1),'ylim',[0 maxSedThick],'xlim',[0 endTimeX])
+%         set(AX(2),'ylim',[0 maxWeathering],'xlim',[0 endTimeX])
+%         tmpTitle = [int2str(simulatingTime) 'th East Drainage Material Char'];
+%         title(tmpTitle)
+%         
+%         subplot(2,1,2);
+%         [AX,H1,H2] ...
+%             = plotyy(timeX,westMeanSedimentThick(1:ithGraph) ...
+%             ,timeX,westMeanWeatheringProduct(1:ithGraph),'plot');
+%         set(get(AX(1),'Ylabel'),'String','Mean Sediment Thickness')
+%         set(get(AX(2),'Ylabel'),'String','Mean Weathering Product')
+%         xlabel('Time')
+%         set(H1,'LineStyle','--')
+%         set(H2,'LineStyle',':')
+%         set(AX(1),'ylim',[0 maxSedThick],'xlim',[0 endTimeX])
+%         set(AX(2),'ylim',[0 maxWeathering],'xlim',[0 endTimeX])
+%         tmpTitle = [int2str(simulatingTime) 'th West Drainage Material Char'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % T. 지형형성과정 특성
+%         
+%         % (A) 유역 평균 침식율 [m^3/m^2 East Drainage]
+%         
+%         % a. 사면작용에 의한 평균 침식율
+%         eastMeanHillslopeErosionRate ...
+%             = sum(dSedThickByHillslopePerDT(Y_BOTTOM_BND,:)) / eastDrainageCellsNo;
+%         westMeanHillslopeErosionRate ...
+%             = sum(dSedThickByHillslopePerDT(Y_TOP_BND,:)) / westDrainageCellsNo;
+%         
+%         % b. 빠른 사면작용에 의한 평균 침식율
+%         eastMeanRapidMassErosionRate ...
+%             = sum(dSedThickByRapidMassPerDT(Y_BOTTOM_BND,:)) / eastDrainageCellsNo;
+%         westMeanRapidMassErosionRate ...
+%             = sum(dSedThickByRapidMassPerDT(Y_TOP_BND,:)) / westDrainageCellsNo;
+%         
+%         % c. 하천에 의한 평균 침식율
+%         eastFluvialOutputFluxAtBnd = dSedThickByFluvialPerDT(Y_BOTTOM_BND,:);
+%         westFluvialOutputFluxAtBnd = dSedThickByFluvialPerDT(Y_TOP_BND,:);
+%         
+%         % * 주의: eastFluvialOutputFluxAtBnd 자체가 셀 면적으로 나눈 값이므로
+%         %   유역 평균값을 구하기 위해서는 셀 개수로 나누면 됨
+%         eastMeanFluvialErosionRate ...
+%             = sum(eastFluvialOutputFluxAtBnd) / eastDrainageCellsNo;
+%         westMeanFluvialErosionRate ...
+%             = sum(westFluvialOutputFluxAtBnd) / westDrainageCellsNo;        
+%         
+%         % d. 유역 평균 침식율
+%         eastMeanErosionRate(ithGraph) = eastMeanHillslopeErosionRate ...
+%             + eastMeanRapidMassErosionRate + eastMeanFluvialErosionRate;
+%         
+%         westMeanErosionRate(ithGraph) = westMeanHillslopeErosionRate ...
+%             + westMeanRapidMassErosionRate + westMeanFluvialErosionRate;        
+%         
+%         % (B) 유역 평균 융기율 [m/East Drainage]
+%         upliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             = (meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             ./ meanUpliftRateAtUpliftAxis) ...
+%             .* upliftRateTemporalDistribution(ithTimeStep);
+%         eastMeanUpliftedHeight(ithGraph) = mean(upliftedHeight(eastDrainage));
+%         westMeanUpliftedHeight(ithGraph) = mean(upliftedHeight(westDrainage));
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         % (C) 그래프 축 설정
+%         maxErosionRate ...
+%             = max(max(eastMeanErosionRate(1:ithGraph)) ...
+%             ,max(max(westMeanErosionRate(1:ithGraph))));
+%         
+%         if maxErosionRate == 0
+%             maxErosionRate = 1 * 10^-10;
+%         end
+%         
+%         maxUpliftedHeight ...
+%             = max(max(eastMeanUpliftedHeight(1:ithGraph)) ...
+%             ,max(max(westMeanUpliftedHeight(1:ithGraph))));
+%         
+%         maxY = max(maxErosionRate,maxUpliftedHeight);
+%         
+%         % (D) 그래프
+%         figure(Hf_20);
+%         
+%         subplot(2,1,1);
+%         [AX,H1,H2] ...
+%             = plotyy(timeX,eastMeanErosionRate(1:ithGraph) ...
+%             ,timeX,eastMeanUpliftedHeight(1:ithGraph),'plot');
+%         set(get(AX(1),'Ylabel'),'String','Mean Erosion Rate')
+%         set(get(AX(2),'Ylabel'),'String','Mean Uplifted Height')
+%         % xlabel('Time')
+%         set(H1,'LineStyle','--')
+%         set(H2,'LineStyle',':')
+%         set(AX(1),'ylim',[0 maxY],'xlim',[0 endTimeX])
+%         set(AX(2),'ylim',[0 maxY],'xlim',[0 endTimeX])
+%         tmpTitle = [int2str(simulatingTime) 'th East Drainage Process Char'];
+%         title(tmpTitle)
+%         
+%         subplot(2,1,2);
+%         [AX,H1,H2] ...
+%             = plotyy(timeX,westMeanErosionRate(1:ithGraph) ...
+%             ,timeX,westMeanUpliftedHeight(1:ithGraph),'plot');
+%         set(get(AX(1),'Ylabel'),'String','Mean Erosion Rate')
+%         set(get(AX(2),'Ylabel'),'String','Mean Uplifted Height')
+%         set(AX(1),'ylim',[0 maxY],'xlim',[0 endTimeX])
+%         set(AX(2),'ylim',[0 maxY],'xlim',[0 endTimeX])       
+%         xlabel('Time')
+%         set(H1,'LineStyle','--')
+%         set(H2,'LineStyle',':')        
+%         tmpTitle = [int2str(simulatingTime) 'th West Drainage Process Char'];
+%         title(tmpTitle)
+%         
+%         end
+%         
+%         % (E) 사태발생셀 개수
+%         rapidMassOccured = (dSedThickByRapidMassPerDT < 0) ...
+%             | (dBedrockElevByRapidMassPerDT < 0);
+%         eastRapidMassFreq = sum(rapidMassOccured(eastDrainage));
+%         westRapidMassFreq = sum(rapidMassOccured(westDrainage));
+%         
+%         %------------------------------------------------------------------
+%         % U. 퇴적물[m] 수지
+%         % * 주의: 장차 하도 내 하상 퇴적물[m^3/ED] 수지로 범위를 넓혀갈 예정
+%         
+%         % a. 퇴적물 공급 측면
+%         eastDBedrockElevByFluvial ...             % 기반암 하상으로부터의 공급
+%             = mean(dBedrockElevByFluvialPerDT(eastDrainage));        
+%         eastMeanDBedrockElevByRapidMass ...     % 암석붕괴로 인한 공급
+%             = mean(dBedrockElevByRapidMassPerDT(eastDrainage));        
+%         eastMeanOldSedimentThick ...            % 초기 퇴적층 두께
+%             = mean(sedimentThick(eastDrainage));
+% 
+%         eastSedimentNewInput ...
+%             = eastMeanWeatheringProduct(ithGraph) ...
+%             - eastDBedrockElevByFluvial ...
+%             - eastMeanDBedrockElevByRapidMass;
+%         
+%         eastSedimentInput ...
+%             = eastSedimentNewInput + eastMeanOldSedimentThick;
+%         
+%         westDBedrockElevByFluvial ...             % 기반암 하상으로부터의 공급
+%             = mean(dBedrockElevByFluvialPerDT(westDrainage));        
+%         westMeanDBedrockElevByRapidMass ...     % 암석붕괴로 인한 공급
+%             = mean(dBedrockElevByRapidMassPerDT(westDrainage));        
+%         westMeanOldSedimentThick ...            % 초기 퇴적층 두께
+%             = mean(sedimentThick(westDrainage));
+% 
+%         westSedimentNewInput ...
+%             = westMeanWeatheringProduct(ithGraph) ...
+%             - westDBedrockElevByFluvial ...
+%             - westMeanDBedrockElevByRapidMass;
+%         
+%         westSedimentInput ...
+%             = westSedimentNewInput + westMeanOldSedimentThick;
+%         
+%         % b. 퇴적물 제거 측면
+%         eastMeanNextSedimentThick ...   % 잔존 퇴적층 두께
+%             = mean(sedimentThick(eastDrainage));       
+%         
+%         eastRemovedSedimentOutput ...
+%             = eastMeanFluvialErosionRate ...
+%             + eastMeanHillslopeErosionRate ...
+%             + eastMeanRapidMassErosionRate;
+%         
+%         eastSedimentOutput ...
+%             = eastRemovedSedimentOutput + eastMeanNextSedimentThick;
+%         
+%         westMeanNextSedimentThick ...   % 잔존 퇴적층 두께
+%             = mean(sedimentThick(westDrainage));       
+%         
+%         westRemovedSedimentOutput ...
+%             = westMeanFluvialErosionRate ...
+%             + westMeanHillslopeErosionRate ...
+%             + westMeanRapidMassErosionRate;
+%         
+%         westSedimentOutput ...
+%             = westRemovedSedimentOutput + westMeanNextSedimentThick;
+%         
+%         % c. 퇴적층 수지: 0 이 되어야 함 
+%         eastSedimentBudget = eastSedimentInput - eastSedimentOutput;        
+%         westSedimentBudget = westSedimentInput - westSedimentOutput;
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         % (C) 결과 출력
+%         figure(Hf_21)
+%         clf
+%         set(gcf,'Color','white');               % 바탕화면 하얀 색
+%         mTextBox = uicontrol('style','text');   % "text" uicontrol 만듦
+%         set(mTextBox,'Units','characters' ...   % 크기 단위 'characters'
+%             ,'FontSize',8 ...                  % 폰트 크기
+%             ,'Position',[4,0,60,21])           % 텍스트 상자 위치 및 크기
+%         set(mTextBox,'String' ...
+%             ,{sprintf('East Drainage Sediment Budget: %6.3f',eastSedimentBudget) ...
+%             ,sprintf('-------------------------------------------------------------------') ...
+%             ,sprintf('Old Sed[m]: %6.3f              / Current Sediment[m]: %6.3f' ...
+%             ,eastMeanOldSedimentThick,eastMeanNextSedimentThick) ...
+%             ,sprintf('Weathering[p]: %6.1f         /                                     ' ...
+%             ,eastMeanWeatheringProduct(ithGraph) / eastSedimentNewInput * 100) ...
+%             ,sprintf('Fluvial dBedElev[p]: %6.1f / Fluvial Erosio[p]n: %6.1f' ...
+%             ,- eastDBedrockElevByFluvial / eastSedimentNewInput * 100 ...
+%             ,eastMeanFluvialErosionRate / eastRemovedSedimentOutput * 100) ...
+%             ,sprintf('RapidMass dBedElev[p]: %6.1f / RapidMass Erosion[p]: %6.1f' ...
+%             ,- eastMeanDBedrockElevByRapidMass / eastSedimentNewInput * 100 ...
+%             ,eastMeanRapidMassErosionRate / eastRemovedSedimentOutput * 100) ...
+%             ,sprintf('                                              / SlowMass Erosion[p]: %6.1f' ...
+%             ,eastMeanHillslopeErosionRate / eastRemovedSedimentOutput * 100) ...
+%             ,sprintf('-------------------------------------------------------------------') ...
+%             ,sprintf('New Input[m]: %9.6f     / Total Output[m]: %9.6f' ...
+%             ,eastSedimentNewInput,eastRemovedSedimentOutput) ...
+%             ,sprintf('==================================================') ...
+%             ,sprintf('West Drainage Sediment Budget: %6.3f',westSedimentBudget) ...
+%             ,sprintf('-------------------------------------------------------------------') ...
+%             ,sprintf('Old Sed[m]: %6.3f              / Current Sediment[m]: %6.3f' ...
+%             ,westMeanOldSedimentThick,westMeanNextSedimentThick) ...
+%             ,sprintf('Weathering[p]: %6.1f         /                                     ' ...
+%             ,westMeanWeatheringProduct(ithGraph) / westSedimentNewInput * 100 ) ...
+%             ,sprintf('Fluvial dBedElev[p]: %6.1f / Fluvial Erosion[p]: %6.1f' ...
+%             ,- westDBedrockElevByFluvial / westSedimentNewInput * 100 ...
+%             ,westMeanFluvialErosionRate / westRemovedSedimentOutput * 100 ) ...
+%             ,sprintf('RapidMass dBedElev[p]: %6.1f / RapidMass Erosion[p]: %6.1f' ...
+%             ,-westMeanDBedrockElevByRapidMass / westSedimentNewInput * 100 ...
+%             ,westMeanRapidMassErosionRate / westRemovedSedimentOutput * 100) ...
+%             ,sprintf('                                              / SlowMass Erosion[p]: %6.f' ...
+%             ,westMeanHillslopeErosionRate / westRemovedSedimentOutput * 100) ...
+%             ,sprintf('-------------------------------------------------------------------') ...
+%             ,sprintf('New Input[m]: %9.6f     / Total Output[m]: %9.6f' ...
+%             ,westSedimentNewInput,westRemovedSedimentOutput)})
+%         % 텍스트 상자 색을 figure 색과 동일하게 설정함
+%         colorOfFigureWindow = get(Hf_21,'Color');
+%         set(mTextBox,'BackgroundColor',colorOfFigureWindow)
+%         
+%         end
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%             
+%         % (B) 하도 내 하상 퇴적물 수지
+%         figure(Hf_22);
+%         imagesc([0.5*dX dX distanceX-0.5*dX] ...
+%             ,[0.5*dX dX distanceY-0.5*dX] ...
+%             ,chanBedSedBudget(Y_INI:Y_MAX,X_INI:X_MAX));
+%         set(gca,'DataAspectRatio',[1 1 1])
+%         colorbar
+%         tmpTitle = [int2str(simulatingTime) 'th chanBedSed Budget'];
+%         title(tmpTitle)      
+%         
+%         end
+%         
+%         %------------------------------------------------------------------
+%         % V. i번째 (스트랄러식) 하천 차수
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         figure(Hf_23);
+% 
+%         % calculate flow accumulation and direction
+%         [A,M] = wflowacc(arrayXForGraph,arrayYForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX),'type','single');
+%         % let's simply assume that channels start where A is larger than 100;
+%         W = A>100;
+%         % and calculate the strahler stream order
+%         [S,nodes] = streamorder(M,W);
+%         % and visualize it
+%         subplot(1,2,1); 
+%         pcolor(arrayXForGraph,arrayYForGraph,+W); axis image; shading flat;
+%         set(gca,'YDir','reverse')
+%         colorbar
+%         title('Stream Network')
+%         subplot(1,2,2);
+%         pcolor(arrayXForGraph,arrayYForGraph,S); axis image; shading flat;
+%         set(gca,'YDir','reverse')
+%         colorbar
+%         hold on
+%         plot(arrayXForGraph(nodes),arrayYForGraph(nodes),'ks','MarkerFaceColor','g')
+%         title('Strahler Stream Order')
+%         
+%         end
+%        
+%         %------------------------------------------------------------------
+%         % W. i 번째 힙소메트리 곡선
+%         
+%         if SHOW_GRAPH == SHOW_GRAPH_YES
+%         
+%         figure(Hf_24);
+%         
+%         hypsometry(elev(Y_INI:Y_MAX,X_INI:X_MAX),20,[1 1],'ro-',[2 2],Hf_24,totalGraphShowTimesNo,ithGraph);
+%         
+%         end
+%         
+%         % 일정한 간격으로 주요 변수들을 기록함
+%         % 큰 간격으로 2차원 주요 변수들을 기록함
+%         if mod(ithGraph,EXTRACT_INTERVAL) == 0
+%             
+%             ithExtractTime = ithExtractTime + 1;
+%             
+%             extSedimentThick(:,:,ithExtractTime+1) = sedimentThick;
+%             extBedrockElev(:,:,ithExtractTime+1) = bedrockElev;
+%             extWeatheringProduct(:,:,ithExtractTime) = weatheringProduct;
+%             extDSedThickByHillslopePerDT(:,:,ithExtractTime) = dSedThickByHillslopePerDT;
+%             extDSedThickByRapidMassPerDT(:,:,ithExtractTime) = dSedThickByRapidMassPerDT;
+%             extDBedrockElevByRapidMassPerDT(:,:,ithExtractTime) = dBedrockElevByRapidMassPerDT;
+%             extDSedThickByFluvialPerDT(:,:,ithExtractTime) = dSedThickByFluvialPerDT;
+%             extDBedrockElevByFluvialPerDT(:,:,ithExtractTime) = dBedrockElevByFluvialPerDT;
+%             extChanBedSedBudget(:,:,ithExtractTime) = chanBedSedBudget;
+%             extUpslopeArea(:,:,ithExtractTime) = upslopeArea;
+%             extTransportMode(:,:,ithExtractTime) = transportMode;
+%             extFacetFlowSlope(:,:,ithExtractTime) = facetFlowSlope;
+%             
+%         end
+%         
+%         % 1차원
+%         extEastDrainageDensity(ithGraph,:) = eastDrainageDensity;
+%         extWestDrainageDensity(ithGraph,:) = westDrainageDensity;
+%         extEastSoilMantledHillRatio(ithGraph,:) = eastSoilMantledHillRatio;
+%         extWestSoilMantledHillRatio(ithGraph,:) = westSoilMantledHillRatio;
+%         extEastBedrockExposedHillRatio(ithGraph,:) = eastBedrockExposedHillRatio;
+%         extWestBedrockExposedHillRatio(ithGraph,:) = westBedrockExposedHillRatio;
+%         extEastAlluvialChanRatio(ithGraph,:) = eastAlluvialChanRatio;
+%         extWestAlluvialChanRatio(ithGraph,:) = westAlluvialChanRatio;
+%         extEastBedrockChanRatio(ithGraph,:) = eastBedrockChanRatio;
+%         extWestBedrockChanRatio(ithGraph,:) = westBedrockChanRatio;
+%         extEastRapidMassFreq(ithGraph,:) = eastRapidMassFreq;
+%         extWestRapidMassFreq(ithGraph,:) = westRapidMassFreq;
+%         
+     end
+     
 end
 
 % 기록한 주요 변수들을 구조체로 반환함
