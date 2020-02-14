@@ -13,7 +13,7 @@
 # Design-related files
 *.oo3
 
-# For analysis
+# For analysis (* to be moved into an utility folder)
 AnalyseResult.m
 AnalyseResultGeneralBySDS.m
 AnalyseFinalResult.m
@@ -23,10 +23,7 @@ streamorder.m
 wflowacc.m
 
 # ignore all files in the following directories
-old
-utility
 data/output
 data/input/.DS_Store
 data/input/guideForParameterInput_v_01.xlsm
 data/input/old
-MATLAB_coder
