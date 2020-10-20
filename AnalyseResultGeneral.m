@@ -1,9 +1,9 @@
 % =========================================================================
-%> @section INTRO AnalyseResult
+%> @section INTRO AnalyseResultGeneral
 %>
-%> AnalyseResult 결과를 분석하는 함수
+%> AnalyseResultGeneral 결과를 분석하는 함수. 박사학위논문 조건에 최적화되어 있는 AnalyzeResult 함수를 일반적인 모의 결과 분석에 적합한 모듈만 선택하여 수정한 함수 
 %>
-%> @version 0.21
+%> @version 0.22
 %> @see AccumulateUpstreamFlow(), CalcFacetFlow(), CalcInfinitiveFlow()
 %>      ,CalcSDSFlow(), DefineUpliftRateDistribution(), FindSDSDryNbr()
 %>      ,IsBoundary(), IsDry(), LoadParameterValues(), ProcessSink()
@@ -66,7 +66,7 @@
 %>  - 2011/10/27
 %>   - 물질운반환경 그래프 알고리듬 수정함
 %>  - 2011/10/06
-%>   - 주석문을 조금 더 구조화?c
+%>   - 주석문을 조금 더 구조화?
 %>  - 2010/09/28
 %>   - 정지된 모의결과를 연속해서 할 수 있도록 수정함
 %>   - 주요 변수 저장함

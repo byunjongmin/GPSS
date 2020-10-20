@@ -1,7 +1,7 @@
 % =========================================================================
 %> @section INTRO AnalyseResult
 %>
-%> AnalyseResult 결과를 분석하는 함수
+%> AnalyseResult 결과를 분석하는 함수. 박사학위논문 연구결과를 분석하는데 최적화되어 있음
 %>
 %> @version 0.21
 %> @see AccumulateUpstreamFlow(), CalcFacetFlow(), CalcInfinitiveFlow()

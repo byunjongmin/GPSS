@@ -1,8 +1,9 @@
 % =========================================================================
-%> @section INTRO AnalyseFinalResult
+%> @section INTRO AnalyseFinalResultGeneral
 %>
 %> 서로 다른 조건의 모의실험 결과를 비교하여 분석하는 함수.
-%> AnalyseResult 함수의 출력변수 majorOutputs를 읽어들임.
+%> 박사학위논문 연구결과를 분석하는데 최적화된 AnalyzeFinalResult 함수에서 일반적인 모의 결과를 분석하는데 필요한 것만
+%> 선택하여 만든 함수. AnalyseResultGeneral 함수의 출력변수 majorOutputs를 읽어들임.
 %>
 %> 분석 내용
 %>  - 1. 최종 모의결과 고도비교
