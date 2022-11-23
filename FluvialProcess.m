@@ -432,7 +432,7 @@ for ithFloodedRegion = 1:floodedRegionsNo
           
             % for debug
             if min(dSedimentThick(currentFloodedRegion)) < 0
-                error('FluvialProcess:negativeFloodedRegionInput', 'negative flooded region input');
+                warning('FluvialProcess:negativeFloodedRegionInput', 'negative flooded region input');
             end
 
         else % FLUVIALPROCESS_COND == DETAIL

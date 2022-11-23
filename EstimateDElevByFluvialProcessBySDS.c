@@ -4,8 +4,8 @@
  * version 0.3
  *
  * flooded region을 제외한 셀들을 대상으로, 하천에 의한 퇴적층 두께 및
- * 기반암 고도 변화율을 구하는 함수. FluvialProcess 함수(ver 0.8)의 for
- * 반복문만을 C 로 변경함
+ * 기반암 고도 변화율을 D8 유향을 따라 구하는 함수. FluvialProcess 함수(ver 0.8)
+ * 내 for 반복문만을 C 로 변경함
  * 
  * [dSedimentThick ...          0 퇴적층 두께 변화율 [m/subDT]
  * ,dBedrockElev ...            1 기반암 변화율 [m/subDT]
@@ -37,7 +37,8 @@
  *
  * 개선한 점
  * - 20140505
- *  - dBedrockElev 제한 조건 추가함 * - 20101227
+ *  - dBedrockElev 제한 조건 추가함
+ * - 20101227
  *  - 지표유출로 인한 물질이동을 포함함
  * 
  */
@@ -298,11 +299,11 @@ void EstimateDElevByFluvialProcessBySDS(
                 /* for debug */
                 if (sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx] < 0)
                 {
-                    mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
+                    mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
                 }
                 if (outputFlux[ithCellIdx] < 0)
                 {
-                    mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                    mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
                 }
             }
             else
@@ -332,8 +333,9 @@ void EstimateDElevByFluvialProcessBySDS(
                         else
                         {
                             /* for debug */                                
-                            mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
+                            mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
                                     ,"negative dBedrockElev");
+
                         }                        
                     }
                 }   
@@ -356,7 +358,7 @@ void EstimateDElevByFluvialProcessBySDS(
                 /* for debug */
                 if (outputFlux[ithCellIdx] < 0)
                 {
-                    mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                    mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
                 }
             }
         }

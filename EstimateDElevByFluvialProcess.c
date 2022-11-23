@@ -4,8 +4,8 @@
  * version 0.2
  *
  * flooded region을 제외한 셀들을 대상으로, 하천에 의한 퇴적층 두께 및
- * 기반암 고도 변화율을 구하는 함수. FluvialProcess 함수(ver 0.8)의 for
- * 반복문만을 C 로 변경함
+ * 기반암 고도 변화율을 D-inf 유향을 따라 구하는 함수. FluvialProcess 함수(ver 0.8)
+ * 내 for 반복문만을 C 로 변경함
  * 
  * [dSedimentThick ...          0 퇴적층 두께 변화율 [m/subDT]
  * ,dBedrockElev ...            1 기반암 변화율 [m/subDT]
@@ -47,8 +47,8 @@
  * 
  */
 
-# include "mex.h"
-# include "matrix.h"
+#include "mex.h"
+#include "matrix.h"
 
 /* Computational routine */
 void EstimateDElevByFluvialProcess(
@@ -88,7 +88,7 @@ void mexFunction(int nlhs,       mxArray * plhs[]
     
     /* variable declaration */
     
-    /* input variable */
+    /* input variable declaration */
     double dX;
     double mRows;
     double nCols;

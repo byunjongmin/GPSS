@@ -14,13 +14,13 @@
 *.oo3
 
 # For analysis (* to be moved into an utility folder)
-AnalyseResult.m
-AnalyseResultGeneralBySDS.m
-AnalyseFinalResult.m
-AnalyseFinalResultGeneral.m
-hypsometry.m
-streamorder.m
-wflowacc.m
+# AnalyseResult.m
+# AnalyseResultGeneralBySDS.m
+# AnalyseFinalResult.m
+# AnalyseFinalResultGeneral.m
+# hypsometry.m
+# streamorder.m
+# wflowacc.m
 
 # ignore all files in the following directories
 data/output

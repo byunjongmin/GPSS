@@ -139,7 +139,7 @@ else % upliftRateTemporalDistribution == DECAYING_UPLIFTRATE
     integralU = int(U,'time',0,TIME_STEPS_NO); % (모의 기간) 감쇠 함수 적분값
     % 항등식: 감쇠 함수 적분값 - 누적 융기량 = 0
     identicalEquation = integralU - TOTAL_ACCUMULATED_UPLIFT;
-    solvedK = double(solve(identicalEquation,'K')); % 감쇠 상수의 대수해
+    solvedK = double(solve(identicalEquation,K)); % 감쇠 상수의 대수해
     
     upliftRateTemporalDistribution = (upliftRate0 * dT) ... % [m/dT] 단위변환
         * exp(solvedK*t);

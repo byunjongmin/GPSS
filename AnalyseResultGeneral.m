@@ -687,7 +687,7 @@ for ithStep = initIthStep:endStep
         colorbar
         
         tmpTitle = [int2str(simulatingTime) '[yr] Elevation'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         end
         
@@ -716,7 +716,7 @@ for ithStep = initIthStep:endStep
         colorbar
         
         tmpTitle = [int2str(simulatingTime) '[yr] Sediment Thickness'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
        
         end
         
@@ -744,7 +744,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         colorbar
         tmpTitle = [int2str(simulatingTime) '[yr] Gradient'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         %------------------------------------------------------------------
 %         % F. i번째 풍화율
@@ -756,7 +756,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] Weathering Product'];
-%         title(tmpTitle,'FontSize',18);
+%         title(tmpTitle,'FontSize',10);
         
         %------------------------------------------------------------------
 %         % G. i번째 사면작용에 의한 퇴적층 두께 변화율
@@ -768,7 +768,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Slow Mass'];
-%         title(tmpTitle,'FontSize',18);
+%         title(tmpTitle,'FontSize',10);
         
         %------------------------------------------------------------------
         % H. i번째 빠른 사면작용에 의한 퇴적층 두께 변화율
@@ -780,7 +780,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Rapid Mass'];
-%         title(tmpTitle,'FontSize',18);
+%         title(tmpTitle,'FontSize',10);
         
         %------------------------------------------------------------------
         % I. i번째 빠른 사면작용에 의한 기반암 고도 변화율
@@ -792,7 +792,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] dBedrockElev By Rapid Mass'];
-%         title(tmpTitle,'FontSize',18);
+%         title(tmpTitle,'FontSize',10);
         
         end
         
@@ -845,7 +845,7 @@ for ithStep = initIthStep:endStep
 %         labels = {'Unflooded','Sink','Flooded'};
 %         lcolorbar(labels,'fontweight','bold')       
 %         tmpTitle = [int2str(simulatingTime) '[yr] Flooded Region'];
-%         title(tmpTitle,'FontSize',18);
+%         title(tmpTitle,'FontSize',10);
 %         
 %         end
         
@@ -900,7 +900,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         colorbar
         tmpTitle = [int2str(simulatingTime) '[yr] Bankfull Discharge(log10)'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         end
         
@@ -922,7 +922,7 @@ for ithStep = initIthStep:endStep
         set(gca,'CLim',[mu - sigma*3, mu + sigma*3])
         
         tmpTitle = [int2str(simulatingTime) '[yr] dSedThick By Fluvial'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         end
         
@@ -937,7 +937,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         colorbar
         tmpTitle = [int2str(simulatingTime) '[yr] dBedrockElev By Fluvial'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         end
         
@@ -1018,13 +1018,13 @@ for ithStep = initIthStep:endStep
         labels = {'Alluvial Channel','Bedrock Channel' ...
             ,'Bedrock Exposed Hillslope','Soil-mantled Hillslope'};
         
-%         lcolorbar(labels,'fontweight','bold')
+        lcolorbar(labels,'fontweight','bold')
         tmpTitle = [int2str(simulatingTime) '[yr] Transport Mode' ...
             '(' int2str(round(soilMantledHillRatio * 100)) '/' ...
             int2str(round(bedrockExposedHillRatio * 100)) '/' ...
             int2str(round(alluvialChanRatio * 100)) '/' ...
             int2str(round(bedrockChanRatio * 100)) ')'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         end
         
@@ -1058,12 +1058,14 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         
 %         tmpTitle = [int2str(simulatingTime) '[yr] Acc Erosion Rate'];
-%         title(tmpTitle,'FontSize',18);
+%         title(tmpTitle,'FontSize',10);
 %         
 %         end
         
         %------------------------------------------------------------------
         % O. Topographic Position Index
+        
+        filterSize = 3;                     % 필터 크기
         
         % 좌우가 연결되었다면 좌우 외곽경계의 고도를 조정함
         if IS_LEFT_RIGHT_CONNECTED == true
@@ -1090,8 +1092,6 @@ for ithStep = initIthStep:endStep
             
         end
 
-        filterSize = 3;                     % 필터 크기
-        
         diskFilter = fspecial('disk',filterSize);
 
         smoothedDEMDisk = imfilter(modifiedDEM,diskFilter);
@@ -1125,7 +1125,7 @@ for ithStep = initIthStep:endStep
         set(gca,'DataAspectRatio',[1 1 1])
         
         tmpTitle = [int2str(simulatingTime) '[yr] TPI'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         end
         
@@ -1200,7 +1200,7 @@ for ithStep = initIthStep:endStep
         set(AX(1),'ylim',[0 maxY],'xlim',[0 endTimeX])
         set(AX(2),'ylim',[0 maxY],'xlim',[0 endTimeX])
         tmpTitle = [int2str(simulatingTime) '[yr] Geomorphic Process Characteristics'];
-        title(tmpTitle,'FontSize',18);
+        title(tmpTitle,'FontSize',10);
         
         end
         
@@ -1290,7 +1290,7 @@ for ithStep = initIthStep:endStep
 %         set(gca,'DataAspectRatio',[1 1 1])
 %         colorbar
 %         tmpTitle = [int2str(simulatingTime) '[yr] chanBedSed Budget'];
-%         title(tmpTitle,'FontSize',18);      
+%         title(tmpTitle,'FontSize',10);      
 %         
 %         end
         

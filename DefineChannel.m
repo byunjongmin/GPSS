@@ -28,6 +28,6 @@ function channel = DefineChannel(upslopeArea,integratedSlope,channelInitiation,C
 
 channel ...
 	= ((upslopeArea .* integratedSlope .^ 2 > channelInitiation) ... 	% 하천시작임계 값을 넘은 셀
-	& (integratedSlope ~= -inf)) ... 					% 초기 경사값은 제외함
-	| (upslopeArea / CELL_AREA) > criticalUpslopeCellsNo ... 		% 초기 지형이 평탄하여 하도가 형성되지 않을 경우를 대비한 초기지형 하도 형성 조건
-	| (flood == FLOODED); 
+	    & (integratedSlope ~= -inf)) ... 					% 초기 경사값은 제외함
+      | (upslopeArea / CELL_AREA) > criticalUpslopeCellsNo ... 		% 초기 지형이 평탄하여 하도가 형성되지 않을 경우를 대비한 초기지형 하도 형성 조건
+      | (flood == FLOODED); 
