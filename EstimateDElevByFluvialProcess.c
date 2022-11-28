@@ -321,11 +321,11 @@ void EstimateDElevByFluvialProcess(
                     /* for debug */
                     if (sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx] < 0)
                     {
-                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
+                        mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
                     }
                     if (outputFlux[ithCellIdx] < 0)
                     {
-                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                        mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
                     }
                 }
                 else /* (excessTransportCapacity > chanBedSed[ithCellIdx) */
@@ -373,7 +373,7 @@ void EstimateDElevByFluvialProcess(
                             else
                             {
                                 /* for debug */                                
-                                mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
+                                mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
                                         ,"negative dBedrockElev");
                             }                        
                         }           
@@ -397,7 +397,7 @@ void EstimateDElevByFluvialProcess(
                     /* for debug */
                     if (outputFlux[ithCellIdx] < 0)
                     {
-                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                        mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
                     }
                 }
             }
@@ -491,11 +491,11 @@ void EstimateDElevByFluvialProcess(
                     /* for debug */
                     if (sedimentThick[ithCellIdx] + dSedimentThick[ithCellIdx] < 0)
                     {
-                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
+                        mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeSedimentThick","negative sediment thickness");
                     }
                     if (outputFlux[ithCellIdx] < 0)
                     {
-                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                        mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
                     }
                 }
                 else /* (excessTransportCapacity > chanBedSed[ithCellIdx) */
@@ -543,7 +543,7 @@ void EstimateDElevByFluvialProcess(
                             else
                             {
                                 /* for debug */                                
-                                mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
+                                mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeDBedrockElev"
                                         ,"negative dBedrockElev");
                             }                        
                         }           
@@ -567,7 +567,7 @@ void EstimateDElevByFluvialProcess(
                     /* for debug */
                     if (outputFlux[ithCellIdx] < 0)
                     {
-                        mexErrMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
+                        mexWarnMsgIdAndTxt("EstimateDElevByFluvialProcess_m:negativeOutputFlux","negative output flux");
                     }
                 }
             }
