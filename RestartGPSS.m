@@ -3,22 +3,23 @@
 %>
 %> - GPSS 구동이 갑자기 정지된 경우에도 연속하여 모의실험을 진행할 수 있도록
 %>   도와주는 함수
-%>  - 지금까지 기록된 모의결과 파일로 부터 다음 실행시 시작횟수를 파악하고
-%>    다음 실행에 초기 지형 조건으로 들어가는 기반암 고도와 퇴적층 두께를
-%>    추출하여 파일에 기록함
-%>  - 다음 실행에 사용될 기반암 고도와 퇴적층 두께 파일을 input 디렉토리에
-%>    옮기고, paraterValues.txt에서는 아래의 항목을 수정하고 GPSSMain()을
-%>    재실행하면 됨
-%>    - INIT_BEDROCK_ELEV_FILE : (초기지형을 불러올 경우) 초기지형을 저장한 파일. 없다면 No 라고 표기함
-%>    - newInitBedrockElev.txt
-%>    - ...
-%>    - INIT_SED_THICK_FILE : 초기 지형의 퇴적층 두께를 불러올 경우 이를 저장한 파일. 없다면 No 라고 표기함
-%>    - newInitSedThick.txt
-%>    - ...
-%>    - INIT_TIME_STEP_NO : 이전 모형 결과에서 이어서 할 경우의 초기 실행 횟수. 이어서 하지 않는다면 1
-%>    - newInitTimeStepNo
+%> - 지금까지 기록된 모의결과 파일로부터 1) 다음 실행시 시작횟수를 파악하고
+%>   다음 실행에 초기 지형 조건으로 들어가는 2) 기반암 고도와 3) 퇴적층
+%>   두께를 추출하여 파일에 기록함
+%> - 이후 실행에 사용될 기반암 고도(newInitBedrockElev.txt)와 퇴적층 두께
+%>   파일(newInitSedThick.txt)을 **input 폴더**로 옮기고, 같은 폴더의 
+%>   paraterValues.txt에서는 아래의 항목을 수정한 다음 GPSSMain()을 실행
 %>
-%> - 최종 작성일 : 2011-10-08
+%>   INIT_BEDROCK_ELEV_FILE : (초기지형을 불러올 경우) 초기지형을 ...
+%>   newInitBedrockElev.txt
+%>   ...
+%>   INIT_SED_THICK_FILE : 초기 지형의 퇴적층 두께를 불러올 경우 이를 ...
+%>   newInitSedThick.txt
+%>   ...
+%>   INIT_TIME_STEP_NO : 이전 모형 결과에서 이어서 할 경우의 초기 ...
+%>   newInitTimeStepNo
+%>   ...
+%> - 최종 작성일 : 2022-12-29
 %>
 %> - Histroy
 %>
@@ -28,16 +29,21 @@
 %>
 %> @callgraph
 %> @callergraph
-%> @version 0.1
+%> @version 0.2
 %>
 %> 
 %> @retval newInitTimeStepNo            : 다음 실행시 초기 실행 횟수
+%> @retval newInitSedThick.txt          : 다음 실행시 초기 퇴적층 두께
+%> @retval newInitBedrockElev.txt       : 다음 실행시 초기 기반암 고도
 %>
 %> @param OUTPUT_SUBDIR                 : GPSS 구동이 중지된 모의실험 결과가 저장된 디렉터리명
 %> @param Y                             : 외곽 경계를 제외환 Y축 크기
 %> @param X                             : 외곽 경계를 제외한 X축 크기
 %> @param dT                            : 만제유량 재현기간
 %> @param WRITE_INTERVAL                : 모의결과를 출력하는 빈도
+%>
+%> * 예제
+%> newInitTimeStepNo = RestartGPSS('20221210_0840',100,100,5000)
 %>
 % =========================================================================
 function newInitTimeStepNo = RestartGPSS(OUTPUT_SUBDIR,Y,X,WRITE_INTERVAL)
