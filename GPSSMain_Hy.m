@@ -58,8 +58,8 @@ function GPSSMain_Hy(parameterValuesFile)
 % GPSS 2D 시작
 clc;
 fprintf('\n*************** GPSS 2D Start ***************\n');
-fprintf('Made by Jongmin Byun (Post-doctoral researcher, Department of Geography Education, Korea Univ.)\n');
-fprintf('Source download at Blog (http://www.byunjongmin.net)\n');
+fprintf('Made by Jongmin Byun (Department of Geography Education, Seoul National Univ.)\n');
+fprintf('Source download at Blog (http://geomorphology.snu.ac.kr)\n');
 startedTime = clock; % 시작 시간 기록
 
 % 입출력을 위한 디렉터리와 출력 파일을 정의하고 중요한 초기 변수값을 입력
@@ -133,6 +133,7 @@ INPUT_FILE_PARAM_PATH ...   % 입력 파일 경로 상수
 ,kwa ...                    % 선형 풍화함수의 증가율
 ,kw1 ...                    % 지수 감소 풍화함수에서 연장되는 노출 기반암의 풍화율 [m/yr]
 ,kwm ...                    % 풍화층 두께 축적 [m]
+,DIFFUSION_MODEL ...        % 확산모델 유형 (1: linear, 2: non-linear Roering et al.(1999))
 ,kmd ...                    % 사면작용의 확산 계수
 ,FAILURE_OPT ...            % Hillslope failure option
 ,soilCriticalSlopeForFailure ... % 천부활동의 안정 사면각
@@ -616,7 +617,7 @@ for ithTimeStep = INIT_TIME_STEP_NO:TIME_STEPS_NO
         ,dX,dT,CELL_AREA ...
         ,sortedYXElev,consideringCellsNo ...
         ,s3IthNbrLinearIndicies ...
-        ,sedimentThick,kmd ...
+        ,sedimentThick,DIFFUSION_MODEL,kmd,soilCriticalSlopeForFailure ...
         ,flood,floodedRegionCellsNo,floodedRegionIndex ...
         ,SDSNbrY,SDSNbrX,slopeAllNbr);
     

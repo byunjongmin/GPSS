@@ -25,7 +25,9 @@
 %> @param consideringCellsNo        : 함수의 대상이 되는 셀들의 수
 %> @param s3IthNbrLinearIndicies    : 8 방향 이웃 셀을 가리키는 3차원 색인 배열
 %> @param sedimentThick             : 퇴적층 두께 [m]
+%> @param DIFFUSION_MODEL           : 확산모델 유형 (1: linear, 2: non-linear Roering et al.(1999))
 %> @param kmd                       : 사면작용의 확산 계수 [m2/m year]
+%> @param soilCriticalSlopeForFailure : critical hillslope gradient [m/m]
 %> @param flood                     : SINK로 인해 물이 고이는 지역(flooded region)
 %> @param floodedRegionCellsNo      : 개별 flooded region 셀 개수
 %> @param floodedRegionIndex        : 개별 flooded region 색인
@@ -33,7 +35,10 @@
 %> @param SDSNbrX                   : 최대하부경사 유향이 가리키는 다음 셀의 X 좌표
 %> @param slopeAllNbr               : 8 이웃 셀과의 경사 [radian]
 % =========================================================================
-function dSedimentThick = HillslopeProcess(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX,dX,dT,CELL_AREA,sortedYXElev,consideringCellsNo,s3IthNbrLinearIndicies,sedimentThick,kmd,flood,floodedRegionCellsNo,floodedRegionIndex,SDSNbrY,SDSNbrX,slopeAllNbr)
+function dSedimentThick = HillslopeProcess(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_MAX ...
+    ,dX,dT,CELL_AREA,sortedYXElev,consideringCellsNo,s3IthNbrLinearIndicies ...
+    ,sedimentThick,DIFFUSION_MODEL,kmd,soilCriticalSlopeForFailure ...
+    ,flood,floodedRegionCellsNo,floodedRegionIndex,SDSNbrY,SDSNbrX,slopeAllNbr)
 % 
 % function HillslopePrcess
 %
@@ -44,6 +49,9 @@ function dSedimentThick = HillslopeProcess(mRows,nCols,Y,X,Y_INI,Y_MAX,X_INI,X_M
 % 1) 사면작용에 의한 개별 이웃 셀로의 퇴적물 운반능력
 % * 주의 : 개별 이웃 셀로의 최대 퇴적물 운반능력 추정은 개별 요소 연산에 의한
 %   것이 아니라, 행렬 연산으로 구함
+
+% 상수 정의
+LINEAR = 1;
 
 % 변수 초기화
 % 개별 이웃 셀로의 퇴적물 운반능력 [m^3/m^2 dT]
@@ -66,18 +74,25 @@ for ithNbr = 1:8
     sTransportCapacityToIthNbr = zeros(Y,X);
     
     % 2) 퇴적물 운반 능력
-    % * 선형 모델의 경우
-    sTransportCapacityToIthNbr(satisfyingCells) ...
-        = dX * ( kmd * sIthNbrSDSSlope(satisfyingCells) ) ...
-        .* dT ...                               % 단위변환 [m^3/dT]
-        ./ CELL_AREA;                           % 단위변환 [m/dT]
+
+    if DIFFUSION_MODEL == LINEAR
+
+        % * 선형 모델의 경우
+        sTransportCapacityToIthNbr(satisfyingCells) ...
+            = dX * ( kmd * sIthNbrSDSSlope(satisfyingCells) ) ...
+            .* dT ...                               % 단위변환 [m^3/dT]
+            ./ CELL_AREA;                           % 단위변환 [m/dT]
+
+    else
     
-    % * 비선형 모델은 Roering et al(1999) 참고
-%     sTransportCapacityToIthNbr(satisfyingCells) ...
-%         = dX .* ( kmd .* ( sIthNbrSDSSlope(satisfyingCells) ...
-%         ./ ( 1 - ( sIthNbrSDSSlope(satisfyingCells) ./ mu) .^ 2) ) ) ...
-%         .* dT ...                             % 단위변환 [m^3/dT]
-%         ./ CELL_AREA;                         % 단위변환 [m/dT]
+        % * 비선형 모델은 Roering et al(1999) 참고
+        sTransportCapacityToIthNbr(satisfyingCells) ...
+            = dX .* ( kmd .* ( sIthNbrSDSSlope(satisfyingCells) ...
+            ./ ( 1 - ( sIthNbrSDSSlope(satisfyingCells) ./ soilCriticalSlopeForFailure) .^ 2) ) ) ...
+            .* dT ...                             % 단위변환 [m^3/dT]
+            ./ CELL_AREA;                         % 단위변환 [m/dT]
+
+    end
     
     transportCapacityToNbrs(Y_INI:Y_MAX,X_INI:X_MAX,ithNbr) ...
         = sTransportCapacityToIthNbr;

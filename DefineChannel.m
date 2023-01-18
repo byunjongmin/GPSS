@@ -26,7 +26,8 @@ function channel = DefineChannel(upslopeArea,integratedSlope,channelInitiation,C
 % function DefineChannel
 %
 
-channel	= (upslopeArea / CELL_AREA) >= criticalUpslopeCellsNo;
+channel	= (upslopeArea / CELL_AREA) >= criticalUpslopeCellsNo ... 	% 초기 지형이 평탄하여 하도가 형성되지 않을 경우를 대비한 초기지형 하도 형성 조건
+               | (flood == FLOODED);
 
 % 추후 Stream power dependent 로 시도해보자
 % channel ...
