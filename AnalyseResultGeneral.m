@@ -1,7 +1,9 @@
 % =========================================================================
 %> @section INTRO AnalyseResultGeneral
 %>
-%> AnalyseResultGeneral 결과를 분석하는 함수. 박사학위논문 조건에 최적화되어 있는 AnalyzeResult 함수를 일반적인 모의 결과 분석에 적합한 모듈만 선택하여 수정한 함수 
+%> AnalyseResultGeneral 결과를 분석하는 함수.
+%> 박사학위논문 조건에 최적화되어 있는 AnalyzeResult 함수를 일반적인 모의
+%> 결과 분석에 적합한 모듈만 선택하여 수정한 함수 
 %>
 %> @version 0.22
 %> @see AccumulateUpstreamFlow(), CalcFacetFlow(), CalcInfinitiveFlow()
@@ -174,6 +176,7 @@ OUTPUT_FILE_LOG ...                     % GPSSMain() 구동 동안의 상황 기록
 ,kwa ...                    % 선형 풍화함수의 증가율
 ,kw1 ...                    % 지수 감소 풍화함수에서 연장되는 노출 기반암의 풍화율 [m/yr]
 ,kwm ...                    % 풍화층 두께 축적 [m]
+,DIFFUSION_MODEL ...        % 확산모델 유형 (1: linear, 2: non-linear Roering et al.(1999))
 ,kmd ...                    % 사면작용의 확산 계수
 ,FAILURE_OPT ...            % Hillslope failure option
 ,soilCriticalSlopeForFailure ... % 천부활동의 안정 사면각
@@ -261,8 +264,6 @@ FID_LOG = fopen(OUTPUT_FILE_LOG_PATH,'r');
 
 %--------------------------------------------------------------------------
 % 상수 및 변수 초기화
-
-% MakeInitialGeomorphology는 생략함
 
 % mRows,nCols는 FID_LOG 파일을 통해 추출
 mRows ... % 모델 (외곽 경계 포함) 영역 행 개수
@@ -574,6 +575,8 @@ upliftedHeight = zeros(mRows,nCols);                    % 단위시간 융기율 [m/dT]
 % * 주의: 이는 초기 지형 및 초기 퇴적층 두께를 결과 파일에 출력하기 때문임
 initSedThick = fscanf(FID_SEDTHICK,'%f',[mRows,nCols]);
 initBedrockElev = fscanf(FID_BEDROCKELEV,'%f',[mRows,nCols]);
+initElev = initSedThick + initBedrockElev;
+
 [initMaxElev,~] ...
     = max(max(initSedThick(Y_INI:Y_MAX,X_INI:X_MAX) + initBedrockElev(Y_INI:Y_MAX,X_INI:X_MAX)));
 
@@ -586,7 +589,6 @@ startedStepNo = startedTimeStepNo / WRITE_INTERVAL;
 
 % 2) 파일에서 i번째 모의결과를 읽고 이를 그래프로 표현하고 주요 변수는 일정
 %    간격으로 저장함
-% endStep = 2332; % for the unexpectedly stopped experiment
 for ithStep = initIthStep:endStep
     
     fprintf('%i\n',ithStep); % 실행 횟수 출력
@@ -632,9 +634,15 @@ for ithStep = initIthStep:endStep
         simulatingTime = ithTimeStep * dT;          % 만제유량 재현기간을 고려한 년도 [yr]
         ithGraph = ithGraph + 1;                    % 그래프 기록 횟수
         
-        % (모의기간 전체 결과를 보여주는 그래프를 위한) 시작 년도 기록
         if ithGraph == 1
+            % (모의기간 전체 결과를 보여주는 그래프를 위한) 시작 년도 기록
             firstGraphShowTime = ithTimeStep * dT;
+            
+            oldElev = initElev;
+        
+        else
+            oldElev = elev;
+        
         end
         
         elev = bedrockElev + sedimentThick;         % 고도 갱신            
@@ -1032,21 +1040,21 @@ for ithStep = initIthStep:endStep
         % N. 누적 침식량
         
         % (A) 누적 융기량
-        % * 주의: 초기 지형을 반영하여해야 올바른 누적 침식량을 구함
-        accumulatedUpliftedHeight = zeros(mRows,nCols);
-        accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            = (meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            ./ meanUpliftRateAtUpliftAxis) ...
-            * cumsumUpliftRate(ithTimeStep) ...
-            + initBedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            + initSedThick(Y_INI:Y_MAX,X_INI:X_MAX);
-        
-        % (B) 누적 침식량
-        accumulatedErosionRate = zeros(mRows,nCols);
-        accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX) ...
-            = accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX)...
-            - elev(Y_INI:Y_MAX,X_INI:X_MAX);
-        
+%         % * 주의: 초기 지형을 반영하여해야 올바른 누적 침식량을 구함
+%         accumulatedUpliftedHeight = zeros(mRows,nCols);
+%         accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             = (meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             ./ meanUpliftRateAtUpliftAxis) ...
+%             * cumsumUpliftRate(ithTimeStep) ...
+%             + initBedrockElev(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             + initSedThick(Y_INI:Y_MAX,X_INI:X_MAX);
+%         
+%         % (B) 누적 침식량
+%         accumulatedErosionRate = zeros(mRows,nCols);
+%         accumulatedErosionRate(Y_INI:Y_MAX,X_INI:X_MAX) ...
+%             = accumulatedUpliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX)...
+%             - elev(Y_INI:Y_MAX,X_INI:X_MAX);
+%         
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %             
 %         figure(Hf_14);
@@ -1139,43 +1147,27 @@ for ithStep = initIthStep:endStep
        
         %------------------------------------------------------------------
         % T. 지형형성과정 특성
-        
-        % (B) 현재까지의 시간축
-        endTimeX = firstGraphShowTime + (ithGraph-1) * dGraphShowTime * dT;
-        timeX = firstGraphShowTime:dGraphShowTime*dT:endTimeX;
-        
-        % (A) 유역 평균 침식율 [m^3/m^2 East Drainage]
-        
-        % a. 사면작용에 의한 평균 침식율
-        meanHillslopeErosionRate ...
-            = sum(dSedThickByHillslopePerDT(OUTER_BOUNDARY)) / (X*Y);
-        
-        % b. 빠른 사면작용에 의한 평균 침식율
-        meanRapidMassErosionRate ...
-            = sum(dSedThickByRapidMassPerDT(OUTER_BOUNDARY)) / (X*Y);
-        
-        % c. 하천에 의한 평균 침식율
-        fluvialOutputFluxAtBnd = dSedThickByFluvialPerDT(OUTER_BOUNDARY);
-        
-        % * 주의: eastFluvialOutputFluxAtBnd 자체가 셀 면적으로 나눈 값이므로
-        %   유역 평균값을 구하기 위해서는 셀 개수로 나누면 됨
-        meanFluvialErosionRate ...
-            = sum(fluvialOutputFluxAtBnd) / (X*Y);
                 
-        % d. 유역 평균 침식율
-        meanErosionRate(ithGraph) = meanHillslopeErosionRate ...
-            + meanRapidMassErosionRate + meanFluvialErosionRate;
-        
-        % (B) 유역 평균 융기율 [m/East Drainage]
+        % (A) 유역 평균 융기율 [m/dT East Drainage]
         upliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX) ...
             = (meanUpliftRateSpatialDistribution(Y_INI:Y_MAX,X_INI:X_MAX) ...
             ./ meanUpliftRateAtUpliftAxis) ...
             .* upliftRateTemporalDistribution(ithTimeStep);
-        meanUpliftedHeight(ithGraph) = mean(mean(upliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX)));
+        meanUpliftedHeight(ithGraph) ...
+            = mean(mean(upliftedHeight(Y_INI:Y_MAX,X_INI:X_MAX))) ./ dT;
                 
+        % (B) 유역 평균 침식율 [m^3/m^2 East Drainage]
+        diffElev = elev(Y_INI:Y_MAX,X_INI:X_MAX) - oldElev(Y_INI:Y_MAX,X_INI:X_MAX);
+        meanErosionRate(ithGraph) = meanUpliftedHeight(ithGraph) ...
+            - (mean(mean(diffElev)) ./ (dT * WRITE_INTERVAL)); 
+        
         if SHOW_GRAPH == SHOW_GRAPH_YES
+        
+        % (A) 현재까지의 시간축
+        endTimeX = firstGraphShowTime + (ithGraph-1) * dGraphShowTime * dT;
+        timeX = firstGraphShowTime:dGraphShowTime*dT:endTimeX;
             
-        % (C) 그래프 축 설정
+        % (B) 그래프 축 설정
         maxErosionRate = max(max(meanErosionRate(1:ithGraph)));
         
         if maxErosionRate == 0
@@ -1233,6 +1225,18 @@ for ithStep = initIthStep:endStep
         meanNextSedimentThick ...   % 잔존 퇴적층 두께
             = mean(mean(sedimentThick));       
         
+        % a. 사면작용에 의한 평균 침식율
+        meanHillslopeErosionRate ...
+            = sum(dSedThickByHillslopePerDT(OUTER_BOUNDARY)) / (X*Y);
+        
+        % b. 빠른 사면작용에 의한 평균 침식율
+        meanRapidMassErosionRate ...
+            = sum(dSedThickByRapidMassPerDT(OUTER_BOUNDARY)) / (X*Y);
+        
+        % c. 하천에 의한 평균 침식율
+        fluvialOutputFluxAtBnd = dSedThickByFluvialPerDT(OUTER_BOUNDARY);
+        meanFluvialErosionRate = sum(fluvialOutputFluxAtBnd) / (X*Y);
+                
         removedSedimentOutput ...
             = meanFluvialErosionRate ...
             + meanHillslopeErosionRate ...
@@ -1375,6 +1379,7 @@ majorOutputs = struct('sedimentThick',extSedimentThick ...
     ,'transportMode',extTransportMode ...
     ,'Y',Y,'X',X,'Y_INI',Y_INI,'Y_MAX',Y_MAX,'X_INI',X_INI,'X_MAX',X_MAX ...
     ,'dX',dX,'dT',dT,'WRITE_INTERVAL',WRITE_INTERVAL ...
+    ,'criticalUpslopeCellsNo',criticalUpslopeCellsNo ...
     ,'EXTRACT_INTERVAL',EXTRACT_INTERVAL,'GRAPH_INTERVAL',GRAPH_INTERVAL ...
     ,'totalExtractTimesNo',totalExtractTimesNo ...
     ,'totalGraphShowTimesNo',totalGraphShowTimesNo);        

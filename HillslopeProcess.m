@@ -85,10 +85,19 @@ for ithNbr = 1:8
 
     else
     
-        % * 비선형 모델은 Roering et al(1999) 참고
+        % * 비선형 모델은 Roering et al. (1999) 수식 8 참고
+        
+        % 주의 : dZ/Sc 가 1보다 크지 않도록 하기 위한 처리 추가. 1보다 클
+        % 경우, qs가 음수가 되며 이로 인해 고도가 상승하는 문제가 발생함.
+        ratSlpCritSlp = zeros(Y,X);
+        ratSlpCritSlp(satisfyinCells) ...
+            = sIthNbrSDSSlope(satisfyingCells) ./ soilCriticalSlopeForFailure;
+        over099Idx = ratSlpCritSlp >= 0.99; % set threshold 0.99
+        ratSlpCritSlp(over099Idx) = 0.99;
+
         sTransportCapacityToIthNbr(satisfyingCells) ...
             = dX .* ( kmd .* ( sIthNbrSDSSlope(satisfyingCells) ...
-            ./ ( 1 - ( sIthNbrSDSSlope(satisfyingCells) ./ soilCriticalSlopeForFailure) .^ 2) ) ) ...
+            ./ ( 1 - ratSlpCritSlp(satisfyingCells) .^ 2) ) ) ...
             .* dT ...                             % 단위변환 [m^3/dT]
             ./ CELL_AREA;                         % 단위변환 [m/dT]
 
