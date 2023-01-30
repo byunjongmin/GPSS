@@ -90,7 +90,7 @@ for ithNbr = 1:8
         % 주의 : dZ/Sc 가 1보다 크지 않도록 하기 위한 처리 추가. 1보다 클
         % 경우, qs가 음수가 되며 이로 인해 고도가 상승하는 문제가 발생함.
         ratSlpCritSlp = zeros(Y,X);
-        ratSlpCritSlp(satisfyinCells) ...
+        ratSlpCritSlp(satisfyingCells) ...
             = sIthNbrSDSSlope(satisfyingCells) ./ soilCriticalSlopeForFailure;
         over099Idx = ratSlpCritSlp >= 0.99; % set threshold 0.99
         ratSlpCritSlp(over099Idx) = 0.99;
@@ -126,13 +126,13 @@ n3IthNbrLinearIndicies(Y_INI:Y_MAX,X_INI:X_MAX,:) = s3IthNbrLinearIndicies;
 % HillslopeProcessMex 함수 부분
 
 % 선형 색인 준비
-mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
-mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
-
-[inputFlux ...                   0 상부 유역으로부터의 유입율 [m/dT]
-,outputFlux...                   1 이웃 셀로의 총 유출율 [m/dT]
-,inputFloodedRegion ...          2 flooded region으로의 유입율 [m/dT]
-    ] = HillslopeProcessMex(mRows,nCols,consideringCellsNo);
+% mexSortedIndicies = (sortedYXElev(:,2)-1)*mRows + sortedYXElev(:,1);
+% mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
+% 
+% [inputFluxMex ...                   0 상부 유역으로부터의 유입율 [m/dT]
+% ,outputFluxMex...                   1 이웃 셀로의 총 유출율 [m/dT]
+% ,inputFloodedRegionMex ...          2 flooded region으로의 유입율 [m/dT]
+%     ] = HillslopeProcessMex(mRows,nCols,consideringCellsNo);
 % HillslopeProcessMex 함수가 mexGetVariablePtr 함수로 참조하는 변수
 %
 % mexSortedIndicies ...            0 . 고도순으로 정렬된 색인
@@ -143,6 +143,100 @@ mexSDSNbrIndicies = (SDSNbrX-1)*mRows + SDSNbrY;
 % transportCapacityToNbrs ...      5 . 각 이웃 셀로의 사면작용 운반능력
 % sumTransportCapacityToNbrs ...   6 . 총 사면작용 운반능력
 %
+%--------------------------------------------------------------------------
+
+%--------------------------------------------------------------------------
+% HillslopeProcessMex 이전 함수
+%--------------------------------------------------------------------------
+% (높은 고도 순으로) 운반능력에 따라 사면물질을 각 이웃 셀에 분배함
+% * 주의: 다음의 이유로 flooded region의 유출구인지를 확인하지 않음 1) 단위
+%   시간이 1년인 경우에 flooded region으로의 유입율이 저장량을 넘는 일이 거의
+%   없음 2) 사면 물질에 의한 이동이므로 flooded region의 유입량이 저장량을
+%   초과하더라도 초과량이 유출구를 통해 이동되지 않는다고 가정함 3) 유출구
+%   여부에 따라 이웃 셀에 분배하는 방식이 달라지지는 않음
+
+FLOODED = 2;  % flooded region 태그
+inputFlux = zeros(mRows,nCols);          % 상부 유역으로부터의 유입량 [m^3/subDT]
+inputFloodedRegion = zeros(mRows,nCols); % flooded region으로의 유입량[m^3/subDT]
+outputFlux = zeros(mRows,nCols);         % 유향을 따라 다음 셀로의 유출량 [m^3/subDT]
+
+for ithCell=1:consideringCellsNo
+
+    % (1) i번째 셀의 좌표 정보
+    ithCellY = sortedYXElev(ithCell,1);
+    ithCellX = sortedYXElev(ithCell,2);
+ 
+    % (2) i번째 셀의 퇴적물 두께를 고려한 이웃 셀로의 실제 이동 비율과 양
+        
+    % A. 실제 이동되는 비율 초기화
+    % 참고: 상부 사면에서의 유입량을 고려하지 않음
+    scale = 1;
+    
+    % B. 사면작용에 의한 총 퇴적물 운반능력이 현 퇴적물 두께보다 큰 지를 확인함
+    if sumTransportCapacityToNbrs(ithCellY,ithCellX) > sedimentThick(ithCellY,ithCellX)
+
+        % A) 크다면, 퇴적층 두께로 수정함
+        outputFlux(ithCellY,ithCellX) = sedimentThick(ithCellY,ithCellX);
+        % 전달 비율도 조정함
+        scale = sedimentThick(ithCellY,ithCellX) ./ sumTransportCapacityToNbrs(ithCellY,ithCellX);        
+
+    else
+
+        % B) 작다면, 운반능력 그대로 둠
+        outputFlux(ithCellY,ithCellX) = sumTransportCapacityToNbrs(ithCellY,ithCellX);
+
+    end
+
+    % (3) 각 이웃 셀의 유입율에 유출율을 더함
+    for ithNbr = 1:8
+
+        % A. i번째 이웃 셀로의 유출량이 있는지를 확인함
+        if transportCapacityToNbrs(ithCellY,ithCellX,ithNbr) > 0
+
+            % A) i번째 이웃 셀로의 유출이 있는 경우
+            
+            % (A) i번째 이웃 셀이 flooded region 인지를 확인함
+            if flood(n3IthNbrLinearIndicies(ithCellY,ithCellX,ithNbr)) == FLOODED
+
+                % a. flooded region인 경우, inputFloodedRegion의 유입율에
+                %    유출율을 더함
+                
+                % a) flooded region 유출구 좌표
+                outletY ...
+                    = SDSNbrY(n3IthNbrLinearIndicies(ithCellY,ithCellX,ithNbr));
+                outletX ...
+                    = SDSNbrX(n3IthNbrLinearIndicies(ithCellY,ithCellX,ithNbr));
+
+                % b) inputFloodedRegion 유입율에 유출율을 더함
+                inputFloodedRegion(outletY,outletX) ...
+                    = inputFloodedRegion(outletY,outletX) ...
+                    + scale * transportCapacityToNbrs(ithCellY,ithCellX,ithNbr);
+
+            else
+
+                % b. flooded region이 아닌 경우, i번째 이웃 셀의 유입율에
+                %    유출율을 더함
+                inputFlux(n3IthNbrLinearIndicies(ithCellY,ithCellX,ithNbr)) ...
+                    = inputFlux(n3IthNbrLinearIndicies(ithCellY,ithCellX,ithNbr)) ...
+                    + scale * transportCapacityToNbrs(ithCellY,ithCellX,ithNbr);
+
+            end % if flood(n3IthNbrLinearIndicies(ithCellY,ithCellX,ithNbr)) == FLOODED
+
+        end % if transportCapacityToNbrs(ithCellY,ithCellX,ithNbr) > 0
+        
+    end % for ithNbr = 1:8
+
+end % ithCell=1:consideringCellsNo
+
+% Debug for Mex file
+% diffInputFlux = abs(sum(sum(inputFluxMex-inputFlux)));
+% diffOutputFlux = abs(sum(sum(outputFluxMex-outputFlux)));
+% diffInputFloodedRegion = abs(sum(sum(inputFloodedRegionMex-inputFloodedRegion)));
+% 
+% if diffInputFlux +  diffOutputFlux + diffInputFloodedRegion > 0.1
+%     warning('Warning: HillslopeMex brings big difference!\n')
+% end
+
 %--------------------------------------------------------------------------
 
 % 3) flooded region의 퇴적층 두께 변화율

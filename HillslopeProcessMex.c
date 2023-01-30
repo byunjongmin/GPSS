@@ -163,26 +163,28 @@ void HillslopeProcessMex(
          *   하지만 일반적으로 확산현상에서는 고도 순서대로 상부로부터의 유입을
          *   고려하여 다음 셀에 전하지 않음 */
         scale = 1;
-
-        /* 2) 사면작용에 의한 총 퇴적물 운반능력이 (상부 사면에서의 유입율을
-         *    고려한) 현 퇴적물 두께보다 큰 지를 확인함 */
-        if (sumTransportCapacityToNbrs[ithCellIdx]
-                > (sedimentThick[ithCellIdx] + inputFlux[ithCellIdx]))
-        {
-            /* (1) 크다면, 이동 비율을 수정함 */
-            scale = (sedimentThick[ithCellIdx] + inputFlux[ithCellIdx])
-                / sumTransportCapacityToNbrs[ithCellIdx];
-        }
         
-        /* 3) 실제 총 운반율 */
-        outputFlux[ithCellIdx] = sumTransportCapacityToNbrs[ithCellIdx] * scale;
-
+        /* 2) 사면작용에 의한 총 퇴적물 운반능력이 (상부 사면에서의 유입율을
+         *    고려한) 현 퇴적물 두께보다 큰 지를 확인하고 유출율을 정의함 */
+        if (sumTransportCapacityToNbrs[ithCellIdx] > sedimentThick[ithCellIdx])
+        {
+            /* (1) 크다면, 퇴적층 두께로 수정함 */
+            outputFlux[ithCellIdx] = sedimentThick[ithCellIdx];
+            /* 전달 비율도 조정함 */
+            scale = sedimentThick[ithCellIdx] / sumTransportCapacityToNbrs[ithCellIdx];
+        }
+        else
+        {
+            /* (2) 작다면, 운반능력 그대로 둠 */
+            outputFlux[ithCellIdx] = sumTransportCapacityToNbrs[ithCellIdx];
+        }        
+        
         /* 3. 각 이웃 셀의 유입율에 유출율을 더함 */
         for (ithNbr=0;ithNbr<8;ithNbr++)
         {
             /* 1) 각 이웃 셀로의 운반능력을 가리키기 위한 색인 */
             /* * 주의: ithCellIdx에서 '-1'을 수행했으므로 또 할 필요가 없음 */
-            toIthNbr = ithNbr * (mRows*nCols) + ithCellIdx;
+            toIthNbr = ithCellIdx + ithNbr * (mRows*nCols);
             
             /* 2) i번째 이웃 셀로의 유출량이 있는지를 확인함 */
             if (transportCapacityToNbrs[toIthNbr] > 0)
