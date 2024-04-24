@@ -4,7 +4,7 @@
 mex -v CollapseMex.c
 mex -v EstimateDElevByFluvialProcess.c
 mex -v EstimateDElevByFluvialProcessBySDS.c
-mex -v EstimatetopoUpstreamFlow.c
+mex -v EstimateUpstreamFlow.c
 mex -v EstimateUpstreamFlowBySDS.c
 mex -v EstimateSubDTMex.c
 mex -v EstimateUpstreamFlow.c
@@ -14,15 +14,7 @@ mex -v HillslopeProcessMex.c
 
 %% Run GPSS
 
-% GPSSMain_Hy('parameter_20200214_1230.txt')
-% GPSSMain_Hy('parameter_20221121_1800.txt')
-% GPSSMain_Hy('parameter_20221121_2310.txt')
-% GPSSMain_Hy('parameter_20221122_1700.txt')
-% GPSSMain_Hy('parameter_20221122_1823.txt')
-% GPSSMain_Hy('parameter_20221125_1920.txt')
-% GPSSMain_Hy('parameter_20221125_1925.txt')
-% GPSSMain_Hy('parameter_20221127_1510.txt')
-
+GPSSMain_Hy('parameter_20230128_1418.txt')
 
 %% Analyze Results
 
@@ -36,30 +28,15 @@ clf(figure(13))
 clf(figure(15))
 clf(figure(20))
 
-% majorOutputs = AnalyseResultGeneral('20221121_1800','parameter_20221121_1800.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221121_2310','parameter_20221121_2310.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221122_1700','parameter_20221122_1700.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221123_1600','parameter_20221123_1600.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221123_1915','parameter_20221123_1915.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221123_1920','parameter_20221123_1920.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221123_1941','parameter_20221123_1941.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221125_1840','parameter_20221125_1840.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221125_1903','parameter_20221125_1903.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221125_1920','parameter_20221125_1920.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221127_1510','parameter_20221127_1510.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221127_1515','parameter_20221127_1515.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221127_1523','parameter_20221127_1523.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221127_1525','parameter_20221127_1525.txt',1,0.8,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221128_0630','parameter_20221128_0630.txt',1,1,1,1,1);
-% majorOutputs = AnalyseResultGeneral('20221128_1507','parameter_20221128_1507.txt',1,1,1,1,1);
-majorOutputs = AnalyseResultGeneral('20221128_1530','parameter_20221128_1530.txt',1,1,1,1,1);
+% majorOutputs = AnalyseResultGeneral('20230131_1032','parameter_20230131_1032.txt',1,1,1,1,1);
+majorOutputs = AnalyseResultGeneral('20230131_1033','parameter_20230131_1033.txt',1,1,1,1,1);
 
 
-% Analyze Results using TopoToolbox
+%% Analyze Results using TopoToolbox
 
 [finalSedThick,finalBedElev] = ToGRIDobj(majorOutputs);
 finalDEM = finalBedElev + finalSedThick;
-criticalUpslopeCellsNo = 5;
+criticalUpslopeCellsNo = majorOutputs.criticalUpslopeCellsNo;
 
 % clear figures
 clf(figure(31))
@@ -160,7 +137,7 @@ hold off
 
 % slope-area relationship
 figure(41)
-STATS = slopearea(S,finalDEM,A);
+STATS = slopearea_byun(S,finalDEM,A);
 
 % normalized steepness index
 g = gradient(S,finalDEM);

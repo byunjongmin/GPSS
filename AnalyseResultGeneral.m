@@ -957,12 +957,17 @@ for ithStep = initIthStep:endStep
         
         % (B) 사면 셀과 하천 포함 셀을 구분함
         upslopeArea = annualDischarge1 ./ annualRunoff; % 유역면적: [m^3/yr]/[m/yr]
-        
+
         channel ...                         % 하천 시작 임계치를 넘은 셀
-            = ((upslopeArea .* integratedSlope .^ 2 >= channelInitiation) ...
-            & (integratedSlope ~= -inf)) ... % 초기 경사값은 제외함
-            | (upslopeArea / CELL_AREA >= criticalUpslopeCellsNo) ...
+            = (upslopeArea / CELL_AREA >= criticalUpslopeCellsNo) ...
             | (flood == FLOODED);
+        
+        % Streampower dependent channel initiation 을 할 경우 
+%         channel ...                         % 하천 시작 임계치를 넘은 셀
+%             = ((upslopeArea .* integratedSlope .^ 2 >= channelInitiation) ...
+%             & (integratedSlope ~= -inf)) ... % 초기 경사값은 제외함
+%             | (upslopeArea / CELL_AREA >= criticalUpslopeCellsNo) ...
+%             | (flood == FLOODED);
         
         hillslope = ~channel;               % 사면 셀
         

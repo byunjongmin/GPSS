@@ -5,21 +5,31 @@
 - 사사 : Gregory E. Tucker의 GOLEM과 Steven L. Eddins의 Upslope Toolbox 등과 같이 인터넷에 공개된 프로그램의 소스 코드 없이는 본 프로그램이 나올 수 없었음. 참고한 알고리듬은 개별 함수 코드에서 명시하였음.
 
 # GPSS 설치
+
 - GitHub GPSS 사이트(https://github.com/byunjongmin/GPSS)에서 소스코드 다운로드
 - 압축 풀기 및 디렉토리 설정
   - GPSS 라는 디렉토리 생성 후(예. C:\GPSS), 압축 파일을 GPSS 디렉터리내에서 풀기
   - GPSS 디렉터리 내 data 디렉토리를 생성하고, data 디렉토리 안에 input(C:\GPSS\data\input)과 output 디렉토리 C:\GPSS\data\input)를 각각 만듦
 - GPSS 소스코드 저장 디렉토리(C:\GPSS)를 MATLAB path에 추가함
-- GPSS MATLAB MEX 파일 컴파일
-  - 실행 속도를 높이기 위해 GPSS 일부 코드는 C 언어로 작성되었음. C언어로 작성한 부분은 C(또는 C++) 컴파일러로 컴파일을 해야함(https://www.mathworks.com/support/requirements/supported-compilers.html)
-    - MEX 파일 : MATLAB에서 생성되는 함수로, C/C++ 프로그램 또는 Fortran 서브루틴을 호출함. MEX 함수는 MATLAB 스크립트 또는 함수처럼 동작함
-    - GPSS MEX 파일 : CollapseMex.c, EstimateDElevByFluvialProcess.c, EstimateDElevByFluvialProcessBySDS.c, EstimateSubDTMex.c, EstimateUpstreamFlow.c, EstimateUpstramFlowBySDS.c, HillslopeProcessMex.c
-    - Windows 운영체제에서는 컴파일러로 Visual Studio Community 설치를 권장함. 아래는 Visual Studio Community 설치 과정
-      - 마이크로 소프트 비주얼 스튜디오 커뮤니티 사이트(https://visualstudio.microsoft.com/ko/vs/community/)에서 설치 파일(VisualStudioSetup.exe)을 다운로드하고 설치 파일을 실행하면 Visual Studio Installer 가 실행됨
-      - 모듈 선택 창에서 “데스크톱 및 모바일” 아래 “C++을 사용한 데스크톱 개발” 모듈을 선택하고 설치 버튼 클릭
-  - MATLAB 명령어 창에서 GPSS MEX 파일 컴파일 (예, > mex –v CollapseMex.c)
 - GPSS 구동을 위한 toolbox 설치
   - Tree data structure as a MATLAB class (https://www.mathworks.com/matlabcentral/fileexchange/35623-tree-data-structure-as-a-matlab-class) 다운로드 및 MATLAB path 설정
+- GPSS 내 MEX 파일 컴파일
+  - 실행 속도를 높이기 위해 GPSS 일부 코드는 MATLAB에서 호출 가능한 C 언어 함수(MEX 파일)로 작성되었음
+    - C언어로 작성한 부분은 C(또는 C++) 컴파일러로 컴파일을 해야함
+      - 지원 및 호환 컴파일러 목록 안내 사이트 : https://www.mathworks.com/support/requirements/supported-compilers.html
+  - MEX 파일 : MATLAB에서 생성된 함수로, C/C++ 프로그램 또는 Fortran 서브루틴을 호출함. MEX 함수는 MATLAB 스크립트 또는 함수처럼 동작함
+  - GPSS 내 MEX 파일
+    - CollapseMex.c, EstimateDElevByFluvialProcess.c, EstimateDElevByFluvialProcessBySDS.c, EstimateSubDTMex.c, EstimateUpstreamFlow.c, EstimateUpstramFlowBySDS.c, HillslopeProcessMex.c
+  - Windows 운영체제에서는 컴파일러로 Visual Studio Community 설치를 권장함. 아래는 Visual Studio Community 설치 과정
+    - 마이크로 소프트 비주얼 스튜디오 다운로드 사이트(https://visualstudio.microsoft.com/ko/downloads/)로 이동
+    - 가장 왼쪽에 있는 ‘Community’ 무료 다운로드 클릭하여 설치 파일(VisualStudioSetup.exe) 다운로드
+    - 설치 파일을 더블클릭하면 Visual Studio Installer 가 실행됨
+      - 만일 “이 앱이 디바이스를 변경할 수 있도록 허용하시겠어요?”라는 창이 뜬다면 “예”를 클릭
+      - 사용 조건에 동의하는지를 묻는 창이 뜨면, “계속”을 클릭
+    - 설치할 개발툴을 선택하는 화면이 뜨면, 아래쪽으로 스크롤해서, “데스크톱 및 모바일” 아래 “C++을 사용한 데스크톱 개발” 모듈을 선택하고 설치 버튼 클릭
+    - 설치가 모두 끝나면 마이크로소프트 계정으로 로그인하라는 대화상자가 열림. 로그인하지 않은 상태에서 평가판 라이선스로 30일만 사용할  있음. 따라서 마이크로소프트 계정이 있다면 “로그인”을 클릭하고 없다면 계정 만들고 로그인 할 것
+    - 환경 설정을 하는 대화상자가 열리면 “개발 설정” 드롭다운 버튼을 클릭하여 “Visual Studio 시작” 버튼을 클릭함
+  - MATLAB 명령어 창에서 GPSS MEX 파일 컴파일 (예, > mex –v CollapseMex.c)
 
 # GPSS 프로그램 내 주요 함수 목록
 - AccumulateUpstreamFlow : 상부 유역으로부터의 유량과 누적 셀 개수를 구하는 함수
@@ -33,7 +43,9 @@
 - EstimateSubDT	: 임시 세부 단위시간 동안 하천에 의한 고도 변화율을 이용해 하류 방향으로 다음 셀과의 경사가 0이 되는데 걸리는 시간[trialTime]을 구하여 이를 세부 단위시간으로 정의하는 함수
 - FindSDSDryNbr : 가장 낮은 셀의 이웃 셀을 탐색하여 이웃 셀 중 flooded region에 속하지 않고 속하지 않고 동시에 최대 하부 경사를 가지는 이웃 셀이 있다면 가장 낮은 셀의 경사와 유향을 변경하고 조건을 만족하는 이웃 셀이 없다면 유출구가 없다고 반환하는 함수
 - FluvialProcess	: 하천작용에 의한 퇴적층 두께 및 기반암 고도 변화율을 구하는 함수
-- GPSSMain : GPSS 주함수
+- **GPSSMain** : GPSS 주함수
+  - GPSSMain_Hy : 하천 수리기하 법칙으로부터 수심을 추정함
+  - GPSSMAin_Ma : Manning 흐름 저항식으로부터 수심을 추정함
 - HillslopeProcess : 사면작용에 의한 퇴적물 두께 변화율[m/dT]을 구하는 함수
 - IsBoundary : 입력되는 셀의 좌표(y,x)가 모형 외곽 경계에 위치하는지를 확인하는 함수
 - IsDry : 가장 낮은 셀의 이웃 셀의 flood 상태를 확인하여, 1) 유향이 정의되어 있거나 또는 SINK인 경우 true를 반환하고, 2) 현재 처리 중인 flooded region인 경우 false를 반환하는 함수
@@ -46,6 +58,22 @@
 - ReadParameterValue : 다양한 형태의 변수값을 읽는 함수
 - RockWeathering : 단위시간 당 풍화율을 추정하는 함수.
 - Uplift : 모형 영역에 지반융기를 반영하고, 융기로 인한 고도 변화율을 구하는 함수
+
+# GPSS 주함수(GPSSMain_Hy.m) 흐름
+- 입출력을 위한 디렉터리와 출력 파일을 정의하고 중요한 초기 변수값을 입력
+  - 모의기간 동안 융기율의 공간적, 시간적 분포를 정의함
+- 단위시간마다 아래를 반복함
+  - [영역설정] 경계조건에 따라 외곽 경계의 기반암 고도와 퇴적물 두께를 정의함
+  - (내인적 작용) 지반융기 발생
+  - (외인적 작용) 기반암 풍화 및 이로 인한 퇴적층 두께 및 기반암 고도 변화율을 반영함
+    - (하도 양안 퇴적층 두께를 구하기 위해) 현 지형 및 기후 조건에서의 만제유량, 만제유량시 하폭 및 수심 그리고 하도 내 하상 퇴적물량을 추정
+    - 풍화작용으로 인한 퇴적층 두께 및 기반암 고도 갱신
+  - (외인적 작용) 사면작용과 이로 인한 퇴적층 두께 변화
+  - (외인적 작용) 하천작용에 의한 퇴적층 두께 및 기반암 고도 변화율
+    - 하천작용에 의한 퇴적물 두께 및 기반암 변화율
+    - 세부 단위시간의 퇴적물 두께 및 기반암 고도 변화율을 누적하고 하도 내 하상 퇴적물을 갱신함
+    - 퇴적물 두께 및 기반암 고도 변화율을 현 지형에 반영함
+
 
 # GPSS 입력 변수 설정 및 실행
 - GPSS 모의실험을 위한 GPSS 입력변수 파일 생성
