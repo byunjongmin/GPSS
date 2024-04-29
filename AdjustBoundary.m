@@ -153,8 +153,10 @@ else % BOUNDARY_OUTFLOW_COND == ALL_BOUNDARY
     % (4) 모든 경계면에서 유출이 발생할 경우
     
     % A. 1)의 (1) 또는 (2) 경우
-    bedrockElev(OUTER_BOUNDARY) ...
-        = bedrockElev(OUTER_BOUNDARY) - meanUpliftRateAtUpliftAxis;
+    bedrockElev(OUTER_BOUNDARY) = 0;
+    % 참고 : 과거 코드임. 문제가 없다면 삭제할 것
+    % bedrockElev(OUTER_BOUNDARY) ...
+    %     = bedrockElev(OUTER_BOUNDARY) - meanUpliftRateAtUpliftAxis;
         
 end
 

@@ -47,7 +47,7 @@
 %> @param Y_TOP_BND                     : 모형 외곽 위 경계 Y 좌표값
 %> @param Y_BOTTOM_BND                  : 모형 외곽 아래 경계 Y 좌표값
 %> @param X_LEFT_BND                    : 모형 외곽 좌 경계 X 좌표값
-%> @param X_RIGHT_BND                   : 모형 외곽 우 경계 X 좌표값
+%> @param X_RIGHT_BND                   : 모형 외곽 우 경계 X 좌표값 
 %> @param CELL_AREA                     : 셀 면적 [m^2]
 %> @param FLUVIALPROCESS_COND           : flooded region의 순 퇴적물 두께 변화율을 추정하는 방법
 %> @param timeWeight                    : 만수유량 지속기간을 줄이기 위한 침식율 가중치

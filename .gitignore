@@ -1,5 +1,5 @@
 # Git noises
-.gitignore
+# .gitignore
 
 # Mac OS noises
 .DS_Store
@@ -9,9 +9,18 @@
 *.m~
 *.mexw64
 *.mexmaci64
+*.asv
 
 # Design-related files
 *.oo3
+
+# ignore all files in the following directories
+data/output
+data/input/old
+
+# For designing experiments
+data/input/GPSS_ListforParameterInputs.xlsx
+data/input/*.scap
 
 # For analysis (* to be moved into an utility folder)
 # AnalyseResult.m
@@ -22,9 +31,3 @@
 # streamorder.m
 # wflowacc.m
 
-# ignore all files in the following directories
-data/output
-data/input/.DS_Store
-data/input/guideForParameterInput_v_01.xlsm
-data/input/guideForParameterInput_v_02.xlsm
-data/input/old

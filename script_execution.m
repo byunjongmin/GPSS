@@ -13,10 +13,14 @@ mex -v HillslopeProcessMex.c
 % profile on
 
 %% Run GPSS
+OUTPUT_SUBDIRn = '20240424_2030';
+paramFileName = strcat('parameter_',OUTPUT_SUBDIRn,'.txt');
 
-GPSSMain_Hy('parameter_20230128_1418.txt')
+GPSSMain_Hy(paramFileName)
 
 %% Analyze Results
+
+% Preparation
 
 % clear figures
 clf(figure(3))
@@ -27,18 +31,6 @@ clf(figure(12))
 clf(figure(13))
 clf(figure(15))
 clf(figure(20))
-
-% majorOutputs = AnalyseResultGeneral('20230131_1032','parameter_20230131_1032.txt',1,1,1,1,1);
-majorOutputs = AnalyseResultGeneral('20230131_1033','parameter_20230131_1033.txt',1,1,1,1,1);
-
-
-%% Analyze Results using TopoToolbox
-
-[finalSedThick,finalBedElev] = ToGRIDobj(majorOutputs);
-finalDEM = finalBedElev + finalSedThick;
-criticalUpslopeCellsNo = majorOutputs.criticalUpslopeCellsNo;
-
-% clear figures
 clf(figure(31))
 clf(figure(32))
 clf(figure(33))
@@ -53,33 +45,54 @@ clf(figure(41))
 clf(figure(42))
 clf(figure(43))
 
-% View the DEM
+% ouput directory and input variable file
+% 추후 다음 폴더 'D:\WorkSpace\Project\GPSS_Data\GPSS2D' 에 저장한 것도
+% 분석할 수 있도록 만들 것
+OUTPUT_SUBDIRn = '20240425_2040';
+paramFileName = strcat(OUTPUT_DIRn,'parameter_',OUTPUT_SUBDIRn,'.txt');
+
+majorOutputs = AnalyseResultGeneral(OUTPUT_SUBDIRn,paramFileName,1,1,1,1,1);
+
+%% Analyze Results using TopoToolbox
+
+% Variables
+
+% output results of TopoToolbox GRIDobj
+[finalSedThick,finalBedElev] = ToGRIDobj(majorOutputs);
+% critical upslope cells number
+criticalUpslopeCellsNo = majorOutputs.criticalUpslopeCellsNo;
+
+% Vizualize the final result
+
+% DEM
+finalDEM = finalBedElev + finalSedThick;
+
 figure(31)
-imagesc(finalDEM)
-colorbar
+imagesc(finalDEM); colorbar
 
 figure(32)
-[Z,x,y] = GRIDobj2mat(finalDEM);
-surf(x,y,double(Z))
+[Z,x,y] = GRIDobj2mat(finalDEM); surf(x,y,double(Z))
 
-% gradient
+% Gradient
 G = gradient8(finalDEM);
+
 figure(33);
 imageschs(finalDEM,G ...
     ,'ticklabel','nice' ...
     ,'colorbarylabel','Slope [-]'); % 'caxis',[0 0.5]
 
-% flow accumulation
+% Flow accumulation
 DEMf = fillsinks(finalDEM);
 FD = FLOWobj(DEMf,"preprocess","carve");
 A = flowacc(FD);
+
 figure(34);
 imageschs(finalDEM,sqrt(A) ...
     ,'colormap',flipud(copper) ...
     ,'colorbarylabel','Flow accumulation [sqrt(# of pixels)]'...
     ,'ticklabels','nice');
 
-% drainage basin
+% Drainage basin
 DB = drainagebasins(FD);
 DB = shufflelabel(DB);
 nrDB = numel(unique(DB.Z(:)))-1; % nr of drainage basins
@@ -101,7 +114,7 @@ for run = 1:nrDB;
 end
 hold off
 
-% flow distance
+% Flow distance
 D = flowdistance(FD);
 D = D/1000; % from meter to kilometer
 figure(36);
@@ -109,7 +122,7 @@ imageschs(finalDEM,D ...
     ,'ticklabel','nice' ...
     ,'colorbarylabel','Flow distance [km]')
 
-% stream network
+% Stream network
 
 % A = flowacc(FD); % calculate flow accumulation
 % Note that flowacc returns the number of cells draining in a cell.
@@ -135,31 +148,29 @@ hold on
 plot(S,'k')
 hold off
 
-% slope-area relationship
+% Slope-area relationship
 figure(41)
 STATS = slopearea_byun(S,finalDEM,A);
 
-% normalized steepness index
+% Normalized steepness index
 g = gradient(S,finalDEM);
 a = getnal(S,A)*A.cellsize^2;
 ksn = g./(a.^STATS.theta);
 
-figure(42);
-plotc(S,ksn)
-colormap(jet)
-caxis([0 100])
-h = colorbar;
-h.Label.String = 'KSN';
-box on
-axis image
+% figure(42);
+% plotc(S,ksn)
+% colormap(jet)
+% h = colorbar;
+% h.Label.String = 'ksn';
+% box on
+% axis image
 
 ksna = aggregate(S,ksn,'seglength',1000);
-figure(43)
+figure(43); clf;
 plotc(S,ksna)
-caxis([0 100])
-h = colorbar;
+% caxis([0 100])
 colormap(jet)
+h = colorbar;
 h.Label.String = 'KSN';
 box on
 axis image
-

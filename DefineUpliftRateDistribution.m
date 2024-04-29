@@ -4,6 +4,7 @@
 %> - 융기율의 공간적 시간적 분포를 정의하는 함수
 %>  - 이 함수를 통해 시공간적으로 비균질적인 지반융기를 모의함. 현재 경동성
 %>    요곡 지반융기도 모의 가능함
+%> - 참고 : 융기량_시간적분포.m
 %>
 %> @version 0.1
 %> @callgraph
@@ -143,6 +144,18 @@ else % upliftRateTemporalDistribution == DECAYING_UPLIFTRATE
     
     upliftRateTemporalDistribution = (upliftRate0 * dT) ... % [m/dT] 단위변환
         * exp(solvedK*t);
+
+    % for debug
+    % figure(01)
+    % 
+    % plot(1:dT:TIME_STEPS_NO*dT,upliftRateTemporalDistribution);
+    % hold on
+    % plot(1:dT:TIME_STEPS_NO*dT ...
+    %     ,ones(1,TIME_STEPS_NO)*meanUpliftRateAtUpliftAxis)
+    % grid on
+    % title('Uplift rate distribution')
+    % xlabel('Time [yr]'); ylabel('Uplift rate [m/yr]')
+    % legend('Impulsive','Uniform')
     
 end
 
@@ -155,10 +168,22 @@ if TOP_BOUNDARY_ELEV_COND == YEONGSEO_ELEV
     % * 가정: 본격적인 침식 기준면 하강 시기 이전의 외곽 경계 고도는 영역 경계
     %   고도에서 모의 이전 침식 기준면 하강율을 뺀 고도를 계속 유지함
     % * 주의: 하구 고도가 만약 연접 셀보다 높으면 어떻하나? ...
-    topBndElev = cumsum(upliftRateTemporalDistribution) ...
-        .* (meanUpliftRateSpatialDistribution(Y_INI,X_INI) ...
-        ./ meanUpliftRateAtUpliftAxis) - initUpliftRate;
-    
+
+    % 시간에 따른 위(영서) 외곽 경계 고도
+    topBndElev = ...
+        cumsum(upliftRateTemporalDistribution) ... % (융기축에서의) 시간에 따른 누적 융기량
+        .* (meanUpliftRateSpatialDistribution(Y_INI,X_INI) ... 
+            ./ meanUpliftRateAtUpliftAxis) ... % 영서 외곽 경계 융기율의 최대 융기율과의 비율
+        - initUpliftRate; % 이전 침식 기준면 하강율
+
+    % for debug
+    % figure(01)
+    % 
+    % plot(1:dT:TIME_STEPS_NO*dT,cumsum(upliftRateTemporalDistribution))
+    % hold on
+    % plot(1:dT:TIME_STEPS_NO*dT,topBndElev);
+    % hold on
+
     % (2) 경계 고도(침식기준면)가 본격적으로 내려가는 시점부터 최종
     %     모의기간까지의 경계 고도
     
@@ -170,16 +195,26 @@ if TOP_BOUNDARY_ELEV_COND == YEONGSEO_ELEV
 
     % B. 본격적 하강시점부터 모의기간 끝까지의 경계고도의 변화율
     % * 원리: 본격적인 침식 기준면 하강 시기의 고도에서부터 (이미 정의된) 최종
-    %   침식 기준면 고도까지 하강함. 따라서 남은 기간동안 최종 침식 기준면
+    %   침식 기준면 고도까지 융기함. 따라서 남은 기간동안 최종 침식 기준면
     %   고도까지 도달하는데 필요한 연간 고도 변화율을 구함
-    dElevAfterWaveArrival = - (topBndElev(waveArrivalTime) - Y_TOP_BND_FINAL_ELEV) ...
+
+    % 본격적 하강 시점 이후부터의 고도 변화율
+    dElevAfterWaveArrival ...
+        = - (topBndElev(waveArrivalTime) - Y_TOP_BND_FINAL_ELEV) ...
         / (TIME_STEPS_NO - waveArrivalTime);
     
-    % C. 경계 고도
-    topBndElev(waveArrivalTime + 1:TIME_STEPS_NO) ...
-        = topBndElev(waveArrivalTime) ...
-        + dElevAfterWaveArrival * (1:TIME_STEPS_NO - waveArrivalTime);
-    
+    % C. 본격적 하강 시점 이후로의 경계 고도 업데이트
+    topBndElev((waveArrivalTime+1):TIME_STEPS_NO) ...
+        = topBndElev(waveArrivalTime) ... % 본격적 하강 시점 고도
+        + dElevAfterWaveArrival * (1:(TIME_STEPS_NO-waveArrivalTime));
+
+    % plot(1:dT:TIME_STEPS_NO*dT,topBndElev);
+    % grid on
+    % title('Elevation at the Yeongseo outlet')
+    % xlabel('Time [yr]'); ylabel('Elevation [m]')
+    % legend('Uplift axis','Yeongseo','Yeongseo outlet' ...
+    %     ,'Location','northwest')
+
 else
     
     topBndElev = 0;
