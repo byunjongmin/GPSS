@@ -113,10 +113,9 @@ mex -v HillslopeProcessMex.c
 # GPSS 결과 확인 및 분석
 
 ## GPSS 모의결과 파일 확인
-- 프로그램 구동이 끝나면 output 디렉터리내로 이동
-- output 디렉토리내 OUTPUT_SUBDIR 변수값의 날짜와 시간으로 된 디렉터리로 이동(예. C:\GPSS\output\20221118_1800)
+- 프로그램 구동이 끝나면 output 디렉터리 내 OUTPUT_SUBDIR 이름으로 된 디렉터리로 이동(예. C:\GPSS\output\20221118_1800)
 - GPSS 모의결과 파일을 확인함
-  - sedThick.txt	: 퇴적층 두께 [m] 
+  - sedThick.txt : 퇴적층 두께 [m] 
   - bedrockElev.txt : 기반암 고도 [m] 
   - weatherProduct.txt : 풍화율 [m/dT] 
   - dSedThickByHillslope.txt : 사면작용에 의한 퇴적층 두께 변화율 [m3/m2 dT] 
@@ -128,8 +127,19 @@ mex -v HillslopeProcessMex.c
   - log.txt : GPSS 구동 동안의 상황 기록
 
 ## GPSS 모의결과 분석
-- GPSS 디렉터리(예. C:\GPSS)를 MATLAB ‘current folder’로 설정함
-- AnalyzeResultGeneral.m 함수 이용하여 과정을 분석
-  - 예. GPSS 입력변수 파일이 parameter_20221118_1800.txt 일 경우,
-  - > majorOutput = AnalyseResultGeneral(‘20221118_1800＇,＇parameter_20221118_1800.txt＇,1,1,1,1,1);
-- ToGRIDobj 함수 이용하여 GPSS 모의결과를 TopoToolbox 객체로 변환하여 분석
+- GPSS 디렉터리(예. C:\GPSS)를 MATLAB ‘current folder’로 설정하고 아래 절차를 통해 모의결과를 분석함
+  - 1. AnalyzeResultGeneral.m 함수 이용하여 시간에 따른 모의결과를 저장(majorOutput) 및 확인함
+    - 예. GPSS 입력변수 파일이 parameter_20221118_1800.txt 일 경우, 아래와 같이 입력
+    - > majorOutput = AnalyseResultGeneral(‘20221118_1800＇,＇parameter_20221118_1800.txt＇,1,1,1,1,1);
+  - 2. ToGRIDobj 함수 이용하여 최종 모의결과를 TopoToolbox GRIDobj 형식으로 변환하고 이를 TopoToolbox 명령어를 통해 분석함
+````matlab
+% output results of TopoToolbox GRIDobj
+[finalSedThick,finalBedElev] = ToGRIDobj(majorOutputs);
+% critical upslope cells number
+criticalUpslopeCellsNo = majorOutputs.criticalUpslopeCellsNo;
+
+% Vizualize the DEM of the final result
+finalDEM = finalBedElev + finalSedThick;
+figure(31)
+imagesc(finalDEM); colorbar
+````

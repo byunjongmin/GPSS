@@ -16,10 +16,11 @@ finalSedThickGrdObj = GRIDobj([]); % creates an empty instance of GRIDobj
 finalBedElevGrdObj = GRIDobj([]); % creates an empty instance of GRIDobj
 
 finalSedThickGrdObj.Z = finalSedThick(Y_INI:Y+1,X_INI:X+1);
+finalSedThickGrdObj.name = 'sedThick401';
+
 finalSedThickGrdObj.cellsize = dX;
 finalSedThickGrdObj.refmat = double([0,-dY; dX,0; dX*0.5,dY*Y+dY*0.5]);
 finalSedThickGrdObj.size = [Y,X];
-finalSedThickGrdObj.name = 'sedThick401';
 finalSedThickGrdObj.zunit = [];
 finalSedThickGrdObj.xyunit = [];
 finalSedThickGrdObj.georef.SpatialRef.RasterInterpretation = 'cells';
@@ -124,10 +125,11 @@ finalSedThickGrdObj.georef.mstruct.plabelmeridian = -137;
 finalSedThickGrdObj.georef.mstruct.plabelround = 0;
 
 finalBedElevGrdObj.Z = finalBedElev(Y_INI:Y+1,X_INI:X+1);
+finalBedElevGrdObj.name = 'bedElev401';
+
 finalBedElevGrdObj.cellsize = dX;
 finalBedElevGrdObj.refmat = double([0,-dY; dX,0; dX*0.5,dY*Y+dY*0.5]);
 finalBedElevGrdObj.size = [Y,X];
-finalBedElevGrdObj.name = 'bedElev401';
 finalBedElevGrdObj.zunit = [];
 finalBedElevGrdObj.xyunit = [];
 finalBedElevGrdObj.georef.SpatialRef.RasterInterpretation = 'cells';

@@ -19,13 +19,15 @@
 %> @param startedTimeStepNo         : 그래프 출력 시점
 %> @param achievedRatio             : 총 모의기간중 결과가 나온 부분의 비율
 %> @param EXTRACT_INTERVAL          : (그래프를 보여주는 동안) (2차원) 주요 변수를 저장하는 간격
-%> @param SHOW_GRAPH                : 주요 결과를 그래프로 보여줄 것인지를 지정함
+%> @param SHOW_GRAPH                : 주요 결과를 그래프로 보여줄 것인지를 지정함'
+%> @param pauseTime                 : pauseTime pause moment for redrawing figures (예. 0.5, 0.5초 쉬었다가 그래프를 보여줌)
 %>
 %> * 예제
-%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,1,1);
-%> AnalyseResultGeneral('20140505','parameter.txt',100,1,1,1,1); % 그래프 간격
-%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,100,1); % 2차원 변수 출력 간격
-%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,1,2); % 그래프 생략
+%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,1,1,0);
+%> AnalyseResultGeneral('20140505','parameter.txt',100,1,1,1,1,0); % 그래프 간격
+%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,100,1,0); % 2차원 변수 출력 간격
+%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,1,2,0); % 그래프 생략
+%> AnalyseResultGeneral('20140505','parameter.txt',1,1,1,1,1,0.3); % 0.3초 간격으로 그래프를 다시 그림
 %>
 %>
 %> * 분석내용
@@ -77,7 +79,7 @@
 % =========================================================================
 function majorOutputs = AnalyseResultGeneral(OUTPUT_SUBDIR ...
     ,PARAMETER_VALUES_FILE,GRAPH_INTERVAL,startedTimeStepNo ...
-    ,achievedRatio,EXTRACT_INTERVAL,SHOW_GRAPH)
+    ,achievedRatio,EXTRACT_INTERVAL,SHOW_GRAPH,pauseTime)
 %
 % function Analyse2DResult
 %
@@ -447,7 +449,7 @@ if SHOW_GRAPH == SHOW_GRAPH_YES
 %     set(gcf,'MenuBar','none');
 %     Hf_09 = figure(9);
 %     set(gcf,'MenuBar','none');
-    Hf_10 = figure(10);
+    % Hf_10 = figure(10);
 %     set(gcf,'MenuBar','none');
     Hf_11 = figure(11);
 %     set(gcf,'MenuBar','none');
@@ -656,7 +658,7 @@ for ithStep = initIthStep:endStep
         % B. i번째 (3차원) DEM
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %             
-%         figure(Hf_01);
+%         figure(Hf_01); pause(pauseTime)
 % 
 %         surf(arrayYForGraph,arrayXForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX))
 %         % meshz(arrayYForGraph,arrayXForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX))        
@@ -679,8 +681,8 @@ for ithStep = initIthStep:endStep
         % C.i번째 고도 등고선
         if SHOW_GRAPH == SHOW_GRAPH_YES
             
-        figure(Hf_02);
-        
+        figure(Hf_02); pause(pauseTime)
+
 %         maxElev = ceil((TOTAL_ACCUMULATED_UPLIFT+initMaxElev)*0.1)*10;
 %         cInterval = ceil(maxElev * 0.02);
 %         contourLevel = 0:cInterval:maxElev;
@@ -713,7 +715,7 @@ for ithStep = initIthStep:endStep
         %   3배까지만을 범례로 삼음
         % => 현재는 사면 셀에도 overland flow erosion을 고려하기 때문에 생략함
         
-        figure(Hf_03);
+        figure(Hf_03); pause(pauseTime)
         
         imagesc([0.5*dX dX distanceX-0.5*dX] ...    % imagesc 그래프
             ,[0.5*dX dX distanceY-0.5*dX] ...
@@ -745,7 +747,8 @@ for ithStep = initIthStep:endStep
         if SHOW_GRAPH == SHOW_GRAPH_YES
             
         % B) i번째 경사
-        figure(Hf_04);
+        figure(Hf_04); pause(pauseTime)
+
         imagesc([0.5*dX dX distanceX-0.5*dX] ...
             ,[0.5*dX dX distanceY-0.5*dX] ...
             ,facetFlowSlope(Y_INI:Y_MAX,X_INI:X_MAX));
@@ -757,7 +760,7 @@ for ithStep = initIthStep:endStep
         %------------------------------------------------------------------
 %         % F. i번째 풍화율
 %         
-%         figure(Hf_05);
+%         figure(Hf_05); pause(pauseTime)
 %         imagesc([0.5*dX dX distanceX-0.5*dX] ...
 %             ,[0.5*dX dX distanceY-0.5*dX] ...
 %             ,weatheringProduct(Y_INI:Y_MAX,X_INI:X_MAX));
@@ -769,7 +772,7 @@ for ithStep = initIthStep:endStep
         %------------------------------------------------------------------
 %         % G. i번째 사면작용에 의한 퇴적층 두께 변화율
 %         
-%         figure(Hf_06);
+%         figure(Hf_06); pause(pauseTime)
 %         imagesc([0.5*dX dX distanceX-0.5*dX] ...
 %             ,[0.5*dX dX distanceY-0.5*dX] ...
 %             ,dSedThickByHillslopePerDT(Y_INI:Y_MAX,X_INI:X_MAX));
@@ -781,7 +784,7 @@ for ithStep = initIthStep:endStep
         %------------------------------------------------------------------
         % H. i번째 빠른 사면작용에 의한 퇴적층 두께 변화율
         
-%         figure(Hf_07);
+%         figure(Hf_07); pause(pauseTime)
 %         imagesc([0.5*dX dX distanceX-0.5*dX] ...
 %             ,[0.5*dX dX distanceY-0.5*dX] ...
 %             ,dSedThickByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
@@ -793,7 +796,7 @@ for ithStep = initIthStep:endStep
         %------------------------------------------------------------------
         % I. i번째 빠른 사면작용에 의한 기반암 고도 변화율
         
-%         figure(Hf_08);
+%         figure(Hf_08); pause(pauseTime)
 %         imagesc([0.5*dX dX distanceX-0.5*dX] ...
 %             ,[0.5*dX dX distanceY-0.5*dX] ...
 %             ,dBedrockElevByRapidMassPerDT(Y_INI:Y_MAX,X_INI:X_MAX));
@@ -844,7 +847,7 @@ for ithStep = initIthStep:endStep
         % C) flooded region 그래프
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %             
-%         figure(Hf_09);
+%         figure(Hf_09); pause(pauseTime)
 %         imagesc([0.5*dX dX distanceX-0.5*dX] ...
 %             ,[0.5*dX dX distanceY-0.5*dX] ...
 %             ,flood(Y_INI:Y_MAX,X_INI:X_MAX))
@@ -899,24 +902,24 @@ for ithStep = initIthStep:endStep
         bankfullDischarge = kqb * meanDischarge .^ mqb;
         
         % F) 만제유량 그래프
-        if SHOW_GRAPH == SHOW_GRAPH_YES
-        
-        figure(Hf_10);
-        imagesc([0.5*dX dX distanceX-0.5*dX] ...
-            ,[0.5*dX dX distanceY-0.5*dX] ...
-            ,log10(bankfullDischarge(Y_INI:Y_MAX,X_INI:X_MAX)))
-        set(gca,'DataAspectRatio',[1 1 1])
-        colorbar
-        tmpTitle = [int2str(simulatingTime) '[yr] Bankfull Discharge(log10)'];
-        title(tmpTitle,'FontSize',10);
-        
-        end
+        % if SHOW_GRAPH == SHOW_GRAPH_YES
+        % 
+        % figure(Hf_10); pause(pauseTime)
+        % imagesc([0.5*dX dX distanceX-0.5*dX] ...
+        %     ,[0.5*dX dX distanceY-0.5*dX] ...
+        %     ,log10(bankfullDischarge(Y_INI:Y_MAX,X_INI:X_MAX)))
+        % set(gca,'DataAspectRatio',[1 1 1])
+        % colorbar
+        % tmpTitle = [int2str(simulatingTime) '[yr] Bankfull Discharge(log10)'];
+        % title(tmpTitle,'FontSize',10);
+        % 
+        % end
         
         %------------------------------------------------------------------
         % K. i번째 하천작용에 의한 퇴적층 두께 변화율
         if SHOW_GRAPH == SHOW_GRAPH_YES
             
-        figure(Hf_11);
+        figure(Hf_11); pause(pauseTime)
         imagesc([0.5*dX dX distanceX-0.5*dX] ...
             ,[0.5*dX dX distanceY-0.5*dX] ...
             ,dSedThickByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX))
@@ -938,7 +941,7 @@ for ithStep = initIthStep:endStep
         % L. i번째 하천작용에 의한 기반암 고도 변화율
         if SHOW_GRAPH == SHOW_GRAPH_YES
         
-        figure(Hf_12);
+        figure(Hf_12); pause(pauseTime)
         imagesc([0.5*dX dX distanceX-0.5*dX] ...
             ,[0.5*dX dX distanceY-0.5*dX] ...
             ,dBedrockElevByFluvialPerDT(Y_INI:Y_MAX,X_INI:X_MAX))
@@ -1021,7 +1024,7 @@ for ithStep = initIthStep:endStep
         transportMode(Y_BOTTOM_BND,X_RIGHT_BND) = BEDROCK_CHANNEL;
         
         % b. 그래프
-        figure(Hf_13);
+        figure(Hf_13); pause(pauseTime)
         imagesc([0.5*dX dX distanceX-0.5*dX] ...
             ,[0.5*dX dX distanceY-0.5*dX] ...
             ,transportMode(Y_INI:Y_MAX,X_INI:X_MAX))
@@ -1062,7 +1065,7 @@ for ithStep = initIthStep:endStep
 %         
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %             
-%         figure(Hf_14);
+%         figure(Hf_14); pause(pauseTime)
 %         set(gcf,'MenuBar','none')
 %         imagesc([0.5*dX dX distanceX-0.5*dX] ...
 %             ,[0.5*dX dX distanceY-0.5*dX] ...
@@ -1113,7 +1116,7 @@ for ithStep = initIthStep:endStep
         
         if SHOW_GRAPH == SHOW_GRAPH_YES
         
-        figure(Hf_15);
+        figure(Hf_15); pause(pauseTime)
         % set(gcf,'MenuBar','none')
         
         if IS_LEFT_RIGHT_CONNECTED == true
@@ -1184,7 +1187,7 @@ for ithStep = initIthStep:endStep
         maxY = max(maxErosionRate,maxUpliftedHeight);
         
         % (D) 그래프
-        figure(Hf_20);
+        figure(Hf_20); pause(pauseTime)
         
         [AX,H1,H2] ...
             = plotyy(timeX,meanErosionRate(1:ithGraph) ...
@@ -1258,7 +1261,7 @@ for ithStep = initIthStep:endStep
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %         
 %         % (C) 결과 출력
-%         figure(Hf_21)
+%         figure(Hf_21) pause(pauseTime)
 %         clf
 %         set(gcf,'Color','white');               % 바탕화면 하얀 색
 %         mTextBox = uicontrol('style','text');   % "text" uicontrol 만듦
@@ -1292,7 +1295,7 @@ for ithStep = initIthStep:endStep
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %             
 %         % (B) 하도 내 하상 퇴적물 수지
-%         figure(Hf_22);
+%         figure(Hf_22); pause(pauseTime)
 %         imagesc([0.5*dX dX distanceX-0.5*dX] ...
 %             ,[0.5*dX dX distanceY-0.5*dX] ...
 %             ,chanBedSedBudget(Y_INI:Y_MAX,X_INI:X_MAX));
@@ -1308,7 +1311,7 @@ for ithStep = initIthStep:endStep
         
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %         
-%         figure(Hf_23);
+%         figure(Hf_23); pause(pauseTime)
 % 
 %         % calculate flow accumulation and direction
 %         [A,M] = wflowacc(arrayXForGraph,arrayYForGraph,elev(Y_INI:Y_MAX,X_INI:X_MAX),'type','single');
@@ -1337,7 +1340,7 @@ for ithStep = initIthStep:endStep
         
 %         if SHOW_GRAPH == SHOW_GRAPH_YES
 %         
-%         figure(Hf_24);
+%         figure(Hf_24); pause(pauseTime)
 %         
 %         hypsometry(elev(Y_INI:Y_MAX,X_INI:X_MAX),20,[1 1],'ro-',[2 2],Hf_24,totalGraphShowTimesNo,ithGraph);
 %         
